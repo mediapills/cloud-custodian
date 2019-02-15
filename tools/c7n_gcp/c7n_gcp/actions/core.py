@@ -63,12 +63,20 @@ class MethodAction(Action):
             )
         return resources
 
+    def include_default_project(self, resources, session):
+        updated_resources = list(resources)
+        default_project = session.get_default_project()
+        for resource in resources:
+            resource['c7n:default_project'] = default_project
+        return updated_resources
+
     def process(self, resources):
         if self.attr_filter:
             resources = self.filter_resources(resources)
         m = self.manager.get_model()
         session = local_session(self.manager.session_factory)
         client = self.get_client(session, m)
+        resources = self.include_default_project(resources, session)
         for resource_set in chunks(resources, self.chunk_size):
             self.process_resource_set(client, m, resource_set)
 
