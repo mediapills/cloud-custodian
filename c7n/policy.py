@@ -207,14 +207,15 @@ class ServerlessExecutionMode(PolicyExecutionMode):
 execution = PluginRegistry('c7n.execution')
 
 
-@execution.register('pull')
-class PullMode(PolicyExecutionMode):
-    """Pull mode execution of a policy.
+class ResourceBasedMode(PolicyExecutionMode):
+    """Abstract execution mode of a simple resource-based policy.
 
-    Queries resources from cloud provider for filtering and actions.
+    Subclasses must override list_resources method (see the description).
     """
-
-    schema = utils.type_schema('pull')
+    def list_resources(self):
+        """Returns a list of dictionaries that represent resources
+        required for executing actions."""
+        raise NotImplementedError("subclass responsibility")
 
     def run(self, *args, **kw):
         if not self.is_runnable():
@@ -227,28 +228,7 @@ class PullMode(PolicyExecutionMode):
                 self.policy.options.region or 'default',
                 version)
 
-            s = time.time()
-            try:
-                resources = self.policy.resource_manager.resources()
-            except ResourceLimitExceeded as e:
-                self.policy.log.error(str(e))
-                self.policy.ctx.metrics.put_metric(
-                    'ResourceLimitExceeded', e.selection_count, "Count")
-                raise
-
-            rt = time.time() - s
-            self.policy.log.info(
-                "policy: %s resource:%s region:%s count:%d time:%0.2f" % (
-                    self.policy.name,
-                    self.policy.resource_type,
-                    self.policy.options.region,
-                    len(resources), rt))
-            self.policy.ctx.metrics.put_metric(
-                "ResourceCount", len(resources), "Count", Scope="Policy")
-            self.policy.ctx.metrics.put_metric(
-                "ResourceTime", rt, "Seconds", Scope="Policy")
-            self.policy._write_file(
-                'resources.json', utils.dumps(resources, indent=2))
+            resources = self.list_resources()
 
             if not resources:
                 return []
@@ -331,6 +311,55 @@ class PullMode(PolicyExecutionMode):
                 self.policy.options.region)
             return False
         return True
+
+
+@execution.register('pull')
+class PullMode(ResourceBasedMode):
+    """Pull mode execution of a policy.
+
+    Queries resources from cloud provider for filtering and actions.
+    """
+
+    schema = utils.type_schema('pull')
+
+    def list_resources(self):
+        s = time.time()
+        try:
+            resources = self.policy.resource_manager.resources()
+        except ResourceLimitExceeded as e:
+            self.policy.log.error(str(e))
+            self.policy.ctx.metrics.put_metric(
+                'ResourceLimitExceeded', e.selection_count, "Count")
+            raise
+
+        rt = time.time() - s
+        self.policy.log.info(
+            "policy: %s resource:%s region:%s count:%d time:%0.2f" % (
+                self.policy.name,
+                self.policy.resource_type,
+                self.policy.options.region,
+                len(resources), rt))
+        self.policy.ctx.metrics.put_metric(
+            "ResourceCount", len(resources), "Count", Scope="Policy")
+        self.policy.ctx.metrics.put_metric(
+            "ResourceTime", rt, "Seconds", Scope="Policy")
+        self.policy._write_file(
+            'resources.json', utils.dumps(resources, indent=2))
+
+        return resources
+
+
+@execution.register('push')
+class PushMode(ResourceBasedMode):
+    """'Push' policy execution mode.
+
+    Unlike PullMode, does not interact with a Cloud to retrieve the existing resources
+    but provides a list with a single empty dictionary to the actions.
+    """
+    schema = utils.type_schema('push')
+
+    def list_resources(self):
+        return [{}]
 
 
 class LambdaMode(ServerlessExecutionMode):
