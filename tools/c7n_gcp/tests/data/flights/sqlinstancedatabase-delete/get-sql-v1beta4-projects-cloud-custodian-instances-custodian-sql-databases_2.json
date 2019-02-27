@@ -1,0 +1,58 @@
+{
+  "headers": {
+    "status": "200",
+    "date": "Mon, 25 Feb 2019 09:27:44 GMT",
+    "-content-encoding": "gzip",
+    "server": "GSE",
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin",
+    "cache-control": "private, max-age=0, must-revalidate, no-transform",
+    "content-length": "460",
+    "expires": "Mon, 25 Feb 2019 09:27:44 GMT"
+  },
+  "body": {
+    "kind": "sql#databasesList",
+    "items": [
+      {
+        "kind": "sql#database",
+        "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/cloud-custodian/instances/custodian-sql/databases/information_schema",
+        "name": "information_schema",
+        "etag": "ac7f263ab756a10c2a9f3ee7c492404d5f4647d76313e71bb1654d426d015eab",
+        "project": "cloud-custodian",
+        "instance": "custodian-sql",
+        "charset": "utf8",
+        "collation": "utf8_general_ci"
+      },
+      {
+        "kind": "sql#database",
+        "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/cloud-custodian/instances/custodian-sql/databases/mysql",
+        "name": "mysql",
+        "etag": "816fdf2516b4d08c7eab51594775e718149cf063a1b271166017e3cb0758ab47",
+        "project": "cloud-custodian",
+        "instance": "custodian-sql",
+        "charset": "utf8",
+        "collation": "utf8_general_ci"
+      },
+      {
+        "kind": "sql#database",
+        "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/cloud-custodian/instances/custodian-sql/databases/performance_schema",
+        "name": "performance_schema",
+        "etag": "8307f90e4fbae334e58fb4aefd83099492d88b395bf47118827ebf140406cd12",
+        "project": "cloud-custodian",
+        "instance": "custodian-sql",
+        "charset": "utf8",
+        "collation": "utf8_general_ci"
+      },
+      {
+        "kind": "sql#database",
+        "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/cloud-custodian/instances/custodian-sql/databases/sys",
+        "name": "sys",
+        "etag": "de067111490142a07d3dd6b67e0d4fbfd86002e48590a72eba238eb3ca32d395",
+        "project": "cloud-custodian",
+        "instance": "custodian-sql",
+        "charset": "utf8",
+        "collation": "utf8_general_ci"
+      }
+    ]
+  }
+}

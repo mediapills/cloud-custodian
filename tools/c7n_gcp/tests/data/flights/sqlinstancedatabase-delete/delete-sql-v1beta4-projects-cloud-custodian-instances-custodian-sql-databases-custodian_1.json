@@ -1,0 +1,28 @@
+{
+  "headers": {
+    "status": "200",
+    "pragma": "no-cache",
+    "date": "Mon, 25 Feb 2019 08:53:08 GMT",
+    "-content-encoding": "gzip",
+    "server": "GSE",
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin",
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "content-length": "309",
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT"
+  },
+  "body": {
+    "kind": "sql#operation",
+    "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/cloud-custodian/operations/fb26651b-f7d2-4c16-9e80-81665729303e",
+    "targetProject": "cloud-custodian",
+    "targetId": "custodian-sql",
+    "targetLink": "https://www.googleapis.com/sql/v1beta4/projects/cloud-custodian/instances/custodian-sql",
+    "name": "fb26651b-f7d2-4c16-9e80-81665729303e",
+    "operationType": "DELETE_DATABASE",
+    "status": "DONE",
+    "user": "alex.karpitski@gmail.com",
+    "insertTime": "2019-02-25T08:53:08.141Z",
+    "startTime": "2019-02-25T08:53:08.141Z",
+    "endTime": "2019-02-25T08:53:08.685Z"
+  }
+}

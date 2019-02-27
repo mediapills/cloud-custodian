@@ -46,3 +46,17 @@ class SqlInstanceDatabaseAction(MethodAction):
             'instance': instance,
             'database': database
         }
+
+
+@SqlInstanceDatabase.action_registry.register('delete')
+class SqlInstanceDatabaseDelete(SqlInstanceDatabaseAction):
+    """https://cloud.google.com/sql/docs/mysql/admin-api/v1beta4/databases/delete"""
+    schema = type_schema(
+        'delete'
+    )
+
+    method_spec = {
+        'op': 'delete',
+        'annotation_key': 'c7n.gcp:sql-instance-database.delete',
+        'result_key': 'status'
+    }

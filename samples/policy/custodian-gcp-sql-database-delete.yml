@@ -1,0 +1,12 @@
+policies:
+  - name: gcp-sql-instance-database-delete
+    resource: gcp.sql-instance-database
+    query:
+      - instance: custodian-sql
+    filters:
+      - type: value
+        key: name
+        op: regex
+        value: ^custodian$
+    actions:
+      - type: delete
