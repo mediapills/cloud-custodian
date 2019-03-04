@@ -1,4 +1,4 @@
-# Copyright 2018 Capital One Services, LLC
+# Copyright 2019 Capital One Services, LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -68,3 +68,15 @@ class SqlInstanceStop(MethodAction):
         return {'project': project,
                 'instance': instance,
                 'body': {'settings': {'activationPolicy': 'NEVER'}}}
+
+
+@resources.register('sql-flag')
+class SqlFlag(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'sqladmin'
+        version = 'v1beta4'
+        component = 'flags'
+        enum_spec = ('list', 'items[]', None)
+        scope = None
+        id = 'name'

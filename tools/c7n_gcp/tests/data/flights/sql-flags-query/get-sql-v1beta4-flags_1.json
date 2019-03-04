@@ -1,0 +1,691 @@
+{
+  "headers": {
+    "expires": "Tue, 05 Mar 2019 04:44:28 GMT",
+    "date": "Tue, 05 Mar 2019 04:44:28 GMT",
+    "cache-control": "private, max-age=0, must-revalidate, no-transform",
+    "vary": "Origin, X-Origin",
+    "content-type": "application/json; charset=UTF-8",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-xss-protection": "1; mode=block",
+    "server": "GSE",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"44,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "11727",
+    "-content-encoding": "gzip",
+    "content-location": "https://www.googleapis.com/sql/v1beta4/flags?alt=json"
+  },
+  "body": {
+    "kind": "sql#flagsList",
+    "items": [
+      {
+        "kind": "sql#flag",
+        "name": "character_set_server",
+        "type": "STRING",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "allowedStringValues": [
+          "latin1",
+          "utf8",
+          "utf8mb4"
+        ],
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "default_time_zone",
+        "type": "MYSQL_TIMEZONE_OFFSET",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "event_scheduler",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "ft_max_word_len",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "10",
+        "maxValue": "252",
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "ft_min_word_len",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1",
+        "maxValue": "16",
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "ft_query_expansion_limit",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "0",
+        "maxValue": "1000",
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "general_log",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "group_concat_max_len",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "4",
+        "maxValue": "4294967295"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "innodb_autoinc_lock_mode",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "0",
+        "maxValue": "2",
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "innodb_file_per_table",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "innodb_lock_wait_timeout",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1",
+        "maxValue": "1073741824"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "innodb_print_all_deadlocks",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "interactive_timeout",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1",
+        "maxValue": "31536000"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "local_infile",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "log_bin_trust_function_creators",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "log_output",
+        "type": "STRING",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "allowedStringValues": [
+          "FILE",
+          "TABLE",
+          "NONE"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "log_queries_not_using_indexes",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "long_query_time",
+        "type": "FLOAT",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "lower_case_table_names",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "0",
+        "maxValue": "2",
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "max_allowed_packet",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "16384",
+        "maxValue": "1073741824"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "max_heap_table_size",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "16384",
+        "maxValue": "67108864"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "max_prepared_stmt_count",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1",
+        "maxValue": "1048576"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "net_read_timeout",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "30",
+        "maxValue": "4294967295"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "net_retry_count",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "10",
+        "maxValue": "4294967295"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "net_write_timeout",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "60",
+        "maxValue": "4294967295"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "optimizer_search_depth",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "0",
+        "maxValue": "62"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "query_cache_limit",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "0",
+        "maxValue": "223338299392"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "query_cache_size",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "0",
+        "maxValue": "223338299392"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "query_cache_type",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "0",
+        "maxValue": "2",
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "read_only",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "skip_show_database",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "slow_query_log",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "sql_mode",
+        "type": "STRING",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "allowedStringValues": [
+          "ALLOW_INVALID_DATES",
+          "ANSI_QUOTES",
+          "ERROR_FOR_DIVISION_BY_ZERO",
+          "HIGH_NOT_PRECEDENCE",
+          "IGNORE_SPACE",
+          "NO_AUTO_CREATE_USER",
+          "NO_AUTO_VALUE_ON_ZERO",
+          "NO_BACKSLASH_ESCAPES",
+          "NO_ENGINE_SUBSTITUTION",
+          "NO_FIELD_OPTIONS",
+          "NO_KEY_OPTIONS",
+          "NO_TABLE_OPTIONS",
+          "NO_UNSIGNED_SUBTRACTION",
+          "NO_ZERO_DATE",
+          "NO_ZERO_IN_DATE",
+          "ONLY_FULL_GROUP_BY",
+          "PIPES_AS_CONCAT",
+          "REAL_AS_FLOAT",
+          "STRICT_ALL_TABLES",
+          "STRICT_TRANS_TABLES",
+          "ANSI",
+          "DB2",
+          "MAXDB",
+          "MSSQL",
+          "MYSQL323",
+          "MYSQL40",
+          "ORACLE",
+          "POSTGRESQL",
+          "TRADITIONAL"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "tmp_table_size",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1024",
+        "maxValue": "67108864"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "wait_timeout",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_5",
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1",
+        "maxValue": "31536000"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "auto_increment_increment",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1",
+        "maxValue": "65535"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "auto_increment_offset",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1",
+        "maxValue": "65535"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "binlog_row_image",
+        "type": "STRING",
+        "appliesTo": [
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "allowedStringValues": [
+          "full",
+          "minimal",
+          "noblob"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "innodb_ft_max_token_size",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "10",
+        "maxValue": "252",
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "innodb_ft_min_token_size",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "0",
+        "maxValue": "16",
+        "requiresRestart": true
+      },
+      {
+        "kind": "sql#flag",
+        "name": "innodb_ft_server_stopword_table",
+        "type": "STRING",
+        "appliesTo": [
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "lock_wait_timeout",
+        "type": "INTEGER",
+        "appliesTo": [
+          "MYSQL_5_6",
+          "MYSQL_5_7"
+        ],
+        "minValue": "1",
+        "maxValue": "31536000"
+      },
+      {
+        "kind": "sql#flag",
+        "name": "show_compatibility_56",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "MYSQL_5_7"
+        ]
+      },
+      {
+        "kind": "sql#flag",
+        "name": "autovacuum",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "autovacuum_analyze_scale_factor",
+        "type": "FLOAT",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "autovacuum_analyze_threshold",
+        "type": "INTEGER",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "minValue": "0",
+        "maxValue": "2147483647",
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "autovacuum_naptime",
+        "type": "INTEGER",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "minValue": "1",
+        "maxValue": "2147483",
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "autovacuum_vacuum_cost_delay",
+        "type": "INTEGER",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "minValue": "-1",
+        "maxValue": "100",
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "autovacuum_vacuum_cost_limit",
+        "type": "INTEGER",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "minValue": "-1",
+        "maxValue": "10000",
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "autovacuum_vacuum_scale_factor",
+        "type": "FLOAT",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "autovacuum_vacuum_threshold",
+        "type": "INTEGER",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "minValue": "0",
+        "maxValue": "2147483647",
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "default_statistics_target",
+        "type": "INTEGER",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "minValue": "1",
+        "maxValue": "10000",
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "log_autovacuum_min_duration",
+        "type": "INTEGER",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "minValue": "-1",
+        "maxValue": "2147483647",
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "log_statement",
+        "type": "STRING",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "allowedStringValues": [
+          "none",
+          "ddl",
+          "mod",
+          "all"
+        ],
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "log_statement_stats",
+        "type": "BOOLEAN",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "requiresRestart": false
+      },
+      {
+        "kind": "sql#flag",
+        "name": "temp_file_limit",
+        "type": "INTEGER",
+        "appliesTo": [
+          "POSTGRES_9_6"
+        ],
+        "minValue": "1048576",
+        "maxValue": "2147483647",
+        "requiresRestart": false
+      }
+    ]
+  }
+}

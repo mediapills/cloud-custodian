@@ -82,3 +82,15 @@ class SqlInstanceTest(BaseTest):
             self.fail('found deleted instance: %s' % result)
         except HttpError as e:
             self.assertTrue("does not exist" in str(e))
+
+
+class SqlFlagTest(BaseTest):
+    def test_sqlflag_query(self):
+        factory = self.replay_flight_data('sql-flags-query')
+        p = self.load_policy(
+            {'name': 'all-sql-flags',
+             'resource': 'gcp.sql-flag'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 56)
+        self.assertEqual(resources[0]['kind'], 'sql#flag')
