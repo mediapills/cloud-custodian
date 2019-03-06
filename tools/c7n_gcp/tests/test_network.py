@@ -128,3 +128,39 @@ class RouterTest(BaseTest):
 
         self.assertEqual(router['bgp']['asn'], 65000)
 
+
+class RouteTest(BaseTest):
+    def test_route_query(self):
+        project_id = 'atomic-shine-231410'
+        session_factory = self.replay_flight_data('route-query', project_id=project_id)
+
+        policy = {
+            'name': 'all-routes',
+            'resource': 'gcp.route'
+        }
+
+        policy = self.load_policy(
+            policy,
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(resources[0]['destRange'], '10.160.0.0/20')
+
+    def test_route_get(self):
+        project_id = 'atomic-shine-231410'
+        session_factory = self.replay_flight_data('route-get', project_id=project_id)
+
+        policy = {
+            'name': 'one-route',
+            'resource': 'gcp.route'
+        }
+
+        policy = self.load_policy(
+            policy,
+            session_factory=session_factory)
+
+        route = policy.resource_manager.get_resource(
+            {'project_id': project_id,
+             'name': 'default-route-748fda88a0393274'})
+
+        self.assertEqual(route['destRange'], '192.168.0.0/24')

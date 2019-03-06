@@ -147,5 +147,11 @@ class Route(QueryResourceManager):
         service = 'compute'
         version = 'v1'
         component = 'routes'
-        scope_template = "projects/{}/global/routes"
+        enum_spec = ('list', 'items[]', None)
         id = "name"
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'route': resource_info['name']})
