@@ -172,3 +172,21 @@ class Interconnect(QueryResourceManager):
             return client.execute_command(
                 'get', {'project': resource_info['project_id'],
                         'interconnect': resource_info['name']})
+
+
+@resources.register('interconnect-attachment')
+class InterconnectAttachment(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'interconnectAttachments'
+        enum_spec = ('aggregatedList', 'items.*.interconnectAttachments[]', None)
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'interconnectAttachment': resource_info['name'],
+                        'region': resource_info['region'].rsplit('/', 1)[-1]})
