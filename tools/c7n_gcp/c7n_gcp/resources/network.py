@@ -155,3 +155,20 @@ class Route(QueryResourceManager):
             return client.execute_command(
                 'get', {'project': resource_info['project_id'],
                         'route': resource_info['name']})
+
+
+@resources.register('interconnect')
+class Interconnect(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'interconnects'
+        enum_spec = ('list', 'items[]', None)
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'interconnect': resource_info['name']})
