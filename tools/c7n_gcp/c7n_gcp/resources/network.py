@@ -130,8 +130,14 @@ class Router(QueryResourceManager):
         version = 'v1'
         component = 'routers'
         enum_spec = ('aggregatedList', 'items.*.routers[]', None)
-        scope_template = "projects/{}/aggregated/routers"
         id = "name"
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'router': resource_info['name'],
+                        'region': resource_info['region'].rsplit('/', 1)[-1]})
 
 
 @resources.register('route')
