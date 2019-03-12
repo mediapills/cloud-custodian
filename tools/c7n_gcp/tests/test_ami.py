@@ -22,14 +22,32 @@ class TestAMI(BaseTest):
         session_factory = self.replay_flight_data(
             'ami-role-query', project_id)
 
-        policy = {
-            'name': 'ami-role-query',
-            'resource': 'gcp.role'
-        }
-
         policy = self.load_policy(
-            policy,
+            {
+                'name': 'ami-role-query',
+                'resource': 'gcp.role'
+            },
             session_factory=session_factory)
 
         resources = policy.run()
         self.assertEqual(len(resources), 322)
+
+    def test_role_get(self):
+        project_id = 'mythic-tribute-232915'
+        name = "accesscontextmanager.policyAdmin"
+
+        session_factory = self.replay_flight_data(
+            'ami-role-query-get', project_id)
+
+        policy = self.load_policy(
+            {
+                'name': 'ami-role-query-get',
+                'resource': 'gcp.role'
+            },
+            session_factory=session_factory)
+
+        resource = policy.resource_manager.get_resource({
+            "name": name,
+        })
+
+        self.assertEqual(resource['name'], 'roles/{}'.format(name))

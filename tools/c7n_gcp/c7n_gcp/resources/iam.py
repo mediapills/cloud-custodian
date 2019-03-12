@@ -66,3 +66,10 @@ class Role(QueryResourceManager):
         component = 'roles'
         enum_spec = ('list', 'roles[]', None)
         scope = "global"
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {
+                    'name': 'roles/{}'.format(
+                        resource_info['name'])})
