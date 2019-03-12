@@ -85,7 +85,7 @@ class LogProject(QueryResourceManager):
         enum_spec = ('list', 'logNames[]', None)
         scope_key = 'parent'
         scope_template = 'projects/{}'
-        id = 'id'
+        id = 'project_id'
 
     def augment(self, resources):
         out_resources = []
