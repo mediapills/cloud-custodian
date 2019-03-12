@@ -95,3 +95,48 @@ class LogProjectMetricTest(BaseTest):
             "project_id": project_id,
         })
         self.assertEqual(metric['name'], metric_name)
+
+
+class LogProjectTest(BaseTest):
+
+    def test_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('log-project', project_id)
+        p = self.load_policy({
+            'name': 'log-project',
+            'resource': 'gcp.log-project'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertEqual(len(resource), 3)
+
+
+class LogProjectExclusionTest(BaseTest):
+
+    def test_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('log-project-exclusion', project_id)
+        p = self.load_policy({
+            'name': 'log-project-exclusion',
+            'resource': 'gcp.log-project-exclusion'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertEqual(len(resource), 1)
+
+    def test_get_project_exclusion(self):
+        project_id = 'cloud-custodian'
+        exclusion_name = "exclusions"
+        factory = self.replay_flight_data(
+            'log-project-exclusion-get', project_id)
+
+        p = self.load_policy(
+            {
+                'name': 'log-project-exclusion-get',
+                'resource': 'gcp.log-project-exclusion'
+            },
+            session_factory=factory)
+
+        resource = p.resource_manager.get_resource({
+            "exclusion_id": exclusion_name,
+            "project_id": project_id,
+        })
+        self.assertEqual(resource['name'], exclusion_name)

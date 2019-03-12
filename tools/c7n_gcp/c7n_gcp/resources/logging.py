@@ -73,3 +73,48 @@ class LogProjectMetric(QueryResourceManager):
             return client.execute_query('get', {
                 'metricName': 'projects/{project_id}/metrics/{name}'.format(
                     **resource_info)})
+
+
+@resources.register('log-project')
+class LogProject(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'logging'
+        version = 'v2'
+        component = 'projects.logs'
+        enum_spec = ('list', 'logNames[]', None)
+        scope_key = 'parent'
+        scope_template = 'projects/{}'
+        id = 'id'
+
+    def augment(self, resources):
+        out_resources = []
+        for resource in resources:
+            resource_type, project_id, key, log_id = resource.split('/')
+            out_resources.append({
+                'logName ': resource,
+                'resource_type': resource_type,
+                'project_id': project_id,
+                'key': key,
+                'log_id': log_id
+            })
+        return out_resources
+
+
+@resources.register('log-project-exclusion')
+class LoggingProjectExclusion(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'logging'
+        version = 'v2'
+        component = 'projects.exclusions'
+        enum_spec = ('list', 'exclusions[]', None)
+        scope_key = 'parent'
+        scope_template = 'projects/{}'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_query('get', {
+                'name': 'projects/{project_id}/exclusions/{exclusion_id}'.format(
+                    **resource_info)})
