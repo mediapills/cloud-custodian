@@ -136,7 +136,41 @@ class LogProjectExclusionTest(BaseTest):
             session_factory=factory)
 
         resource = p.resource_manager.get_resource({
-            "exclusion_id": exclusion_name,
+            "name": exclusion_name,
             "project_id": project_id,
+        })
+        self.assertEqual(resource['name'], exclusion_name)
+
+
+class LogExclusionTest(BaseTest):
+
+    def test_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('log-exclusion', project_id)
+        p = self.load_policy({
+            'name': 'log-exclusion',
+            'resource': 'gcp.log-exclusion'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertEqual(len(resource), 1)
+
+    def test_get_project_exclusion(self):
+        project_id = 'cloud-custodian'
+        exclusion_name = "exclusions"
+        type = "projects"
+        factory = self.replay_flight_data(
+            'log-exclusion-get', project_id)
+
+        p = self.load_policy(
+            {
+                'name': 'log-exclusion-get',
+                'resource': 'gcp.log-exclusion'
+            },
+            session_factory=factory)
+
+        resource = p.resource_manager.get_resource({
+            "name": exclusion_name,
+            "project_id": project_id,
+            "type": type,
         })
         self.assertEqual(resource['name'], exclusion_name)
