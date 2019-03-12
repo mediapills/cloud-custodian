@@ -1,4 +1,4 @@
-# Copyright 2018 Capital One Services, LLC
+# Copyright 2019 Capital One Services, LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,20 +18,39 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 # how to map them given a project level root entity sans use of c7n-org
 
 
-@resources.register('logsink')
+@resources.register('log-sink')
 class LogSink(QueryResourceManager):
 
     class resource_type(TypeInfo):
         service = 'logging'
-        version = 'v1'
+        version = 'v2'
         component = 'projects.sinks'
         enum_spec = ('list', 'sinks[]', None)
         scope_key = 'parent'
-        scope_template = "projects/{}/sinks"
+        scope_template = "projects/{}"
         id = "name"
 
         @staticmethod
         def get(client, resource_info):
-            return client.get('get', {
+            return client.execute_query('get', {
+                'sinkName': 'projects/{project_id}/sinks/{name}'.format(
+                    **resource_info)})
+
+
+@resources.register('log-project-sink')
+class LogProjectSink(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'logging'
+        version = 'v2'
+        component = 'projects.sinks'
+        enum_spec = ('list', 'sinks[]', None)
+        scope_key = 'parent'
+        scope_template = 'projects/{}'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_query('get', {
                 'sinkName': 'projects/{project_id}/sinks/{name}'.format(
                     **resource_info)})
