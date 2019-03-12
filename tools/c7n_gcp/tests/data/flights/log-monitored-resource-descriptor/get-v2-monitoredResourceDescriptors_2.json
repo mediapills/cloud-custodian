@@ -1,0 +1,45 @@
+{
+  "body": {
+    "resourceDescriptors": [
+      {
+        "displayName": "Cloud KMS CryptoKey", 
+        "labels": [
+          {
+            "description": "The identifier of the GCP project associated with this resource, such as \"my-project\".", 
+            "key": "project_id"
+          }, 
+          {
+            "description": "The region Crypto Key belongs to.", 
+            "key": "location"
+          }, 
+          {
+            "description": "Key Ring the Crypto Key belongs to.", 
+            "key": "key_ring_id"
+          }, 
+          {
+            "description": "Crypto Key Identifier.", 
+            "key": "crypto_key_id"
+          }
+        ], 
+        "type": "cloudkms_cryptokey", 
+        "description": "Cryptographic key in the KMS."
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "6083", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://logging.googleapis.com/v2/monitoredResourceDescriptors?pageToken=CGQ&alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Tue, 12 Mar 2019 11:17:22 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

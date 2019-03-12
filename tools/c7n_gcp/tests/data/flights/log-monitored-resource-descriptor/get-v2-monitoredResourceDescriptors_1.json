@@ -1,0 +1,42 @@
+{
+  "body": {
+    "nextPageToken": "CGQ", 
+    "resourceDescriptors": [
+      {
+        "displayName": "GCE VM Instance", 
+        "labels": [
+          {
+            "description": "The identifier of the GCP project associated with this resource, such as \"my-project\".", 
+            "key": "project_id"
+          }, 
+          {
+            "description": "The numeric VM instance identifier assigned by Compute Engine.", 
+            "key": "instance_id"
+          }, 
+          {
+            "description": "The Compute Engine zone in which the VM is running.", 
+            "key": "zone"
+          }
+        ], 
+        "type": "gce_instance", 
+        "description": "A virtual machine instance hosted in Google Compute Engine (GCE)."
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "59455", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://logging.googleapis.com/v2/monitoredResourceDescriptors?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Tue, 12 Mar 2019 11:17:21 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

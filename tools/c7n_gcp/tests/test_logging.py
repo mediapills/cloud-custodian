@@ -174,3 +174,17 @@ class LogExclusionTest(BaseTest):
             "type": type,
         })
         self.assertEqual(resource['name'], exclusion_name)
+
+
+class LogMonitoredResourceDescriptorTest(BaseTest):
+
+    def test_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('log-monitored-resource-descriptor', project_id)
+        p = self.load_policy({
+            'name': 'log-monitored-resource-descriptor',
+            'resource': 'gcp.log-monitored-resource-descriptor'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertEqual(len(resource), 2)
+        self.assertEqual(resource[0]['displayName'], "GCE VM Instance")

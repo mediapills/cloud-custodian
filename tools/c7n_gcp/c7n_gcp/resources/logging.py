@@ -85,7 +85,7 @@ class LogProject(QueryResourceManager):
         enum_spec = ('list', 'logNames[]', None)
         scope_key = 'parent'
         scope_template = 'projects/{}'
-        id = 'id'
+        id = 'project_id'
 
     def augment(self, resources):
         out_resources = []
@@ -137,3 +137,15 @@ class LogExclusion(QueryResourceManager):
             return client.execute_query('get', {
                 'name': '{type}/{project_id}/exclusions/{exclusion_id}'.format(
                     **resource_info)})
+
+
+@resources.register('log-monitored-resource-descriptor')
+class LogMonitoredResourceDescriptor(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'logging'
+        version = 'v2'
+        component = 'monitoredResourceDescriptors'
+        enum_spec = ('list', 'resourceDescriptors[]', None)
+        scope = 'global'
+        id = 'name'
