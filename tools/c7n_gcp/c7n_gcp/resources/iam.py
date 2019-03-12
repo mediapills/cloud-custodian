@@ -56,3 +56,13 @@ class ServiceAccount(QueryResourceManager):
                     'name': 'projects/{}/serviceAccounts/{}'.format(
                         resource_info['project_id'],
                         resource_info['email_id'])})
+
+@resources.register('role')
+class Role(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'iam'
+        version = 'v1'
+        component = 'roles'
+        enum_spec = ('list', 'roles[]', None)
+        scope = "global"
