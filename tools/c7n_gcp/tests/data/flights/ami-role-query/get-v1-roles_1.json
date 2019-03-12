@@ -1,0 +1,2113 @@
+{
+  "body": {
+    "nextPageToken": "CgoHBYPknTvNnyABEIyKi_uerIqzbBisAiIcL3Jvb3RzL0dPT0dMRS9zcGFubmVyLnZpZXdlcg", 
+    "roles": [
+      {
+        "description": "Full access to policies, access levels, and access zones", 
+        "stage": "GA", 
+        "name": "roles/accesscontextmanager.policyAdmin", 
+        "etag": "AA==", 
+        "title": "Access Context Manager Admin"
+      }, 
+      {
+        "description": "Edit access to policies.  Create, edit, and change access levels and access zones.", 
+        "stage": "GA", 
+        "name": "roles/accesscontextmanager.policyEditor", 
+        "etag": "AA==", 
+        "title": "Access Context Manager Editor"
+      }, 
+      {
+        "description": "Read access to policies, access levels, and access zones.", 
+        "stage": "GA", 
+        "name": "roles/accesscontextmanager.policyReader", 
+        "etag": "AA==", 
+        "title": "Access Context Manager Reader"
+      }, 
+      {
+        "description": "Full access to manage devices.", 
+        "stage": "GA", 
+        "name": "roles/androidmanagement.user", 
+        "etag": "AA==", 
+        "title": "Android Management User"
+      }, 
+      {
+        "description": "Full management of App Engine apps (but not storage).", 
+        "stage": "GA", 
+        "name": "roles/appengine.appAdmin", 
+        "etag": "AA==", 
+        "title": "App Engine Admin"
+      }, 
+      {
+        "description": "Ability to view App Engine app status.", 
+        "stage": "GA", 
+        "name": "roles/appengine.appViewer", 
+        "etag": "AA==", 
+        "title": "App Engine Viewer"
+      }, 
+      {
+        "description": "Ability to view App Engine app status and deployed source code.", 
+        "stage": "GA", 
+        "name": "roles/appengine.codeViewer", 
+        "etag": "AA==", 
+        "title": "App Engine Code Viewer"
+      }, 
+      {
+        "description": "Necessary permissions to deploy new code to App Engine, and remove old versions.", 
+        "stage": "GA", 
+        "name": "roles/appengine.deployer", 
+        "etag": "AA==", 
+        "title": "App Engine Deployer"
+      }, 
+      {
+        "description": "Can view and change traffic splits, scaling settings, and delete old versions; can't create new versions.", 
+        "stage": "GA", 
+        "name": "roles/appengine.serviceAdmin", 
+        "etag": "AA==", 
+        "title": "App Engine Service Admin"
+      }, 
+      {
+        "description": "Full access to all AutoML resources", 
+        "stage": "BETA", 
+        "name": "roles/automl.admin", 
+        "etag": "AA==", 
+        "title": "AutoML Admin"
+      }, 
+      {
+        "description": "Editor of all AutoML resources", 
+        "stage": "BETA", 
+        "name": "roles/automl.editor", 
+        "etag": "AA==", 
+        "title": "AutoML Editor"
+      }, 
+      {
+        "description": "Predict using models", 
+        "stage": "BETA", 
+        "name": "roles/automl.predictor", 
+        "etag": "AA==", 
+        "title": "AutoML Predictor"
+      }, 
+      {
+        "description": "Viewer of all AutoML resources", 
+        "stage": "BETA", 
+        "name": "roles/automl.viewer", 
+        "etag": "AA==", 
+        "title": "AutoML Viewer"
+      }, 
+      {
+        "description": "Enable Access Transparency for Organization", 
+        "stage": "GA", 
+        "name": "roles/axt.admin", 
+        "etag": "AA==", 
+        "title": "Access Transparency Admin"
+      }, 
+      {
+        "description": "Full access to all datasets and tables", 
+        "stage": "GA", 
+        "name": "roles/bigquery.admin", 
+        "etag": "AA==", 
+        "title": "BigQuery Admin"
+      }, 
+      {
+        "stage": "GA", 
+        "name": "roles/bigquery.connectionAdmin", 
+        "etag": "AA==", 
+        "title": "BigQuery Connection Admin"
+      }, 
+      {
+        "stage": "GA", 
+        "name": "roles/bigquery.connectionUser", 
+        "etag": "AA==", 
+        "title": "BigQuery Connection User"
+      }, 
+      {
+        "description": "Access to edit all the tables in datasets", 
+        "stage": "GA", 
+        "name": "roles/bigquery.dataEditor", 
+        "etag": "AA==", 
+        "title": "BigQuery Data Editor"
+      }, 
+      {
+        "description": "Full access to datasets and all its tables", 
+        "stage": "GA", 
+        "name": "roles/bigquery.dataOwner", 
+        "etag": "AA==", 
+        "title": "BigQuery Data Owner"
+      }, 
+      {
+        "description": "Access to view datasets and all its tables", 
+        "stage": "GA", 
+        "name": "roles/bigquery.dataViewer", 
+        "etag": "AA==", 
+        "title": "BigQuery Data Viewer"
+      }, 
+      {
+        "description": "Access to run jobs", 
+        "stage": "GA", 
+        "name": "roles/bigquery.jobUser", 
+        "etag": "AA==", 
+        "title": "BigQuery Job User"
+      }, 
+      {
+        "description": "Access to view table and dataset metadata", 
+        "stage": "GA", 
+        "name": "roles/bigquery.metadataViewer", 
+        "etag": "AA==", 
+        "title": "BigQuery Metadata Viewer"
+      }, 
+      {
+        "description": "Access to create and use read sessions", 
+        "stage": "BETA", 
+        "name": "roles/bigquery.readSessionUser", 
+        "etag": "AA==", 
+        "title": "BigQuery Read Session User"
+      }, 
+      {
+        "description": "Access to run queries and create datasets", 
+        "stage": "GA", 
+        "name": "roles/bigquery.user", 
+        "etag": "AA==", 
+        "title": "BigQuery User"
+      }, 
+      {
+        "description": "Full access to all Bigtable resources and ability to assign Bigtable IAM roles.", 
+        "stage": "GA", 
+        "name": "roles/bigtable.admin", 
+        "etag": "AA==", 
+        "title": "Bigtable Administrator"
+      }, 
+      {
+        "description": "Read access to data in existing tables; read access to metadata for instances, clusters, and tables, including column families.", 
+        "stage": "GA", 
+        "name": "roles/bigtable.reader", 
+        "etag": "AA==", 
+        "title": "Bigtable Reader"
+      }, 
+      {
+        "description": "Read and write access to data in existing tables; read access to metadata for instances, clusters, and tables, including column families.", 
+        "stage": "GA", 
+        "name": "roles/bigtable.user", 
+        "etag": "AA==", 
+        "title": "Bigtable User"
+      }, 
+      {
+        "description": "Read access to metadata for instances, clusters, and tables, including column families.", 
+        "stage": "GA", 
+        "name": "roles/bigtable.viewer", 
+        "etag": "AA==", 
+        "title": "Bigtable Viewer"
+      }, 
+      {
+        "description": "Authorized to see and manage all aspects of billing accounts.", 
+        "stage": "GA", 
+        "name": "roles/billing.admin", 
+        "etag": "AA==", 
+        "title": "Billing Account Administrator"
+      }, 
+      {
+        "description": "Creator of billing accounts.", 
+        "stage": "GA", 
+        "name": "roles/billing.creator", 
+        "etag": "AA==", 
+        "title": "Billing Account Creator"
+      }, 
+      {
+        "description": "Can assign a project's billing account or disable its billing.", 
+        "stage": "GA", 
+        "name": "roles/billing.projectManager", 
+        "etag": "AA==", 
+        "title": "Project Billing Manager"
+      }, 
+      {
+        "description": "Can associate projects with billing accounts", 
+        "stage": "GA", 
+        "name": "roles/billing.user", 
+        "etag": "AA==", 
+        "title": "Billing Account User"
+      }, 
+      {
+        "description": "Can view information about billing accounts.", 
+        "stage": "GA", 
+        "name": "roles/billing.viewer", 
+        "etag": "AA==", 
+        "title": "Billing Account Viewer"
+      }, 
+      {
+        "description": "Adminstrator of Binary Authorization Attestors", 
+        "stage": "BETA", 
+        "name": "roles/binaryauthorization.attestorsAdmin", 
+        "etag": "AA==", 
+        "title": "Binary Authorization Attestor Admin"
+      }, 
+      {
+        "description": "Editor of Binary Authorization Attestors", 
+        "stage": "BETA", 
+        "name": "roles/binaryauthorization.attestorsEditor", 
+        "etag": "AA==", 
+        "title": "Binary Authorization Attestor Editor"
+      }, 
+      {
+        "description": "Caller of Binary Authorization Attestors VerifyImageAttested", 
+        "stage": "BETA", 
+        "name": "roles/binaryauthorization.attestorsVerifier", 
+        "etag": "AA==", 
+        "title": "Binary Authorization Attestor Image Verifier"
+      }, 
+      {
+        "description": "Viewer of Binary Authorization Attestors", 
+        "stage": "BETA", 
+        "name": "roles/binaryauthorization.attestorsViewer", 
+        "etag": "AA==", 
+        "title": "Binary Authorization Attestor Viewer"
+      }, 
+      {
+        "description": "Administrator of Binary Authorization Policy", 
+        "stage": "BETA", 
+        "name": "roles/binaryauthorization.policyAdmin", 
+        "etag": "AA==", 
+        "title": "Binary Authorization Policy Administrator"
+      }, 
+      {
+        "description": "Editor of Binary Authorization Policy", 
+        "stage": "BETA", 
+        "name": "roles/binaryauthorization.policyEditor", 
+        "etag": "AA==", 
+        "title": "Binary Authorization Policy Editor"
+      }, 
+      {
+        "description": "Viewer of Binary Authorization Policy", 
+        "stage": "BETA", 
+        "name": "roles/binaryauthorization.policyViewer", 
+        "etag": "AA==", 
+        "title": "Binary Authorization Policy Viewer"
+      }, 
+      {
+        "description": "Access to browse GCP resources.", 
+        "stage": "GA", 
+        "name": "roles/browser", 
+        "etag": "AA==", 
+        "title": "Browser"
+      }, 
+      {
+        "description": "Read only access to cloud assets metadata", 
+        "stage": "GA", 
+        "name": "roles/cloudasset.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Asset Viewer"
+      }, 
+      {
+        "description": "Can perform builds", 
+        "stage": "GA", 
+        "name": "roles/cloudbuild.builds.builder", 
+        "etag": "AA==", 
+        "title": "Cloud Build Service Account"
+      }, 
+      {
+        "description": "Can create and cancel builds", 
+        "stage": "GA", 
+        "name": "roles/cloudbuild.builds.editor", 
+        "etag": "AA==", 
+        "title": "Cloud Build Editor"
+      }, 
+      {
+        "description": "Can view builds", 
+        "stage": "GA", 
+        "name": "roles/cloudbuild.builds.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Build Viewer"
+      }, 
+      {
+        "description": "Stackdriver Debugger agents are allowed to register and provide debug snapshot data.", 
+        "stage": "BETA", 
+        "name": "roles/clouddebugger.agent", 
+        "etag": "AA==", 
+        "title": "Stackdriver Debugger Agent"
+      }, 
+      {
+        "description": "User Access to Stackdriver Debugger.  Can create, delete and view snapshots and logpoints.", 
+        "stage": "BETA", 
+        "name": "roles/clouddebugger.user", 
+        "etag": "AA==", 
+        "title": "Stackdriver Debugger User"
+      }, 
+      {
+        "description": "Read and write access to all functions-related resources.", 
+        "stage": "BETA", 
+        "name": "roles/cloudfunctions.developer", 
+        "etag": "AA==", 
+        "title": "Cloud Functions Developer"
+      }, 
+      {
+        "description": "Read-only access to functions and locations.", 
+        "stage": "BETA", 
+        "name": "roles/cloudfunctions.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Functions Viewer"
+      }, 
+      {
+        "description": "Full control of all Cloud IoT resources and permissions.", 
+        "stage": "GA", 
+        "name": "roles/cloudiot.admin", 
+        "etag": "AA==", 
+        "title": "Cloud IoT Admin"
+      }, 
+      {
+        "description": "Access to update the device configuration, but not to create or delete devices.", 
+        "stage": "GA", 
+        "name": "roles/cloudiot.deviceController", 
+        "etag": "AA==", 
+        "title": "Cloud IoT Device Controller"
+      }, 
+      {
+        "description": "Read-write access to all Cloud IoT resources.", 
+        "stage": "GA", 
+        "name": "roles/cloudiot.editor", 
+        "etag": "AA==", 
+        "title": "Cloud IoT Editor"
+      }, 
+      {
+        "description": "Access to create and delete devices from registries, but not to modify the registries.", 
+        "stage": "GA", 
+        "name": "roles/cloudiot.provisioner", 
+        "etag": "AA==", 
+        "title": "Cloud IoT Provisioner"
+      }, 
+      {
+        "description": "Read-only access to all Cloud IoT resources.", 
+        "stage": "GA", 
+        "name": "roles/cloudiot.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud IoT Viewer"
+      }, 
+      {
+        "description": "Access to Cloud Talent Solution Self-Service Tools.", 
+        "stage": "BETA", 
+        "name": "roles/cloudjobdiscovery.admin", 
+        "etag": "AA==", 
+        "title": "Admin"
+      }, 
+      {
+        "description": "Write access to all job data in Cloud Talent Solution.", 
+        "stage": "BETA", 
+        "name": "roles/cloudjobdiscovery.jobsEditor", 
+        "etag": "AA==", 
+        "title": "Job Editor"
+      }, 
+      {
+        "description": "Read access to all job data in Cloud Talent Solution.", 
+        "stage": "BETA", 
+        "name": "roles/cloudjobdiscovery.jobsViewer", 
+        "etag": "AA==", 
+        "title": "Job Viewer"
+      }, 
+      {
+        "description": "Write access to all profile data in Cloud Talent Solution.", 
+        "stage": "BETA", 
+        "name": "roles/cloudjobdiscovery.profilesEditor", 
+        "etag": "AA==", 
+        "title": "Profile Editor"
+      }, 
+      {
+        "description": "Read access to all profile data in Cloud Talent Solution.", 
+        "stage": "BETA", 
+        "name": "roles/cloudjobdiscovery.profilesViewer", 
+        "etag": "AA==", 
+        "title": "Profile Viewer"
+      }, 
+      {
+        "description": "Enables management of crypto resources.", 
+        "stage": "GA", 
+        "name": "roles/cloudkms.admin", 
+        "etag": "AA==", 
+        "title": "Cloud KMS Admin"
+      }, 
+      {
+        "description": "Enables Decrypt operations", 
+        "stage": "GA", 
+        "name": "roles/cloudkms.cryptoKeyDecrypter", 
+        "etag": "AA==", 
+        "title": "Cloud KMS CryptoKey Decrypter"
+      }, 
+      {
+        "description": "Enables Encrypt operations", 
+        "stage": "GA", 
+        "name": "roles/cloudkms.cryptoKeyEncrypter", 
+        "etag": "AA==", 
+        "title": "Cloud KMS CryptoKey Encrypter"
+      }, 
+      {
+        "description": "Enables Encrypt and Decrypt operations", 
+        "stage": "GA", 
+        "name": "roles/cloudkms.cryptoKeyEncrypterDecrypter", 
+        "etag": "AA==", 
+        "title": "Cloud KMS CryptoKey Encrypter/Decrypter"
+      }, 
+      {
+        "description": "Enables GetPublicKey operations", 
+        "stage": "BETA", 
+        "name": "roles/cloudkms.publicKeyViewer", 
+        "etag": "AA==", 
+        "title": "Cloud KMS CryptoKey Public Key Viewer"
+      }, 
+      {
+        "description": "Enables the AsymmetricSign operation", 
+        "stage": "BETA", 
+        "name": "roles/cloudkms.signer", 
+        "etag": "AA==", 
+        "title": "Cloud KMS CryptoKey Signer"
+      }, 
+      {
+        "description": "Enables AsymmetricSign, and GetPublicKey operations", 
+        "stage": "BETA", 
+        "name": "roles/cloudkms.signerVerifier", 
+        "etag": "AA==", 
+        "title": "Cloud KMS CryptoKey Signer/Verifier"
+      }, 
+      {
+        "description": "Can browse catalogs in the target resource context.", 
+        "stage": "BETA", 
+        "name": "roles/cloudprivatecatalog.consumer", 
+        "etag": "AA==", 
+        "title": "Catalog Consumer"
+      }, 
+      {
+        "description": "Can manage catalog and view its associations.", 
+        "stage": "BETA", 
+        "name": "roles/cloudprivatecatalogproducer.admin", 
+        "etag": "AA==", 
+        "title": "Catalog Admin"
+      }, 
+      {
+        "description": "Can manage associations between a catalog and a target resource.", 
+        "stage": "BETA", 
+        "name": "roles/cloudprivatecatalogproducer.manager", 
+        "etag": "AA==", 
+        "title": "Catalog Manager"
+      }, 
+      {
+        "description": "Stackdriver Profiler agents are allowed to register and provide the profiling data.", 
+        "stage": "BETA", 
+        "name": "roles/cloudprofiler.agent", 
+        "etag": "AA==", 
+        "title": "Stackdriver Profiler Agent"
+      }, 
+      {
+        "description": "Stackdriver Profiler users are allowed to query and view the profiling data.", 
+        "stage": "BETA", 
+        "name": "roles/cloudprofiler.user", 
+        "etag": "AA==", 
+        "title": "Stackdriver Profiler User"
+      }, 
+      {
+        "description": "Full access to jobs and executions.", 
+        "stage": "BETA", 
+        "name": "roles/cloudscheduler.admin", 
+        "etag": "AA==", 
+        "title": "Cloud Scheduler Admin"
+      }, 
+      {
+        "description": "Get and list access to jobs, executions, and locations.", 
+        "stage": "BETA", 
+        "name": "roles/cloudscheduler.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Scheduler Viewer"
+      }, 
+      {
+        "description": "Full access to all Cloud Security Scanner resources", 
+        "stage": "GA", 
+        "name": "roles/cloudsecurityscanner.editor", 
+        "etag": "AA==", 
+        "title": "Cloud Security Scanner Editor"
+      }, 
+      {
+        "description": "Read access to Scan and ScanRun, plus the ability to start scans", 
+        "stage": "GA", 
+        "name": "roles/cloudsecurityscanner.runner", 
+        "etag": "AA==", 
+        "title": "Cloud Security Scanner Runner"
+      }, 
+      {
+        "description": "Read access to all Cloud Security Scanner resources", 
+        "stage": "GA", 
+        "name": "roles/cloudsecurityscanner.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Security Scanner Viewer"
+      }, 
+      {
+        "description": "Full control of Cloud SQL resources.", 
+        "stage": "GA", 
+        "name": "roles/cloudsql.admin", 
+        "etag": "AA==", 
+        "title": "Cloud SQL Admin"
+      }, 
+      {
+        "description": "Connectivity access to Cloud SQL instances.", 
+        "stage": "GA", 
+        "name": "roles/cloudsql.client", 
+        "etag": "AA==", 
+        "title": "Cloud SQL Client"
+      }, 
+      {
+        "description": "Full control of existing Cloud SQL instances excluding modifying users, SSL certificates or deleting resources.", 
+        "stage": "GA", 
+        "name": "roles/cloudsql.editor", 
+        "etag": "AA==", 
+        "title": "Cloud SQL Editor"
+      }, 
+      {
+        "description": "Read-only access to Cloud SQL resources.", 
+        "stage": "GA", 
+        "name": "roles/cloudsql.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud SQL Viewer"
+      }, 
+      {
+        "description": "Allows management of a support account without giving access to support cases.", 
+        "stage": "GA", 
+        "name": "roles/cloudsupport.admin", 
+        "etag": "AA==", 
+        "title": "Support Account Administrator"
+      }, 
+      {
+        "description": "Read-only access to details of a support account. This does not allow viewing cases.", 
+        "stage": "GA", 
+        "name": "roles/cloudsupport.viewer", 
+        "etag": "AA==", 
+        "title": "Support Account Viewer"
+      }, 
+      {
+        "description": "Full access to queues and tasks.", 
+        "stage": "BETA", 
+        "name": "roles/cloudtasks.admin", 
+        "etag": "AA==", 
+        "title": "Cloud Tasks Admin"
+      }, 
+      {
+        "description": "Access to create tasks.", 
+        "stage": "BETA", 
+        "name": "roles/cloudtasks.enqueuer", 
+        "etag": "AA==", 
+        "title": "Cloud Tasks Enqueuer"
+      }, 
+      {
+        "description": "Admin access to queues.", 
+        "stage": "BETA", 
+        "name": "roles/cloudtasks.queueAdmin", 
+        "etag": "AA==", 
+        "title": "Cloud Tasks Queue Admin"
+      }, 
+      {
+        "description": "Access to delete tasks.", 
+        "stage": "BETA", 
+        "name": "roles/cloudtasks.taskDeleter", 
+        "etag": "AA==", 
+        "title": "Cloud Tasks Task Deleter"
+      }, 
+      {
+        "description": "Access to run tasks.", 
+        "stage": "BETA", 
+        "name": "roles/cloudtasks.taskRunner", 
+        "etag": "AA==", 
+        "title": "Cloud Tasks Task Runner"
+      }, 
+      {
+        "description": "Get and list access to tasks, queues, and locations.", 
+        "stage": "BETA", 
+        "name": "roles/cloudtasks.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Tasks Viewer"
+      }, 
+      {
+        "description": "Full access to all Test Lab features", 
+        "stage": "GA", 
+        "name": "roles/cloudtestservice.testAdmin", 
+        "etag": "AA==", 
+        "title": "Firebase Test Lab Admin"
+      }, 
+      {
+        "description": "Read access to Test Lab features", 
+        "stage": "GA", 
+        "name": "roles/cloudtestservice.testViewer", 
+        "etag": "AA==", 
+        "title": "Firebase Test Lab Viewer"
+      }, 
+      {
+        "description": "Admin access to Stackdriver Trace.", 
+        "stage": "GA", 
+        "name": "roles/cloudtrace.admin", 
+        "etag": "AA==", 
+        "title": "Cloud Trace Admin"
+      }, 
+      {
+        "description": "Agent access to Stackdriver Trace. Can write trace data.", 
+        "stage": "GA", 
+        "name": "roles/cloudtrace.agent", 
+        "etag": "AA==", 
+        "title": "Cloud Trace Agent"
+      }, 
+      {
+        "description": "User access to Stackdriver Trace. Can view traces, insights and stats. Can create, list, view, and delete tasks.", 
+        "stage": "GA", 
+        "name": "roles/cloudtrace.user", 
+        "etag": "AA==", 
+        "title": "Cloud Trace User"
+      }, 
+      {
+        "description": "Full access to API keys", 
+        "stage": "BETA", 
+        "name": "roles/codelabapikeys.admin", 
+        "etag": "AA==", 
+        "title": "Codelab ApiKeys Admin"
+      }, 
+      {
+        "description": "This role can view and edit all properties of API keys.", 
+        "stage": "BETA", 
+        "name": "roles/codelabapikeys.editor", 
+        "etag": "AA==", 
+        "title": "Codelab API Keys Editor"
+      }, 
+      {
+        "description": "This role can view all properties except change history of API keys.", 
+        "stage": "BETA", 
+        "name": "roles/codelabapikeys.viewer", 
+        "etag": "AA==", 
+        "title": "Codelab API Keys Viewer"
+      }, 
+      {
+        "description": "Full control of Composer resources.", 
+        "stage": "GA", 
+        "name": "roles/composer.admin", 
+        "etag": "AA==", 
+        "title": "Composer Administrator"
+      }, 
+      {
+        "description": "Full control of Cloud Composer environments and Cloud Storage objects.", 
+        "stage": "GA", 
+        "name": "roles/composer.environmentAndStorageObjectAdmin", 
+        "etag": "AA==", 
+        "title": "Environment and Storage Object Administrator"
+      }, 
+      {
+        "description": "Read access to Cloud Composer environments and Cloud Storage objects.", 
+        "stage": "GA", 
+        "name": "roles/composer.environmentAndStorageObjectViewer", 
+        "etag": "AA==", 
+        "title": "Environment User and Storage Object Viewer"
+      }, 
+      {
+        "description": "Read and use access to Composer resources.", 
+        "stage": "GA", 
+        "name": "roles/composer.user", 
+        "etag": "AA==", 
+        "title": "Composer User"
+      }, 
+      {
+        "description": "Worker access to Composer. Intended for service accounts.", 
+        "stage": "GA", 
+        "name": "roles/composer.worker", 
+        "etag": "AA==", 
+        "title": "Composer Worker"
+      }, 
+      {
+        "description": "Full control of all Compute Engine resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.admin", 
+        "etag": "AA==", 
+        "title": "Compute Admin"
+      }, 
+      {
+        "description": "Read and use image resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.imageUser", 
+        "etag": "AA==", 
+        "title": "Compute Image User"
+      }, 
+      {
+        "description": "Full control of Compute Engine instance resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.instanceAdmin", 
+        "etag": "AA==", 
+        "title": "Compute Instance Admin (beta)"
+      }, 
+      {
+        "description": "Full control of Compute Engine instances, instance groups, disks, snapshots, and images. Read access to all Compute Engine networking resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.instanceAdmin.v1", 
+        "etag": "AA==", 
+        "title": "Compute Instance Admin (v1)"
+      }, 
+      {
+        "description": "Full control of Compute Engine resources related to load balancer.", 
+        "stage": "BETA", 
+        "name": "roles/compute.loadBalancerAdmin", 
+        "etag": "AA==", 
+        "title": "Compute Load Balancer Admin"
+      }, 
+      {
+        "description": "Full control of Compute Engine networking resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.networkAdmin", 
+        "etag": "AA==", 
+        "title": "Compute Network Admin"
+      }, 
+      {
+        "description": "Access to use Compute Engine networking resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.networkUser", 
+        "etag": "AA==", 
+        "title": "Compute Network User"
+      }, 
+      {
+        "description": "Read-only access to Compute Engine networking resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.networkViewer", 
+        "etag": "AA==", 
+        "title": "Compute Network Viewer"
+      }, 
+      {
+        "description": "Access to log in to a Compute Engine instance as an administrator user.", 
+        "stage": "GA", 
+        "name": "roles/compute.osAdminLogin", 
+        "etag": "AA==", 
+        "title": "Compute OS Admin Login"
+      }, 
+      {
+        "description": "Access to log in to a Compute Engine instance as a standard (non-administrator) user.", 
+        "stage": "GA", 
+        "name": "roles/compute.osLogin", 
+        "etag": "AA==", 
+        "title": "Compute OS Login"
+      }, 
+      {
+        "description": "Access for an external user to set OS Login information associated with this organization. This role does not grant access to instances. External users must be granted one of the required OS Login IAM roles (https://cloud.google.com/compute/docs/instances/managing-instance-access#configure_users) in order to allow access to instances using SSH.", 
+        "stage": "GA", 
+        "name": "roles/compute.osLoginExternalUser", 
+        "etag": "AA==", 
+        "title": "Compute OS Login External User"
+      }, 
+      {
+        "description": "Full control of Compute Engine security resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.securityAdmin", 
+        "etag": "AA==", 
+        "title": "Compute Security Admin"
+      }, 
+      {
+        "description": "Full control of Compute Engine storage resources.", 
+        "stage": "GA", 
+        "name": "roles/compute.storageAdmin", 
+        "etag": "AA==", 
+        "title": "Compute Storage Admin"
+      }, 
+      {
+        "description": "Read-only access to get and list information about all Compute Engine resources, including instances, disks, and firewalls. Allows getting and listing information about disks, images, and snapshots, but does not allow reading the data stored on them.", 
+        "stage": "GA", 
+        "name": "roles/compute.viewer", 
+        "etag": "AA==", 
+        "title": "Compute Viewer"
+      }, 
+      {
+        "description": "Can administer shared VPC network (XPN).", 
+        "stage": "GA", 
+        "name": "roles/compute.xpnAdmin", 
+        "etag": "AA==", 
+        "title": "Compute Shared VPC Admin"
+      }, 
+      {
+        "description": "Full management of Kubernetes Clusters and their Kubernetes API objects.", 
+        "stage": "GA", 
+        "name": "roles/container.admin", 
+        "etag": "AA==", 
+        "title": "Kubernetes Engine Admin"
+      }, 
+      {
+        "description": "Management of Kubernetes Clusters.", 
+        "stage": "GA", 
+        "name": "roles/container.clusterAdmin", 
+        "etag": "AA==", 
+        "title": "Kubernetes Engine Cluster Admin"
+      }, 
+      {
+        "description": "Read-only access to Kubernetes Clusters.", 
+        "stage": "GA", 
+        "name": "roles/container.clusterViewer", 
+        "etag": "AA==", 
+        "title": "Kubernetes Engine Cluster Viewer"
+      }, 
+      {
+        "description": "Full access to Kubernetes API objects inside Kubernetes Clusters.", 
+        "stage": "GA", 
+        "name": "roles/container.developer", 
+        "etag": "AA==", 
+        "title": "Kubernetes Engine Developer"
+      }, 
+      {
+        "description": "Use access of the Kubernetes Engine Host Service Agent.", 
+        "stage": "GA", 
+        "name": "roles/container.hostServiceAgentUser", 
+        "etag": "AA==", 
+        "title": "Kubernetes Engine Host Service Agent User"
+      }, 
+      {
+        "description": "Read-only access to Kubernetes Engine resources.", 
+        "stage": "GA", 
+        "name": "roles/container.viewer", 
+        "etag": "AA==", 
+        "title": "Kubernetes Engine Viewer"
+      }, 
+      {
+        "description": "Access to all resources.", 
+        "etag": "AA==", 
+        "name": "roles/containeranalysis.admin", 
+        "title": "Container Analysis Admin"
+      }, 
+      {
+        "description": "Can attach occurrences to notes", 
+        "etag": "AA==", 
+        "name": "roles/containeranalysis.notes.attacher", 
+        "title": "Container Analysis Notes Attacher"
+      }, 
+      {
+        "description": "Can edit container analysis notes", 
+        "etag": "AA==", 
+        "name": "roles/containeranalysis.notes.editor", 
+        "title": "Container Analysis Notes Editor"
+      }, 
+      {
+        "description": "Can view container analysis notes", 
+        "etag": "AA==", 
+        "name": "roles/containeranalysis.notes.viewer", 
+        "title": "Container Analysis Notes Viewer"
+      }, 
+      {
+        "description": "Can edit container analysis occurrences", 
+        "etag": "AA==", 
+        "name": "roles/containeranalysis.occurrences.editor", 
+        "title": "Container Analysis Occurrences Editor"
+      }, 
+      {
+        "description": "Can view container analysis occurrences", 
+        "etag": "AA==", 
+        "name": "roles/containeranalysis.occurrences.viewer", 
+        "title": "Container Analysis Occurrences Viewer"
+      }, 
+      {
+        "description": "Minimal role for creating and managing dataflow jobs.", 
+        "stage": "GA", 
+        "name": "roles/dataflow.admin", 
+        "etag": "AA==", 
+        "title": "Dataflow Admin"
+      }, 
+      {
+        "description": "Full operational access to Dataflow jobs.", 
+        "stage": "GA", 
+        "name": "roles/dataflow.developer", 
+        "etag": "AA==", 
+        "title": "Dataflow Developer"
+      }, 
+      {
+        "description": "Read only access to Dataflow jobs.", 
+        "stage": "GA", 
+        "name": "roles/dataflow.viewer", 
+        "etag": "AA==", 
+        "title": "Dataflow Viewer"
+      }, 
+      {
+        "description": "Worker access to Dataflow.  Intended for service accounts.", 
+        "stage": "GA", 
+        "name": "roles/dataflow.worker", 
+        "etag": "AA==", 
+        "title": "Dataflow Worker"
+      }, 
+      {
+        "description": "Full access to all DataLabeling resources", 
+        "stage": "BETA", 
+        "name": "roles/datalabeling.admin", 
+        "etag": "AA==", 
+        "title": "DataLabeling Service Admin"
+      }, 
+      {
+        "description": "Editor of all DataLabeling resources", 
+        "stage": "BETA", 
+        "name": "roles/datalabeling.editor", 
+        "etag": "AA==", 
+        "title": "DataLabeling Service Editor"
+      }, 
+      {
+        "description": "Viewer of all DataLabeling resources", 
+        "stage": "BETA", 
+        "name": "roles/datalabeling.viewer", 
+        "etag": "AA==", 
+        "title": "DataLabeling Service Viewer"
+      }, 
+      {
+        "description": "Use of Dataprep.", 
+        "stage": "BETA", 
+        "name": "roles/dataprep.projects.user", 
+        "etag": "AA==", 
+        "title": "Dataprep User"
+      }, 
+      {
+        "description": "Full control of Dataproc resources.", 
+        "stage": "GA", 
+        "name": "roles/dataproc.admin", 
+        "etag": "AA==", 
+        "title": "Dataproc Administrator"
+      }, 
+      {
+        "description": "Full control of Dataproc resources. Allows viewing all networks.", 
+        "stage": "GA", 
+        "name": "roles/dataproc.editor", 
+        "etag": "AA==", 
+        "title": "Dataproc Editor"
+      }, 
+      {
+        "description": "Read-only access to Dataproc resources.", 
+        "stage": "GA", 
+        "name": "roles/dataproc.viewer", 
+        "etag": "AA==", 
+        "title": "Dataproc Viewer"
+      }, 
+      {
+        "description": "Worker access to Dataproc. Intended for service accounts.", 
+        "stage": "GA", 
+        "name": "roles/dataproc.worker", 
+        "etag": "AA==", 
+        "title": "Dataproc Worker"
+      }, 
+      {
+        "description": "Full access to manage imports and exports.", 
+        "stage": "GA", 
+        "name": "roles/datastore.importExportAdmin", 
+        "etag": "AA==", 
+        "title": "Cloud Datastore Import Export Admin"
+      }, 
+      {
+        "description": "Full access to manage index definitions.", 
+        "stage": "GA", 
+        "name": "roles/datastore.indexAdmin", 
+        "etag": "AA==", 
+        "title": "Cloud Datastore Index Admin"
+      }, 
+      {
+        "description": "Full access to Cloud Datastore.", 
+        "stage": "GA", 
+        "name": "roles/datastore.owner", 
+        "etag": "AA==", 
+        "title": "Cloud Datastore Owner"
+      }, 
+      {
+        "description": "Provides read/write access to data in a Cloud Datastore database. Intended for application developers and service accounts.", 
+        "stage": "GA", 
+        "name": "roles/datastore.user", 
+        "etag": "AA==", 
+        "title": "Cloud Datastore User"
+      }, 
+      {
+        "description": "Read access to all Cloud Datastore resources.", 
+        "stage": "GA", 
+        "name": "roles/datastore.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Datastore Viewer"
+      }, 
+      {
+        "description": "Read and Write access to all Deployment Manager resources.", 
+        "stage": "GA", 
+        "name": "roles/deploymentmanager.editor", 
+        "etag": "AA==", 
+        "title": "Deployment Manager Editor"
+      }, 
+      {
+        "description": "Read and Write access to all Type Registry resources.", 
+        "stage": "GA", 
+        "name": "roles/deploymentmanager.typeEditor", 
+        "etag": "AA==", 
+        "title": "Deployment Manager Type Editor"
+      }, 
+      {
+        "description": "Read-only access to all Type Registry resources.", 
+        "stage": "GA", 
+        "name": "roles/deploymentmanager.typeViewer", 
+        "etag": "AA==", 
+        "title": "Deployment Manager Type Viewer"
+      }, 
+      {
+        "description": "Read-only access to all Deployment Manager resources.", 
+        "stage": "GA", 
+        "name": "roles/deploymentmanager.viewer", 
+        "etag": "AA==", 
+        "title": "Deployment Manager Viewer"
+      }, 
+      {
+        "description": "Can query for intent; read & write session properties; read & write agent properties.", 
+        "stage": "GA", 
+        "name": "roles/dialogflow.admin", 
+        "etag": "AA==", 
+        "title": "Dialogflow API Admin"
+      }, 
+      {
+        "description": "Can call all methods on sessions and conversations resources as well as their descendants.", 
+        "stage": "GA", 
+        "name": "roles/dialogflow.client", 
+        "etag": "AA==", 
+        "title": "Dialogflow API Client"
+      }, 
+      {
+        "description": "Can edit agent in Dialogflow Console", 
+        "stage": "GA", 
+        "name": "roles/dialogflow.consoleAgentEditor", 
+        "etag": "AA==", 
+        "title": "Dialogflow Console Agent Editor"
+      }, 
+      {
+        "description": "Can read agent and session properties; cannot query for intent.", 
+        "stage": "GA", 
+        "name": "roles/dialogflow.reader", 
+        "etag": "AA==", 
+        "title": "Dialogflow API Reader"
+      }, 
+      {
+        "description": "Administer DLP including jobs and templates.", 
+        "stage": "GA", 
+        "name": "roles/dlp.admin", 
+        "etag": "AA==", 
+        "title": "DLP Administrator"
+      }, 
+      {
+        "description": "Edit DLP analyze risk templates.", 
+        "stage": "GA", 
+        "name": "roles/dlp.analyzeRiskTemplatesEditor", 
+        "etag": "AA==", 
+        "title": "DLP Analyze Risk Templates Editor"
+      }, 
+      {
+        "description": "Read DLP analyze risk templates.", 
+        "stage": "GA", 
+        "name": "roles/dlp.analyzeRiskTemplatesReader", 
+        "etag": "AA==", 
+        "title": "DLP Analyze Risk Templates Reader"
+      }, 
+      {
+        "description": "Edit DLP de-identify templates.", 
+        "stage": "GA", 
+        "name": "roles/dlp.deidentifyTemplatesEditor", 
+        "etag": "AA==", 
+        "title": "DLP De-identify Templates Editor"
+      }, 
+      {
+        "description": "Read DLP de-identify templates.", 
+        "stage": "GA", 
+        "name": "roles/dlp.deidentifyTemplatesReader", 
+        "etag": "AA==", 
+        "title": "DLP De-identify Templates Reader"
+      }, 
+      {
+        "description": "Edit DLP inspect templates.", 
+        "stage": "GA", 
+        "name": "roles/dlp.inspectTemplatesEditor", 
+        "etag": "AA==", 
+        "title": "DLP Inspect Templates Editor"
+      }, 
+      {
+        "description": "Read DLP inspect templates.", 
+        "stage": "GA", 
+        "name": "roles/dlp.inspectTemplatesReader", 
+        "etag": "AA==", 
+        "title": "DLP Inspect Templates Reader"
+      }, 
+      {
+        "description": "Edit job triggers configurations.", 
+        "stage": "GA", 
+        "name": "roles/dlp.jobTriggersEditor", 
+        "etag": "AA==", 
+        "title": "DLP Job Triggers Editor"
+      }, 
+      {
+        "description": "Read job triggers.", 
+        "stage": "GA", 
+        "name": "roles/dlp.jobTriggersReader", 
+        "etag": "AA==", 
+        "title": "DLP Job Triggers Reader"
+      }, 
+      {
+        "description": "Edit and create jobs", 
+        "stage": "GA", 
+        "name": "roles/dlp.jobsEditor", 
+        "etag": "AA==", 
+        "title": "DLP Jobs Editor"
+      }, 
+      {
+        "description": "Read jobs", 
+        "stage": "GA", 
+        "name": "roles/dlp.jobsReader", 
+        "etag": "AA==", 
+        "title": "DLP Jobs Reader"
+      }, 
+      {
+        "description": "Read DLP entities, such as jobs and templates.", 
+        "stage": "GA", 
+        "name": "roles/dlp.reader", 
+        "etag": "AA==", 
+        "title": "DLP Reader"
+      }, 
+      {
+        "description": "Edit DLP stored info types.", 
+        "stage": "GA", 
+        "name": "roles/dlp.storedInfoTypesEditor", 
+        "etag": "AA==", 
+        "title": "DLP Stored InfoTypes Editor"
+      }, 
+      {
+        "description": "Read DLP stored info types.", 
+        "stage": "GA", 
+        "name": "roles/dlp.storedInfoTypesReader", 
+        "etag": "AA==", 
+        "title": "DLP Stored InfoTypes Reader"
+      }, 
+      {
+        "description": "Inspect, Redact, and De-identify Content", 
+        "stage": "GA", 
+        "name": "roles/dlp.user", 
+        "etag": "AA==", 
+        "title": "DLP User"
+      }, 
+      {
+        "description": "Allows DLP API access for DLP Scanner.", 
+        "etag": "AA==", 
+        "name": "roles/dlpscanner.serviceAgent", 
+        "title": "DLP Scanner Service Agent"
+      }, 
+      {
+        "description": "Full read-write access to DNS resources.", 
+        "stage": "GA", 
+        "name": "roles/dns.admin", 
+        "etag": "AA==", 
+        "title": "DNS Administrator"
+      }, 
+      {
+        "description": "Read-only access to DNS resources.", 
+        "stage": "GA", 
+        "name": "roles/dns.reader", 
+        "etag": "AA==", 
+        "title": "DNS Reader"
+      }, 
+      {
+        "description": "Edit access to all resources.", 
+        "stage": "GA", 
+        "name": "roles/editor", 
+        "etag": "AA==", 
+        "title": "Editor"
+      }, 
+      {
+        "description": "Full access to Endpoints Portal resources", 
+        "stage": "BETA", 
+        "name": "roles/endpoints.portalAdmin", 
+        "etag": "AA==", 
+        "title": "Endpoints Portal Admin"
+      }, 
+      {
+        "description": "Administrative access to Error Reporting.", 
+        "stage": "BETA", 
+        "name": "roles/errorreporting.admin", 
+        "etag": "AA==", 
+        "title": "Error Reporting Admin"
+      }, 
+      {
+        "description": "User access to Error Reporting. Can list all errors and update their metadata. Can delete error events.", 
+        "stage": "BETA", 
+        "name": "roles/errorreporting.user", 
+        "etag": "AA==", 
+        "title": "Error Reporting User"
+      }, 
+      {
+        "description": "Read-only access to all Error Reporting data.", 
+        "stage": "BETA", 
+        "name": "roles/errorreporting.viewer", 
+        "etag": "AA==", 
+        "title": "Error Reporting Viewer"
+      }, 
+      {
+        "description": "Can send error events to Error Reporting. Intended for service accounts.", 
+        "stage": "BETA", 
+        "name": "roles/errorreporting.writer", 
+        "etag": "AA==", 
+        "title": "Errors Writer"
+      }, 
+      {
+        "description": "Read-write access to Filestore instances and related resources.", 
+        "stage": "BETA", 
+        "name": "roles/file.editor", 
+        "etag": "AA==", 
+        "title": "Cloud Filestore Editor"
+      }, 
+      {
+        "description": "Read-only access to Filestore instances and related resources.", 
+        "stage": "BETA", 
+        "name": "roles/file.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Filestore Viewer"
+      }, 
+      {
+        "description": "Full access to Firebase products.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.admin", 
+        "etag": "AA==", 
+        "title": "Firebase Admin"
+      }, 
+      {
+        "description": "Full access to Google Analytics for Firebase.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.analyticsAdmin", 
+        "etag": "AA==", 
+        "title": "Firebase Analytics Admin"
+      }, 
+      {
+        "description": "Read access to Google Analytics for Firebase.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.analyticsViewer", 
+        "etag": "AA==", 
+        "title": "Firebase Analytics Viewer"
+      }, 
+      {
+        "description": "Full access to Firebase Develop products and Analytics.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.developAdmin", 
+        "etag": "AA==", 
+        "title": "Firebase Develop Admin"
+      }, 
+      {
+        "description": "Read access to Firebase Develop products and Analytics.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.developViewer", 
+        "etag": "AA==", 
+        "title": "Firebase Develop Viewer"
+      }, 
+      {
+        "description": "Full access to Firebase Grow products and Analytics.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.growthAdmin", 
+        "etag": "AA==", 
+        "title": "Firebase Grow Admin"
+      }, 
+      {
+        "description": "Read access to Firebase Grow products and Analytics.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.growthViewer", 
+        "etag": "AA==", 
+        "title": "Firebase Grow Viewer"
+      }, 
+      {
+        "description": "Full access to Firebase Quality products and Analytics.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.qualityAdmin", 
+        "etag": "AA==", 
+        "title": "Firebase Quality Admin"
+      }, 
+      {
+        "description": "Read access to Firebase Quality products and Analytics.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.qualityViewer", 
+        "etag": "AA==", 
+        "title": "Firebase Quality Viewer"
+      }, 
+      {
+        "description": "Read-only access to Firebase products.", 
+        "stage": "BETA", 
+        "name": "roles/firebase.viewer", 
+        "etag": "AA==", 
+        "title": "Firebase Viewer"
+      }, 
+      {
+        "description": "Full read/write access to symbol mapping file resources for Firebase Crash Reporting.", 
+        "stage": "GA", 
+        "name": "roles/firebasecrash.symbolMappingsAdmin", 
+        "etag": "AA==", 
+        "title": "Firebase Crash Symbol Uploader"
+      }, 
+      {
+        "description": "Full access to genomics datasets and operations.", 
+        "stage": "GA", 
+        "name": "roles/genomics.admin", 
+        "etag": "AA==", 
+        "title": "Genomics Admin"
+      }, 
+      {
+        "description": "Access to read and edit genomics datasets and operations.", 
+        "stage": "GA", 
+        "name": "roles/genomics.editor", 
+        "etag": "AA==", 
+        "title": "Genomics Editor"
+      }, 
+      {
+        "description": "Full access to operate on genomics pipelines.", 
+        "stage": "GA", 
+        "name": "roles/genomics.pipelinesRunner", 
+        "etag": "AA==", 
+        "title": "Genomics Pipelines Runner"
+      }, 
+      {
+        "description": "Access to view genomics datasets and operations.", 
+        "stage": "GA", 
+        "name": "roles/genomics.viewer", 
+        "etag": "AA==", 
+        "title": "Genomics Viewer"
+      }, 
+      {
+        "description": "Access to administer all custom roles in the organization and the projects below it.", 
+        "stage": "GA", 
+        "name": "roles/iam.organizationRoleAdmin", 
+        "etag": "AA==", 
+        "title": "Organization Role Administrator"
+      }, 
+      {
+        "description": "Read access to all custom roles in the organization and the projects below it.", 
+        "stage": "GA", 
+        "name": "roles/iam.organizationRoleViewer", 
+        "etag": "AA==", 
+        "title": "Organization Role Viewer"
+      }, 
+      {
+        "description": "Access to administer all custom roles in the project.", 
+        "stage": "GA", 
+        "name": "roles/iam.roleAdmin", 
+        "etag": "AA==", 
+        "title": "Role Administrator"
+      }, 
+      {
+        "description": "Read access to all custom roles in the project.", 
+        "stage": "GA", 
+        "name": "roles/iam.roleViewer", 
+        "etag": "AA==", 
+        "title": "Role Viewer"
+      }, 
+      {
+        "description": "Security reviewer role, with permissions to get any IAM policy.", 
+        "stage": "GA", 
+        "name": "roles/iam.securityReviewer", 
+        "etag": "AA==", 
+        "title": "Security Reviewer"
+      }, 
+      {
+        "description": "Create and manage service accounts.", 
+        "stage": "GA", 
+        "name": "roles/iam.serviceAccountAdmin", 
+        "etag": "AA==", 
+        "title": "Service Account Admin"
+      }, 
+      {
+        "description": "Access to create service accounts.", 
+        "stage": "GA", 
+        "name": "roles/iam.serviceAccountCreator", 
+        "etag": "AA==", 
+        "title": "Create Service Accounts"
+      }, 
+      {
+        "description": "Access to delete service accounts.", 
+        "stage": "GA", 
+        "name": "roles/iam.serviceAccountDeleter", 
+        "etag": "AA==", 
+        "title": "Delete Service Accounts"
+      }, 
+      {
+        "description": "Create and manage (and rotate) service account keys.", 
+        "stage": "GA", 
+        "name": "roles/iam.serviceAccountKeyAdmin", 
+        "etag": "AA==", 
+        "title": "Service Account Key Admin"
+      }, 
+      {
+        "description": "Impersonate service accounts (create OAuth2 access tokens, sign blobs or JWTs, etc).", 
+        "stage": "GA", 
+        "name": "roles/iam.serviceAccountTokenCreator", 
+        "etag": "AA==", 
+        "title": "Service Account Token Creator"
+      }, 
+      {
+        "description": "Run operations as the service account.", 
+        "stage": "GA", 
+        "name": "roles/iam.serviceAccountUser", 
+        "etag": "AA==", 
+        "title": "Service Account User"
+      }, 
+      {
+        "description": "Administrator of IAP Permissions", 
+        "stage": "GA", 
+        "name": "roles/iap.admin", 
+        "etag": "AA==", 
+        "title": "IAP Policy Admin"
+      }, 
+      {
+        "description": "Access HTTPS resources which use Identity-Aware Proxy", 
+        "stage": "GA", 
+        "name": "roles/iap.httpsResourceAccessor", 
+        "etag": "AA==", 
+        "title": "IAP-secured Web App User"
+      }, 
+      {
+        "description": "Access Tunnel resources which use Identity-Aware Proxy", 
+        "stage": "BETA", 
+        "name": "roles/iap.tunnelResourceAccessor", 
+        "etag": "AA==", 
+        "title": "IAP-secured Tunnel User"
+      }, 
+      {
+        "description": "Grants Cloud Indexstore access to services and APIs in the user project", 
+        "etag": "AA==", 
+        "name": "roles/indexstore.serviceAgent", 
+        "title": "Cloud Indexstore API Service Agent"
+      }, 
+      {
+        "description": "Access to all logging permissions, and dependent permissions.", 
+        "stage": "GA", 
+        "name": "roles/logging.admin", 
+        "etag": "AA==", 
+        "title": "Logging Admin"
+      }, 
+      {
+        "description": "Access to configure log exporting and metrics.", 
+        "stage": "GA", 
+        "name": "roles/logging.configWriter", 
+        "etag": "AA==", 
+        "title": "Logs Configuration Writer"
+      }, 
+      {
+        "description": "Access to write logs.", 
+        "stage": "GA", 
+        "name": "roles/logging.logWriter", 
+        "etag": "AA==", 
+        "title": "Logs Writer"
+      }, 
+      {
+        "description": "Access to view all logs, including logs with private contents.", 
+        "stage": "GA", 
+        "name": "roles/logging.privateLogViewer", 
+        "etag": "AA==", 
+        "title": "Private Logs Viewer"
+      }, 
+      {
+        "description": "Access to view logs, except for logs with private contents.", 
+        "stage": "GA", 
+        "name": "roles/logging.viewer", 
+        "etag": "AA==", 
+        "title": "Logs Viewer"
+      }, 
+      {
+        "description": "Full access to Cloud ML Engine.", 
+        "stage": "GA", 
+        "name": "roles/ml.admin", 
+        "etag": "AA==", 
+        "title": "ML Engine Admin"
+      }, 
+      {
+        "description": "Access to create training and prediction jobs, models and versions, send online prediction requests.", 
+        "stage": "GA", 
+        "name": "roles/ml.developer", 
+        "etag": "AA==", 
+        "title": "ML Engine Developer"
+      }, 
+      {
+        "description": "Full access to the job.", 
+        "stage": "GA", 
+        "name": "roles/ml.jobOwner", 
+        "etag": "AA==", 
+        "title": "ML Engine Job Owner"
+      }, 
+      {
+        "description": "Full access to the model and its versions.", 
+        "stage": "GA", 
+        "name": "roles/ml.modelOwner", 
+        "etag": "AA==", 
+        "title": "ML Engine Model Owner"
+      }, 
+      {
+        "description": "Permissions to read the model and its versions, and use them for prediction.", 
+        "stage": "GA", 
+        "name": "roles/ml.modelUser", 
+        "etag": "AA==", 
+        "title": "ML Engine Model User"
+      }, 
+      {
+        "description": "Full access to the operation.", 
+        "stage": "GA", 
+        "name": "roles/ml.operationOwner", 
+        "etag": "AA==", 
+        "title": "ML Engine Operation Owner"
+      }, 
+      {
+        "description": "Read-only access to Cloud ML Engine resources.", 
+        "stage": "GA", 
+        "name": "roles/ml.viewer", 
+        "etag": "AA==", 
+        "title": "ML Engine Viewer"
+      }, 
+      {
+        "description": "Full read/write access to symbol mapping file resources for Firebase Crash Reporting.Deprecated in favor of firebasecrash.symbolMappingsAdmin", 
+        "stage": "DEPRECATED", 
+        "name": "roles/mobilecrashreporting.symbolMappingsAdmin", 
+        "etag": "AA==", 
+        "title": "Firebase Crash Symbol Uploader (Deprecated)"
+      }, 
+      {
+        "description": "All current and future monitoring permissions.", 
+        "stage": "GA", 
+        "name": "roles/monitoring.admin", 
+        "etag": "AA==", 
+        "title": "Monitoring Admin"
+      }, 
+      {
+        "description": "Read/write access to alerting policies.", 
+        "stage": "BETA", 
+        "name": "roles/monitoring.alertPolicyEditor", 
+        "etag": "AA==", 
+        "title": "Monitoring AlertPolicy Editor"
+      }, 
+      {
+        "description": "Read-only access to alerting policies.", 
+        "stage": "BETA", 
+        "name": "roles/monitoring.alertPolicyViewer", 
+        "etag": "AA==", 
+        "title": "Monitoring AlertPolicy Viewer"
+      }, 
+      {
+        "description": "Read/write access to all monitoring data and configuration.", 
+        "stage": "GA", 
+        "name": "roles/monitoring.editor", 
+        "etag": "AA==", 
+        "title": "Monitoring Editor"
+      }, 
+      {
+        "description": "Write-only access to metrics.  This provides exactly the permissions needed by the Stackdriver agent and other systems that send metrics.", 
+        "stage": "GA", 
+        "name": "roles/monitoring.metricWriter", 
+        "etag": "AA==", 
+        "title": "Monitoring Metric Writer"
+      }, 
+      {
+        "description": "Read/write access to notification channels.", 
+        "stage": "BETA", 
+        "name": "roles/monitoring.notificationChannelEditor", 
+        "etag": "AA==", 
+        "title": "Monitoring NotificationChannel Editor"
+      }, 
+      {
+        "description": "Read-only access to notification channels.", 
+        "stage": "BETA", 
+        "name": "roles/monitoring.notificationChannelViewer", 
+        "etag": "AA==", 
+        "title": "Monitoring NotificationChannel Viewer"
+      }, 
+      {
+        "description": "Read/write access to uptime check configurations.", 
+        "stage": "BETA", 
+        "name": "roles/monitoring.uptimeCheckConfigEditor", 
+        "etag": "AA==", 
+        "title": "Monitoring Uptime Check Configuration Editor"
+      }, 
+      {
+        "description": "Read-only access to uptime check configurations.", 
+        "stage": "BETA", 
+        "name": "roles/monitoring.uptimeCheckConfigViewer", 
+        "etag": "AA==", 
+        "title": "Monitoring Uptime Check Configuration Viewer"
+      }, 
+      {
+        "description": "Read-only access to get and list information about all monitoring data and configuration.", 
+        "stage": "GA", 
+        "name": "roles/monitoring.viewer", 
+        "etag": "AA==", 
+        "title": "Monitoring Viewer"
+      }, 
+      {
+        "description": "The permission to set Organization Policies on resources.", 
+        "stage": "GA", 
+        "name": "roles/orgpolicy.policyAdmin", 
+        "etag": "AA==", 
+        "title": "Organization Policy Administrator"
+      }, 
+      {
+        "description": "Access to view Organization Policies on resources.", 
+        "stage": "GA", 
+        "name": "roles/orgpolicy.policyViewer", 
+        "etag": "AA==", 
+        "title": "Organization Policy Viewer"
+      }, 
+      {
+        "description": "Full access to all resources.", 
+        "stage": "GA", 
+        "name": "roles/owner", 
+        "etag": "AA==", 
+        "title": "Owner"
+      }, 
+      {
+        "description": "Can create and delete attachments; can list and get a project's beacons; can list a project's namespaces.", 
+        "stage": "GA", 
+        "name": "roles/proximitybeacon.attachmentEditor", 
+        "etag": "AA==", 
+        "title": "Beacon Attachment Editor"
+      }, 
+      {
+        "description": "Grants necessary permissions to use beacons to create attachments in namespaces not owned by this project.", 
+        "stage": "GA", 
+        "name": "roles/proximitybeacon.attachmentPublisher", 
+        "etag": "AA==", 
+        "title": "Beacon Attachment Publisher"
+      }, 
+      {
+        "description": "Can view all attachments under a namespace; no beacon or namespace permissions.", 
+        "stage": "GA", 
+        "name": "roles/proximitybeacon.attachmentViewer", 
+        "etag": "AA==", 
+        "title": "Beacon Attachment Viewer"
+      }, 
+      {
+        "description": "Necessary access to register, modify, and view beacons; no attachment or namespace permissions.", 
+        "stage": "GA", 
+        "name": "roles/proximitybeacon.beaconEditor", 
+        "etag": "AA==", 
+        "title": "Beacon Editor"
+      }, 
+      {
+        "description": "Full access to topics, subscriptions, and snapshots.", 
+        "stage": "GA", 
+        "name": "roles/pubsub.admin", 
+        "etag": "AA==", 
+        "title": "Pub/Sub Admin"
+      }, 
+      {
+        "description": "Modify topics and subscriptions, publish and consume messages.", 
+        "stage": "GA", 
+        "name": "roles/pubsub.editor", 
+        "etag": "AA==", 
+        "title": "Pub/Sub Editor"
+      }, 
+      {
+        "description": "Publish messages to a topic.", 
+        "stage": "GA", 
+        "name": "roles/pubsub.publisher", 
+        "etag": "AA==", 
+        "title": "Pub/Sub Publisher"
+      }, 
+      {
+        "description": "Consume messages from a subscription, attach subscriptions to a topic, and seek to a snapshot.", 
+        "stage": "GA", 
+        "name": "roles/pubsub.subscriber", 
+        "etag": "AA==", 
+        "title": "Pub/Sub Subscriber"
+      }, 
+      {
+        "description": "View topics, subscriptions, and snapshots.", 
+        "stage": "GA", 
+        "name": "roles/pubsub.viewer", 
+        "etag": "AA==", 
+        "title": "Pub/Sub Viewer"
+      }, 
+      {
+        "description": "Full access to Redis instances and related resources.", 
+        "stage": "BETA", 
+        "name": "roles/redis.admin", 
+        "etag": "AA==", 
+        "title": "Cloud Memorystore Redis Admin"
+      }, 
+      {
+        "description": "Read-Write access to Redis instances and related resources.", 
+        "stage": "BETA", 
+        "name": "roles/redis.editor", 
+        "etag": "AA==", 
+        "title": "Cloud Memorystore Redis Editor"
+      }, 
+      {
+        "description": "Read-only access to Redis instances and related resources.", 
+        "stage": "BETA", 
+        "name": "roles/redis.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Memorystore Redis Viewer"
+      }, 
+      {
+        "description": "Access and administer a folder and all of its sub-resources.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.folderAdmin", 
+        "etag": "AA==", 
+        "title": "Folder Admin"
+      }, 
+      {
+        "description": "Create folder and view all of its sub-resources.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.folderCreator", 
+        "etag": "AA==", 
+        "title": "Folder Creator"
+      }, 
+      {
+        "description": "Edit, delete, and undelete a folder and all of its child resources.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.folderEditor", 
+        "etag": "AA==", 
+        "title": "Folder Editor"
+      }, 
+      {
+        "description": "Access and administer a folder IAM policies.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.folderIamAdmin", 
+        "etag": "AA==", 
+        "title": "Folder IAM Admin"
+      }, 
+      {
+        "description": "Move a folder and all of its child resources.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.folderMover", 
+        "etag": "AA==", 
+        "title": "Folder Mover"
+      }, 
+      {
+        "description": "Access to view a folder and all of its child resources.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.folderViewer", 
+        "etag": "AA==", 
+        "title": "Folder Viewer"
+      }, 
+      {
+        "description": "Access to modify Liens on projects.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.lienModifier", 
+        "etag": "AA==", 
+        "title": "Project Lien Modifier"
+      }, 
+      {
+        "description": "Access to administer all resources belonging to the organization.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.organizationAdmin", 
+        "etag": "AA==", 
+        "title": "Organization Administrator"
+      }, 
+      {
+        "description": "Access to create and list organizations.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.organizationCreator", 
+        "etag": "AA==", 
+        "title": "Organization Creator"
+      }, 
+      {
+        "description": "Access only to view an Organization.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.organizationViewer", 
+        "etag": "AA==", 
+        "title": "Organization Viewer"
+      }, 
+      {
+        "description": "Access to create new GCP projects.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.projectCreator", 
+        "etag": "AA==", 
+        "title": "Project Creator"
+      }, 
+      {
+        "description": "Access to delete GCP projects.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.projectDeleter", 
+        "etag": "AA==", 
+        "title": "Project Deleter"
+      }, 
+      {
+        "description": "Access and administer a project IAM policies.", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.projectIamAdmin", 
+        "etag": "AA==", 
+        "title": "Project IAM Admin"
+      }, 
+      {
+        "description": "Access to update and move a project", 
+        "stage": "GA", 
+        "name": "roles/resourcemanager.projectMover", 
+        "etag": "AA==", 
+        "title": "Project Mover"
+      }, 
+      {
+        "description": "Full access to RuntimeConfig resources.", 
+        "stage": "GA", 
+        "name": "roles/runtimeconfig.admin", 
+        "etag": "AA==", 
+        "title": "Cloud RuntimeConfig Admin"
+      }, 
+      {
+        "description": "Admin(super user) access to security center", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.admin", 
+        "etag": "AA==", 
+        "title": "Security Center Admin"
+      }, 
+      {
+        "description": "Admin Read-write access to security center", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.adminEditor", 
+        "etag": "AA==", 
+        "title": "Security Center Admin Editor"
+      }, 
+      {
+        "description": "Admin Read access to security center", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.adminViewer", 
+        "etag": "AA==", 
+        "title": "Security Center Admin Viewer"
+      }, 
+      {
+        "description": "Write access to asset security marks", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.assetSecurityMarksWriter", 
+        "etag": "AA==", 
+        "title": "Security Center Asset Security Marks Writer"
+      }, 
+      {
+        "description": "Run asset discovery access to assets", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.assetsDiscoveryRunner", 
+        "etag": "AA==", 
+        "title": "Security Center Assets Discovery Runner"
+      }, 
+      {
+        "description": "Read access to assets", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.assetsViewer", 
+        "etag": "AA==", 
+        "title": "Security Center Assets Viewer"
+      }, 
+      {
+        "description": "Read-write access to assets, configs, notification streams, and marks, readonly access to scans", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.editor", 
+        "etag": "AA==", 
+        "title": "Security Center Editor"
+      }, 
+      {
+        "description": "Write access to finding security marks", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.findingSecurityMarksWriter", 
+        "etag": "AA==", 
+        "title": "Security Center Finding Security Marks Writer"
+      }, 
+      {
+        "description": "Read-write access to findings", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.findingsEditor", 
+        "etag": "AA==", 
+        "title": "Security Center Findings Editor"
+      }, 
+      {
+        "description": "Set state access to findings", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.findingsStateSetter", 
+        "etag": "AA==", 
+        "title": "Security Center Findings State Setter"
+      }, 
+      {
+        "description": "Read access to findings", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.findingsViewer", 
+        "etag": "AA==", 
+        "title": "Security Center Findings Viewer"
+      }, 
+      {
+        "description": "Admin access to sources", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.sourcesAdmin", 
+        "etag": "AA==", 
+        "title": "Security Center Sources Admin"
+      }, 
+      {
+        "description": "Read-write access to sources", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.sourcesEditor", 
+        "etag": "AA==", 
+        "title": "Security Center Sources Editor"
+      }, 
+      {
+        "description": "Read access to sources", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.sourcesViewer", 
+        "etag": "AA==", 
+        "title": "Security Center Sources Viewer"
+      }, 
+      {
+        "description": "Read access to assets, configs, notification streams, scans, and marks", 
+        "stage": "BETA", 
+        "name": "roles/securitycenter.viewer", 
+        "etag": "AA==", 
+        "title": "Security Center Viewer"
+      }, 
+      {
+        "description": "Full access to ServiceBroker resources.", 
+        "stage": "BETA", 
+        "name": "roles/servicebroker.admin", 
+        "etag": "AA==", 
+        "title": "Service Broker Admin"
+      }, 
+      {
+        "description": "Operational access to the ServiceBroker resources.", 
+        "stage": "BETA", 
+        "name": "roles/servicebroker.operator", 
+        "etag": "AA==", 
+        "title": "Service Broker Operator"
+      }, 
+      {
+        "description": "Administrate tenancy units", 
+        "stage": "BETA", 
+        "name": "roles/serviceconsumermanagement.tenancyUnitsAdmin", 
+        "etag": "AA==", 
+        "title": "Admin of Tenancy Units"
+      }, 
+      {
+        "description": "View tenancy units", 
+        "stage": "BETA", 
+        "name": "roles/serviceconsumermanagement.tenancyUnitsViewer", 
+        "etag": "AA==", 
+        "title": "Viewer of Tenancy Units"
+      }, 
+      {
+        "description": "Full control of Google Service Management resources.", 
+        "stage": "GA", 
+        "name": "roles/servicemanagement.admin", 
+        "etag": "AA==", 
+        "title": "Service Management Administrator"
+      }, 
+      {
+        "description": "Access to update the service config and create rollouts.", 
+        "stage": "GA", 
+        "name": "roles/servicemanagement.configEditor", 
+        "etag": "AA==", 
+        "title": "Service Config Editor"
+      }, 
+      {
+        "description": "Access to administer service quotas.", 
+        "stage": "BETA", 
+        "name": "roles/servicemanagement.quotaAdmin", 
+        "etag": "AA==", 
+        "title": "Quota Administrator"
+      }, 
+      {
+        "description": "Access to view service quotas.", 
+        "stage": "BETA", 
+        "name": "roles/servicemanagement.quotaViewer", 
+        "etag": "AA==", 
+        "title": "Quota Viewer"
+      }, 
+      {
+        "description": "Can enable the service.", 
+        "stage": "GA", 
+        "name": "roles/servicemanagement.serviceConsumer", 
+        "etag": "AA==", 
+        "title": "Service Consumer"
+      }, 
+      {
+        "description": "Can check preconditions and report usage of a service during runtime.", 
+        "stage": "GA", 
+        "name": "roles/servicemanagement.serviceController", 
+        "etag": "AA==", 
+        "title": "Service Controller"
+      }, 
+      {
+        "description": "Full control of service networking with projects.", 
+        "stage": "BETA", 
+        "name": "roles/servicenetworking.networksAdmin", 
+        "etag": "AA==", 
+        "title": "Service Networking Admin"
+      }, 
+      {
+        "description": "Ability to create, delete, update, get and list API keys for a project.", 
+        "stage": "BETA", 
+        "name": "roles/serviceusage.apiKeysAdmin", 
+        "etag": "AA==", 
+        "title": "API Keys Admin"
+      }, 
+      {
+        "description": "Ability to get and list API keys for a project.", 
+        "stage": "BETA", 
+        "name": "roles/serviceusage.apiKeysViewer", 
+        "etag": "AA==", 
+        "title": "API Keys Viewer"
+      }, 
+      {
+        "description": "Ability to enable, disable, and inspect service states, inspect operations, and consume quota and billing for a consumer project.", 
+        "stage": "BETA", 
+        "name": "roles/serviceusage.serviceUsageAdmin", 
+        "etag": "AA==", 
+        "title": "Service Usage Admin"
+      }, 
+      {
+        "description": "Ability to inspect service states and operations, and consume quota and billing for a consumer project.", 
+        "stage": "BETA", 
+        "name": "roles/serviceusage.serviceUsageConsumer", 
+        "etag": "AA==", 
+        "title": "Service Usage Consumer"
+      }, 
+      {
+        "description": "Ability to inspect service states and operations for a consumer project.", 
+        "stage": "BETA", 
+        "name": "roles/serviceusage.serviceUsageViewer", 
+        "etag": "AA==", 
+        "title": "Service Usage Viewer"
+      }, 
+      {
+        "description": "Admin access to repositories", 
+        "stage": "GA", 
+        "name": "roles/source.admin", 
+        "etag": "AA==", 
+        "title": "Source Repository Administrator"
+      }, 
+      {
+        "description": "Read access to repositories", 
+        "stage": "GA", 
+        "name": "roles/source.reader", 
+        "etag": "AA==", 
+        "title": "Source Repository Reader"
+      }, 
+      {
+        "description": "Read / Write access to repositories", 
+        "stage": "GA", 
+        "name": "roles/source.writer", 
+        "etag": "AA==", 
+        "title": "Source Repository Writer"
+      }, 
+      {
+        "description": "Full control of Cloud Spanner resources.", 
+        "stage": "GA", 
+        "name": "roles/spanner.admin", 
+        "etag": "AA==", 
+        "title": "Cloud Spanner Admin"
+      }, 
+      {
+        "description": "Full control of Cloud Spanner databases.", 
+        "stage": "GA", 
+        "name": "roles/spanner.databaseAdmin", 
+        "etag": "AA==", 
+        "title": "Cloud Spanner Database Admin"
+      }, 
+      {
+        "description": "Access to read and/or query a Cloud Spanner database.", 
+        "stage": "GA", 
+        "name": "roles/spanner.databaseReader", 
+        "etag": "AA==", 
+        "title": "Cloud Spanner Database Reader"
+      }, 
+      {
+        "description": "Access to read, query, write and view and change the schema of Cloud Spanner databases", 
+        "stage": "GA", 
+        "name": "roles/spanner.databaseUser", 
+        "etag": "AA==", 
+        "title": "Cloud Spanner Database User"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "65925", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://iam.googleapis.com/v1/roles?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Tue, 12 Mar 2019 12:13:17 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

@@ -56,3 +56,20 @@ class ServiceAccount(QueryResourceManager):
                     'name': 'projects/{}/serviceAccounts/{}'.format(
                         resource_info['project_id'],
                         resource_info['email_id'])})
+
+@resources.register('role')
+class Role(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'iam'
+        version = 'v1'
+        component = 'roles'
+        enum_spec = ('list', 'roles[]', None)
+        scope = "global"
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {
+                    'name': 'roles/{}'.format(
+                        resource_info['name'])})

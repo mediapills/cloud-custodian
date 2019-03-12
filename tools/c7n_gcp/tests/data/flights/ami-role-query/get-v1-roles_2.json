@@ -1,0 +1,173 @@
+{
+  "body": {
+    "roles": [
+      {
+        "description": "Viewer access to Cloud Spanner resources.", 
+        "stage": "GA", 
+        "name": "roles/spanner.viewer", 
+        "etag": "AA==", 
+        "title": "Cloud Spanner Viewer"
+      }, 
+      {
+        "description": "Read/write access to manage Stackdriver account structure.", 
+        "stage": "GA", 
+        "name": "roles/stackdriver.accounts.editor", 
+        "etag": "AA==", 
+        "title": "Stackdriver Accounts Editor"
+      }, 
+      {
+        "description": "Read-only access to get and list information about Stackdriver account structure.", 
+        "stage": "GA", 
+        "name": "roles/stackdriver.accounts.viewer", 
+        "etag": "AA==", 
+        "title": "Stackdriver Accounts Viewer"
+      }, 
+      {
+        "description": "Read/write access to manage Stackdriver resource maintenance windows.", 
+        "stage": "GA", 
+        "name": "roles/stackdriver.resourceMaintenanceWindow.editor", 
+        "etag": "AA==", 
+        "title": "Stackdriver Resource Maintenance Window Editor"
+      }, 
+      {
+        "description": "Read-only access to information about Stackdriver resource maintenance windows.", 
+        "stage": "GA", 
+        "name": "roles/stackdriver.resourceMaintenanceWindow.viewer", 
+        "etag": "AA==", 
+        "title": "Stackdriver Resource Maintenance Window Viewer"
+      }, 
+      {
+        "description": "Write-only access to resource metadata.  This provides exactly the permissions needed by the Stackdriver metadata agent and other systems that send metadata.", 
+        "stage": "BETA", 
+        "name": "roles/stackdriver.resourceMetadata.writer", 
+        "etag": "AA==", 
+        "title": "Stackdriver Resource Metadata Writer"
+      }, 
+      {
+        "description": "Full control of GCS resources.", 
+        "stage": "GA", 
+        "name": "roles/storage.admin", 
+        "etag": "AA==", 
+        "title": "Storage Admin"
+      }, 
+      {
+        "description": "Read and write access to existing buckets with object listing/creation/deletion.", 
+        "stage": "GA", 
+        "name": "roles/storage.legacyBucketOwner", 
+        "etag": "AA==", 
+        "title": "Storage Legacy Bucket Owner"
+      }, 
+      {
+        "description": "Read access to buckets with object listing.", 
+        "stage": "GA", 
+        "name": "roles/storage.legacyBucketReader", 
+        "etag": "AA==", 
+        "title": "Storage Legacy Bucket Reader"
+      }, 
+      {
+        "description": "Read access to buckets with object listing/creation/deletion.", 
+        "stage": "GA", 
+        "name": "roles/storage.legacyBucketWriter", 
+        "etag": "AA==", 
+        "title": "Storage Legacy Bucket Writer"
+      }, 
+      {
+        "description": "Read/write access to existing objects without listing.", 
+        "stage": "GA", 
+        "name": "roles/storage.legacyObjectOwner", 
+        "etag": "AA==", 
+        "title": "Storage Legacy Object Owner"
+      }, 
+      {
+        "description": "Read access to objects without listing.", 
+        "stage": "GA", 
+        "name": "roles/storage.legacyObjectReader", 
+        "etag": "AA==", 
+        "title": "Storage Legacy Object Reader"
+      }, 
+      {
+        "description": "Full control of GCS objects.", 
+        "stage": "GA", 
+        "name": "roles/storage.objectAdmin", 
+        "etag": "AA==", 
+        "title": "Storage Object Admin"
+      }, 
+      {
+        "description": "Access to create objects in GCS.", 
+        "stage": "GA", 
+        "name": "roles/storage.objectCreator", 
+        "etag": "AA==", 
+        "title": "Storage Object Creator"
+      }, 
+      {
+        "description": "Read access to GCS objects.", 
+        "stage": "GA", 
+        "name": "roles/storage.objectViewer", 
+        "etag": "AA==", 
+        "title": "Storage Object Viewer"
+      }, 
+      {
+        "description": "Create, update and manage transfer jobs and operations.", 
+        "etag": "AA==", 
+        "name": "roles/storagetransfer.admin", 
+        "title": "Storage Transfer Admin"
+      }, 
+      {
+        "description": "Create and update storage transfer jobs and operations.", 
+        "etag": "AA==", 
+        "name": "roles/storagetransfer.user", 
+        "title": "Storage Transfer User"
+      }, 
+      {
+        "description": "Read access to storage transfer jobs and operations.", 
+        "etag": "AA==", 
+        "name": "roles/storagetransfer.viewer", 
+        "title": "Storage Transfer Viewer"
+      }, 
+      {
+        "description": "Access DevTools for Subscribe with Google", 
+        "stage": "BETA", 
+        "name": "roles/subscribewithgoogledeveloper.developer", 
+        "etag": "AA==", 
+        "title": "Subscribe with Google Developer"
+      }, 
+      {
+        "description": "Full access to TPU nodes and related resources.", 
+        "stage": "GA", 
+        "name": "roles/tpu.admin", 
+        "etag": "AA==", 
+        "title": "TPU Admin"
+      }, 
+      {
+        "description": "Read-only access to TPU nodes and related resources.", 
+        "stage": "GA", 
+        "name": "roles/tpu.viewer", 
+        "etag": "AA==", 
+        "title": "TPU Viewer"
+      }, 
+      {
+        "description": "Read access to all resources.", 
+        "stage": "GA", 
+        "name": "roles/viewer", 
+        "etag": "AA==", 
+        "title": "Viewer"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "4933", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://iam.googleapis.com/v1/roles?pageToken=CgoHBYPknTvNnyABEIyKi_uerIqzbBisAiIcL3Jvb3RzL0dPT0dMRS9zcGFubmVyLnZpZXdlcg&alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Tue, 12 Mar 2019 12:13:18 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
