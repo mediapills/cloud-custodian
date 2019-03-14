@@ -408,3 +408,33 @@ class LoadBalancingTargetInstanceTest(BaseTest):
              'name': 'new-target-instance'})
         self.assertEqual(instance['kind'], 'compute#targetInstance')
         self.assertEqual(instance['name'], 'new-target-instance')
+
+
+class LoadBalancingTargetPoolTest(BaseTest):
+
+    def test_loadbalancing_target_pool_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('lb-target-pools-query',
+                                          project_id=project_id)
+        p = self.load_policy(
+            {'name': 'all-lb-target-pools',
+             'resource': 'gcp.loadbalancing-target-pool'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['kind'], 'compute#targetPool')
+        self.assertEqual(resources[0]['name'], 'new-target-pool')
+
+    def test_loadbalancing_target_pool_get(self):
+        region = '/compute/v1/projects/cloud-custodian/zones/us-central1'
+        factory = self.replay_flight_data('lb-target-pools-get')
+        p = self.load_policy(
+            {'name': 'one-lb-target-pools',
+             'resource': 'gcp.loadbalancing-target-pool'},
+            session_factory=factory)
+        instance = p.resource_manager.get_resource(
+            {'project_id': 'cloud-custodian',
+             'region': region,
+             'name': 'new-target-pool'})
+        self.assertEqual(instance['kind'], 'compute#targetPool')
+        self.assertEqual(instance['name'], 'new-target-pool')

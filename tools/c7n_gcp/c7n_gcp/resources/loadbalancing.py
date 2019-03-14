@@ -270,3 +270,21 @@ class LoadBalancingTargetInstance(QueryResourceManager):
                 'zone': resource_info['zone'].rsplit('/', 1)[-1],
                 'targetInstance': resource_info['name']})
 
+
+@resources.register('loadbalancing-target-pool')
+class LoadBalancingTargetPool(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'targetPools'
+        enum_spec = ('aggregatedList', 'items.*.targetPools[]', None)
+        scope = 'project'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'region': resource_info['region'].rsplit('/', 1)[-1],
+                'targetPool': resource_info['name']})
