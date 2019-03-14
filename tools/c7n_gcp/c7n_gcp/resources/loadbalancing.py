@@ -225,9 +225,28 @@ class LoadBalancingTargetHttpProxy(QueryResourceManager):
         component = 'targetHttpProxies'
         enum_spec = ('list', 'items[]', None)
         scope = 'project'
+        id = 'name'
 
         @staticmethod
         def get(client, resource_info):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
                 'targetHttpProxy': resource_info['name']})
+
+
+@resources.register('loadbalancing-backend-service')
+class LoadBalancingBackendService(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'backendServices'
+        enum_spec = ('aggregatedList', 'items.*.backendServices[]', None)
+        scope = 'project'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'backendService': resource_info['name']})

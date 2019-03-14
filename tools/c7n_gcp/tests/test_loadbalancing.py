@@ -350,3 +350,31 @@ class LoadBalancingTargetHttpProxyTest(BaseTest):
              'name': 'new-proxy'})
         self.assertEqual(instance['kind'], 'compute#targetHttpProxy')
         self.assertEqual(instance['name'], 'new-proxy')
+
+
+class LoadBalancingBackendServiceTest(BaseTest):
+
+    def test_loadbalancing_backend_service_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('lb-backend-services-query',
+                                          project_id=project_id)
+        p = self.load_policy(
+            {'name': 'all-lb-backend-services',
+             'resource': 'gcp.loadbalancing-backend-service'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['kind'], 'compute#backendService')
+        self.assertEqual(resources[0]['name'], 'new-backend-service')
+
+    def test_loadbalancing_backend_service_get(self):
+        factory = self.replay_flight_data('lb-backend-services-get')
+        p = self.load_policy(
+            {'name': 'one-lb-backend-services',
+             'resource': 'gcp.loadbalancing-backend-service'},
+            session_factory=factory)
+        instance = p.resource_manager.get_resource(
+            {'project_id': 'cloud-custodian',
+             'name': 'new-backend-service'})
+        self.assertEqual(instance['kind'], 'compute#backendService')
+        self.assertEqual(instance['name'], 'new-backend-service')
