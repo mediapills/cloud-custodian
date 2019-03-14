@@ -214,3 +214,20 @@ class LoadBalancingHealthCheck(QueryResourceManager):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
                 'healthCheck': resource_info['name']})
+
+
+@resources.register('loadbalancing-target-http-proxy')
+class LoadBalancingTargetHttpProxy(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'targetHttpProxies'
+        enum_spec = ('list', 'items[]', None)
+        scope = 'project'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'targetHttpProxy': resource_info['name']})

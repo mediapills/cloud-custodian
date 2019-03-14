@@ -322,3 +322,31 @@ class LoadBalancingHealthCheckTest(BaseTest):
              'name': 'new-tcp-health-check'})
         self.assertEqual(instance['kind'], 'compute#healthCheck')
         self.assertEqual(instance['name'], 'new-tcp-health-check')
+
+
+class LoadBalancingTargetHttpProxyTest(BaseTest):
+
+    def test_loadbalancing_target_http_proxy_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('lb-target-http-proxies-query',
+                                          project_id=project_id)
+        p = self.load_policy(
+            {'name': 'all-lb-target-http-proxies',
+             'resource': 'gcp.loadbalancing-target-http-proxy'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['kind'], 'compute#targetHttpProxy')
+        self.assertEqual(resources[0]['name'], 'new-proxy')
+
+    def test_loadbalancing_target_http_proxy_get(self):
+        factory = self.replay_flight_data('lb-target-http-proxies-get')
+        p = self.load_policy(
+            {'name': 'one-lb-target-http-proxies',
+             'resource': 'gcp.loadbalancing-target-http-proxy'},
+            session_factory=factory)
+        instance = p.resource_manager.get_resource(
+            {'project_id': 'cloud-custodian',
+             'name': 'new-proxy'})
+        self.assertEqual(instance['kind'], 'compute#targetHttpProxy')
+        self.assertEqual(instance['name'], 'new-proxy')
