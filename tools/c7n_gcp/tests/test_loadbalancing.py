@@ -378,3 +378,33 @@ class LoadBalancingBackendServiceTest(BaseTest):
              'name': 'new-backend-service'})
         self.assertEqual(instance['kind'], 'compute#backendService')
         self.assertEqual(instance['name'], 'new-backend-service')
+
+
+class LoadBalancingTargetInstanceTest(BaseTest):
+
+    def test_loadbalancing_target_instance_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('lb-target-instances-query',
+                                          project_id=project_id)
+        p = self.load_policy(
+            {'name': 'all-lb-target-instances',
+             'resource': 'gcp.loadbalancing-target-instance'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['kind'], 'compute#targetInstance')
+        self.assertEqual(resources[0]['name'], 'new-target-instance')
+
+    def test_loadbalancing_target_instance_get(self):
+        zone = '/compute/v1/projects/cloud-custodian/zones/us-central1-a'
+        factory = self.replay_flight_data('lb-target-instances-get')
+        p = self.load_policy(
+            {'name': 'one-lb-target-instances',
+             'resource': 'gcp.loadbalancing-target-instance'},
+            session_factory=factory)
+        instance = p.resource_manager.get_resource(
+            {'project_id': 'cloud-custodian',
+             'zone': zone,
+             'name': 'new-target-instance'})
+        self.assertEqual(instance['kind'], 'compute#targetInstance')
+        self.assertEqual(instance['name'], 'new-target-instance')

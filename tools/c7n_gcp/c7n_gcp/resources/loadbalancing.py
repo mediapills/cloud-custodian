@@ -250,3 +250,23 @@ class LoadBalancingBackendService(QueryResourceManager):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
                 'backendService': resource_info['name']})
+
+
+@resources.register('loadbalancing-target-instance')
+class LoadBalancingTargetInstance(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'targetInstances'
+        enum_spec = ('aggregatedList', 'items.*.targetInstances[]', None)
+        scope = 'project'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'zone': resource_info['zone'].rsplit('/', 1)[-1],
+                'targetInstance': resource_info['name']})
+
