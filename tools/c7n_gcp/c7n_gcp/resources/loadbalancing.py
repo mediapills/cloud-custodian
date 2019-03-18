@@ -288,3 +288,22 @@ class LoadBalancingTargetPool(QueryResourceManager):
                 'project': resource_info['project_id'],
                 'region': resource_info['region'].rsplit('/', 1)[-1],
                 'targetPool': resource_info['name']})
+
+
+@resources.register('loadbalancing-forwarding-rule')
+class LoadBalancingForwardingRule(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'forwardingRules'
+        enum_spec = ('aggregatedList', 'items.*.forwardingRules[]', None)
+        scope = 'project'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'region': resource_info['region'].rsplit('/', 1)[-1],
+                'forwardingRule': resource_info['name']})

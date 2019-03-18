@@ -438,3 +438,33 @@ class LoadBalancingTargetPoolTest(BaseTest):
              'name': 'new-target-pool'})
         self.assertEqual(instance['kind'], 'compute#targetPool')
         self.assertEqual(instance['name'], 'new-target-pool')
+
+
+class LoadBalancingForwardingRuleTest(BaseTest):
+
+    def test_loadbalancing_forwarding_rule_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('lb-forwarding-rules-query',
+                                          project_id=project_id)
+        p = self.load_policy(
+            {'name': 'all-lb-forwarding-rules',
+             'resource': 'gcp.loadbalancing-forwarding-rule'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['kind'], 'compute#forwardingRule')
+        self.assertEqual(resources[0]['name'], 'new-fe')
+
+    def test_loadbalancing_forwarding_rule_get(self):
+        region = '/compute/v1/projects/cloud-custodian/zones/us-central1'
+        factory = self.replay_flight_data('lb-forwarding-rules-get')
+        p = self.load_policy(
+            {'name': 'one-lb-forwarding-rules',
+             'resource': 'gcp.loadbalancing-forwarding-rule'},
+            session_factory=factory)
+        instance = p.resource_manager.get_resource(
+            {'project_id': 'cloud-custodian',
+             'region': region,
+             'name': 'new-fe'})
+        self.assertEqual(instance['kind'], 'compute#forwardingRule')
+        self.assertEqual(instance['name'], 'new-fe')
