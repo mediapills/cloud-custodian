@@ -498,3 +498,33 @@ class LoadBalancingGlobalForwardingRuleTest(BaseTest):
              'name': 'new-global-frontend'})
         self.assertEqual(instance['kind'], 'compute#forwardingRule')
         self.assertEqual(instance['name'], 'new-global-frontend')
+
+
+class LoadBalancingGlobalAddressTest(BaseTest):
+
+    def test_loadbalancing_global_address_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('lb-global-addresses-query',
+                                          project_id=project_id)
+        p = self.load_policy(
+            {'name': 'all-lb-global-addresses',
+             'resource': 'gcp.loadbalancing-global-address'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['kind'], 'compute#address')
+        self.assertEqual(resources[0]['name'], 'new-global-address')
+
+    def test_loadbalancing_global_address_get(self):
+        region = '/compute/v1/projects/cloud-custodian/zones/us-central1'
+        factory = self.replay_flight_data('lb-global-addresses-get')
+        p = self.load_policy(
+            {'name': 'one-lb-global-addresses',
+             'resource': 'gcp.loadbalancing-global-address'},
+            session_factory=factory)
+        instance = p.resource_manager.get_resource(
+            {'project_id': 'cloud-custodian',
+             'region': region,
+             'name': 'new-global-address'})
+        self.assertEqual(instance['kind'], 'compute#address')
+        self.assertEqual(instance['name'], 'new-global-address')
