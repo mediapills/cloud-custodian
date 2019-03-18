@@ -307,3 +307,21 @@ class LoadBalancingForwardingRule(QueryResourceManager):
                 'project': resource_info['project_id'],
                 'region': resource_info['region'].rsplit('/', 1)[-1],
                 'forwardingRule': resource_info['name']})
+
+
+@resources.register('loadbalancing-global-forwarding-rule')
+class LoadBalancingGlobalForwardingRule(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'globalForwardingRules'
+        enum_spec = ('list', 'items[]', None)
+        scope = 'project'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'forwardingRule': resource_info['name']})
