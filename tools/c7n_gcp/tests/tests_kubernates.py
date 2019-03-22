@@ -19,13 +19,13 @@ from googleapiclient.errors import HttpError
 
 class KubernatesTest(BaseTest):
 
-    def test_locations_query(self):
+    def test_locations_cluster_query(self):
         project_id = "mythic-tribute-232915"
 
-        factory = self.replay_flight_data('kubernetes-project-location-query', project_id)
+        factory = self.replay_flight_data('kubernetes-project-location-cluster-query', project_id)
         p = self.load_policy(
-            {'name': 'all-kubernetes-project-location',
-             'resource': 'gcp.kubernetes-project-location'},
+            {'name': 'all-kubernetes-project-location-cluster',
+             'resource': 'gcp.kubernetes-project-location-cluster'},
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
@@ -33,14 +33,14 @@ class KubernatesTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'standard-cluster-1')
         self.assertIn('us-central1-a', resources[0]['locations'])
 
-    def test_locations_get(self):
+    def test_locations_cluster_get(self):
         project_id = "mythic-tribute-232915"
         name = "standard-cluster-1"
-        factory = self.replay_flight_data('kubernetes-project-location-get', project_id)
+        factory = self.replay_flight_data('kubernetes-project-location-cluster-get', project_id)
 
         p = self.load_policy(
-            {'name': 'one-kubernetes-project-location',
-             'resource': 'gcp.kubernetes-project-location'},
+            {'name': 'one-kubernetes-project-location-cluster',
+             'resource': 'gcp.kubernetes-project-location-cluster'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
             {"project_id": project_id,
@@ -51,3 +51,37 @@ class KubernatesTest(BaseTest):
         self.assertEqual(instance['status'], 'RUNNING')
         self.assertIn('us-central1-a', instance['locations'])
 
+
+# TODO: do we need to test list action exception
+
+    def test_zones_get(self):
+        project_id = "mythic-tribute-232915"
+        zone = "us-central1-a"
+        factory = self.replay_flight_data('kubernetes-project-zone-get', project_id)
+
+        p = self.load_policy(
+            {'name': 'one-kubernetes-project-zone',
+             'resource': 'gcp.kubernetes-project-zone'},
+            session_factory=factory)
+        instance = p.resource_manager.get_resource(
+            {"project_id": project_id,
+             "zone": zone})
+
+        self.assertIn('1.11.7-gke.4', instance['defaultClusterVersion'])
+        self.assertIn("COS", instance["defaultImageType"])
+
+    def test_locations_get(self):
+        project_id = "mythic-tribute-232915"
+        location = "us-central1-a"
+        factory = self.replay_flight_data('kubernetes-project-location-get', project_id)
+
+        p = self.load_policy(
+            {'name': 'one-kubernetes-project-location',
+             'resource': 'gcp.kubernetes-project-location'},
+            session_factory=factory)
+        instance = p.resource_manager.get_resource(
+            {"project_id": project_id,
+             "location": location})
+
+        self.assertIn('1.11.7-gke.4', instance['defaultClusterVersion'])
+        self.assertIn("COS", instance["defaultImageType"])

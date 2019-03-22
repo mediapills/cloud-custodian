@@ -16,8 +16,8 @@ from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 
-@resources.register('kubernetes-project-location')
-class KubernatesProjectLocation(QueryResourceManager):
+@resources.register('kubernetes-project-location-cluster')
+class KubernatesProjectLocationCluster(QueryResourceManager):
 
     class resource_type(TypeInfo):
         service = 'container'
@@ -36,3 +36,42 @@ class KubernatesProjectLocation(QueryResourceManager):
                         resource_info['project_id'],
                         resource_info['location'],
                         resource_info['cluster'])})
+
+
+@resources.register('kubernetes-project-zone')
+class KubernatesProjectZones(QueryResourceManager):
+
+    def resources(self, query=None):
+        raise NotImplementedError('Action list not implemented for resource projects.zones')
+
+    class resource_type(TypeInfo):
+        service = 'container'
+        version = 'v1'
+        component = 'projects.zones'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_query(
+                'getServerconfig', verb_arguments={
+                    'projectId': resource_info['project_id'],
+                    'zone': resource_info['zone']})
+
+
+@resources.register('kubernetes-project-location')
+class KubernatesProjectLocation(QueryResourceManager):
+
+    def resources(self, query=None):
+        raise NotImplementedError('Action list not implemented for resource projects.locations')
+
+    class resource_type(TypeInfo):
+        service = 'container'
+        version = 'v1'
+        component = 'projects.locations'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_query(
+                'getServerConfig', verb_arguments={
+                    'name': 'projects/{}/locations/{}'.format(
+                        resource_info['project_id'],
+                        resource_info['location'])})
