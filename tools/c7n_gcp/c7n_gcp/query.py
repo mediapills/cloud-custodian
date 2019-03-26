@@ -54,6 +54,10 @@ class ResourceQuery(object):
             if session.get_default_zone():
                 params['zone'] = session.get_default_zone()
 
+        if m.scope in ('billing_account', 'organization', 'folder'):
+            data = resource_manager.data
+            params[m.scope_key] = m.scope_template.format(data[m.type_field])
+
         enum_op, path, extra_args = m.enum_spec
         if extra_args:
             params.update(extra_args)
@@ -199,6 +203,10 @@ class TypeInfo(object):
     get = None
     # for get methods that require the full event payload
     get_requires_event = False
+
+    @staticmethod
+    def extended_policy(schema):
+        return schema
 
 
 ERROR_REASON = jmespath.compile('error.errors[0].reason')
