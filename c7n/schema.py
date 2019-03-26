@@ -356,6 +356,16 @@ def process_resource(type_name, resource_type, resource_defs, alias_name=None, d
     if type_name == 'ec2':
         resource_policy['allOf'][1]['properties']['query'] = {}
 
+    r_type = resource_type.resource_type
+    if getattr(r_type, 'scope', '') == 'billing_account':
+        definitions['policy']['properties']['billing_account_id'] = {'type': 'string'}
+
+    if getattr(r_type, 'scope', '') == 'organization':
+        definitions['policy']['properties']['organization_id'] = {'type': 'string'}
+
+    if getattr(r_type, 'scope', '') == 'folder':
+        definitions['policy']['properties']['folder_id'] = {'type': 'string'}
+
     r['policy'] = resource_policy
     return {'$ref': '#/definitions/resources/%s/policy' % type_name}
 

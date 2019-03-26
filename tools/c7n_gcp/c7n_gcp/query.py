@@ -54,6 +54,16 @@ class ResourceQuery(object):
             if session.get_default_zone():
                 params['zone'] = session.get_default_zone()
 
+        data = resource_manager.data
+        if m.scope == 'billing_account':
+            params[m.scope_key] = m.scope_template.format(data['billing_account_id'])
+
+        if m.scope == 'organization':
+            params[m.scope_key] = m.scope_template.format(data['organization_id'])
+
+        if m.scope == 'folder':
+            params[m.scope_key] = m.scope_template.format(data['folder_id'])
+
         enum_op, path, extra_args = m.enum_spec
         if extra_args:
             params.update(extra_args)

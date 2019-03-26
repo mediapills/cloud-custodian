@@ -35,3 +35,17 @@ class LogSink(QueryResourceManager):
             return client.get('get', {
                 'sinkName': 'projects/{project_id}/sinks/{name}'.format(
                     **resource_info)})
+
+
+@resources.register('log-billing-account-exclusion')
+class LogBillingAccountExclusion(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'logging'
+        version = 'v2'
+        component = 'exclusions'
+        enum_spec = ('list', 'exclusions[]', None)
+        scope_key = 'parent'
+        scope = 'billing_account'
+        scope_template = "billingAccounts/{}"
+        type_field = 'billing_account_id'
