@@ -1,0 +1,6 @@
+policies:
+    - name: my-first-policy
+      description: |
+        Adds a tag to all virtual machines
+      resource: gcp.log-billing-account-exclusion
+      billing_account_id: -----------------

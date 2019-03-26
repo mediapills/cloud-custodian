@@ -29,6 +29,9 @@ from c7n.utils import local_session
 log = logging.getLogger('c7n_gcp.query')
 
 
+SCOPE_TYPE_CUSTOM_SCOPE = 'custom_scope'
+
+
 class ResourceQuery(object):
 
     def __init__(self, session_factory):
@@ -53,6 +56,11 @@ class ResourceQuery(object):
         if m.scope == 'zone':
             if session.get_default_zone():
                 params['zone'] = session.get_default_zone()
+
+        if m.scope == SCOPE_TYPE_CUSTOM_SCOPE:
+            params.update(
+                m.get_params(resource_manager.data)
+            )
 
         enum_op, path, extra_args = m.enum_spec
         if extra_args:
@@ -199,6 +207,24 @@ class TypeInfo(object):
     get = None
     # for get methods that require the full event payload
     get_requires_event = False
+
+
+class CustomScopeTypeInfo(TypeInfo):
+    scope = SCOPE_TYPE_CUSTOM_SCOPE
+
+    @classmethod
+    def extended_policy(cls, schema):
+        if hasattr(cls, 'type_field'):
+            schema['policy']['properties'][cls.type_field] = {'type': 'string'}
+
+    @classmethod
+    def get_params(cls, data):
+        result = {}
+
+        if hasattr(cls, 'type_field'):
+            result = {cls.scope_key: cls.scope_template.format(data[cls.type_field])}
+
+        return result
 
 
 ERROR_REASON = jmespath.compile('error.errors[0].reason')

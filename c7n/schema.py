@@ -38,6 +38,7 @@ from c7n.policy import execution
 from c7n.provider import clouds
 from c7n.resources import load_resources
 from c7n.filters import ValueFilter, EventFilter, AgeFilter
+from c7n_gcp.query import SCOPE_TYPE_CUSTOM_SCOPE
 
 
 def validate(data, schema=None):
@@ -355,6 +356,10 @@ def process_resource(type_name, resource_type, resource_defs, alias_name=None, d
 
     if type_name == 'ec2':
         resource_policy['allOf'][1]['properties']['query'] = {}
+
+    r_type = resource_type.resource_type
+    if getattr(r_type, 'scope', '') == SCOPE_TYPE_CUSTOM_SCOPE:
+        r_type.extended_policy(definitions)
 
     r['policy'] = resource_policy
     return {'$ref': '#/definitions/resources/%s/policy' % type_name}

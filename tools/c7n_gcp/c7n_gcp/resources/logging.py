@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from c7n_gcp.provider import resources
-from c7n_gcp.query import QueryResourceManager, TypeInfo
+from c7n_gcp.query import QueryResourceManager, TypeInfo, CustomScopeTypeInfo
+
 
 # TODO .. folder, billing account, org sink
 # how to map them given a project level root entity sans use of c7n-org
@@ -35,3 +36,16 @@ class LogSink(QueryResourceManager):
             return client.get('get', {
                 'sinkName': 'projects/{project_id}/sinks/{name}'.format(
                     **resource_info)})
+
+
+@resources.register('log-billing-account-exclusion')
+class LogBillingAccountExclusion(QueryResourceManager):
+
+    class resource_type(CustomScopeTypeInfo):
+        service = 'logging'
+        version = 'v2'
+        component = 'exclusions'
+        enum_spec = ('list', 'exclusions[]', None)
+        scope_key = 'parent'
+        scope_template = "billingAccounts/{}"
+        type_field = 'billing_account_id'
