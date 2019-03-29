@@ -147,8 +147,13 @@ class QueryResourceManager(ResourceManager):
     def resources(self, query=None):
         q = query or self.get_resource_query()
         key = self.get_cache_key(q)
+        resources = self._fetch_resources(q)
+        self._cache.save(key, resources)
+        return self.filter_resources(resources)
+
+    def _fetch_resources(self, query):
         try:
-            resources = self.augment(self.source.get_resources(q)) or []
+            return self.augment(self.source.get_resources(query)) or []
         except HttpError as e:
             error = extract_error(e)
             if error is None:
@@ -161,10 +166,65 @@ class QueryResourceManager(ResourceManager):
                     local_session(self.session_factory).get_default_project())
                 return []
             raise
-        self._cache.save(key, resources)
-        return self.filter_resources(resources)
 
     def augment(self, resources):
+        return resources
+
+
+class ChildResourceManager(QueryResourceManager):
+
+    @staticmethod
+    def _get_parent_resource_info(resource_info, child_resource_type, parent_resource_type):
+        parent_resource_info = {}
+        parent_resource_info.update(resource_info)
+
+        arg_name = child_resource_type.parent_spec['arg_name']
+        parent_resource_info[parent_resource_type.id] = resource_info[arg_name]
+
+        return parent_resource_info
+
+    def get_resource(self, resource_info):
+        child_instance = super(ChildResourceManager, self).get_resource(resource_info)
+
+        parent_resource = self.resource_type.parent_spec['resource']
+        parent_resource_manager = self.get_resource_manager(parent_resource)
+
+        parent_resource_info = self._get_parent_resource_info(
+            resource_info, self.resource_type, parent_resource_manager.resource_type
+        )
+
+        parent_instance = parent_resource_manager.get_resource(parent_resource_info)
+
+        annotation_key = self.resource_type.get_parent_annotation_key()
+        child_instance[annotation_key] = parent_instance
+
+        return child_instance
+
+    def _fetch_resources(self, query):
+        if not query:
+            query = {}
+
+        resources = []
+
+        parent_spec = self.resource_type.parent_spec
+        parent_resource = parent_spec['resource']
+        arg_name = parent_spec['arg_name']
+        parent_resource_manager = self.get_resource_manager(parent_resource)
+        parent_id_field = parent_resource_manager.resource_type.id
+
+        annotation_key = self.resource_type.get_parent_annotation_key()
+
+        for parent_instance in parent_resource_manager.resources():
+            arg_value = jmespath.search(parent_id_field, parent_instance)
+            query.update({arg_name: arg_value})
+
+            children = super(ChildResourceManager, self)._fetch_resources(query)
+
+            for child_instance in children:
+                child_instance[annotation_key] = parent_instance
+
+            resources.extend(children)
+
         return resources
 
 
@@ -199,6 +259,16 @@ class TypeInfo(object):
     get = None
     # for get methods that require the full event payload
     get_requires_event = False
+
+
+class ChildTypeInfo(TypeInfo):
+
+    parent_spec = None
+
+    @classmethod
+    def get_parent_annotation_key(cls):
+        parent_resource = cls.parent_spec['resource']
+        return 'c7n:{}'.format(parent_resource)
 
 
 ERROR_REASON = jmespath.compile('error.errors[0].reason')
