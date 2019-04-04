@@ -21,7 +21,7 @@ class ResourceMetaTest(BaseTest):
     def test_resource_id_meta(self):
         missing = []
         for name, resource in resources.items():
-            if not getattr(resource.resource_type, 'id', None):
+            if not hasattr(resource.resource_type, 'id'):
                 missing.append(name)
 
         if missing:
