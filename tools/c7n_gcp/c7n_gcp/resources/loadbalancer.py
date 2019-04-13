@@ -17,7 +17,7 @@ from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 
-@resources.register('loadbalancing-address')
+@resources.register('loadbalancer-address')
 class LoadBalancingAddress(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -36,7 +36,7 @@ class LoadBalancingAddress(QueryResourceManager):
                 'address': resource_info['name']})
 
 
-@resources.register('loadbalancing-url-map')
+@resources.register('loadbalancer-url-map')
 class LoadBalancingUrlMap(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -54,7 +54,7 @@ class LoadBalancingUrlMap(QueryResourceManager):
                 'urlMap': resource_info['name']})
 
 
-@resources.register('loadbalancing-target-tcp-proxy')
+@resources.register('loadbalancer-target-tcp-proxy')
 class LoadBalancingTargetTcpProxy(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -72,7 +72,7 @@ class LoadBalancingTargetTcpProxy(QueryResourceManager):
                 'targetTcpProxy': resource_info['name']})
 
 
-@resources.register('loadbalancing-target-ssl-proxy')
+@resources.register('loadbalancer-target-ssl-proxy')
 class LoadBalancingTargetSslProxy(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -90,7 +90,7 @@ class LoadBalancingTargetSslProxy(QueryResourceManager):
                 'targetSslProxy': resource_info['name']})
 
 
-@resources.register('loadbalancing-ssl-policy')
+@resources.register('loadbalancer-ssl-policy')
 class LoadBalancingSslPolicy(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -108,7 +108,7 @@ class LoadBalancingSslPolicy(QueryResourceManager):
                 'sslPolicy': resource_info['name']})
 
 
-@resources.register('loadbalancing-ssl-certificate')
+@resources.register('loadbalancer-ssl-certificate')
 class LoadBalancingSslCertificate(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -126,7 +126,7 @@ class LoadBalancingSslCertificate(QueryResourceManager):
                 'sslCertificate': resource_info['name']})
 
 
-@resources.register('loadbalancing-target-https-proxy')
+@resources.register('loadbalancer-target-https-proxy')
 class LoadBalancingTargetHttpsProxy(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -144,7 +144,7 @@ class LoadBalancingTargetHttpsProxy(QueryResourceManager):
                 'targetHttpsProxy': resource_info['name']})
 
 
-@resources.register('loadbalancing-backend-bucket')
+@resources.register('loadbalancer-backend-bucket')
 class LoadBalancingBackendBucket(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -162,7 +162,7 @@ class LoadBalancingBackendBucket(QueryResourceManager):
                 'backendBucket': resource_info['name']})
 
 
-@resources.register('loadbalancing-https-health-check')
+@resources.register('loadbalancer-https-health-check')
 class LoadBalancingHttpsHealthCheck(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -180,7 +180,7 @@ class LoadBalancingHttpsHealthCheck(QueryResourceManager):
                 'httpsHealthCheck': resource_info['name']})
 
 
-@resources.register('loadbalancing-http-health-check')
+@resources.register('loadbalancer-http-health-check')
 class LoadBalancingHttpHealthCheck(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -198,7 +198,7 @@ class LoadBalancingHttpHealthCheck(QueryResourceManager):
                 'httpHealthCheck': resource_info['name']})
 
 
-@resources.register('loadbalancing-health-check')
+@resources.register('loadbalancer-health-check')
 class LoadBalancingHealthCheck(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -216,7 +216,7 @@ class LoadBalancingHealthCheck(QueryResourceManager):
                 'healthCheck': resource_info['name']})
 
 
-@resources.register('loadbalancing-target-http-proxy')
+@resources.register('loadbalancer-target-http-proxy')
 class LoadBalancingTargetHttpProxy(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -234,7 +234,7 @@ class LoadBalancingTargetHttpProxy(QueryResourceManager):
                 'targetHttpProxy': resource_info['name']})
 
 
-@resources.register('loadbalancing-backend-service')
+@resources.register('loadbalancer-backend-service')
 class LoadBalancingBackendService(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -252,7 +252,7 @@ class LoadBalancingBackendService(QueryResourceManager):
                 'backendService': resource_info['name']})
 
 
-@resources.register('loadbalancing-target-instance')
+@resources.register('loadbalancer-target-instance')
 class LoadBalancingTargetInstance(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -271,7 +271,7 @@ class LoadBalancingTargetInstance(QueryResourceManager):
                 'targetInstance': resource_info['name']})
 
 
-@resources.register('loadbalancing-target-pool')
+@resources.register('loadbalancer-target-pool')
 class LoadBalancingTargetPool(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -290,7 +290,7 @@ class LoadBalancingTargetPool(QueryResourceManager):
                 'targetPool': resource_info['name']})
 
 
-@resources.register('loadbalancing-forwarding-rule')
+@resources.register('loadbalancer-forwarding-rule')
 class LoadBalancingForwardingRule(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -309,7 +309,7 @@ class LoadBalancingForwardingRule(QueryResourceManager):
                 'forwardingRule': resource_info['name']})
 
 
-@resources.register('loadbalancing-global-forwarding-rule')
+@resources.register('loadbalancer-global-forwarding-rule')
 class LoadBalancingGlobalForwardingRule(QueryResourceManager):
 
     class resource_type(TypeInfo):
@@ -327,7 +327,7 @@ class LoadBalancingGlobalForwardingRule(QueryResourceManager):
                 'forwardingRule': resource_info['name']})
 
 
-@resources.register('loadbalancing-global-address')
+@resources.register('loadbalancer-global-address')
 class LoadBalancingGlobalAddress(QueryResourceManager):
 
     class resource_type(TypeInfo):
