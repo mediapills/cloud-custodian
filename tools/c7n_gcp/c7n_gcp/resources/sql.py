@@ -81,7 +81,13 @@ class SqlDatabase(ChildResourceManager):
         id = 'name'
         parent_spec = {
             'resource': 'sql-instance',
-            'arg_name': 'instance'
+            'child_enum_params': [
+                ('name', 'instance')
+            ],
+            'parent_get_params': [
+                ('project', 'project'),
+                ('instance', 'name')
+            ]
         }
 
         @staticmethod

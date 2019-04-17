@@ -173,27 +173,13 @@ class QueryResourceManager(ResourceManager):
 
 class ChildResourceManager(QueryResourceManager):
 
-    @staticmethod
-    def _get_parent_resource_info(resource_info, child_resource_type, parent_resource_type):
-        parent_resource_info = {}
-        parent_resource_info.update(resource_info)
-
-        arg_name = child_resource_type.parent_spec['arg_name']
-        parent_resource_info[parent_resource_type.id] = resource_info[arg_name]
-
-        return parent_resource_info
-
     def get_resource(self, resource_info):
         child_instance = super(ChildResourceManager, self).get_resource(resource_info)
 
         parent_resource = self.resource_type.parent_spec['resource']
-        parent_resource_manager = self.get_resource_manager(parent_resource)
-
-        parent_resource_info = self._get_parent_resource_info(
-            resource_info, self.resource_type, parent_resource_manager.resource_type
+        parent_instance = self.get_resource_manager(parent_resource).get_resource(
+            self._get_parent_resource_info(child_instance)
         )
-
-        parent_instance = parent_resource_manager.get_resource(parent_resource_info)
 
         annotation_key = self.resource_type.get_parent_annotation_key()
         child_instance[annotation_key] = parent_instance
@@ -205,19 +191,13 @@ class ChildResourceManager(QueryResourceManager):
             query = {}
 
         resources = []
-
-        parent_spec = self.resource_type.parent_spec
-        parent_resource = parent_spec['resource']
-        arg_name = parent_spec['arg_name']
-        parent_resource_manager = self.get_resource_manager(parent_resource)
-        parent_id_field = parent_resource_manager.resource_type.id
-
         annotation_key = self.resource_type.get_parent_annotation_key()
+        parent_resource_manager = self.get_resource_manager(
+            self.resource_type.parent_spec['resource']
+        )
 
         for parent_instance in parent_resource_manager.resources():
-            arg_value = jmespath.search(parent_id_field, parent_instance)
-            query.update({arg_name: arg_value})
-
+            query.update(self._get_child_enum_args(parent_instance))
             children = super(ChildResourceManager, self)._fetch_resources(query)
 
             for child_instance in children:
@@ -226,6 +206,23 @@ class ChildResourceManager(QueryResourceManager):
             resources.extend(children)
 
         return resources
+
+    def _get_parent_resource_info(self, child_instance):
+        mappings = self.resource_type.parent_spec['parent_get_params']
+        return self._extract_fields(child_instance, mappings)
+
+    def _get_child_enum_args(self, parent_instance):
+        mappings = self.resource_type.parent_spec['child_enum_params']
+        return self._extract_fields(parent_instance, mappings)
+
+    @staticmethod
+    def _extract_fields(source, mappings):
+        result = {}
+
+        for mapping in mappings:
+            result[mapping[1]] = jmespath.search(mapping[0], source)
+
+        return result
 
 
 class TypeMeta(type):

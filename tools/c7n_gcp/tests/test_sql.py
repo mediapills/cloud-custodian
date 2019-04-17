@@ -1,4 +1,4 @@
-# Copyright 2018 Capital One Services, LLC
+# Copyright 2019 Capital One Services, LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -83,6 +83,9 @@ class SqlInstanceTest(BaseTest):
             self.fail('found deleted instance: %s' % result)
         except HttpError as e:
             self.assertTrue("does not exist" in str(e))
+
+
+class SqlDatabaseTest(BaseTest):
 
     def test_sqldatabase_query(self):
         project_id = 'mitropject'
