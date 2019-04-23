@@ -102,3 +102,41 @@ class KmsCryptoKey(ChildResourceManager):
                         resource_info['key_ring_id'],
                         resource_info['crypto_key_id'])
             return client.execute_command('get', {'name': name})
+
+
+@resources.register('kms-cryptokey-version')
+class KmsCryptoKeyVersion(ChildResourceManager):
+
+    def _get_parent_resource_info(self, child_instance):
+        param_re = re.compile(
+            'projects/(.*?)/locations/(.*?)/keyRings/(.*?)/cryptoKeys/(.*?)/cryptoKeyVersions/.*')
+        project_id, location, key_ring_id, crypto_key_id =\
+            param_re.match(child_instance['name']).groups()
+        return {'project_id': project_id,
+                'location': location,
+                'key_ring_id': key_ring_id,
+                'crypto_key_id': crypto_key_id}
+
+    class resource_type(ChildTypeInfo):
+        service = 'cloudkms'
+        version = 'v1'
+        component = 'projects.locations.keyRings.cryptoKeys.cryptoKeyVersions'
+        enum_spec = ('list', 'cryptoKeyVersions[]', None)
+        scope = None
+        id = 'name'
+        parent_spec = {
+            'resource': 'kms-cryptokey',
+            'child_enum_params': [
+                ('name', 'parent')
+            ]
+        }
+
+        @staticmethod
+        def get(client, resource_info):
+            name = 'projects/{}/locations/{}/keyRings/{}/cryptoKeys/{}/cryptoKeyVersions/{}'\
+                .format(resource_info['project_id'],
+                        resource_info['location'],
+                        resource_info['key_ring_id'],
+                        resource_info['crypto_key_id'],
+                        resource_info['crypto_key_version_id'])
+            return client.execute_command('get', {'name': name})
