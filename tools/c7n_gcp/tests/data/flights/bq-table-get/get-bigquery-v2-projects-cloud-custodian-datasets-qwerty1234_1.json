@@ -1,0 +1,54 @@
+{
+  "body": {
+    "kind": "bigquery#dataset", 
+    "datasetReference": {
+      "projectId": "cloud-custodian",
+      "datasetId": "qwerty1234"
+    }, 
+    "creationTime": "1551701483538", 
+    "access": [
+      {
+        "specialGroup": "projectWriters", 
+        "role": "WRITER"
+      }, 
+      {
+        "role": "WRITER", 
+        "userByEmail": "p518122731295-686879@gcp-sa-logging.iam.gserviceaccount.com"
+      }, 
+      {
+        "specialGroup": "projectOwners", 
+        "role": "OWNER"
+      }, 
+      {
+        "role": "OWNER", 
+        "userByEmail": "dkhanas@gmail.com"
+      }, 
+      {
+        "specialGroup": "projectReaders", 
+        "role": "READER"
+      }
+    ], 
+    "etag": "YyYT0i3rk2sA5lOO+aTP+A==", 
+    "location": "US", 
+    "lastModifiedTime": "1556026023538", 
+    "id": "cloud-custodian:qwerty1234",
+    "selfLink": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets/qwerty1234"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "852", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets/qwerty1234?alt=json",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "YyYT0i3rk2sA5lOO+aTP+A==", 
+    "cache-control": "private", 
+    "date": "Wed, 24 Apr 2019 12:48:31 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}
