@@ -36,8 +36,8 @@ class SqlInstanceTest(BaseTest):
              'resource': 'gcp.sql-instance'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {"project": "cloud-custodian",
-             "name": "brenttest-2"})
+            {'project_id': 'cloud-custodian',
+             'database_id': 'cloud-custodian:brenttest-2'})
         self.assertEqual(instance['state'], 'RUNNABLE')
 
     def test_stop_instance(self):
