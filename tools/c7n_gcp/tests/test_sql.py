@@ -21,7 +21,8 @@ from googleapiclient.errors import HttpError
 class SqlInstanceTest(BaseTest):
 
     def test_sqlinstance_query(self):
-        factory = self.replay_flight_data('sqlinstance-query')
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('sqlinstance-query', project_id=project_id)
         p = self.load_policy(
             {'name': 'all-sqlinstances',
              'resource': 'gcp.sql-instance'},
