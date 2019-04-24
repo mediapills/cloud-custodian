@@ -1,0 +1,39 @@
+{
+  "body": {
+    "rows": [
+      {
+        "f": [
+          {
+            "v": "qwe"
+          }
+        ]
+      }, 
+      {
+        "f": [
+          {
+            "v": "qwe"
+          }
+        ]
+      }
+    ], 
+    "kind": "bigquery#tableDataList", 
+    "etag": "V6V9ryY4J/FzWIUcZVVFCQ==", 
+    "totalRows": "2"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "263", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets/qwerty1234/tables/qwery1234/data?alt=json",
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "etag": "V6V9ryY4J/FzWIUcZVVFCQ==", 
+    "cache-control": "private", 
+    "date": "Wed, 24 Apr 2019 14:17:45 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

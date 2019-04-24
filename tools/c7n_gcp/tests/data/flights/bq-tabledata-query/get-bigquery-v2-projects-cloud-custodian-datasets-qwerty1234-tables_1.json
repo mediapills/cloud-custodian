@@ -1,0 +1,37 @@
+{
+  "body": {
+    "totalItems": 1, 
+    "tables": [
+      {
+        "creationTime": "1551701637199", 
+        "kind": "bigquery#table", 
+        "type": "TABLE", 
+        "id": "cloud-custodian:qwerty1234.qwery1234",
+        "tableReference": {
+          "projectId": "cloud-custodian",
+          "tableId": "qwery1234", 
+          "datasetId": "qwerty1234"
+        }
+      }
+    ], 
+    "kind": "bigquery#tableList", 
+    "etag": "W4lqxzn4plk7poakGV0z9g=="
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "417", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets/qwerty1234/tables?alt=json",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "W4lqxzn4plk7poakGV0z9g==", 
+    "cache-control": "private", 
+    "date": "Wed, 24 Apr 2019 14:17:43 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}

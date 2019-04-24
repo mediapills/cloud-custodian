@@ -116,3 +116,23 @@ class BigQueryTable(ChildResourceManager):
                 'datasetId': resource_info['dataset_id'],
                 'tableId': resource_info['table_id']
             })
+
+
+@resources.register('bq-tabledata')
+class BigQueryTabledata(ChildResourceManager):
+
+    class resource_type(ChildTypeInfo):
+        service = 'bigquery'
+        version = 'v2'
+        component = 'tabledata'
+        enum_spec = ('list', 'rows[]', None)
+        scope = 'global'
+        id = 'id'
+        parent_spec = {
+            'resource': 'bq-table',
+            'child_enum_params': [
+                ('tableReference.projectId', 'projectId'),
+                ('tableReference.datasetId', 'datasetId'),
+                ('tableReference.tableId', 'tableId'),
+            ]
+        }

@@ -108,3 +108,17 @@ class BigQueryTableTest(BaseTest):
             "table_id": table_id,
         })
         self.assertIn('tableReference', resource.keys())
+
+
+class resourcesTest(BaseTest):
+
+    def test_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('bq-tabledata-query', project_id=project_id)
+        p = self.load_policy({
+            'name': 'bq-tabledata-query',
+            'resource': 'gcp.bq-tabledata'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertIn('f', resources[0].keys())
+        self.assertIn('v', resources[0]['f'][0].keys())
