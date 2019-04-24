@@ -13,7 +13,7 @@
 # limitations under the License.
 import jmespath
 
-from c7n_gcp.query import QueryResourceManager, TypeInfo
+from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildTypeInfo, ChildResourceManager
 from c7n_gcp.provider import resources
 
 
@@ -33,6 +33,9 @@ class DataSet(QueryResourceManager):
         @staticmethod
         def get(client, event):
             # dataset creation doesn't include data set name in resource name.
+            if 'protoPayload' not in event.keys():
+                return client.execute_query('get', verb_arguments=event)
+
             _, method = event['protoPayload']['methodName'].split('.')
             if method not in ('insert', 'update'):
                 raise RuntimeError("unknown event %s" % event)
@@ -82,3 +85,34 @@ class BigQueryProject(QueryResourceManager):
         enum_spec = ('list', 'projects[]', None)
         scope = 'global'
         id = 'id'
+
+
+@resources.register('bq-table')
+class BigQueryTable(ChildResourceManager):
+
+    class resource_type(ChildTypeInfo):
+        service = 'bigquery'
+        version = 'v2'
+        component = 'tables'
+        enum_spec = ('list', 'tables[]', None)
+        scope = 'global'
+        id = 'id'
+        parent_spec = {
+            'resource': 'bq-dataset',
+            'child_enum_params': [
+                ('datasetReference.projectId', 'projectId'),
+                ('datasetReference.datasetId', 'datasetId'),
+            ],
+            'parent_get_params': [
+                ('tableReference.projectId', 'projectId'),
+                ('tableReference.datasetId', 'datasetId'),
+            ]
+        }
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_query('get', {
+                'projectId': resource_info['project_id'],
+                'datasetId': resource_info['dataset_id'],
+                'tableId': resource_info['table_id']
+            })

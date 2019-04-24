@@ -78,3 +78,33 @@ class BigQueryProjectTest(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['friendlyName'], 'test project')
         self.assertEqual(resources[0]['id'], 'cloud-custodian')
+
+
+class BigQueryTableTest(BaseTest):
+
+    def test_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('bq-table-query', project_id=project_id)
+        p = self.load_policy({
+            'name': 'bq-table-query',
+            'resource': 'gcp.bq-table'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertIn('tableReference', resources[0].keys())
+        self.assertEqual('TABLE', resources[0]['type'])
+
+    def test_table_get(self):
+        project_id = 'cloud-custodian'
+        dataset_id = 'qwerty1234'
+        table_id = 'qwery1234'
+        factory = self.replay_flight_data('bq-table-get', project_id=project_id)
+        p = self.load_policy({
+            'name': 'bq-table-get',
+            'resource': 'gcp.bq-table'},
+            session_factory=factory)
+        resource = p.resource_manager.get_resource({
+            "project_id": project_id,
+            "dataset_id": dataset_id,
+            "table_id": table_id,
+        })
+        self.assertIn('tableReference', resource.keys())
