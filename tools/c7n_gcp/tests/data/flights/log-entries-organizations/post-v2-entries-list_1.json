@@ -1,0 +1,2268 @@
+{
+  "body": {
+    "entries": [
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T08:49:33.567Z", 
+        "insertId": "-f8s2e5c7sm", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T08:49:33.840441190Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "FindOrCreateOrganization", 
+          "request": {}, 
+          "requestMetadata": {
+            "callerIp": "2002:a97:c315::"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "method": "", 
+            "service": ""
+          }, 
+          "type": "audited_resource"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T08:49:38.478Z", 
+        "insertId": "-13o99sc842", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T08:49:39.490412417Z", 
+        "protoPayload": {
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {
+              "reason": "8uSywAYcGhpFeGNoYW5nZSBmb3IgcXVldWUgY29tbWl0LvLkssAGOBo2Rm9yIGJhY2tncm91bmQgb3BlcmF0aW9ucyBpbiBHb29nbGUgRGV2ZWxvcGVycyBDb25zb2xl", 
+              "auth": {}, 
+              "time": "2019-04-24T08:49:38.511Z"
+            }, 
+            "destinationAttributes": {}
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog", 
+          "authorizationInfo": [
+            {
+              "granted": true, 
+              "resource": "organizations/926683928810", 
+              "permission": "resourcemanager.projects.create"
+            }
+          ]
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "project_id": "ferrous-depth-238608"
+          }, 
+          "type": "project"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T08:49:43.775Z", 
+        "insertId": "-bd5brpc1nu", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T08:49:44.684293465Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateProject", 
+          "request": {
+            "project": {
+              "name": "My First Project", 
+              "parent": {
+                "type": "organization", 
+                "id": "926683928810"
+              }, 
+              "projectId": "ferrous-depth-238608", 
+              "projectNumber": "825160865875", 
+              "lifecycleState": "ACTIVE", 
+              "createTime": "2019-04-24T08:49:37.872Z"
+            }
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "projects/ferrous-depth-238608", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T08:57:03.870Z", 
+        "insertId": "-rgv404d4u02", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T08:57:04.329571501Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:23:18.400Z", 
+        "insertId": "46b2hpd4vn6", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:23:19.401424457Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHQsexbxA="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHQ0CF3Io=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "ADD", 
+                  "member": "domain:comelfo.com", 
+                  "role": "roles/stackdriver.accounts.editor"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:29:58.978Z", 
+        "insertId": "uta85fd4wlq", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:30:00.071773125Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/owner", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHQ0CF3Io="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/owner", 
+                "members": [
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHQ1hou6E=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "ADD", 
+                  "member": "user:yauhen_shaliou@comelfo.com", 
+                  "role": "roles/owner"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T09:31:24.143Z", 
+        "insertId": "46b2hpd4wpq", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T09:31:24.854822651Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T09:35:14.502Z", 
+        "insertId": "uta85fd4x94", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T09:35:15.153061724Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "method": "google.cloud.securitycenter.v1.SecurityCenter.InitializeAssetDiscoveryServiceAccount", 
+            "service": "securitycenter.googleapis.com"
+          }, 
+          "type": "audited_resource"
+        }, 
+        "severity": "ERROR", 
+        "timestamp": "2019-04-24T09:35:24.132Z", 
+        "insertId": "epv6coch72", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:35:24.684635113Z", 
+        "protoPayload": {
+          "status": {
+            "message": "PERMISSION_DENIED", 
+            "code": 7
+          }, 
+          "methodName": "google.cloud.securitycenter.v1.SecurityCenter.InitializeAssetDiscoveryServiceAccount", 
+          "authorizationInfo": [
+            {
+              "resource": "organizations/926683928810", 
+              "resourceAttributes": {}, 
+              "permission": "resourcemanager.organizations.setIamPolicy"
+            }
+          ], 
+          "request": {
+            "@type": "type.googleapis.com/google.cloud.securitycenter.v1.InitializeAssetDiscoveryServiceAccountRequest", 
+            "parent": "organizations/926683928810"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe),gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceName": "securitycenter.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "method": "google.cloud.securitycenter.v1.SecurityCenter.InitializeAssetDiscoveryServiceAccount", 
+            "service": "securitycenter.googleapis.com"
+          }, 
+          "type": "audited_resource"
+        }, 
+        "severity": "ERROR", 
+        "timestamp": "2019-04-24T09:35:39.840Z", 
+        "insertId": "b3mm7fccbc", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:35:40.808473893Z", 
+        "protoPayload": {
+          "status": {
+            "message": "PERMISSION_DENIED", 
+            "code": 7
+          }, 
+          "methodName": "google.cloud.securitycenter.v1.SecurityCenter.InitializeAssetDiscoveryServiceAccount", 
+          "authorizationInfo": [
+            {
+              "resource": "organizations/926683928810", 
+              "resourceAttributes": {}, 
+              "permission": "resourcemanager.organizations.setIamPolicy"
+            }
+          ], 
+          "request": {
+            "@type": "type.googleapis.com/google.cloud.securitycenter.v1.InitializeAssetDiscoveryServiceAccountRequest", 
+            "parent": "organizations/926683928810"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe),gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceName": "securitycenter.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:36:04.864Z", 
+        "insertId": "-bn88lfd4jc4", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:36:06.042802623Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateProject", 
+          "authorizationInfo": [
+            {
+              "granted": true, 
+              "resource": "organizations/926683928810", 
+              "resourceAttributes": {}, 
+              "permission": "resourcemanager.projects.create"
+            }
+          ], 
+          "request": {
+            "project": {
+              "projectId": "custodian-test-project", 
+              "name": "custodian-test-project", 
+              "parent": {
+                "type": "organization", 
+                "id": "926683928810"
+              }
+            }, 
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.CreateProjectRequest"
+          }, 
+          "response": {
+            "@type": "type.googleapis.com/google.longrunning.Operation"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project"
+          }, 
+          "type": "project"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:36:09.125Z", 
+        "insertId": "-uig5olc8ce", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:36:09.471430657Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateProject", 
+          "request": {
+            "project": {
+              "name": "custodian-test-project", 
+              "parent": {
+                "type": "organization", 
+                "id": "926683928810"
+              }, 
+              "projectId": "custodian-test-project", 
+              "projectNumber": "359546646409", 
+              "lifecycleState": "ACTIVE", 
+              "createTime": "2019-04-24T09:36:05.169Z"
+            }
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "projects/custodian-test-project", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "project_id": "ferrous-depth-238608"
+          }, 
+          "type": "project"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:37:03.860Z", 
+        "insertId": "gxhaced4qx2", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:37:09.829705876Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "DeleteProject", 
+          "authorizationInfo": [
+            {
+              "granted": true, 
+              "resource": "projects/ferrous-depth-238608", 
+              "resourceAttributes": {}, 
+              "permission": "resourcemanager.projects.delete"
+            }
+          ], 
+          "request": {
+            "projectId": "ferrous-depth-238608", 
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.DeleteProjectRequest"
+          }, 
+          "response": {
+            "@type": "type.googleapis.com/google.protobuf.Empty"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "projects/ferrous-depth-238608", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:37:23.070Z", 
+        "insertId": "4zvlzod1ork", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:37:23.728879390Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateProject", 
+          "authorizationInfo": [
+            {
+              "granted": true, 
+              "resource": "organizations/926683928810", 
+              "resourceAttributes": {}, 
+              "permission": "resourcemanager.projects.create"
+            }
+          ], 
+          "request": {
+            "project": {
+              "projectId": "custodian-test-project-2", 
+              "name": "custodian-test-project-2", 
+              "parent": {
+                "type": "organization", 
+                "id": "926683928810"
+              }
+            }, 
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.CreateProjectRequest"
+          }, 
+          "response": {
+            "@type": "type.googleapis.com/google.longrunning.Operation"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-2"
+          }, 
+          "type": "project"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:37:27.576Z", 
+        "insertId": "-k92rebc7ds", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:37:28.371050785Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateProject", 
+          "request": {
+            "project": {
+              "name": "custodian-test-project-2", 
+              "parent": {
+                "type": "organization", 
+                "id": "926683928810"
+              }, 
+              "projectId": "custodian-test-project-2", 
+              "projectNumber": "161283088938", 
+              "lifecycleState": "ACTIVE", 
+              "createTime": "2019-04-24T09:37:23.147Z"
+            }
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "projects/custodian-test-project-2", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T09:39:02.772Z", 
+        "insertId": "-81gdf2d4vcw", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T09:39:03.348959471Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:39:40.391Z", 
+        "insertId": "-kj1at8d4wx4", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:39:40.952377095Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/owner", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.folderAdmin", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHQ1hou6E="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/owner", 
+                "members": [
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.folderAdmin", 
+                "members": [
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHQ3sOCe4=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "ADD", 
+                  "member": "user:yauhen_shaliou@comelfo.com", 
+                  "role": "roles/resourcemanager.folderAdmin"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T09:39:58.181Z", 
+        "insertId": "46b2hpd4xqq", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T09:39:59.064997894Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "folder_id": "112838955399"
+          }, 
+          "type": "folder"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:40:25.410Z", 
+        "insertId": "-bd5brpc1uu", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:40:25.871980357Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateFolder", 
+          "request": {
+            "folder": {
+              "displayName": "Folder-custodian-0"
+            }, 
+            "parent": "organizations/926683928810"
+          }, 
+          "response": {
+            "updateTime": "2019-04-24T09:40:24.169Z", 
+            "displayName": "Folder-custodian-0", 
+            "name": "folders/112838955399", 
+            "parent": "organizations/926683928810", 
+            "lifecycleState": "ACTIVE", 
+            "createTime": "2019-04-24T09:40:24.136Z"
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "folders/112838955399", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "folder_id": "237653057370"
+          }, 
+          "type": "folder"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:40:44.629Z", 
+        "insertId": "-hqw6khc9d0", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:40:44.962460738Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateFolder", 
+          "request": {
+            "folder": {
+              "displayName": "Folder-custodian-1"
+            }, 
+            "parent": "organizations/926683928810"
+          }, 
+          "response": {
+            "updateTime": "2019-04-24T09:40:43.725Z", 
+            "displayName": "Folder-custodian-1", 
+            "name": "folders/237653057370", 
+            "parent": "organizations/926683928810", 
+            "lifecycleState": "ACTIVE", 
+            "createTime": "2019-04-24T09:40:43.712Z"
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "folders/237653057370", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:41:13.572Z", 
+        "insertId": "pjduued4rt4", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:41:13.814005991Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateProject", 
+          "authorizationInfo": [
+            {
+              "granted": true, 
+              "resource": "organizations/926683928810", 
+              "resourceAttributes": {}, 
+              "permission": "resourcemanager.projects.create"
+            }
+          ], 
+          "request": {
+            "project": {
+              "projectId": "custodian-test-project-3", 
+              "name": "custodian-test-project-3", 
+              "parent": {
+                "type": "organization", 
+                "id": "926683928810"
+              }
+            }, 
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.CreateProjectRequest"
+          }, 
+          "response": {
+            "@type": "type.googleapis.com/google.longrunning.Operation"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-3"
+          }, 
+          "type": "project"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:41:17.997Z", 
+        "insertId": "-hqw6khc9da", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:41:18.969824572Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "CreateProject", 
+          "request": {
+            "project": {
+              "name": "custodian-test-project-3", 
+              "parent": {
+                "type": "organization", 
+                "id": "926683928810"
+              }, 
+              "projectId": "custodian-test-project-3", 
+              "projectNumber": "2030697917", 
+              "lifecycleState": "ACTIVE", 
+              "createTime": "2019-04-24T09:41:13.611Z"
+            }
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "projects/custodian-test-project-3", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T09:43:17.955Z", 
+        "insertId": "-81gdf2d4vua", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T09:43:18.384995745Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T09:52:05.908Z", 
+        "insertId": "46b2hpd4z4k", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T09:52:06.569679704Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T09:54:58.981Z", 
+        "insertId": "-81gdf2d4x6y", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T09:54:59.261005129Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T09:57:28.832Z", 
+        "insertId": "-kj1at8d4yt8", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T09:57:30.008904880Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/owner", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.folderAdmin", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/logging.admin", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHQ3sOCe4="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/logging.admin", 
+                "members": [
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/owner", 
+                "members": [
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.folderAdmin", 
+                "members": [
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHQ7q8cxY=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "ADD", 
+                  "member": "user:yauhen_shaliou@comelfo.com", 
+                  "role": "roles/logging.admin"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T09:58:08.288Z", 
+        "insertId": "-kj1at8d4yvy", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T09:58:09.171613543Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T10:53:58.874Z", 
+        "insertId": "46b2hpd55mm", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T10:53:59.702362010Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/logging.admin", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com", 
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/owner", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com", 
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.folderAdmin", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com", 
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHQ7q8cxY="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/logging.admin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/owner", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.folderAdmin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHRITLvZY=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "ADD", 
+                  "member": "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "role": "roles/logging.admin"
+                }, 
+                {
+                  "action": "ADD", 
+                  "member": "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "role": "roles/owner"
+                }, 
+                {
+                  "action": "ADD", 
+                  "member": "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "role": "roles/resourcemanager.folderAdmin"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T13:21:46.126Z", 
+        "insertId": "-kj1at8d5lvy", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T13:21:46.402968997Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/logging.admin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/owner", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.folderAdmin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/billing.admin", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHRITLvZY="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.admin", 
+                "members": [
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/logging.admin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/owner", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.folderAdmin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHRpVUAUk=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "ADD", 
+                  "member": "user:yauhen_shaliou@comelfo.com", 
+                  "role": "roles/billing.admin"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T13:21:58.947Z", 
+        "insertId": "-kj1at8d5lx0", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T13:21:59.399009935Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.admin", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com", 
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/logging.admin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/owner", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.folderAdmin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHRpVUAUk="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.admin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/logging.admin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/owner", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.folderAdmin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHRpYXXrE=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "ADD", 
+                  "member": "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "role": "roles/billing.admin"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T13:23:40.358Z", 
+        "insertId": "-rgv404d5ob4", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T13:23:40.622100572Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.admin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/logging.admin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/owner", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.folderAdmin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/billing.user", 
+                  "members": [
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHRpYXXrE="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.admin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/billing.user", 
+                "members": [
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/logging.admin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/owner", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.folderAdmin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHRpwizjU=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "ADD", 
+                  "member": "user:yauhen_shaliou@comelfo.com", 
+                  "role": "roles/billing.user"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-3"
+          }, 
+          "type": "project"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T13:31:06.758Z", 
+        "insertId": "c80sipd4ma2", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T13:31:12.751491825Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "UpdateProject", 
+          "authorizationInfo": [
+            {
+              "granted": true, 
+              "resource": "organizations/926683928810", 
+              "resourceAttributes": {}, 
+              "permission": "resourcemanager.projects.move"
+            }
+          ], 
+          "request": {
+            "project": {
+              "name": "custodian-test-project-3", 
+              "parent": {
+                "type": "folder", 
+                "id": "237653057370"
+              }
+            }, 
+            "projectId": "custodian-test-project-3", 
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.UpdateProjectRequest"
+          }, 
+          "response": {
+            "name": "custodian-test-project-3", 
+            "parent": {
+              "type": "folder", 
+              "id": "237653057370"
+            }, 
+            "projectId": "custodian-test-project-3", 
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.Project", 
+            "lifecycleState": "ACTIVE", 
+            "createTime": "2019-04-24T09:41:13.611Z", 
+            "projectNumber": "2030697917"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "projects/custodian-test-project-3", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-2"
+          }, 
+          "type": "project"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T13:31:13.423Z", 
+        "insertId": "z8rdvxd12b2", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T13:31:15.657177441Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "UpdateProject", 
+          "authorizationInfo": [
+            {
+              "granted": true, 
+              "resource": "organizations/926683928810", 
+              "resourceAttributes": {}, 
+              "permission": "resourcemanager.projects.move"
+            }
+          ], 
+          "request": {
+            "project": {
+              "name": "custodian-test-project-2", 
+              "parent": {
+                "type": "folder", 
+                "id": "237653057370"
+              }
+            }, 
+            "projectId": "custodian-test-project-2", 
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.UpdateProjectRequest"
+          }, 
+          "response": {
+            "name": "custodian-test-project-2", 
+            "parent": {
+              "type": "organization", 
+              "id": "926683928810"
+            }, 
+            "projectId": "custodian-test-project-2", 
+            "createTime": "2019-04-24T09:37:23.147Z", 
+            "projectNumber": "161283088938", 
+            "lifecycleState": "ACTIVE", 
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.Project"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "projects/custodian-test-project-2", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "NOTICE", 
+        "timestamp": "2019-04-24T13:36:20.974Z", 
+        "insertId": "-kj1at8d5o3y", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Factivity", 
+        "receiveTimestamp": "2019-04-24T13:36:21.457714893Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SetIamPolicy", 
+          "request": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/billing.admin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/billing.creator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/logging.admin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/owner", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.folderAdmin", 
+                  "members": [
+                    "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                    "user:yauhen_shaliou@comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/resourcemanager.projectCreator", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }, 
+                {
+                  "role": "roles/stackdriver.accounts.editor", 
+                  "members": [
+                    "domain:comelfo.com"
+                  ]
+                }
+              ], 
+              "etag": "BwWHRpwizjU="
+            }, 
+            "resource": "organizations/926683928810", 
+            "@type": "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+          }, 
+          "response": {
+            "bindings": [
+              {
+                "role": "roles/billing.admin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/billing.creator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/logging.admin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/owner", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.folderAdmin", 
+                "members": [
+                  "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com", 
+                  "user:yauhen_shaliou@comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/resourcemanager.projectCreator", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }, 
+              {
+                "role": "roles/stackdriver.accounts.editor", 
+                "members": [
+                  "domain:comelfo.com"
+                ]
+              }
+            ], 
+            "etag": "BwWHRsl4NXc=", 
+            "@type": "type.googleapis.com/google.iam.v1.Policy"
+          }, 
+          "requestMetadata": {
+            "requestAttributes": {}, 
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)", 
+            "destinationAttributes": {}
+          }, 
+          "serviceData": {
+            "@type": "type.googleapis.com/google.iam.v1.logging.AuditData", 
+            "policyDelta": {
+              "bindingDeltas": [
+                {
+                  "action": "REMOVE", 
+                  "member": "user:yauhen_shaliou@comelfo.com", 
+                  "role": "roles/billing.user"
+                }
+              ]
+            }
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T13:40:33.856Z", 
+        "insertId": "-rgv404d5qow", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T13:40:34.036416815Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }, 
+      {
+        "resource": {
+          "labels": {
+            "organization_id": "926683928810"
+          }, 
+          "type": "organization"
+        }, 
+        "severity": "INFO", 
+        "timestamp": "2019-04-24T13:47:01.756Z", 
+        "insertId": "uta85fd5qck", 
+        "logName": "organizations/926683928810/logs/cloudaudit.googleapis.com%2Fdata_access", 
+        "receiveTimestamp": "2019-04-24T13:47:01.865073544Z", 
+        "protoPayload": {
+          "status": {}, 
+          "methodName": "SearchOrganizations", 
+          "request": {
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.SearchOrganizationsRequest", 
+            "pageSize": 500
+          }, 
+          "requestMetadata": {
+            "callerIp": "217.21.63.2", 
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          }, 
+          "serviceName": "cloudresourcemanager.googleapis.com", 
+          "resourceName": "organizations/926683928810", 
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          }, 
+          "numResponseItems": "1", 
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "78947", 
+    "x-xss-protection": "0", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Wed, 24 Apr 2019 14:04:44 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

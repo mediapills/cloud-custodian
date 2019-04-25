@@ -149,3 +149,20 @@ class LogMonitoredResourceDescriptor(QueryResourceManager):
         enum_spec = ('list', 'resourceDescriptors[]', None)
         scope = 'global'
         id = 'name'
+
+
+@resources.register('log-entries')
+class LogEntries(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'logging'
+        version = 'v2'
+        component = 'entries'
+        enum_spec = ('list', 'entries[]', None)
+        id = "name"
+        scope = None
+
+
+    def get_resource_query(self):
+        if 'query' in self.data:
+            return {'body': {'resourceNames': [self.data.get('query')]}}

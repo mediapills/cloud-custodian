@@ -188,3 +188,46 @@ class LogMonitoredResourceDescriptorTest(BaseTest):
         resource = p.run()
         self.assertEqual(len(resource), 2)
         self.assertEqual(resource[0]['displayName'], "GCE VM Instance")
+
+
+class LogEntriesTest(BaseTest):
+
+    def test_query_projects(self):
+        factory = self.replay_flight_data('log-entries-projects')
+        p = self.load_policy({
+            'name': 'log-entries-projects',
+            'query': 'projects/custodian-test-project-0',
+            'resource': 'gcp.log-entries'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertGreater(len(resource), 1)
+
+    def test_query_organizations(self):
+        factory = self.replay_flight_data('log-entries-organizations')
+        p = self.load_policy({
+            'name': 'log-entries-organizations',
+            'query': 'organizations/926683928810',
+            'resource': 'gcp.log-entries'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertGreater(len(resource), 1)
+
+    def test_query_billing_accounts(self):
+        factory = self.replay_flight_data('log-entries-billing-accounts')
+        p = self.load_policy({
+            'name': 'log-entries-billing-accounts',
+            'query': 'billingAccounts/016591-0C32EA-F3D1B3',
+            'resource': 'gcp.log-entries'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertEqual(len(resource), 0)
+
+    def test_query_folders(self):
+        factory = self.replay_flight_data('log-entries-folders')
+        p = self.load_policy({
+            'name': 'log-entries-folders',
+            'query': 'folders/112838955399',
+            'resource': 'gcp.log-entries'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertGreater(len(resource), 1)
