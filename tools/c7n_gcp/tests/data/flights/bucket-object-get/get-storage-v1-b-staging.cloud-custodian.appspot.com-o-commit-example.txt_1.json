@@ -1,0 +1,36 @@
+{
+  "body": {
+    "kind": "storage#object", 
+    "contentType": "text/plain", 
+    "name": "commit-example.txt", 
+    "timeCreated": "2019-04-26T12:49:11.977Z", 
+    "generation": "1556282951978301", 
+    "md5Hash": "4XjYTleriCRJLMWtfRAbaA==", 
+    "bucket": "staging.cloud-custodian.appspot.com",
+    "updated": "2019-04-26T12:49:11.977Z", 
+    "crc32c": "6uhTPQ==", 
+    "metageneration": "1", 
+    "mediaLink": "https://www.googleapis.com/download/storage/v1/b/staging.cloud-custodian.appspot.com/o/commit-example.txt?generation=1556282951978301&alt=media",
+    "storageClass": "STANDARD", 
+    "timeStorageClassUpdated": "2019-04-26T12:49:11.977Z", 
+    "etag": "CL2al+Tl7eECEAE=", 
+    "id": "staging.cloud-custodian.appspot.com/commit-example.txt/1556282951978301",
+    "selfLink": "https://www.googleapis.com/storage/v1/b/staging.cloud-custodian.appspot.com/o/commit-example.txt",
+    "size": "59"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "848", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/staging.cloud-custodian.appspot.com/o/commit-example.txt?alt=json",
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CL2al+Tl7eECEAE=", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Fri, 26 Apr 2019 13:13:00 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UqXgArpnGLplN3EosfWk2q3HxBjY3rvady7jNs3xJmFcAcaqIINdTnTB26rdgfr1dm4z5rt6tCIqQ8eCKn9QUd4ZkkQsg"
+  }
+}

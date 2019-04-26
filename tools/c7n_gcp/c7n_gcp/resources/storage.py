@@ -90,3 +90,32 @@ class DefaultObjectAccessControl(ChildResourceManager):
                 })
             info['bucket_name'] = resource_info['bucket_name']
             return info
+
+
+@resources.register('bucket-object')
+class BucketObject(ChildResourceManager):
+
+    class resource_type(ChildTypeInfo):
+        service = 'storage'
+        version = 'v1'
+        component = 'objects'
+        enum_spec = ('list', 'items[]', None)
+        id = 'name'
+        scope = 'global'
+        parent_spec = {
+            'resource': 'bucket',
+            'child_enum_params': [
+                ('name', 'bucket'),
+            ],
+            'parent_get_params': [
+                ('bucket', 'bucket_name'),
+            ]
+        }
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {
+                    'bucket': resource_info['bucket_name'],
+                    'object': resource_info['name']
+                })

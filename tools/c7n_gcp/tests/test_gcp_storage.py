@@ -111,3 +111,37 @@ class DefaultObjectAccessControlTest(BaseTest):
         })
         self.assertEqual(instance['bucket_name'], bucket_name)
         self.assertEqual(instance['entity'], entity)
+
+
+class BucketObjectTest(BaseTest):
+
+    def test_bucket_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('bucket-object-query', project_id)
+        p = self.load_policy(
+            {'name': 'all-bucket-object',
+             'resource': 'gcp.bucket-object'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], "commit-example.txt")
+
+    def test_bucket_get(self):
+        project_id = 'cloud-custodian'
+        bucket_name = "staging.cloud-custodian.appspot.com"
+        name = "commit-example.txt"
+
+        factory = self.replay_flight_data(
+            'bucket-object-get', project_id)
+        p = self.load_policy({
+            'name': 'bucket-object-get',
+            'resource': 'gcp.bucket-object'
+        },
+            session_factory=factory)
+
+        instance = p.resource_manager.get_resource({
+            "bucket_name": bucket_name,
+            "name": name
+        })
+        self.assertEqual(instance['bucket'], bucket_name)
+        self.assertEqual(instance['name'], name)
