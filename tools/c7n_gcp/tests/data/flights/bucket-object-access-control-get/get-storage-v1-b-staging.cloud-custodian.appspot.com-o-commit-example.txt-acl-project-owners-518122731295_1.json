@@ -1,0 +1,31 @@
+{
+  "body": {
+    "kind": "storage#objectAccessControl", 
+    "generation": "1556282951978301", 
+    "object": "commit-example.txt", 
+    "bucket": "staging.cloud-custodian.appspot.com",
+    "entity": "project-owners-518122731295", 
+    "etag": "CL2al+Tl7eECEAE=", 
+    "role": "OWNER", 
+    "projectTeam": {
+      "projectNumber": "518122731295", 
+      "team": "owners"
+    }, 
+    "id": "staging.cloud-custodian.appspot.com/commit-example.txt/1556282951978301/project-owners-518122731295",
+    "selfLink": "https://www.googleapis.com/storage/v1/b/staging.cloud-custodian.appspot.com/o/commit-example.txt/acl/project-owners-518122731295"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "593", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/staging.cloud-custodian.appspot.com/o/commit-example.txt/acl/project-owners-518122731295?alt=json",
+    "expires": "Fri, 26 Apr 2019 13:31:29 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CL2al+Tl7eECEAE=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Fri, 26 Apr 2019 13:31:29 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UrlT1xwe2QGQbLewgtxy-5x8Y6CS1cXEFzExm8o-a3ECzjeCrUYgpaAXCS_5Xl3K-S6AsQ9SZUFogGTOj5mu4Aw-cR7OA"
+  }
+}
