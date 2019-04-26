@@ -1,0 +1,34 @@
+{
+  "body": {
+    "kind": "storage#bucket", 
+    "name": "bucketstorage-1", 
+    "timeCreated": "2019-05-10T14:06:30.331Z", 
+    "updated": "2019-05-10T14:06:30.331Z", 
+    "projectNumber": "518122731295", 
+    "metageneration": "1", 
+    "location": "US", 
+    "iamConfiguration": {
+      "bucketPolicyOnly": {
+        "enabled": false
+      }
+    }, 
+    "etag": "CAE=", 
+    "id": "bucketstorage-1", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/bucketstorage-1", 
+    "storageClass": "STANDARD"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "438", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/bucketstorage-1?alt=json", 
+    "expires": "Fri, 10 May 2019 14:21:28 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAE=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Fri, 10 May 2019 14:21:28 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UrW0K5Q9b7h0qeMklW-VKw-7bMZWPgmL_HPcWfUNfBrQgi0HmcOZsb3MVtaipd5enp276Tyo9N52rxEzbWsgluERbBdYQ"
+  }
+}

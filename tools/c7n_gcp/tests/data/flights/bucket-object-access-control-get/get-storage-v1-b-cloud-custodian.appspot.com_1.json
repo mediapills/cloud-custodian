@@ -1,0 +1,38 @@
+{
+  "body": {
+    "kind": "storage#bucket", 
+    "name": "cloud-custodian.appspot.com",
+    "timeCreated": "2019-06-04T10:15:26.457Z", 
+    "locationType": "multi-region", 
+    "updated": "2019-07-03T15:55:12.076Z", 
+    "projectNumber": "501876662786", 
+    "metageneration": "2", 
+    "location": "US", 
+    "iamConfiguration": {
+      "uniformBucketLevelAccess": {
+        "enabled": false
+      }, 
+      "bucketPolicyOnly": {
+        "enabled": false
+      }
+    }, 
+    "etag": "CAI=", 
+    "id": "cloud-custodian.appspot.com",
+    "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com",
+    "storageClass": "STANDARD"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "570", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com?alt=json",
+    "expires": "Fri, 05 Jul 2019 10:59:03 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAI=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Fri, 05 Jul 2019 10:59:03 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UpzqJYvaP1omhhZyykzxJjt4rB_ykq4u_WZf7oOYogzIi3JOIUlsbwFWxxf5LV_YoODg9uJFvZ6z5CxP3jygOZ3TsMolg"
+  }
+}

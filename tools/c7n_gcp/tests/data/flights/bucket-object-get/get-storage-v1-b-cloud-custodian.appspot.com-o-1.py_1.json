@@ -1,0 +1,37 @@
+{
+  "body": {
+    "kind": "storage#object", 
+    "contentType": "text/plain", 
+    "name": "1.py", 
+    "timeCreated": "2019-07-03T15:50:03.195Z", 
+    "generation": "1562169003195270", 
+    "md5Hash": "yegjl/qw45X/LuGUq2kKcA==", 
+    "bucket": "cloud-custodian.appspot.com",
+    "updated": "2019-07-05T11:08:06.913Z", 
+    "crc32c": "626PeA==", 
+    "metageneration": "4", 
+    "mediaLink": "https://www.googleapis.com/download/storage/v1/b/cloud-custodian.appspot.com/o/1.py?generation=1562169003195270&alt=media",
+    "storageClass": "STANDARD", 
+    "timeStorageClassUpdated": "2019-07-03T15:50:03.195Z", 
+    "etag": "CIb3joSNmeMCEAQ=", 
+    "contentLanguage": "uk", 
+    "id": "cloud-custodian.appspot.com/1.py/1562169003195270",
+    "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/1.py",
+    "size": "2402"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "780", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/1.py?alt=json",
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CIb3joSNmeMCEAQ=", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Fri, 05 Jul 2019 11:12:25 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UpHz_MgIAmZm_MKFZj9hC7rrspakR8viXMiVzju_UzC-A4cNRBdXKdjWZfGGMCRnLuoTdnGMTtzVyPLC70tiBEOWWEugQ"
+  }
+}

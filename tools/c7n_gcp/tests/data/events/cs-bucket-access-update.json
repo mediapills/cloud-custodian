@@ -1,0 +1,81 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "dkhanas@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "77.123.172.24",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36,gzip(gfe)",
+      "requestAttributes": {},
+      "destinationAttributes": {}
+    },
+    "serviceName": "storage.googleapis.com",
+    "methodName": "storage.buckets.update",
+    "authorizationInfo": [
+      {
+        "resource": "projects/_/buckets/cloud-custodian.appspot.com",
+        "permission": "storage.buckets.update",
+        "granted": true,
+        "resourceAttributes": {}
+      },
+      {
+        "resource": "projects/_/buckets/cloud-custodian.appspot.com",
+        "permission": "storage.buckets.setIamPolicy",
+        "granted": true,
+        "resourceAttributes": {}
+      },
+      {
+        "resource": "projects/_/buckets/cloud-custodian.appspot.com",
+        "permission": "storage.buckets.getIamPolicy",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/_/buckets/cloud-custodian.appspot.com",
+    "serviceData": {
+      "@type": "type.googleapis.com/google.iam.v1.logging.AuditData",
+      "policyDelta": {}
+    },
+    "request": {
+      "defaultObjectAcl": {
+        "bindings": [
+          {
+            "role": "roles/storage.legacyObjectOwner",
+            "members": [
+              "projectOwner:cloud-custodian",
+              "projectEditor:cloud-custodian",
+              "user:dkhanas@gmail.com"
+            ]
+          },
+          {
+            "members": [
+              "projectViewer:cloud-custodian"
+            ],
+            "role": "roles/storage.legacyObjectReader"
+          }
+        ],
+        "@type": "type.googleapis.com/google.iam.v1.Policy"
+      }
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us"
+      ]
+    }
+  },
+  "insertId": "v2tz4ce3z7xa",
+  "resource": {
+    "type": "gcs_bucket",
+    "labels": {
+      "project_id": "cloud-custodian",
+      "location": "us",
+      "bucket_name": "cloud-custodian.appspot.com"
+    }
+  },
+  "timestamp": "2019-07-03T15:55:11.673Z",
+  "severity": "NOTICE",
+  "logName": "projects/cloud-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-07-03T15:55:12.838008824Z"
+}
