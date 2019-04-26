@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from c7n_gcp.provider import resources
-from c7n_gcp.query import QueryResourceManager, TypeInfo
+from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 
 
 @resources.register('bucket')
@@ -30,3 +30,32 @@ class Bucket(QueryResourceManager):
         def get(client, resource_info):
             return client.execute_command(
                 'get', {'bucket': resource_info['bucket_name']})
+
+
+@resources.register('bucket-access-control')
+class BucketAccessControl(ChildResourceManager):
+
+    class resource_type(ChildTypeInfo):
+        service = 'storage'
+        version = 'v1'
+        component = 'bucketAccessControls'
+        enum_spec = ('list', 'items[]', None)
+        id = 'name'
+        scope = 'global'
+        parent_spec = {
+            'resource': 'bucket',
+            'child_enum_params': [
+                ('name', 'bucket'),
+            ],
+            'parent_get_params': [
+                ('bucket', 'bucket_name'),
+            ]
+        }
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {
+                    'bucket': resource_info['bucket_name'],
+                    'entity': resource_info['entity']
+                })
