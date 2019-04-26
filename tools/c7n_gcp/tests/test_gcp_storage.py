@@ -43,3 +43,36 @@ class BucketTest(BaseTest):
         self.assertEqual(bucket['id'], "staging.cloud-custodian.appspot.com")
         self.assertEqual(bucket['storageClass'], "STANDARD")
         self.assertEqual(bucket['location'], "EU")
+
+
+class BucketAccessControlTest(BaseTest):
+
+    def test_bucket_query(self):
+        project_id = 'cloud-custodian'  # 'test-project-232910'
+        factory = self.replay_flight_data('bucket-access-control-query', project_id)
+        p = self.load_policy(
+            {'name': 'all-bucket-access-control',
+             'resource': 'gcp.bucket-access-control'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['bucket'], 'staging.cloud-custodian.appspot.com')
+
+    def test_bucket_get(self):
+        project_id = 'cloud-custodian'
+        bucket_name = "staging.cloud-custodian.appspot.com"
+        entity = "project-editors-518122731295"
+
+        factory = self.replay_flight_data(
+            'bucket-access-control-get', project_id)
+        p = self.load_policy({
+            'name': 'bucket-access-control-get',
+            'resource': 'gcp.bucket-access-control'
+        },
+            session_factory=factory)
+
+        instance = p.resource_manager.get_resource({
+            "bucket_name": bucket_name,
+            "entity": entity,
+        })
+        self.assertEqual(instance['bucket'], bucket_name)
