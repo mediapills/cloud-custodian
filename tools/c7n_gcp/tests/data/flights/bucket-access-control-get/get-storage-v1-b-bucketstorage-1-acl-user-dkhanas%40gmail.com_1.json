@@ -1,0 +1,26 @@
+{
+  "body": {
+    "kind": "storage#bucketAccessControl", 
+    "bucket": "bucketstorage-1", 
+    "entity": "user-dkhanas@gmail.com", 
+    "email": "dkhanas@gmail.com", 
+    "etag": "CAM=", 
+    "role": "OWNER", 
+    "id": "bucketstorage-1/user-dkhanas@gmail.com", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/bucketstorage-1/acl/user-dkhanas@gmail.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "324", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/bucketstorage-1/acl/user-dkhanas%40gmail.com?alt=json", 
+    "expires": "Wed, 15 May 2019 13:43:34 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAM=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Wed, 15 May 2019 13:43:34 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UolXnz_oUBw4FwuCiMavqdxmS_bX8LG6C-Rknuqh38Dre6dNhBHo7uf_JNsREWR5WOnaJVyF-GMBIpFAMltMNmOMew3LA"
+  }
+}

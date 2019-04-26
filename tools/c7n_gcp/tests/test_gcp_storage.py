@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gcp_common import BaseTest
+from gcp_common import BaseTest, event_data
 
 
 class BucketTest(BaseTest):
@@ -31,18 +31,23 @@ class BucketTest(BaseTest):
 
     def test_bucket_get(self):
         project_id = 'cloud-custodian'
-        bucket_name = "staging.cloud-custodian.appspot.com"
+        bucket_name = "bucketstorage-1"
         factory = self.replay_flight_data(
             'bucket-get-resource', project_id)
-        p = self.load_policy({'name': 'bucket', 'resource': 'gcp.bucket'},
+        p = self.load_policy({'name': 'bucket',
+                              'resource': 'gcp.bucket',
+                              'mode': {
+                                  'type': 'gcp-audit',
+                                  'methods': ['storage.buckets.create']}
+                              },
                              session_factory=factory)
-        bucket = p.resource_manager.get_resource({
-            "bucket_name": bucket_name,
-        })
-        self.assertEqual(bucket['name'], bucket_name)
-        self.assertEqual(bucket['id'], "staging.cloud-custodian.appspot.com")
-        self.assertEqual(bucket['storageClass'], "STANDARD")
-        self.assertEqual(bucket['location'], "EU")
+        exec_mode = p.get_execution_mode()
+        event = event_data('cs-bucket-create.json')
+        bucket = exec_mode.run(event, None)
+        self.assertEqual(bucket[0]['name'], bucket_name)
+        self.assertEqual(bucket[0]['id'], "bucketstorage-1")
+        self.assertEqual(bucket[0]['storageClass'], "STANDARD")
+        self.assertEqual(bucket[0]['location'], "US")
 
 
 class BucketAccessControlTest(BaseTest):
@@ -60,22 +65,22 @@ class BucketAccessControlTest(BaseTest):
 
     def test_bucket_get(self):
         project_id = 'cloud-custodian'
-        bucket_name = "staging.cloud-custodian.appspot.com"
-        entity = "project-editors-518122731295"
+        bucket_name = 'bucketstorage-1'
 
         factory = self.replay_flight_data(
             'bucket-access-control-get', project_id)
-        p = self.load_policy({
-            'name': 'bucket-access-control-get',
-            'resource': 'gcp.bucket-access-control'
-        },
-            session_factory=factory)
 
-        instance = p.resource_manager.get_resource({
-            "bucket_name": bucket_name,
-            "entity": entity,
-        })
-        self.assertEqual(instance['bucket'], bucket_name)
+        p = self.load_policy({'name': 'bucket-access-control-get',
+                              'resource': 'gcp.bucket-access-control',
+                              'mode': {
+                                  'type': 'gcp-audit',
+                                  'methods': ['storage.buckets.update']}
+                              },
+                             session_factory=factory)
+        exec_mode = p.get_execution_mode()
+        event = event_data('cs-bucket-update.json')
+        instance = exec_mode.run(event, None)
+        self.assertEqual(instance[0]['bucket'], bucket_name)
 
 
 class BucketDefaultObjectAccessControlTest(BaseTest):
@@ -93,24 +98,23 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
         self.assertEqual(resources[0]['entity'], entity)
 
     def test_bucket_get(self):
-        project_id = 'cloud-custodian'
-        bucket_name = "staging.cloud-custodian.appspot.com"
-        entity = "project-editors-518122731295"
+        project_id = 'new-project-26240'
+        bucket_name = "new-project-26240.appspot.com"
 
         factory = self.replay_flight_data(
-            'bucket-default-object-access-control-get', project_id)
-        p = self.load_policy({
-            'name': 'bucket-default-object-access-control-get',
-            'resource': 'gcp.bucket-default-object-access-control'
-        },
-            session_factory=factory)
+            'bucket-access-control-get', project_id)
 
-        instance = p.resource_manager.get_resource({
-            "bucket_name": bucket_name,
-            "entity": entity,
-        })
-        self.assertEqual(instance['bucket_name'], bucket_name)
-        self.assertEqual(instance['entity'], entity)
+        p = self.load_policy({'name': 'bucket-default-object-access-control-get',
+                              'resource': 'gcp.bucket-default-object-access-control',
+                              'mode': {
+                                  'type': 'gcp-audit',
+                                  'methods': ['storage.buckets.update']}
+                              },
+                             session_factory=factory)
+        exec_mode = p.get_execution_mode()
+        event = event_data('cs-bucket-access-update.json')
+        instance = exec_mode.run(event, None)
+        self.assertEqual(instance[0]['bucket_name'], bucket_name)
 
 
 class BucketObjectTest(BaseTest):
@@ -127,21 +131,55 @@ class BucketObjectTest(BaseTest):
         self.assertEqual(resources[0]['name'], "commit-example.txt")
 
     def test_bucket_get(self):
-        project_id = 'cloud-custodian'
-        bucket_name = "staging.cloud-custodian.appspot.com"
-        name = "commit-example.txt"
-
+        project_id = 'new-project-26240'
+        bucket_name = "new-project-26240.appspot.com"
+        name = '1.py'
         factory = self.replay_flight_data(
             'bucket-object-get', project_id)
-        p = self.load_policy({
-            'name': 'bucket-object-get',
-            'resource': 'gcp.bucket-object'
-        },
-            session_factory=factory)
 
-        instance = p.resource_manager.get_resource({
-            "bucket_name": bucket_name,
-            "name": name
-        })
-        self.assertEqual(instance['bucket'], bucket_name)
-        self.assertEqual(instance['name'], name)
+        p = self.load_policy({'name': 'bucket-object-get',
+                              'resource': 'gcp.bucket-object',
+                              'mode': {
+                                  'type': 'gcp-audit',
+                                  'methods': ['storage.buckets.update']}
+                              },
+                             session_factory=factory)
+        exec_mode = p.get_execution_mode()
+        event = event_data('cs-bucket-object-access-update.json')
+        instance = exec_mode.run(event, None)
+        self.assertEqual(instance[0]['bucket'], bucket_name)
+        self.assertEqual(instance[0]['name'], name)
+
+
+class BucketObjectAccessControlTest(BaseTest):
+
+    def test_bucket_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('bucket-object-access-control-query', project_id)
+        p = self.load_policy(
+            {'name': 'all-bucket-object-access-control',
+             'resource': 'gcp.bucket-object-access-control'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['object'], "commit-example.txt")
+
+    def test_bucket_get(self):
+        project_id = 'new-project-26240'
+        bucket_name = "new-project-26240.appspot.com"
+        name = '1.py'
+        factory = self.replay_flight_data(
+            'bucket-object-access-control-get', project_id)
+
+        p = self.load_policy({'name': 'bucket-object-access-control-get',
+                              'resource': 'gcp.bucket-object-access-control',
+                              'mode': {
+                                  'type': 'gcp-audit',
+                                  'methods': ['storage.buckets.update']}
+                              },
+                             session_factory=factory)
+        exec_mode = p.get_execution_mode()
+        event = event_data('cs-bucket-object-access-update.json')
+        instance = exec_mode.run(event, None)
+        self.assertEqual(instance[0]['bucket'], bucket_name)
+        self.assertEqual(instance[0]['object'], name)

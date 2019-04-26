@@ -1,0 +1,23 @@
+{
+  "body": {
+    "kind": "storage#objectAccessControl", 
+    "etag": "CAI=", 
+    "role": "OWNER", 
+    "email": "dkhanas@gmail.com", 
+    "entity": "user-dkhanas@gmail.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "146", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/defaultObjectAcl/user-dkhanas%40gmail.com?alt=json", 
+    "expires": "Fri, 05 Jul 2019 11:02:52 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAI=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Fri, 05 Jul 2019 11:02:52 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UrfcuiXdsEm6QEImn3Vf5Hu6iAYwc-5UKVWrFbPl92_YpW7kzSLOH4wBOxPQwwlhyBS_9fWZ6N7EOch-rr_helNghkuuw"
+  }
+}
