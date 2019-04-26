@@ -76,3 +76,38 @@ class BucketAccessControlTest(BaseTest):
             "entity": entity,
         })
         self.assertEqual(instance['bucket'], bucket_name)
+
+
+class DefaultObjectAccessControlTest(BaseTest):
+
+    def test_bucket_query(self):
+        project_id = 'cloud-custodian'  # 'test-project-232910'
+        entity = "project-owners-518122731295"
+        factory = self.replay_flight_data('bucket-default-object-access-control-query', project_id)
+        p = self.load_policy(
+            {'name': 'all-bucket-default-object-access-control',
+             'resource': 'gcp.bucket-default-object-access-control'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['entity'], entity)
+
+    def test_bucket_get(self):
+        project_id = 'cloud-custodian'
+        bucket_name = "staging.cloud-custodian.appspot.com"
+        entity = "project-editors-518122731295"
+
+        factory = self.replay_flight_data(
+            'bucket-default-object-access-control-get', project_id)
+        p = self.load_policy({
+            'name': 'bucket-default-object-access-control-get',
+            'resource': 'gcp.bucket-default-object-access-control'
+        },
+            session_factory=factory)
+
+        instance = p.resource_manager.get_resource({
+            "bucket_name": bucket_name,
+            "entity": entity,
+        })
+        self.assertEqual(instance['bucket_name'], bucket_name)
+        self.assertEqual(instance['entity'], entity)
