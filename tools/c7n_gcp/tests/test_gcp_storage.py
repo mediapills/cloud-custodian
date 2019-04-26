@@ -181,3 +181,37 @@ class BucketObjectAccessControlTest(BaseTest):
         })
         self.assertEqual(instance['bucket'], bucket_name)
         self.assertEqual(instance['object'], name)
+
+
+class BucketNotificationTest(BaseTest):
+
+    def test_bucket_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('bucket-notification-query', project_id)
+        p = self.load_policy(
+            {'name': 'all-bucket-notification',
+             'resource': 'gcp.bucket-notification'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['id'], "1")
+
+    def test_bucket_get(self):
+        project_id = 'cloud-custodian'
+        bucket_name = "staging.cloud-custodian.appspot.com"
+        notification_id = "1"
+
+        factory = self.replay_flight_data(
+            'bucket-notification-get', project_id)
+        p = self.load_policy({
+            'name': 'bucket-notification-get',
+            'resource': 'gcp.bucket-notification'
+        },
+            session_factory=factory)
+
+        instance = p.resource_manager.get_resource({
+            "bucket_name": bucket_name,
+            "notification_id": notification_id,
+        })
+        self.assertIn(bucket_name, instance['selfLink'])
+        self.assertEqual(instance['id'], notification_id)

@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import re
+
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 
@@ -151,4 +153,35 @@ class BucketObjectAccessControl(ChildResourceManager):
                     'bucket': resource_info['bucket_name'],
                     'object': resource_info['name'],
                     'entity': resource_info['entity']
+                })
+
+
+@resources.register('bucket-notification')
+class BucketNotification(ChildResourceManager):
+    def _get_parent_resource_info(self, child_instance):
+        mappings = {}
+        project_param_re = re.compile('.*?/storage/v1/b/(.*?)/notificationConfigs/.*')
+        mappings['bucket_name'] = project_param_re.match(child_instance['selfLink']).group(1)
+        return mappings
+
+    class resource_type(ChildTypeInfo):
+        service = 'storage'
+        version = 'v1'
+        component = 'notifications'
+        enum_spec = ('list', 'items[]', None)
+        id = 'id'
+        scope = 'global'
+        parent_spec = {
+            'resource': 'bucket',
+            'child_enum_params': [
+                ('name', 'bucket'),
+            ],
+        }
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {
+                    'bucket': resource_info['bucket_name'],
+                    'notification': resource_info['notification_id']
                 })
