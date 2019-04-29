@@ -162,6 +162,7 @@ class LogEntries(QueryResourceManager):
         id = "name"
         scope = None
 
+
     def get_resource_query(self):
         if 'query' in self.data:
             return {'body': {'resourceNames': [self.data.get('query')]}}
