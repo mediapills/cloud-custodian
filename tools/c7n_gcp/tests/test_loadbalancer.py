@@ -528,3 +528,42 @@ class LoadBalancingGlobalAddressTest(BaseTest):
              'name': 'new-global-address'})
         self.assertEqual(instance['kind'], 'compute#address')
         self.assertEqual(instance['name'], 'new-global-address')
+
+
+class LoadRegionBalancingBackendServiceTest(BaseTest):
+
+    def test_loadbalancer_region_backend_service_query(self):
+        project_id = 'custodian-test-project-0'
+        region = 'us-central1'
+        factory = self.replay_flight_data('lb-region-backend-services-query',
+                                          project_id=project_id)
+        policy = self.load_policy(
+            {'name': 'all-lb-region-backend-services',
+             'query': [{'region': region}],
+             'resource': 'gcp.loadbalancer-region-backend-service'},
+            session_factory=factory)
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['kind'], 'compute#backendService')
+        self.assertEqual(resources[0]['name'], 'custodian-load-balancer-7')
+        self.assertIn(region, resources[0]['region'])
+
+    def test_loadbalancer_region_backend_service_get(self):
+        project_id = 'custodian-test-project-0'
+        region = 'us-central1'
+        resource_name = 'projects/custodian-test-project-0' \
+                        '/regions/us-central1/' \
+                        'backendServices/custodian-load-balancer-7'
+        factory = self.replay_flight_data('lb-region-backend-services-get',
+                                          project_id=project_id)
+        policy = self.load_policy(
+            {'name': 'one-lb-region-backend-services',
+             'resource': 'gcp.loadbalancer-region-backend-service'},
+            session_factory=factory)
+        instance = policy.resource_manager.get_resource(
+            {'project_id': project_id,
+             'location': region,
+             'resourceName': resource_name})
+        self.assertEqual(instance['kind'], 'compute#backendService')
+        self.assertEqual(instance['name'], 'custodian-load-balancer-7')
+        self.assertIn(region, instance['region'])
