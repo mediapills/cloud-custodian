@@ -45,3 +45,35 @@ class KubernetesClusterTest(BaseTest):
         )
 
         self.assertEqual(instance['name'], name)
+
+
+class KubernetesOperationTest(BaseTest):
+
+    def test_operations_query(self):
+        project_id = "cloud-custodian"
+
+        factory = self.replay_flight_data('gke-operation-query', project_id)
+
+        p = self.load_policy(
+            {'name': 'all-gke-operation',
+             'resource': 'gcp.gke-operation'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+    def test_operations_get(self):
+        project_id = "cloud-custodian"
+        name = "operation-1554901519839-e2bbf54f"
+        factory = self.replay_flight_data('gke-operation-get', project_id)
+
+        p = self.load_policy(
+            {'name': 'one-gke-operation',
+             'resource': 'gcp.gke-operation'},
+            session_factory=factory)
+
+        instance = p.resource_manager.get_resource(
+            {"project_id": project_id,
+             "location": "us-central1-a",
+             "operation_name": name})
+
+        self.assertEqual(instance['name'], name)

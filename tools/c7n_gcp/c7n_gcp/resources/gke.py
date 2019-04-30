@@ -17,7 +17,6 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 @resources.register('gke-cluster')
 class KubernetesCluster(QueryResourceManager):
-
     class resource_type(TypeInfo):
         service = 'container'
         version = 'v1'
@@ -36,3 +35,25 @@ class KubernetesCluster(QueryResourceManager):
                         resource_info['project_id'],
                         resource_info['location'],
                         resource_info['cluster_name'])})
+
+
+@resources.register('gke-operation')
+class KubernetesOperation(QueryResourceManager):
+    class resource_type(TypeInfo):
+        service = 'container'
+        version = 'v1'
+        component = 'projects.locations.operations'
+        enum_spec = ('list', 'operations[]', None)
+        scope = 'project'
+        scope_key = 'parent'
+        scope_template = 'projects/{}/locations/-'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_query(
+                'get', verb_arguments={
+                    'name': 'projects/{}/locations/{}/operations/{}'.format(
+                        resource_info['project_id'],
+                        resource_info['location'],
+                        resource_info['operation_name'])})
