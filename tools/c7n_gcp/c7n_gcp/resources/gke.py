@@ -20,10 +20,19 @@ class KubernetesCluster(QueryResourceManager):
 
     class resource_type(TypeInfo):
         service = 'container'
-        version = 'v1beta1'
+        version = 'v1'
         component = 'projects.locations.clusters'
         enum_spec = ('list', 'clusters[]', None)
         scope = 'project'
         scope_key = 'parent'
         scope_template = "projects/{}/locations/-"
         id = "name"
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_query(
+                'get', verb_arguments={
+                    'name': 'projects/{}/locations/{}/clusters/{}'.format(
+                        resource_info['project_id'],
+                        resource_info['location'],
+                        resource_info['cluster_name'])})
