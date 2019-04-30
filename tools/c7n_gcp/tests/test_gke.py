@@ -77,3 +77,37 @@ class KubernetesOperationTest(BaseTest):
              "operation_name": name})
 
         self.assertEqual(instance['name'], name)
+
+
+class KubernetesClusterNodePoolTest(BaseTest):
+
+    def test_cluster_node_pools_query(self):
+        project_id = "cloud-custodian"
+
+        factory = self.replay_flight_data('gke-cluster-nodepool-query', project_id)
+
+        p = self.load_policy(
+            {'name': 'all-gke-cluster-nodepools',
+             'resource': 'gcp.gke-cluster-nodepool'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+    def test_cluster_node_pools_get(self):
+        project_id = "cloud-custodian"
+        name = "default-pool"
+        factory = self.replay_flight_data('gke-cluster-nodepool-get', project_id)
+
+        p = self.load_policy(
+            {'name': 'one-gke-cluster-nodepool',
+             'resource': 'gcp.gke-cluster-nodepool'},
+            session_factory=factory)
+
+        instance = p.resource_manager.get_resource(
+            {"project_id": project_id,
+             "location": "us-central1-a",
+             "cluster_name": "standard-cluster-1",
+             "node_name": name}
+        )
+
+        self.assertEqual(instance['name'], name)
