@@ -579,7 +579,7 @@ class PeriodicEvent(EventSource):
         return job
 
 
-LogInfo = namedtuple('LogInfo', 'name scope_type scope_id id')
+LogInfo = namedtuple('LogInfo', 'scope_type scope_id')
 
 
 class LogSubscriber(EventSource):
@@ -601,10 +601,7 @@ class LogSubscriber(EventSource):
         self.pubsub = PubSubSource(session, data)
 
     def get_log(self):
-        scope_type, scope_id, _, log_id = self.data['log'].split('/', 3)
-        return LogInfo(
-            scope_type=scope_type, scope_id=scope_id,
-            id=log_id, name=self.data['log'])
+        return LogInfo(scope_type=self.data['scope_type'], scope_id=self.data['scope_id'])
 
     def get_log_filter(self):
         return self.data.get('filter')
@@ -717,17 +714,30 @@ class ApiSubscriber(EventSource):
         self.session = session
 
     def get_subscription(self, func):
-        log_name = "{}/{}/logs/cloudaudit.googleapis.com%2Factivity".format(
-            self.data.get('scope', 'projects'),
-            self.session.get_default_project())
-        log_filter = 'logName = "%s"' % log_name
-        log_filter += " AND protoPayload.methodName = (%s)" % (
-            ' OR '.join(['"%s"' % m for m in self.data['methods']]))
         return {
             'topic': '{}audit-{}'.format(self.prefix, func.name),
             'name': '{}audit-{}'.format(self.prefix, func.name),
-            'log': log_name,
-            'filter': log_filter}
+            'scope_type': self.data.get('scope', 'projects'),
+            'scope_id': self.session.get_default_project(),
+            'filter': self._get_logs_filter()}
+
+    def _get_logs(self):
+        prefix = '{}/{}/logs/cloudaudit.googleapis.com%2F'.format(
+            self.data.get('scope', 'projects'),
+            self.session.get_default_project())
+        return [
+            prefix + 'activity',
+            prefix + 'data_access']
+
+    def _get_logs_filter(self):
+        return 'logName = {} AND protoPayload.methodName = {}'.format(
+            self._join_clause_values(self._get_logs()),
+            self._join_clause_values(self.data['methods']))
+
+    @staticmethod
+    def _join_clause_values(values):
+        return '({})'.format(
+            ' OR '.join(['"{}"'.format(v) for v in values]))
 
     def add(self, func):
         return LogSubscriber(self.session, self.get_subscription(func)).add(func)
