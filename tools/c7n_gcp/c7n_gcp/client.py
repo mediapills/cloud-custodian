@@ -366,7 +366,8 @@ class ServiceClient(object):
                 request.headers is not None and \
                 request.headers.__contains__('content-length'):
             del request.headers['content-length']
-            request.body_size = len(request.body)
+            if request.body is not None:
+                request.body_size = len(request.body)
         return request
 
     def supports_pagination(self, verb):
