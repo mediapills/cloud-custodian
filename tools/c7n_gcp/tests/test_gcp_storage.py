@@ -215,3 +215,28 @@ class BucketNotificationTest(BaseTest):
         })
         self.assertIn(bucket_name, instance['selfLink'])
         self.assertEqual(instance['id'], notification_id)
+
+
+class BucketServiceAccountTest(BaseTest):
+
+    def test_bucket_query(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('bucket-service-account-query', project_id)
+        p = self.load_policy(
+            {'name': 'all-bucket-service-account',
+             'resource': 'gcp.bucket-service-account'},
+            session_factory=factory)
+        resources = p.run()
+        self.assertIn('email_address', resources[0].keys())
+
+    def test_bucket_get(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data(
+            'bucket-service-account-get-resource', project_id)
+        p = self.load_policy({'name': 'bucket-service-account', 'resource': 'gcp.bucket-service-account'},
+                             session_factory=factory)
+        bucket = p.resource_manager.get_resource({
+            "project_id": project_id,
+        })
+        self.assertIn('email_address', bucket.keys())
+

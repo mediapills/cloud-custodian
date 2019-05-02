@@ -13,6 +13,7 @@
 # limitations under the License.
 import re
 
+from c7n.utils import local_session
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 
@@ -185,3 +186,23 @@ class BucketNotification(ChildResourceManager):
                     'bucket': resource_info['bucket_name'],
                     'notification': resource_info['notification_id']
                 })
+
+
+@resources.register('bucket-service-account')
+class BucketServiceAccount(QueryResourceManager):
+
+    class resource_type(TypeInfo):
+        service = 'storage'
+        version = 'v1'
+        component = 'projects.serviceAccount'
+        scope = None
+        enum_spec = ('get', '[@]', None)
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'projectId': resource_info['project_id']})
+
+    def get_resource_query(self):
+        return {'projectId': local_session(self.session_factory).get_default_project()}
