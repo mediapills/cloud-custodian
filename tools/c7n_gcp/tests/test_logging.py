@@ -192,41 +192,82 @@ class LogMonitoredResourceDescriptorTest(BaseTest):
 
 class LogEntriesTest(BaseTest):
 
+    def test_query_default(self):
+        factory = self.replay_flight_data('log-entries-default')
+        p = self.load_policy({
+            'name': 'log-entries-projects',
+            'resource': 'gcp.log-entries'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertGreater(len(resource), 1)
+        resource_body = resource[0]['resource']
+        resource_project_id = resource_body['labels']['project_id']
+        self.assertEqual(resource_project_id, 'custodian-test-project-2')
+        self.assertEqual(resource_body['type'], 'project')
+
     def test_query_projects(self):
+        project_id = 'custodian-test-project-2'
         factory = self.replay_flight_data('log-entries-projects')
         p = self.load_policy({
             'name': 'log-entries-projects',
-            'query': 'projects/custodian-test-project-0',
+            'query': [{'project': 'custodian-test-project-2'}],
             'resource': 'gcp.log-entries'},
             session_factory=factory)
         resource = p.run()
         self.assertGreater(len(resource), 1)
+        resource_body = resource[0]['resource']
+        resource_project_id = resource_body['labels']['project_id']
+        self.assertEqual(resource_project_id, project_id)
+        self.assertEqual(resource_body['type'], 'project')
 
     def test_query_organizations(self):
+        organization_id = '926683928810'
         factory = self.replay_flight_data('log-entries-organizations')
         p = self.load_policy({
             'name': 'log-entries-organizations',
-            'query': 'organizations/926683928810',
+            'query': [{'organization': organization_id}],
             'resource': 'gcp.log-entries'},
             session_factory=factory)
         resource = p.run()
         self.assertGreater(len(resource), 1)
+        resource_body = resource[0]['resource']
+        resource_organization_id = resource_body['labels']['organization_id']
+        self.assertEqual(resource_organization_id, organization_id)
+        self.assertEqual(resource_body['type'], 'organization')
 
     def test_query_billing_accounts(self):
+        billing_account = '016591-0C32EA-F3D1B3'
         factory = self.replay_flight_data('log-entries-billing-accounts')
         p = self.load_policy({
             'name': 'log-entries-billing-accounts',
-            'query': 'billingAccounts/016591-0C32EA-F3D1B3',
+            'query': [{'billingAccount': billing_account}],
             'resource': 'gcp.log-entries'},
             session_factory=factory)
         resource = p.run()
-        self.assertEqual(len(resource), 0)
+        self.assertGreater(len(resource), 1)
+        self.assertIn(billing_account, resource[0]['logName'])
 
     def test_query_folders(self):
+        folder_id = '112838955399'
         factory = self.replay_flight_data('log-entries-folders')
         p = self.load_policy({
             'name': 'log-entries-folders',
-            'query': 'folders/112838955399',
+            'query': [{'folder': folder_id}],
+            'resource': 'gcp.log-entries'},
+            session_factory=factory)
+        resource = p.run()
+        self.assertGreater(len(resource), 1)
+        resource_body = resource[0]['resource']
+        resource_folder_id = resource_body['labels']['folder_id']
+        self.assertEqual(resource_folder_id, folder_id)
+        self.assertEqual(resource_body['type'], 'folder')
+
+    def test_query_organizations_folders(self):
+        factory = self.replay_flight_data('log-entries-organizations-folders')
+        p = self.load_policy({
+            'name': 'log-entries-folders',
+            'query': [{'folder': '112838955399',
+                       'organization': '926683928810'}],
             'resource': 'gcp.log-entries'},
             session_factory=factory)
         resource = p.run()

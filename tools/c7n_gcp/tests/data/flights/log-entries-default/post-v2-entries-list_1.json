@@ -1,0 +1,321 @@
+{
+  "body": {
+    "entries": [
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-2"
+          },
+          "type": "project"
+        },
+        "severity": "NOTICE",
+        "timestamp": "2019-04-24T09:37:27.575Z",
+        "insertId": "-k92rebc7dq",
+        "logName": "projects/custodian-test-project-2/logs/cloudaudit.googleapis.com%2Factivity",
+        "receiveTimestamp": "2019-04-24T09:37:28.371050785Z",
+        "protoPayload": {
+          "status": {},
+          "methodName": "CreateProject",
+          "request": {
+            "project": {
+              "name": "custodian-test-project-2",
+              "parent": {
+                "type": "organization",
+                "id": "926683928810"
+              },
+              "projectId": "custodian-test-project-2",
+              "projectNumber": "161283088938",
+              "lifecycleState": "ACTIVE",
+              "createTime": "2019-04-24T09:37:23.147Z"
+            }
+          },
+          "requestMetadata": {
+            "callerIp": "217.21.63.2",
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)"
+          },
+          "serviceName": "cloudresourcemanager.googleapis.com",
+          "resourceName": "projects/custodian-test-project-2",
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          },
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      },
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-2",
+            "method": "google.api.servicemanagement.v1.ServiceManager.ActivateServices",
+            "service": "servicemanagement.googleapis.com"
+          },
+          "type": "audited_resource"
+        },
+        "severity": "NOTICE",
+        "timestamp": "2019-04-24T09:37:32.146Z",
+        "insertId": "xb4hntc4qw",
+        "logName": "projects/custodian-test-project-2/logs/cloudaudit.googleapis.com%2Factivity",
+        "receiveTimestamp": "2019-04-24T09:37:33.446215577Z",
+        "protoPayload": {
+          "methodName": "google.api.servicemanagement.v1.ServiceManager.ActivateServices",
+          "authorizationInfo": [
+            {
+              "granted": true,
+              "resource": "services/cloudapis.googleapis.com",
+              "permission": "servicemanagement.services.bind"
+            },
+            {
+              "granted": true,
+              "resource": "projectnumbers/161283088938/services/-",
+              "permission": "serviceusage.services.enable"
+            },
+            {
+              "granted": true,
+              "resource": "projectnumbers/161283088938/services/-",
+              "permission": "serviceusage.services.enable"
+            },
+            {
+              "resource": "services/cloudapis.googleapis.com",
+              "permission": "servicemanagement.services.bindAll"
+            },
+            {
+              "resource": "services/cloudapis.googleapis.com/consumers/161283088938",
+              "permission": "serviceconsumermanagement.consumers.enable"
+            }
+          ],
+          "requestMetadata": {
+            "callerIp": "2002:ad3:b539::",
+            "callerSuppliedUserAgent": "stubby_client"
+          },
+          "serviceName": "servicemanagement.googleapis.com",
+          "resourceName": "projects/161283088938/services/[cloudapis.googleapis.com]",
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          },
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        },
+        "operation": {
+          "id": "operations/acf.04907436-0960-4947-bd30-3d69234bd5bd",
+          "producer": "servicemanagement.googleapis.com",
+          "first": true
+        }
+      },
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-2",
+            "method": "google.api.servicemanagement.v1.ServiceManager.ActivateServices",
+            "service": "servicemanagement.googleapis.com"
+          },
+          "type": "audited_resource"
+        },
+        "severity": "NOTICE",
+        "timestamp": "2019-04-24T09:37:33.551556251Z",
+        "insertId": "-6n49aoc7qu",
+        "logName": "projects/custodian-test-project-2/logs/cloudaudit.googleapis.com%2Factivity",
+        "receiveTimestamp": "2019-04-24T09:37:33.551556251Z",
+        "protoPayload": {
+          "status": {},
+          "methodName": "google.api.servicemanagement.v1.ServiceManager.ActivateServices",
+          "authorizationInfo": [
+            {
+              "granted": true,
+              "resource": "services/cloudapis.googleapis.com",
+              "permission": "servicemanagement.services.bind"
+            },
+            {
+              "granted": true,
+              "resource": "projectnumbers/161283088938/services/-",
+              "permission": "serviceusage.services.enable"
+            },
+            {
+              "granted": true,
+              "resource": "projectnumbers/161283088938/services/-",
+              "permission": "serviceusage.services.enable"
+            },
+            {
+              "resource": "services/cloudapis.googleapis.com",
+              "permission": "servicemanagement.services.bindAll"
+            },
+            {
+              "resource": "services/cloudapis.googleapis.com/consumers/161283088938",
+              "permission": "serviceconsumermanagement.consumers.enable"
+            }
+          ],
+          "request": {
+            "@type": "type.googleapis.com/google.api.servicemanagement.v1.ActivateServicesRequest",
+            "consumerProjectId": "custodian-test-project-2",
+            "serviceNames": [
+              "cloudapis.googleapis.com"
+            ]
+          },
+          "response": {
+            "@type": "type.googleapis.com/google.api.servicemanagement.v1.ActivateServicesResponse",
+            "settings": [
+              {
+                "usageSettings": {
+                  "consumerEnableStatus": "ENABLED"
+                },
+                "serviceName": "cloudapis.googleapis.com"
+              }
+            ]
+          },
+          "requestMetadata": {
+            "callerIp": "0:0:0:0:0:0:0:1",
+            "callerSuppliedUserAgent": "unknown"
+          },
+          "serviceName": "servicemanagement.googleapis.com",
+          "resourceName": "projects/161283088938/services/[cloudapis.googleapis.com]",
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          },
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        },
+        "operation": {
+          "last": true,
+          "id": "operations/acf.04907436-0960-4947-bd30-3d69234bd5bd",
+          "producer": "servicemanagement.googleapis.com"
+        }
+      },
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-2"
+          },
+          "type": "project"
+        },
+        "severity": "NOTICE",
+        "timestamp": "2019-04-24T09:37:35.448Z",
+        "insertId": "nlc3gyd1akg",
+        "logName": "projects/custodian-test-project-2/logs/cloudaudit.googleapis.com%2Factivity",
+        "receiveTimestamp": "2019-04-24T09:37:36.727011122Z",
+        "protoPayload": {
+          "status": {},
+          "methodName": "AssignProjectToBillingAccount",
+          "authorizationInfo": [
+            {
+              "granted": true,
+              "resource": "billingAccounts/016591-0C32EA-F3D1B3",
+              "resourceAttributes": {},
+              "permission": "billing.resourceAssociations.create"
+            },
+            {
+              "granted": true,
+              "resource": "projects/custodian-test-project-2",
+              "resourceAttributes": {},
+              "permission": "resourcemanager.projects.createBillingAssignment"
+            },
+            {
+              "granted": true,
+              "resource": "billingAccounts/016591-0C32EA-F3D1B3",
+              "resourceAttributes": {},
+              "permission": "billing.resourceAssociations.create"
+            },
+            {
+              "granted": true,
+              "resource": "projects/custodian-test-project-2",
+              "resourceAttributes": {},
+              "permission": "resourcemanager.projects.deleteBillingAssignment"
+            }
+          ],
+          "request": {
+            "projectName": "projects/161283088938",
+            "billingAccountName": "billingAccounts/016591-0C32EA-F3D1B3",
+            "@type": "type.googleapis.com/google.internal.cloudbilling.billingaccount.v1.AssignProjectToBillingAccountRequest"
+          },
+          "response": {
+            "projectId": "161283088938",
+            "billingAccountName": "billingAccounts/016591-0C32EA-F3D1B3",
+            "name": "projects/161283088938/billingInfo",
+            "@type": "type.googleapis.com/google.cloud.billing.v1.ProjectBillingInfo"
+          },
+          "requestMetadata": {
+            "requestAttributes": {},
+            "callerIp": "217.21.63.2",
+            "destinationAttributes": {}
+          },
+          "serviceName": "cloudbilling.googleapis.com",
+          "resourceName": "projects/custodian-test-project-2",
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          },
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      },
+      {
+        "resource": {
+          "labels": {
+            "project_id": "custodian-test-project-2"
+          },
+          "type": "project"
+        },
+        "severity": "NOTICE",
+        "timestamp": "2019-04-24T13:31:13.312Z",
+        "insertId": "z8rdvxd12ay",
+        "logName": "projects/custodian-test-project-2/logs/cloudaudit.googleapis.com%2Factivity",
+        "receiveTimestamp": "2019-04-24T13:31:15.657177441Z",
+        "protoPayload": {
+          "status": {},
+          "methodName": "UpdateProject",
+          "authorizationInfo": [
+            {
+              "granted": true,
+              "resource": "projects/custodian-test-project-2",
+              "resourceAttributes": {},
+              "permission": "resourcemanager.projects.update"
+            }
+          ],
+          "request": {
+            "project": {
+              "name": "custodian-test-project-2",
+              "parent": {
+                "type": "folder",
+                "id": "237653057370"
+              }
+            },
+            "projectId": "custodian-test-project-2",
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.UpdateProjectRequest"
+          },
+          "response": {
+            "name": "custodian-test-project-2",
+            "parent": {
+              "type": "organization",
+              "id": "926683928810"
+            },
+            "projectId": "custodian-test-project-2",
+            "createTime": "2019-04-24T09:37:23.147Z",
+            "projectNumber": "161283088938",
+            "lifecycleState": "ACTIVE",
+            "@type": "type.googleapis.com/google.cloudresourcemanager.v1.Project"
+          },
+          "requestMetadata": {
+            "requestAttributes": {},
+            "callerIp": "217.21.63.2",
+            "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36,gzip(gfe)",
+            "destinationAttributes": {}
+          },
+          "serviceName": "cloudresourcemanager.googleapis.com",
+          "resourceName": "projects/custodian-test-project-2",
+          "authenticationInfo": {
+            "principalEmail": "yauhen_shaliou@comelfo.com"
+          },
+          "@type": "type.googleapis.com/google.cloud.audit.AuditLog"
+        }
+      }
+    ]
+  },
+  "headers": {
+    "status": "200",
+    "content-length": "11174",
+    "x-xss-protection": "0",
+    "x-content-type-options": "nosniff",
+    "transfer-encoding": "chunked",
+    "vary": "Origin, X-Origin, Referer",
+    "server": "ESF",
+    "-content-encoding": "gzip",
+    "cache-control": "private",
+    "date": "Thu, 02 May 2019 15:45:08 GMT",
+    "x-frame-options": "SAMEORIGIN",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

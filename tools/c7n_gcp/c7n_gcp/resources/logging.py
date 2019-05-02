@@ -13,7 +13,7 @@
 # limitations under the License.
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
-
+from c7n.utils import local_session
 # TODO .. folder, billing account, org sink
 # how to map them given a project level root entity sans use of c7n-org
 
@@ -163,5 +163,14 @@ class LogEntries(QueryResourceManager):
         scope = None
 
     def get_resource_query(self):
+        resource_names = []
         if 'query' in self.data:
-            return {'body': {'resourceNames': [self.data.get('query')]}}
+            query = self.data.get('query')
+            for field in ['organization', 'folder', 'project', 'billingAccount']:
+                if query.__contains__(field):
+                    resource_names.append(field + 's/' + query[field])
+        if len(resource_names) == 0:
+            session = local_session(self.session_factory)
+            default_project = session.get_default_project()
+            resource_names.append('projects/' + default_project)
+        return {'body': {'resourceNames': resource_names}}
