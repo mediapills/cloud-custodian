@@ -1,0 +1,28 @@
+{
+  "body": {
+    "kind": "sql#database", 
+    "name": "testpgdb3", 
+    "charset": "UTF8", 
+    "project": "mitrop-custodian", 
+    "instance": "testpginstance", 
+    "etag": "f56f3bd2b99330b55a7d8276e4c840ac78276898db2938c6f3810bb105024d22", 
+    "collation": "en_US.UTF8", 
+    "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/mitrop-custodian/instances/testpginstance/databases/testpgdb3"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "372", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/sql/v1beta4/projects/mitrop-custodian/instances/testpginstance/databases/testpgdb3?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Thu, 02 May 2019 16:29:55 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

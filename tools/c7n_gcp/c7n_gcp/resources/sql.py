@@ -99,10 +99,16 @@ class SqlDatabase(ChildResourceManager):
 
         @staticmethod
         def get(client, event):
+            project = jmespath.search('resource.labels.project_id', event)
+            database = jmespath.search('protoPayload.request.resource.id.databaseName', event)
+            instance = jmespath.search('resource.labels.database_id', event).rsplit(':', 1)[-1]
+
             return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'database': jmespath.search('protoPayload.request.resource.id.databaseName', event),
-                        'instance': jmespath.search('resource.labels.database_id', event).rsplit(':', 1)[-1]}
+                'get', {
+                    'project': project,
+                    'database': database,
+                    'instance': instance
+                }
             )
 
 

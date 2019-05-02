@@ -103,28 +103,29 @@ class SqlDatabaseTest(BaseTest):
         self.assertEqual(databases[0]['name'], database_name)
 
     def test_sqldatabase_get(self):
-        project_id = 'mitropject'
-        session_factory = self.replay_flight_data('sqldatabase-get', project_id=project_id)
+        project_id = 'mitrop-custodian'
+        factory = self.replay_flight_data('sqldatabase-get', project_id=project_id)
 
-        database_name = 'postgres'
-        instance_name = 'testpg'
+        database_name = 'testpgdb3'
+        instance_name = 'testpginstance'
 
-        policy = self.load_policy(
-            {'name': 'one-sql-database',
-             'resource': 'gcp.sql-database'},
-            session_factory=session_factory)
+        p = self.load_policy({
+            'name': 'one-sql-database',
+            'resource': 'gcp.sql-database',
+            'mode': {
+                'type': 'gcp-audit',
+                'methods': ['cloudsql.databases.create']}},
+            session_factory=factory)
 
-        resource_manager = policy.resource_manager
+        exec_mode = p.get_execution_mode()
+        event = event_data('sql-database-create.json')
+        databases = exec_mode.run(event, None)
 
-        database = resource_manager.get_resource(
-            {'project': 'mitropject',
-             'name': database_name,
-             'instance': instance_name})
+        annotation_key = p.resource_manager.resource_type.get_parent_annotation_key()
 
-        annotation_key = resource_manager.resource_type.get_parent_annotation_key()
-
-        self.assertEqual(database['name'], database_name)
-        self.assertEqual(database[annotation_key]['name'], instance_name)
+        self.assertEqual(len(databases), 1)
+        self.assertEqual(databases[0]['name'], database_name)
+        self.assertEqual(databases[0][annotation_key]['name'], instance_name)
 
 
 class SqlUserTest(BaseTest):

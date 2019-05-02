@@ -1,0 +1,55 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "doesntmatter@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "1.1.1.1",
+      "requestAttributes": {
+        "time": "2019-05-02T16:19:15.107Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "cloudsql.googleapis.com",
+    "methodName": "cloudsql.databases.create",
+    "authorizationInfo": [
+      {
+        "resource": "instances/testpginstance",
+        "permission": "cloudsql.databases.create",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "instances/testpginstance",
+    "request": {
+      "resource": {
+        "id": {
+          "databaseName": "testpgdb3",
+          "instanceName": {
+            "fullProjectId": "mitrop-custodian",
+            "instanceId": "testpginstance"
+          }
+        },
+        "collation": "en_US.UTF8",
+        "charset": "UTF8"
+      },
+      "@type": "type.googleapis.com/cloudsql.admin.DatabasesInsertRequest"
+    }
+  },
+  "insertId": "-2rmiv1e6un9x",
+  "resource": {
+    "type": "cloudsql_database",
+    "labels": {
+      "project_id": "mitrop-custodian",
+      "database_id": "mitrop-custodian:testpginstance",
+      "region": "us-central"
+    }
+  },
+  "timestamp": "2019-05-02T16:19:15.095Z",
+  "severity": "INFO",
+  "logName": "projects/mitrop-custodian/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "receiveTimestamp": "2019-05-02T16:19:16.999198428Z"
+}
