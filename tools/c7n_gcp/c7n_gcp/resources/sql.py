@@ -79,7 +79,7 @@ class SqlDatabase(ChildResourceManager):
     def _get_parent_resource_info(self, child_instance):
         project = child_instance['project']
         return {
-            'project_id': child_instance['project'],
+            'project_id': project,
             'database_id': '{}:{}'.format(project, child_instance['instance'])
         }
 
@@ -88,6 +88,7 @@ class SqlDatabase(ChildResourceManager):
         version = 'v1beta4'
         component = 'databases'
         enum_spec = ('list', 'items[]', None)
+        get_requires_event = True
         id = 'name'
         parent_spec = {
             'resource': 'sql-instance',
@@ -97,11 +98,11 @@ class SqlDatabase(ChildResourceManager):
         }
 
         @staticmethod
-        def get(client, resource_info):
+        def get(client, event):
             return client.execute_command(
-                'get', {'project': resource_info['project'],
-                        'database': resource_info['name'],
-                        'instance': resource_info['instance']}
+                'get', {'project': jmespath.search('resource.labels.project_id', event),
+                        'database': jmespath.search('protoPayload.request.resource.id.databaseName', event),
+                        'instance': jmespath.search('resource.labels.database_id', event).rsplit(':', 1)[-1]}
             )
 
 
