@@ -361,7 +361,13 @@ class ServiceClient(object):
                 there is nothing more to fetch - request completed.
         """
         method = getattr(self._component, verb + '_next')
-        return method(prior_request, prior_response)
+        request = method(prior_request, prior_response)
+        if request is not None and \
+                request.headers is not None and \
+                request.headers.__contains__('content-length'):
+            del request.headers['content-length']
+            request.body_size = len(request.body)
+        return request
 
     def supports_pagination(self, verb):
         """Determines if the API action supports pagination.
