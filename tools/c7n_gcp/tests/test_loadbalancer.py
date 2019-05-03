@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gcp_common import BaseTest
+from gcp_common import BaseTest, event_data
 
 
 class LoadBalancingAddressTest(BaseTest):
@@ -31,18 +31,15 @@ class LoadBalancingAddressTest(BaseTest):
         self.assertEqual(resources[0]['address'], '35.193.10.19')
 
     def test_loadbalancer_address_get(self):
-        resource_name = 'projects/cloud-custodian/regions/us-central1/addresses/new1'
         factory = self.replay_flight_data('lb-addresses-get')
         p = self.load_policy(
             {'name': 'one-region-address',
              'resource': 'gcp.loadbalancer-address'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name,
-             'location': 'us-central1'})
+            event_data('lb-addresses-get.json'))
         self.assertEqual(instance['kind'], 'compute#address')
-        self.assertEqual(instance['address'], '35.193.10.19')
+        self.assertEqual(instance['address'], '35.202.198.74')
 
 
 class LoadBalancingUrlMapTest(BaseTest):
@@ -61,17 +58,16 @@ class LoadBalancingUrlMapTest(BaseTest):
         self.assertEqual(resources[0]['fingerprint'], 'GMqHBoGzLDY=')
 
     def test_loadbalancer_url_map_get(self):
-        resource_name = 'projects/cloud-custodian/global/urlMaps/lb'
         factory = self.replay_flight_data('lb-url-maps-get')
         p = self.load_policy(
             {'name': 'one-lb-url-map',
              'resource': 'gcp.loadbalancer-url-map'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-url-maps-get.json'))
         self.assertEqual(instance['kind'], 'compute#urlMap')
-        self.assertEqual(instance['fingerprint'], 'GMqHBoGzLDY=')
+        self.assertEqual(instance['fingerprint'], 'oA9r95u1zRI=')
+        self.assertEqual(instance['name'], 'custodian-load-balancer-0')
 
 
 class LoadBalancingTargetTcpProxyTest(BaseTest):
@@ -90,17 +86,15 @@ class LoadBalancingTargetTcpProxyTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'newlb1-target-proxy')
 
     def test_loadbalancer_target_tcp_proxy_get(self):
-        resource_name = 'projects/cloud-custodian/global/targetTcpProxies/newlb1-target-proxy'
         factory = self.replay_flight_data('lb-target-tcp-proxies-get')
         p = self.load_policy(
             {'name': 'one-lb-target-tcp-proxy',
              'resource': 'gcp.loadbalancer-target-tcp-proxy'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-target-tcp-proxy-get.json'))
         self.assertEqual(instance['kind'], 'compute#targetTcpProxy')
-        self.assertEqual(instance['name'], 'newlb1-target-proxy')
+        self.assertEqual(instance['name'], 'target-tcp-proxy')
 
 
 class LoadBalancingTargetSslProxyTest(BaseTest):
@@ -119,17 +113,15 @@ class LoadBalancingTargetSslProxyTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'lb2-target-proxy')
 
     def test_loadbalancer_target_ssl_proxy_get(self):
-        resource_name = 'projects/cloud-custodian/global/targetSslProxies/lb2-target-proxy'
         factory = self.replay_flight_data('lb-target-ssl-proxies-get')
         p = self.load_policy(
             {'name': 'one-lb-target-ssl-proxy',
              'resource': 'gcp.loadbalancer-target-ssl-proxy'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-target-ssl-proxy-get.json'))
         self.assertEqual(instance['kind'], 'compute#targetSslProxy')
-        self.assertEqual(instance['name'], 'lb2-target-proxy')
+        self.assertEqual(instance['name'], 'target-ssl-proxy')
 
 
 class LoadBalancingSslPolicyTest(BaseTest):
@@ -148,17 +140,15 @@ class LoadBalancingSslPolicyTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'newpolicy')
 
     def test_loadbalancer_ssl_policy_get(self):
-        resource_name = 'projects/cloud-custodian/global/sslPolicies/newpolicy'
         factory = self.replay_flight_data('lb-ssl-policies-get')
         p = self.load_policy(
             {'name': 'one-lb-ssl-policies',
              'resource': 'gcp.loadbalancer-ssl-policy'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-ssl-policy-get.json'))
         self.assertEqual(instance['kind'], 'compute#sslPolicy')
-        self.assertEqual(instance['name'], 'newpolicy')
+        self.assertEqual(instance['name'], 'custodian-ssl-policiy-0')
 
 
 class LoadBalancingSslCertificateTest(BaseTest):
@@ -183,10 +173,9 @@ class LoadBalancingSslCertificateTest(BaseTest):
              'resource': 'gcp.loadbalancer-ssl-certificate'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'ssl_certificate_name': 'testcert'})
+            event_data('lb-ssl-certificate-get.json'))
         self.assertEqual(instance['kind'], 'compute#sslCertificate')
-        self.assertEqual(instance['name'], 'testcert')
+        self.assertEqual(instance['name'], 'comelfo-com-google-certificate')
 
 
 class LoadBalancingTargetHttpsProxyTest(BaseTest):
@@ -205,17 +194,15 @@ class LoadBalancingTargetHttpsProxyTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'newhttpslb-target-proxy')
 
     def test_loadbalancer_target_https_proxy_get(self):
-        resource_name = 'projects/cloud-custodian/global/targetHttpsProxies/newhttpslb-target-proxy'
         factory = self.replay_flight_data('lb-target-https-proxies-get')
         p = self.load_policy(
             {'name': 'one-lb-target-https-proxies',
              'resource': 'gcp.loadbalancer-target-https-proxy'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-target-https-proxy-get.json'))
         self.assertEqual(instance['kind'], 'compute#targetHttpsProxy')
-        self.assertEqual(instance['name'], 'newhttpslb-target-proxy')
+        self.assertEqual(instance['name'], 'custodian-https-target-proxy-0')
 
 
 class LoadBalancingBackendBucketTest(BaseTest):
@@ -234,17 +221,15 @@ class LoadBalancingBackendBucketTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'newbucket')
 
     def test_loadbalancer_backend_bucket_get(self):
-        resource_name = 'projects/cloud-custodian/global/backendBuckets/newbucket'
         factory = self.replay_flight_data('lb-backend-buckets-get')
         p = self.load_policy(
             {'name': 'one-lb-backend-buckets',
              'resource': 'gcp.loadbalancer-backend-bucket'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-backend-bucket-get.json'))
         self.assertEqual(instance['kind'], 'compute#backendBucket')
-        self.assertEqual(instance['name'], 'newbucket')
+        self.assertEqual(instance['name'], 'custodian-backend-bucket-0')
 
 
 class LoadBalancingHttpsHealthCheckTest(BaseTest):
@@ -264,17 +249,15 @@ class LoadBalancingHttpsHealthCheckTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'newhealthcheck')
 
     def test_loadbalancer_https_health_check_get(self):
-        resource_name = 'projects/cloud-custodian/global/httpHealthChecks/newhealthcheck'
         factory = self.replay_flight_data('lb-https-health-checks-get')
         p = self.load_policy(
             {'name': 'one-lb-https-health-checks',
              'resource': 'gcp.loadbalancer-https-health-check'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-https-health-checks-get.json'))
         self.assertEqual(instance['kind'], 'compute#httpsHealthCheck')
-        self.assertEqual(instance['name'], 'newhealthcheck')
+        self.assertEqual(instance['name'], 'custodian-https-health-check')
 
 
 class LoadBalancingHttpHealthCheckTest(BaseTest):
@@ -293,17 +276,15 @@ class LoadBalancingHttpHealthCheckTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'newhttphealthcheck')
 
     def test_loadbalancer_http_health_check_get(self):
-        resource_name = 'projects/cloud-custodian/global/httpHealthChecks/newhttphealthcheck'
         factory = self.replay_flight_data('lb-http-health-checks-get')
         p = self.load_policy(
             {'name': 'one-lb-http-health-checks',
              'resource': 'gcp.loadbalancer-http-health-check'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-http-health-checks-get.json'))
         self.assertEqual(instance['kind'], 'compute#httpHealthCheck')
-        self.assertEqual(instance['name'], 'newhttphealthcheck')
+        self.assertEqual(instance['name'], 'custodian-http-health-check')
 
 
 class LoadBalancingHealthCheckTest(BaseTest):
@@ -322,17 +303,15 @@ class LoadBalancingHealthCheckTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'new-tcp-health-check')
 
     def test_loadbalancer_health_check_get(self):
-        resource_name = 'projects/cloud-custodian/global/healthChecks/new-tcp-health-check'
         factory = self.replay_flight_data('lb-health-checks-get')
         p = self.load_policy(
             {'name': 'one-lb-health-checks',
              'resource': 'gcp.loadbalancer-health-check'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-health-checks-get.json'))
         self.assertEqual(instance['kind'], 'compute#healthCheck')
-        self.assertEqual(instance['name'], 'new-tcp-health-check')
+        self.assertEqual(instance['name'], 'custodain-health-check')
 
 
 class LoadBalancingTargetHttpProxyTest(BaseTest):
@@ -351,17 +330,15 @@ class LoadBalancingTargetHttpProxyTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'new-proxy')
 
     def test_loadbalancer_target_http_proxy_get(self):
-        resource_name = 'projects/cloud-custodian/global/targetHttpProxies/new-proxy'
         factory = self.replay_flight_data('lb-target-http-proxies-get')
         p = self.load_policy(
             {'name': 'one-lb-target-http-proxies',
              'resource': 'gcp.loadbalancer-target-http-proxy'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-target-http-proxies-get.json'))
         self.assertEqual(instance['kind'], 'compute#targetHttpProxy')
-        self.assertEqual(instance['name'], 'new-proxy')
+        self.assertEqual(instance['name'], 'custodian-load-balancer-0-target-proxy')
 
 
 class LoadBalancingBackendServiceTest(BaseTest):
@@ -380,17 +357,15 @@ class LoadBalancingBackendServiceTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'new-backend-service')
 
     def test_loadbalancer_backend_service_get(self):
-        resource_name = 'projects/cloud-custodian/global/backendServices/new-backend-service'
         factory = self.replay_flight_data('lb-backend-services-get')
         p = self.load_policy(
             {'name': 'one-lb-backend-services',
              'resource': 'gcp.loadbalancer-backend-service'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-backend-services-get.json'))
         self.assertEqual(instance['kind'], 'compute#backendService')
-        self.assertEqual(instance['name'], 'new-backend-service')
+        self.assertEqual(instance['name'], 'common-backend-service-0')
 
 
 class LoadBalancingTargetInstanceTest(BaseTest):
@@ -409,20 +384,15 @@ class LoadBalancingTargetInstanceTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'new-target-instance')
 
     def test_loadbalancer_target_instance_get(self):
-        resource_name = 'projects/cloud-custodian/' \
-                        'zones/us-central1-a/' \
-                        'targetInstances/new-target-instance'
         factory = self.replay_flight_data('lb-target-instances-get')
         p = self.load_policy(
             {'name': 'one-lb-target-instances',
              'resource': 'gcp.loadbalancer-target-instance'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'zone': 'us-central1-a',
-             'resourceName': resource_name})
+            event_data('lb-target-instances-get.json'))
         self.assertEqual(instance['kind'], 'compute#targetInstance')
-        self.assertEqual(instance['name'], 'new-target-instance')
+        self.assertEqual(instance['name'], 'custodian-target-instance-1')
 
 
 class LoadBalancingTargetPoolTest(BaseTest):
@@ -441,19 +411,15 @@ class LoadBalancingTargetPoolTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'new-target-pool')
 
     def test_loadbalancer_target_pool_get(self):
-        region = 'us-central1'
-        resource_name = 'projects/cloud-custodian/regions/us-central1/targetPools/new-target-pool'
         factory = self.replay_flight_data('lb-target-pools-get')
         p = self.load_policy(
             {'name': 'one-lb-target-pools',
              'resource': 'gcp.loadbalancer-target-pool'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'zone': region,
-             'resourceName': resource_name})
+            event_data('lb-target-pools-get.json'))
         self.assertEqual(instance['kind'], 'compute#targetPool')
-        self.assertEqual(instance['name'], 'new-target-pool')
+        self.assertEqual(instance['name'], 'custodian-target-pool-0')
 
 
 class LoadBalancingForwardingRuleTest(BaseTest):
@@ -472,19 +438,15 @@ class LoadBalancingForwardingRuleTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'new-fe')
 
     def test_loadbalancer_forwarding_rule_get(self):
-        region = 'us-central1'
         factory = self.replay_flight_data('lb-forwarding-rules-get')
-        resource_name = 'projects/cloud-custodianregions/us-central1/forwardingRules/new-fe'
         p = self.load_policy(
             {'name': 'one-lb-forwarding-rules',
              'resource': 'gcp.loadbalancer-forwarding-rule'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'region': region,
-             'resourceName': resource_name})
+            event_data('lb-forwarding-rules-get.json'))
         self.assertEqual(instance['kind'], 'compute#forwardingRule')
-        self.assertEqual(instance['name'], 'new-fe')
+        self.assertEqual(instance['name'], 'custodian-frontend-tcp-0')
 
 
 class LoadBalancingGlobalForwardingRuleTest(BaseTest):
@@ -503,17 +465,15 @@ class LoadBalancingGlobalForwardingRuleTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'new-global-frontend')
 
     def test_loadbalancer_global_forwarding_rule_get(self):
-        resource_name = 'projects/cloud-custodian/global/forwardingRules/new-global-frontend'
         factory = self.replay_flight_data('lb-global-forwarding-rules-get')
         p = self.load_policy(
             {'name': 'one-lb-global-forwarding-rules',
              'resource': 'gcp.loadbalancer-global-forwarding-rule'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-global-forwarding-rules-get.json'))
         self.assertEqual(instance['kind'], 'compute#forwardingRule')
-        self.assertEqual(instance['name'], 'new-global-frontend')
+        self.assertEqual(instance['name'], 'custodian-frontend-0')
 
 
 class LoadBalancingGlobalAddressTest(BaseTest):
@@ -532,18 +492,15 @@ class LoadBalancingGlobalAddressTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'new-global-address')
 
     def test_loadbalancer_global_address_get(self):
-        resource_name = 'projects/cloud-custodian/global' \
-                        '/addresses/new-global-address'
         factory = self.replay_flight_data('lb-global-addresses-get')
         p = self.load_policy(
             {'name': 'one-lb-global-addresses',
              'resource': 'gcp.loadbalancer-global-address'},
             session_factory=factory)
         instance = p.resource_manager.get_resource(
-            {'project_id': 'cloud-custodian',
-             'resourceName': resource_name})
+            event_data('lb-global-addresses-get.json'))
         self.assertEqual(instance['kind'], 'compute#address')
-        self.assertEqual(instance['name'], 'new-global-address')
+        self.assertEqual(instance['name'], 'custodian-global-address-0')
 
 
 class LoadRegionBalancingBackendServiceTest(BaseTest):
@@ -565,21 +522,13 @@ class LoadRegionBalancingBackendServiceTest(BaseTest):
         self.assertIn(region, resources[0]['region'])
 
     def test_loadbalancer_region_backend_service_get(self):
-        project_id = 'custodian-test-project-0'
-        region = 'us-central1'
-        resource_name = 'projects/custodian-test-project-0' \
-                        '/regions/us-central1/' \
-                        'backendServices/custodian-load-balancer-7'
-        factory = self.replay_flight_data('lb-region-backend-services-get',
-                                          project_id=project_id)
+        factory = self.replay_flight_data('lb-region-backend-services-get')
         policy = self.load_policy(
             {'name': 'one-lb-region-backend-services',
              'resource': 'gcp.loadbalancer-region-backend-service'},
             session_factory=factory)
         instance = policy.resource_manager.get_resource(
-            {'project_id': project_id,
-             'location': region,
-             'resourceName': resource_name})
+            event_data('lb-region-backend-services-patch.json'))
         self.assertEqual(instance['kind'], 'compute#backendService')
         self.assertEqual(instance['name'], 'custodian-load-balancer-7')
-        self.assertIn(region, instance['region'])
+        self.assertIn('us-central1', instance['region'])
