@@ -15,7 +15,6 @@
 
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
-import jmespath
 
 
 @resources.register('loadbalancer-address')
@@ -30,14 +29,12 @@ class LoadBalancingAddress(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'region': jmespath.search('resource.labels.location', event),
-                        'address': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'region': resource_info['location'],
+                'address': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-url-map')
@@ -52,13 +49,11 @@ class LoadBalancingUrlMap(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'urlMap': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'urlMap': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-target-tcp-proxy')
@@ -73,13 +68,11 @@ class LoadBalancingTargetTcpProxy(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'targetTcpProxy': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'targetTcpProxy': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-target-ssl-proxy')
@@ -94,13 +87,11 @@ class LoadBalancingTargetSslProxy(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'targetSslProxy': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'targetSslProxy': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-ssl-policy')
@@ -115,13 +106,11 @@ class LoadBalancingSslPolicy(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'sslPolicy': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'sslPolicy': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-ssl-certificate')
@@ -136,12 +125,10 @@ class LoadBalancingSslCertificate(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'sslCertificate': jmespath.search(
-                            'resource.labels.ssl_certificate_name', event)}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'sslCertificate': resource_info['ssl_certificate_name']})
 
 
 @resources.register('loadbalancer-target-https-proxy')
@@ -156,13 +143,11 @@ class LoadBalancingTargetHttpsProxy(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'targetHttpsProxy': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'targetHttpsProxy': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-backend-bucket')
@@ -177,13 +162,11 @@ class LoadBalancingBackendBucket(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'backendBucket': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'backendBucket': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-https-health-check')
@@ -198,13 +181,11 @@ class LoadBalancingHttpsHealthCheck(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'httpsHealthCheck': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'httpsHealthCheck': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-http-health-check')
@@ -219,13 +200,11 @@ class LoadBalancingHttpHealthCheck(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'httpHealthCheck': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'httpHealthCheck': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-health-check')
@@ -240,13 +219,11 @@ class LoadBalancingHealthCheck(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'healthCheck': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'healthCheck': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-target-http-proxy')
@@ -261,13 +238,11 @@ class LoadBalancingTargetHttpProxy(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'targetHttpProxy': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'targetHttpProxy': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-backend-service')
@@ -282,13 +257,11 @@ class LoadBalancingBackendService(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'backendService': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'backendService': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-target-instance')
@@ -303,14 +276,12 @@ class LoadBalancingTargetInstance(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'zone': jmespath.search('resource.labels.zone', event),
-                        'targetInstance': jmespath.search(
-                            'protoPayload.resourceName',
-                            event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'zone': resource_info['zone'],
+                'targetInstance': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-target-pool')
@@ -325,13 +296,12 @@ class LoadBalancingTargetPool(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'region': jmespath.search('resource.labels.zone', event),
-                        'targetPool': jmespath.search('protoPayload.resourceName',
-                                                      event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'region': resource_info['zone'],
+                'targetPool': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-forwarding-rule')
@@ -346,13 +316,11 @@ class LoadBalancingForwardingRule(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'region': jmespath.search('resource.labels.region', event),
-                        'forwardingRule': jmespath.search('protoPayload.resourceName',
-                                                          event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'region': resource_info['region'],
+                'forwardingRule': resource_info['resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-global-forwarding-rule')
@@ -367,12 +335,10 @@ class LoadBalancingGlobalForwardingRule(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'forwardingRule': jmespath.search('protoPayload.resourceName',
-                                                          event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'forwardingRule': resource_info['resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-global-address')
@@ -387,12 +353,10 @@ class LoadBalancingGlobalAddress(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'address': jmespath.search('protoPayload.resourceName',
-                                                   event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'address': resource_info['resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-region-backend-service')
@@ -407,13 +371,12 @@ class LoadBalancingRegionBackendService(QueryResourceManager):
         id = 'name'
 
         @staticmethod
-        def get(client, event):
-            return client.execute_command(
-                'get', {'project': jmespath.search('resource.labels.project_id', event),
-                        'region': jmespath.search('resource.labels.location', event),
-                        'backendService': jmespath.search('protoPayload.resourceName',
-                                                          event).rsplit('/', 1)[-1]}
-            )
+        def get(client, resource_info):
+            return client.execute_command('get', {
+                'project': resource_info['project_id'],
+                'region': resource_info['location'],
+                'backendService': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
     def get_resource_query(self):
         if 'query' in self.data and self.data.get('query')[0].__contains__('region'):
