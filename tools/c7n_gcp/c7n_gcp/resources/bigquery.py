@@ -63,15 +63,16 @@ class BigQueryJob(QueryResourceManager):
         version = 'v2'
         component = 'jobs'
         enum_spec = ('list', 'jobs[]', {'allUsers': True})
+        get_requires_event = True
         scope = 'project'
         scope_key = 'projectId'
         id = 'id'
 
         @staticmethod
-        def get(client, resource_info):
+        def get(client, event):
             return client.execute_query('get', {
-                'projectId': resource_info['project_id'],
-                'jobId': resource_info['job_id']
+                'projectId': jmespath.search('resource.labels.project_id', event),
+                'jobId': jmespath.search('protoPayload.metadata.tableCreation.jobName', event).rsplit('/', 1)[-1]
             })
 
 
