@@ -1,0 +1,86 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "dkhanas@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "194.44.220.195",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36,gzip(gfe)",
+      "requestAttributes": {},
+      "destinationAttributes": {}
+    },
+    "serviceName": "storage.googleapis.com",
+    "methodName": "storage.buckets.create",
+    "authorizationInfo": [
+      {
+        "resource": "projects/_/buckets/bucketstorage-1",
+        "permission": "storage.buckets.create",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/_/buckets/bucketstorage-1",
+    "serviceData": {
+      "@type": "type.googleapis.com/google.iam.v1.logging.AuditData",
+      "policyDelta": {
+        "bindingDeltas": [
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyBucketOwner",
+            "member": "projectOwner:test-project-232910"
+          },
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyBucketOwner",
+            "member": "projectEditor:test-project-232910"
+          },
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyBucketReader",
+            "member": "projectViewer:test-project-232910"
+          }
+        ]
+      }
+    },
+    "request": {
+      "defaultObjectAcl": {
+        "bindings": [
+          {
+            "members": [
+              "projectOwner:test-project-232910",
+              "projectEditor:test-project-232910"
+            ],
+            "role": "roles/storage.legacyObjectOwner"
+          },
+          {
+            "members": [
+              "projectViewer:test-project-232910"
+            ],
+            "role": "roles/storage.legacyObjectReader"
+          }
+        ],
+        "@type": "type.googleapis.com/google.iam.v1.Policy"
+      }
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us"
+      ]
+    }
+  },
+  "insertId": "-wqjvyde1ux5s",
+  "resource": {
+    "type": "gcs_bucket",
+    "labels": {
+      "project_id": "test-project-232910",
+      "location": "us",
+      "bucket_name": "bucketstorage-1"
+    }
+  },
+  "timestamp": "2019-05-10T14:06:29.690Z",
+  "severity": "NOTICE",
+  "logName": "projects/test-project-232910/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-05-10T14:06:30.982282648Z"
+}

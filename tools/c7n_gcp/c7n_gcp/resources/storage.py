@@ -13,6 +13,8 @@
 # limitations under the License.
 import re
 
+import jmespath
+
 from c7n.utils import local_session
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
@@ -28,11 +30,13 @@ class Bucket(QueryResourceManager):
         scope = 'project'
         enum_spec = ('list', 'items[]', {'projection': 'full'})
         id = 'name'
+        get_requires_event = True
 
         @staticmethod
-        def get(client, resource_info):
+        def get(client, event):
+            bucket_name = jmespath.search('resource.labels.bucket_name', event)
             return client.execute_command(
-                'get', {'bucket': resource_info['bucket_name']})
+                'get', {'bucket': bucket_name})
 
 
 @resources.register('bucket-access-control')

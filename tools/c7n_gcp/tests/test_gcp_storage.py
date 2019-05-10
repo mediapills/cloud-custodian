@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gcp_common import BaseTest
+from gcp_common import BaseTest, event_data
 
 
 class BucketTest(BaseTest):
@@ -31,18 +31,23 @@ class BucketTest(BaseTest):
 
     def test_bucket_get(self):
         project_id = 'cloud-custodian'
-        bucket_name = "staging.cloud-custodian.appspot.com"
+        bucket_name = "bucketstorage-1"
         factory = self.replay_flight_data(
             'bucket-get-resource', project_id)
-        p = self.load_policy({'name': 'bucket', 'resource': 'gcp.bucket'},
+        p = self.load_policy({'name': 'bucket',
+                              'resource': 'gcp.bucket',
+                              'mode': {
+                                  'type': 'gcp-audit',
+                                  'methods': ['storage.buckets.create']}
+                              },
                              session_factory=factory)
-        bucket = p.resource_manager.get_resource({
-            "bucket_name": bucket_name,
-        })
-        self.assertEqual(bucket['name'], bucket_name)
-        self.assertEqual(bucket['id'], "staging.cloud-custodian.appspot.com")
-        self.assertEqual(bucket['storageClass'], "STANDARD")
-        self.assertEqual(bucket['location'], "EU")
+        exec_mode = p.get_execution_mode()
+        event = event_data('cs-bucket-create.json')
+        bucket = exec_mode.run(event, None)
+        self.assertEqual(bucket[0]['name'], bucket_name)
+        self.assertEqual(bucket[0]['id'], "bucketstorage-1")
+        self.assertEqual(bucket[0]['storageClass'], "STANDARD")
+        self.assertEqual(bucket[0]['location'], "US")
 
 
 class BucketAccessControlTest(BaseTest):
