@@ -34,7 +34,11 @@ class Bucket(QueryResourceManager):
 
         @staticmethod
         def get(client, event):
-            bucket_name = jmespath.search('resource.labels.bucket_name', event)
+            if 'resource' in event.keys():
+                bucket_name = jmespath.search('resource.labels.bucket_name', event)
+            else:
+                bucket_name = jmespath.search('bucket_name', event)
+
             return client.execute_command(
                 'get', {'bucket': bucket_name})
 
@@ -49,6 +53,7 @@ class BucketAccessControl(ChildResourceManager):
         enum_spec = ('list', 'items[]', None)
         id = 'name'
         scope = 'global'
+        get_requires_event = True
         parent_spec = {
             'resource': 'bucket',
             'child_enum_params': [
@@ -60,11 +65,14 @@ class BucketAccessControl(ChildResourceManager):
         }
 
         @staticmethod
-        def get(client, resource_info):
+        def get(client, event):
+            entity = jmespath.search('protoPayload.serviceData.policyDelta.bindingDeltas[0].member', event)
+            if ':' in entity:
+                entity = '-'.join(entity.split(':'))
             return client.execute_command(
                 'get', {
-                    'bucket': resource_info['bucket_name'],
-                    'entity': resource_info['entity']
+                    'bucket': jmespath.search('resource.labels.bucket_name', event),
+                    'entity': entity
                 })
 
 
