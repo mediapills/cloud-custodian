@@ -11,9 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import jmespath
 
 from c7n_gcp.provider import resources
-from c7n_gcp.query import QueryResourceManager, TypeInfo
+from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 
 
 @resources.register('project-role')
@@ -77,3 +78,29 @@ class Role(QueryResourceManager):
                 'get', {
                     'name': 'roles/{}'.format(
                         resource_info['name'])})
+
+
+@resources.register('service-account-key')
+class ServiceAccountKey(ChildResourceManager):
+
+    class resource_type(ChildTypeInfo):
+        service = 'iam'
+        version = 'v1'
+        component = 'projects.serviceAccounts.keys'
+        enum_spec = ('list', 'keys[]', [])
+        scope_key = 'name'
+        scope = 'global'
+        id = 'name'
+        get_requires_event = True
+        parent_spec = {
+            'resource': 'service-account',
+            'child_enum_params': [
+                ('name', 'name')
+            ]
+        }
+
+        @staticmethod
+        def get(client, event):
+            return client.execute_query(
+                'get', {'name': jmespath.search('protoPayload.response.name', event)}
+            )

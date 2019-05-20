@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gcp_common import BaseTest
+from gcp_common import BaseTest, event_data
 
 
 class ProjectRoleTest(BaseTest):
@@ -81,3 +81,39 @@ class IAMRoleTest(BaseTest):
         })
 
         self.assertEqual(resource['name'], 'roles/{}'.format(name))
+
+
+class ServiceAccountKeyTest(BaseTest):
+
+    def test_iam_role_query(self):
+        project_id = "test-project-232910"
+
+        session_factory = self.replay_flight_data(
+            'ami-service-account-key-query', project_id)
+
+        policy = self.load_policy(
+            {
+                'name': 'ami-service-account-key-query',
+                'resource': 'gcp.service-account-key'
+            },
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+
+    def test_get(self):
+        project_id = "test-project-232910"
+        key_algorithm = 'KEY_ALG_RSA_2048'
+        factory = self.record_flight_data('aim-service-account-key-get', project_id)
+        p = self.load_policy({'name': 'sa-key-get',
+                              'resource': 'gcp.service-account-key',
+                              # },
+                              'mode': {
+                                  'type': 'gcp-audit',
+                                  'methods': ['google.iam.admin.v1.CreateServiceAccountKey']}
+                              },
+                             session_factory=factory)
+        exec_mode = p.get_execution_mode()
+        event = event_data('iam-sa-key-create.json')
+        resource = exec_mode.run(event, None)
+        self.assertEqual(resource[0]['keyAlgorithm'], key_algorithm)

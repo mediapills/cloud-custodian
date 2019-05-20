@@ -1,0 +1,61 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "dkhanas@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "217.20.186.33",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36,gzip(gfe)",
+      "requestAttributes": {
+        "time": "2019-05-17T14:52:50.982947303Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "iam.googleapis.com",
+    "methodName": "google.iam.admin.v1.CreateServiceAccountKey",
+    "authorizationInfo": [
+      {
+        "resource": "projects/-/serviceAccounts/113443217250063551315",
+        "permission": "iam.serviceAccountKeys.create",
+        "granted": true,
+        "resourceAttributes": {
+          "name": "projects/-/serviceAccounts/113443217250063551315"
+        }
+      }
+    ],
+    "resourceName": "projects/-/serviceAccounts/113443217250063551315",
+    "request": {
+      "@type": "type.googleapis.com/google.iam.admin.v1.CreateServiceAccountKeyRequest",
+      "name": "projects/test-project-232910/serviceAccounts/113443217250063551315",
+      "private_key_type": 2
+    },
+    "response": {
+      "@type": "type.googleapis.com/google.iam.admin.v1.ServiceAccountKey",
+      "valid_after_time": {
+        "seconds": 1558104771
+      },
+      "valid_before_time": {
+        "seconds": 1873464771
+      },
+      "name": "projects/test-project-232910/serviceAccounts/custodin@test-project-232910.iam.gserviceaccount.com/keys/93815863f172743f3eff687896f11f6693f45a93",
+      "private_key_type": 2,
+      "key_algorithm": 2
+    }
+  },
+  "insertId": "1pw1bh0d58wn",
+  "resource": {
+    "type": "service_account",
+    "labels": {
+      "project_id": "test-project-232910",
+      "email_id": "custodin@test-project-232910.iam.gserviceaccount.com",
+      "unique_id": "113443217250063551315"
+    }
+  },
+  "timestamp": "2019-05-17T14:52:50.842499204Z",
+  "severity": "NOTICE",
+  "logName": "projects/test-project-232910/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-05-17T14:52:51.997702243Z"
+}
