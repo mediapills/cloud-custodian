@@ -93,7 +93,6 @@ class ServiceAccountKey(ChildResourceManager):
         return {'email_id': email,
                 'project_id': project}
 
-
     class resource_type(ChildTypeInfo):
         service = 'iam'
         version = 'v1'

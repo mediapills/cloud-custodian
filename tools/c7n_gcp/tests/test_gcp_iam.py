@@ -89,11 +89,11 @@ class ServiceAccountKeyTest(BaseTest):
         project_id = "test-project-232910"
 
         session_factory = self.replay_flight_data(
-            'ami-service-account-key-query', project_id)
+            'iam-service-account-key-query', project_id)
 
         policy = self.load_policy(
             {
-                'name': 'ami-service-account-key-query',
+                'name': 'iam-service-account-key-query',
                 'resource': 'gcp.service-account-key'
             },
             session_factory=session_factory)
@@ -104,7 +104,7 @@ class ServiceAccountKeyTest(BaseTest):
     def test_get(self):
         project_id = 'mitrop-custodian'
         key_algorithm = 'KEY_ALG_RSA_2048'
-        factory = self.replay_flight_data('aim-service-account-key-get', project_id)
+        factory = self.replay_flight_data('iam-service-account-key-get', project_id)
         p = self.load_policy({'name': 'sa-key-get',
                               'resource': 'gcp.service-account-key',
                               # },
