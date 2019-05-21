@@ -3,13 +3,13 @@
     "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
     "status": {},
     "authenticationInfo": {
-      "principalEmail": "dkhanas@gmail.com"
+      "principalEmail": "..."
     },
     "requestMetadata": {
-      "callerIp": "217.20.186.33",
-      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36,gzip(gfe)",
+      "callerIp": "...",
+      "callerSuppliedUserAgent": "Mozilla/5.0",
       "requestAttributes": {
-        "time": "2019-05-17T14:52:50.982947303Z",
+        "time": "2019-05-21T08:49:50.279084741Z",
         "auth": {}
       },
       "destinationAttributes": {}
@@ -18,44 +18,44 @@
     "methodName": "google.iam.admin.v1.CreateServiceAccountKey",
     "authorizationInfo": [
       {
-        "resource": "projects/-/serviceAccounts/113443217250063551315",
+        "resource": "projects/-/serviceAccounts/112831564486359906768",
         "permission": "iam.serviceAccountKeys.create",
         "granted": true,
         "resourceAttributes": {
-          "name": "projects/-/serviceAccounts/113443217250063551315"
+          "name": "projects/-/serviceAccounts/112831564486359906768"
         }
       }
     ],
-    "resourceName": "projects/-/serviceAccounts/113443217250063551315",
+    "resourceName": "projects/-/serviceAccounts/112831564486359906768",
     "request": {
       "@type": "type.googleapis.com/google.iam.admin.v1.CreateServiceAccountKeyRequest",
-      "name": "projects/test-project-232910/serviceAccounts/113443217250063551315",
+      "name": "projects/mitrop-custodian/serviceAccounts/112831564486359906768",
       "private_key_type": 2
     },
     "response": {
+      "key_algorithm": 2,
       "@type": "type.googleapis.com/google.iam.admin.v1.ServiceAccountKey",
       "valid_after_time": {
-        "seconds": 1558104771
+        "seconds": 1558428590
       },
       "valid_before_time": {
-        "seconds": 1873464771
+        "seconds": 1873788590
       },
-      "name": "projects/test-project-232910/serviceAccounts/custodin@test-project-232910.iam.gserviceaccount.com/keys/93815863f172743f3eff687896f11f6693f45a93",
-      "private_key_type": 2,
-      "key_algorithm": 2
+      "name": "projects/mitrop-custodian/serviceAccounts/test-sa@mitrop-custodian.iam.gserviceaccount.com/keys/3d4dbaf9f2d6b13d7e666f086627e458bfab3620",
+      "private_key_type": 2
     }
   },
-  "insertId": "1pw1bh0d58wn",
+  "insertId": "w7axkre2eng6",
   "resource": {
     "type": "service_account",
     "labels": {
-      "project_id": "test-project-232910",
-      "email_id": "custodin@test-project-232910.iam.gserviceaccount.com",
-      "unique_id": "113443217250063551315"
+      "project_id": "mitrop-custodian",
+      "email_id": "test-sa@mitrop-custodian.iam.gserviceaccount.com",
+      "unique_id": "112831564486359906768"
     }
   },
-  "timestamp": "2019-05-17T14:52:50.842499204Z",
+  "timestamp": "2019-05-21T08:49:50.140247432Z",
   "severity": "NOTICE",
-  "logName": "projects/test-project-232910/logs/cloudaudit.googleapis.com%2Factivity",
-  "receiveTimestamp": "2019-05-17T14:52:51.997702243Z"
+  "logName": "projects/mitrop-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-05-21T08:49:51.160942166Z"
 }

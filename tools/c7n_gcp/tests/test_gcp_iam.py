@@ -102,9 +102,9 @@ class ServiceAccountKeyTest(BaseTest):
         self.assertEqual(len(resources), 1)
 
     def test_get(self):
-        project_id = "test-project-232910"
+        project_id = 'mitrop-custodian'
         key_algorithm = 'KEY_ALG_RSA_2048'
-        factory = self.record_flight_data('aim-service-account-key-get', project_id)
+        factory = self.replay_flight_data('aim-service-account-key-get', project_id)
         p = self.load_policy({'name': 'sa-key-get',
                               'resource': 'gcp.service-account-key',
                               # },

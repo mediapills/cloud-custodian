@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import re
+
 import jmespath
 
 from c7n_gcp.provider import resources
@@ -82,6 +84,15 @@ class Role(QueryResourceManager):
 
 @resources.register('service-account-key')
 class ServiceAccountKey(ChildResourceManager):
+
+    def _get_parent_resource_info(self, child_instance):
+        project, email = re.match(
+            'projects/(.*?)/serviceAccounts/(.*?)/keys/.*?',
+            child_instance['name']).groups()
+
+        return {'email_id': email,
+                'project_id': project}
+
 
     class resource_type(ChildTypeInfo):
         service = 'iam'
