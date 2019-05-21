@@ -71,8 +71,10 @@ class LogProjectMetric(QueryResourceManager):
         @staticmethod
         def get(client, resource_info):
             return client.execute_query('get', {
-                'metricName': 'projects/{project_id}/metrics/{name}'.format(
-                    **resource_info)})
+                'metricName': 'projects/{}/metrics/{}'.format(
+                    resource_info['project_id'],
+                    resource_info['name'].split('/')[-1],
+                )})
 
 
 @resources.register('log-project')
@@ -135,5 +137,5 @@ class LogExclusion(QueryResourceManager):
         @staticmethod
         def get(client, resource_info):
             return client.execute_query('get', {
-                'name': '{type}/{project_id}/exclusions/{name}'.format(
+                'name': 'projects/{project_id}/exclusions/{name}'.format(
                     **resource_info)})
