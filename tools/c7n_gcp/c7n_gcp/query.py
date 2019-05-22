@@ -192,8 +192,10 @@ class ChildResourceManager(QueryResourceManager):
 
         resources = []
         annotation_key = self.resource_type.get_parent_annotation_key()
+        parent_query = self.get_parent_resource_query()
         parent_resource_manager = self.get_resource_manager(
-            self.resource_type.parent_spec['resource']
+            resource_type=self.resource_type.parent_spec['resource'],
+            data=({'query': parent_query} if parent_query else {})
         )
 
         for parent_instance in parent_resource_manager.resources():
@@ -214,6 +216,12 @@ class ChildResourceManager(QueryResourceManager):
     def _get_child_enum_args(self, parent_instance):
         mappings = self.resource_type.parent_spec['child_enum_params']
         return self._extract_fields(parent_instance, mappings)
+
+    def get_parent_resource_query(self):
+        parent_spec = self.resource_type.parent_spec
+        enabled = parent_spec['use_child_query'] if 'use_child_query' in parent_spec else False
+        if enabled and 'query' in self.data:
+            return self.data.get('query')
 
     @staticmethod
     def _extract_fields(source, mappings):
