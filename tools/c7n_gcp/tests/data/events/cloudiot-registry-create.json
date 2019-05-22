@@ -1,0 +1,84 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "alex.karpitski@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "86.57.255.91",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2019-05-22T14:50:55.428917573Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "cloudiot.googleapis.com",
+    "methodName": "google.cloud.iot.v1.DeviceManager.CreateDeviceRegistry",
+    "authorizationInfo": [
+      {
+        "resource": "projects/cloud-custodian/locations/europe-west1/registries/custodian",
+        "permission": "cloudiot.registries.create",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/cloud-custodian/locations/europe-west1/registries/custodian",
+    "request": {
+      "parent": "projects/cloud-custodian/locations/europe-west1",
+      "deviceRegistry": {
+        "stateNotificationConfig": {
+          "pubsubTopicName": "projects/cloud-custodian/topics/iot-registry-state"
+        },
+        "name": "",
+        "eventNotificationConfigs": [
+          {
+            "pubsubTopicName": "projects/cloud-custodian/topics/iot-registry-telemetry"
+          }
+        ],
+        "logLevel": "ERROR",
+        "httpConfig": {
+          "httpEnabledState": "HTTP_ENABLED"
+        },
+        "id": "custodian",
+        "mqttConfig": {
+          "mqttEnabledState": "MQTT_ENABLED"
+        }
+      },
+      "@type": "type.googleapis.com/google.cloud.iot.v1.CreateDeviceRegistryRequest"
+    },
+    "response": {
+      "stateNotificationConfig": {
+        "pubsubTopicName": "projects/cloud-custodian/topics/iot-registry-state"
+      },
+      "name": "projects/cloud-custodian/locations/europe-west1/registries/custodian",
+      "eventNotificationConfigs": [
+        {
+          "pubsubTopicName": "projects/cloud-custodian/topics/iot-registry-telemetry"
+        }
+      ],
+      "logLevel": "ERROR",
+      "httpConfig": {
+        "httpEnabledState": "HTTP_ENABLED"
+      },
+      "id": "custodian",
+      "mqttConfig": {
+        "mqttEnabledState": "MQTT_ENABLED"
+      },
+      "@type": "type.googleapis.com/google.cloud.iot.v1.DeviceRegistry"
+    }
+  },
+  "insertId": "134ohqadqisk",
+  "resource": {
+    "type": "cloudiot_device_registry",
+    "labels": {
+      "project_id": "cloud-custodian",
+      "device_registry_id": "custodian",
+      "location": "europe-west1"
+    }
+  },
+  "timestamp": "2019-05-22T14:50:55.418846255Z",
+  "severity": "NOTICE",
+  "logName": "projects/cloud-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-05-22T14:50:56.245825330Z"
+}
