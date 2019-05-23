@@ -1,0 +1,93 @@
+{
+  "body": {
+    "intents": [
+      {
+        "displayName": "custodian-intent-0", 
+        "name": "projects/custodian-test-project-0/agent/intents/9fa4bb38-3bda-4b6b-bee3-cfd05df0a007", 
+        "messages": [
+          {
+            "text": {}
+          }
+        ], 
+        "priority": 500000, 
+        "inputContextNames": [
+          "projects/custodian-test-project-0/agent/sessions/-/contexts/input_context"
+        ], 
+        "outputContexts": [
+          {
+            "name": "projects/custodian-test-project-0/agent/sessions/-/contexts/output_context", 
+            "lifespanCount": 5
+          }
+        ], 
+        "events": [
+          "GOOGLE_ASSISTANT_WELCOME", 
+          "WELCOME"
+        ]
+      }, 
+      {
+        "displayName": "Default Welcome Intent", 
+        "name": "projects/custodian-test-project-0/agent/intents/a48c3483-addd-416a-b272-397c97b213f7", 
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "Hi! How are you doing?", 
+                "Hello! How can I help you?", 
+                "Good day! What can I do for you today?", 
+                "Greetings! How can I assist?"
+              ]
+            }
+          }
+        ], 
+        "priority": 500000, 
+        "action": "input.welcome", 
+        "events": [
+          "WELCOME"
+        ]
+      }, 
+      {
+        "isFallback": true, 
+        "displayName": "Default Fallback Intent", 
+        "name": "projects/custodian-test-project-0/agent/intents/19d327ca-510d-4dad-8c4d-2d77f361710a", 
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "I didn't get that. Can you say it again?", 
+                "I missed what you said. What was that?", 
+                "Sorry, could you say that again?", 
+                "Sorry, can you say that again?", 
+                "Can you say that again?", 
+                "Sorry, I didn't get that. Can you rephrase?", 
+                "Sorry, what was that?", 
+                "One more time?", 
+                "What was that?", 
+                "Say that one more time?", 
+                "I didn't get that. Can you repeat?", 
+                "I missed that, say that again?"
+              ]
+            }
+          }
+        ], 
+        "priority": 500000, 
+        "action": "input.unknown"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "2146", 
+    "x-xss-protection": "0", 
+    "content-location": "https://dialogflow.googleapis.com/v2/projects/custodian-test-project-0/agent/intents?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Wed, 22 May 2019 16:03:18 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
