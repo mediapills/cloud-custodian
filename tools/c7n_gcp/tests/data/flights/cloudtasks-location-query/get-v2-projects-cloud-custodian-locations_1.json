@@ -1,0 +1,29 @@
+{
+  "body": {
+    "locations": [
+      {
+        "labels": {
+          "cloud.googleapis.com/region": "europe-west3"
+        }, 
+        "locationId": "europe-west3", 
+        "name": "projects/cloud-custodian/locations/europe-west3"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "225", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudtasks.googleapis.com/v2/projects/cloud-custodian/locations?alt=json",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Fri, 24 May 2019 13:43:22 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

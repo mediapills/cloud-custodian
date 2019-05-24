@@ -1,0 +1,33 @@
+{
+  "body": {
+    "rateLimits": {
+      "maxConcurrentDispatches": 1000, 
+      "maxBurstSize": 100, 
+      "maxDispatchesPerSecond": 500
+    }, 
+    "state": "RUNNING", 
+    "name": "projects/cloud-custodian/locations/europe-west3/queues/custodian-queue-1",
+    "retryConfig": {
+      "maxDoublings": 16, 
+      "maxAttempts": 100, 
+      "maxBackoff": "3600s", 
+      "minBackoff": "0.100s"
+    }
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "363", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudtasks.googleapis.com/v2/projects/cloud-custodian/locations/europe-west3/queues/custodian-queue-1?alt=json",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Fri, 24 May 2019 14:23:34 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
