@@ -1,0 +1,45 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "alex.karpitski@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "86.57.255.91",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2019-05-24T19:32:10.224082017Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "cloudtasks.googleapis.com",
+    "methodName": "google.cloud.tasks.v2.CloudTasks.RunTask",
+    "authorizationInfo": [
+      {
+        "resource": "/0000000e757c8164/europe-west3/custodian-queue",
+        "permission": "cloudtasks.tasks.run",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/cloud-custodian/locations/europe-west3/queues/custodian-queue/tasks/8298647093923281163",
+    "request": {
+      "@type": "type.googleapis.com/google.cloud.tasks.v2.RunTaskRequest",
+      "name": "projects/cloud-custodian/locations/europe-west3/queues/custodian-queue/tasks/8298647093923281163"
+    }
+  },
+  "insertId": "1yhlus7c69y",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "service": "",
+      "method": "",
+      "project_id": "cloud-custodian"
+    }
+  },
+  "timestamp": "2019-05-24T19:32:10.215535394Z",
+  "severity": "INFO",
+  "logName": "projects/cloud-custodian/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "receiveTimestamp": "2019-05-24T19:32:10.455220592Z"
+}

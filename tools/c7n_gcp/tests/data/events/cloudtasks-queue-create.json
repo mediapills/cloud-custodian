@@ -1,0 +1,64 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "alex.karpitski@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "35.204.173.154",
+      "callerSuppliedUserAgent": "google-cloud-sdk x_Tw5K8nnjoRAqULM9PFAC2b gcloud/247.0.0 command/gcloud.tasks.queues.create invocation-id/35de6666621e4e1ab497d9ae2cfaa438 environment/devshell environment-version/None interactive/True from-script/False python/2.7.13 term/screen (Linux 4.14.104+),gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2019-05-24T14:00:16.288979771Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "cloudtasks.googleapis.com",
+    "methodName": "google.cloud.tasks.v2.CloudTasks.CreateQueue",
+    "authorizationInfo": [
+      {
+        "resource": "/0000000e757c8164/europe-west3",
+        "permission": "cloudtasks.queues.create",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/cloud-custodian/locations/europe-west3",
+    "request": {
+      "parent": "projects/cloud-custodian/locations/europe-west3",
+      "queue": {
+        "name": "projects/cloud-custodian/locations/europe-west3/queues/custodian-queue-1"
+      },
+      "@type": "type.googleapis.com/google.cloud.tasks.v2.CreateQueueRequest"
+    },
+    "response": {
+      "rateLimits": {
+        "maxConcurrentDispatches": 1000,
+        "maxDispatchesPerSecond": 500,
+        "maxBurstSize": 100
+      },
+      "@type": "type.googleapis.com/google.cloud.tasks.v2.Queue",
+      "state": "RUNNING",
+      "retryConfig": {
+        "maxDoublings": 16,
+        "maxAttempts": 100,
+        "minBackoff": "0.100s",
+        "maxBackoff": "3600s"
+      },
+      "name": "projects/cloud-custodian/locations/europe-west3/queues/custodian-queue-1"
+    }
+  },
+  "insertId": "j5nhipc657",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "method": "",
+      "project_id": "cloud-custodian",
+      "service": ""
+    }
+  },
+  "timestamp": "2019-05-24T14:00:16.281075600Z",
+  "severity": "NOTICE",
+  "logName": "projects/cloud-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-05-24T14:00:16.733814362Z"
+}
