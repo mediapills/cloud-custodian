@@ -720,7 +720,7 @@ class ApiSubscriber(EventSource):
         log_name = "{}/{}/logs/cloudaudit.googleapis.com%2Factivity".format(
             self.data.get('scope', 'projects'),
             self.session.get_default_project())
-        log_filter = 'logName = "%s"' % log_name
+        log_filter = '(logName = "%s" OR resource.type = "audited_resource")' % log_name
         log_filter += " AND protoPayload.methodName = (%s)" % (
             ' OR '.join(['"%s"' % m for m in self.data['methods']]))
         return {
