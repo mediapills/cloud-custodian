@@ -53,8 +53,7 @@ class DialogFlowEntityType(QueryResourceManager):
         def get(client, resource_info):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
-                'region': resource_info['location'],
-                'address': resource_info[
+                'entityType': resource_info[
                     'resourceName'].rsplit('/', 1)[-1]})
 
 
@@ -68,48 +67,6 @@ class DialogFlowIntent(QueryResourceManager):
         enum_spec = ('list', 'intents[]', None)
         scope_key = 'parent'
         scope_template = 'projects/{}/agent'
-        id = 'name'
-
-        @staticmethod
-        def get(client, resource_info):
-            return client.execute_command('get', {
-                'project': resource_info['project_id'],
-                'region': resource_info['location'],
-                'address': resource_info[
-                    'resourceName'].rsplit('/', 1)[-1]})
-
-
-@resources.register('dialogflow-session-context')
-class DialogFlowSessionContext(QueryResourceManager):
-
-    class resource_type(TypeInfo):
-        service = 'dialogflow-enterprise'
-        version = 'v2'
-        component = 'projects.agents'
-        enum_spec = ('search', 'instances[]', None)
-        scope_key = 'parent'
-        scope_template = 'projects/{}'
-        id = 'name'
-
-        @staticmethod
-        def get(client, resource_info):
-            return client.execute_command('get', {
-                'project': resource_info['project_id'],
-                'region': resource_info['location'],
-                'address': resource_info[
-                    'resourceName'].rsplit('/', 1)[-1]})
-
-
-@resources.register('dialogflow-session-entity-type')
-class DialogFlowSessionEntityType(QueryResourceManager):
-
-    class resource_type(TypeInfo):
-        service = 'dialogflow-enterprise'
-        version = 'v2'
-        component = 'projects.agents'
-        enum_spec = ('search', 'instances[]', None)
-        scope_key = 'parent'
-        scope_template = 'projects/{}'
         id = 'name'
 
         @staticmethod

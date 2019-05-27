@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gcp_common import BaseTest
+from gcp_common import BaseTest, event_data
 
 
 class DialogFlowAgentTest(BaseTest):
@@ -33,7 +33,7 @@ class DialogFlowAgentTest(BaseTest):
 
 class DialogFlowEntityTypeTest(BaseTest):
 
-    def test_dialog_flow_agent_query(self):
+    def test_dialog_flow_agent_entuty_type_query(self):
         project_id = 'custodian-test-project-0'
         factory = self.replay_flight_data('df-agent-entity-types-query',
                                           project_id=project_id)
@@ -47,6 +47,23 @@ class DialogFlowEntityTypeTest(BaseTest):
         self.assertEqual(resources[1]['displayName'], 'CustodianEntity')
         self.assertEqual(len(resources[1]['entities']), 2)
         self.assertEqual(resources[1]['entities'][0]['value'], 'Custodian Entity')
+
+    def test_dialog_flow_agent_entuty_type_get(self):
+        factory = self.record_flight_data('df-agent-entity-types-get')
+        policy = self.load_policy(
+            {'name': 'df-agent-entity-types-query',
+             'resource': 'gcp.dialogflow-entity-type',
+             'mode': {
+                 'type': 'gcp-audit',
+                 'methods': []
+             }},
+            session_factory=factory)
+        exec_mode = policy.get_execution_mode()
+        event = event_data('df-agent-entity-types-get.json')
+        instances = exec_mode.run(event, None)
+        self.assertEqual(len(instances), 1)
+        self.assertEqual(instances[0]['kind'], 'compute#address')
+        self.assertEqual(instances[0]['address'], '35.202.198.74')
 
 
 class DialogFlowIntentTest(BaseTest):
@@ -62,35 +79,3 @@ class DialogFlowIntentTest(BaseTest):
         resources = policy.run()
         self.assertEqual(len(resources), 3)
         self.assertEqual(resources[1]['events'][0], 'WELCOME')
-
-
-class DialogFlowSessionContextTest(BaseTest):
-
-    def test_dialog_flow_agent_query(self):
-        project_id = 'custodian-test-project-0'
-        factory = self.replay_flight_data('df-agent-query',
-                                          project_id=project_id)
-        policy = self.load_policy(
-            {'name': 'all-df-agents',
-             'resource': 'gcp.dialogflow-agent'},
-            session_factory=factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]['defaultLanguageCode'], 'en')
-        self.assertEqual(resources[0]['matchMode'], 'MATCH_MODE_HYBRID')
-
-
-class DialogFlowSessionEntityTypeTest(BaseTest):
-
-    def test_dialog_flow_agent_query(self):
-        project_id = 'custodian-test-project-0'
-        factory = self.replay_flight_data('df-agent-query',
-                                          project_id=project_id)
-        policy = self.load_policy(
-            {'name': 'all-df-agents',
-             'resource': 'gcp.dialogflow-agent'},
-            session_factory=factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]['defaultLanguageCode'], 'en')
-        self.assertEqual(resources[0]['matchMode'], 'MATCH_MODE_HYBRID')
