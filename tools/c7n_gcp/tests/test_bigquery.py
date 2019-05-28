@@ -49,21 +49,24 @@ class BigQueryJobTest(BaseTest):
 
     def test_job_get(self):
         project_id = 'cloud-custodian'
-        job_id = 'bquxjob_6277c025_1694dadb228'
+        job_id = 'bquxjob_4c28c9a7_16958c2791d'
         location = 'US'
         factory = self.replay_flight_data('bq-job-get', project_id=project_id)
         p = self.load_policy({
             'name': 'bq-job-get',
-            'resource': 'gcp.bq-job'},
-            session_factory=factory)
-        job = p.resource_manager.get_resource({
-            "project_id": project_id,
-            "job_id": job_id,
-        })
-        self.assertEqual(job['jobReference']['jobId'], job_id)
-        self.assertEqual(job['jobReference']['location'], location)
-        self.assertEqual(job['jobReference']['projectId'], project_id)
-        self.assertEqual(job['id'], "{}:{}.{}".format(project_id, location, job_id))
+            'resource': 'gcp.bq-job',
+            'mode': {
+                'type': 'gcp-audit',
+                'methods': ['google.cloud.bigquery.v2.JobService.InsertJob']
+            }
+        }, session_factory=factory)
+        exec_mode = p.get_execution_mode()
+        event = event_data('bq-job-create.json')
+        job = exec_mode.run(event, None)
+        self.assertEqual(job[0]['jobReference']['jobId'], job_id)
+        self.assertEqual(job[0]['jobReference']['location'], location)
+        self.assertEqual(job[0]['jobReference']['projectId'], project_id)
+        self.assertEqual(job[0]['id'], "{}:{}.{}".format(project_id, location, job_id))
 
 
 class BigQueryProjectTest(BaseTest):
