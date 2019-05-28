@@ -84,25 +84,6 @@ The resource works with `projects <https://cloud.google.com/bigquery/docs/refere
                 type: pubsub
                 topic: projects/cloud-custodian/topics/big-query
 
-Big Query. Tabledata
-~~~~~~~~~~~~~~~~~~~~
-The resource works with `tabledata <https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata>`_ GCP REST resource. Fields that are provided by the REST resource can be used in the policy filter.
-
-.. code-block:: yaml
-
-    policies:
-        - name: gcp-big-query-tabledata-notify
-          description: |
-            Big Query. List of Tabledata
-          resource: gcp.bq-tabledata
-          actions:
-            - type: notify
-              to:
-                - email@address
-              format: json
-              transport:
-                type: pubsub
-                topic: projects/cloud-custodian/topics/big-query
 
 Big Query. Tables
 ~~~~~~~~~~~~~~~~~~~
