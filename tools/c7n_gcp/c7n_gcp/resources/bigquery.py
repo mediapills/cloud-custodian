@@ -100,6 +100,7 @@ class BigQueryTable(ChildResourceManager):
         enum_spec = ('list', 'tables[]', None)
         scope = 'global'
         id = 'id'
+        get_requires_event = True
         parent_spec = {
             'resource': 'bq-dataset',
             'child_enum_params': [
@@ -113,9 +114,9 @@ class BigQueryTable(ChildResourceManager):
         }
 
         @staticmethod
-        def get(client, resource_info):
+        def get(client, event):
             return client.execute_query('get', {
-                'projectId': resource_info['project_id'],
-                'datasetId': resource_info['dataset_id'],
-                'tableId': resource_info['table_id']
+                'projectId': jmespath.search('resource.labels.project_id', event),
+                'datasetId': jmespath.search('resource.labels.dataset_id', event),
+                'tableId': jmespath.search('protoPayload.resourceName', event).rsplit('/', 1)[-1]
             })

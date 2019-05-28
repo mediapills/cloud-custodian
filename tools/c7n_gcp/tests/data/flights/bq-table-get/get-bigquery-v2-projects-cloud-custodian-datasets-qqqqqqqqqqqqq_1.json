@@ -2,18 +2,14 @@
   "body": {
     "kind": "bigquery#dataset", 
     "datasetReference": {
-      "projectId": "cloud-custodian",
-      "datasetId": "qwerty1234"
+      "projectId": "cloud-custodian", 
+      "datasetId": "qqqqqqqqqqqqq"
     }, 
-    "creationTime": "1551701483538", 
+    "creationTime": "1557228042634", 
     "access": [
       {
         "specialGroup": "projectWriters", 
         "role": "WRITER"
-      }, 
-      {
-        "role": "WRITER", 
-        "userByEmail": "p518122731295-686879@gcp-sa-logging.iam.gserviceaccount.com"
       }, 
       {
         "specialGroup": "projectOwners", 
@@ -28,24 +24,24 @@
         "role": "READER"
       }
     ], 
-    "etag": "YyYT0i3rk2sA5lOO+aTP+A==", 
+    "etag": "kuKgEnxs629GqyyvY8Vitw==", 
     "location": "US", 
-    "lastModifiedTime": "1556026023538", 
-    "id": "cloud-custodian:qwerty1234",
-    "selfLink": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets/qwerty1234"
+    "lastModifiedTime": "1557228042634", 
+    "id": "cloud-custodian:qqqqqqqqqqqqq", 
+    "selfLink": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets/qqqqqqqqqqqqq"
   }, 
   "headers": {
     "status": "200", 
-    "content-length": "852", 
+    "content-length": "741", 
     "x-xss-protection": "0", 
-    "content-location": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets/qwerty1234?alt=json",
+    "content-location": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets/qqqqqqqqqqqqq?alt=json", 
     "x-content-type-options": "nosniff", 
     "transfer-encoding": "chunked", 
     "vary": "Origin, X-Origin, Referer", 
     "server": "ESF", 
-    "etag": "YyYT0i3rk2sA5lOO+aTP+A==", 
+    "etag": "kuKgEnxs629GqyyvY8Vitw==", 
     "cache-control": "private", 
-    "date": "Wed, 24 Apr 2019 12:48:31 GMT", 
+    "date": "Tue, 14 May 2019 14:53:40 GMT", 
     "x-frame-options": "SAMEORIGIN", 
     "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
     "content-type": "application/json; charset=UTF-8", 

@@ -98,16 +98,16 @@ class BigQueryTableTest(BaseTest):
 
     def test_table_get(self):
         project_id = 'cloud-custodian'
-        dataset_id = 'qwerty1234'
-        table_id = 'qwery1234'
         factory = self.replay_flight_data('bq-table-get', project_id=project_id)
         p = self.load_policy({
             'name': 'bq-table-get',
-            'resource': 'gcp.bq-table'},
-            session_factory=factory)
-        resource = p.resource_manager.get_resource({
-            "project_id": project_id,
-            "dataset_id": dataset_id,
-            "table_id": table_id,
-        })
-        self.assertIn('tableReference', resource.keys())
+            'resource': 'gcp.bq-table',
+            'mode': {
+                'type': 'gcp-audit',
+                'methods': ['google.cloud.bigquery.v2.TableService.InsertTable']
+            }
+        }, session_factory=factory)
+        exec_mode = p.get_execution_mode()
+        event = event_data('bq-table-create.json')
+        job = exec_mode.run(event, None)
+        self.assertIn('tableReference', job[0].keys())
