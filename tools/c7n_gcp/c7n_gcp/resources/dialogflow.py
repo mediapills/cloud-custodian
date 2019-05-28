@@ -28,14 +28,6 @@ class DialogFlowAgent(QueryResourceManager):
         scope_template = 'projects/{}'
         id = 'name'
 
-        @staticmethod
-        def get(client, resource_info):
-            return client.execute_command('get', {
-                'project': resource_info['project_id'],
-                'region': resource_info['location'],
-                'address': resource_info[
-                    'resourceName'].rsplit('/', 1)[-1]})
-
 
 @resources.register('dialogflow-entity-type')
 class DialogFlowEntityType(QueryResourceManager):
@@ -51,10 +43,7 @@ class DialogFlowEntityType(QueryResourceManager):
 
         @staticmethod
         def get(client, resource_info):
-            return client.execute_command('get', {
-                'project': resource_info['project_id'],
-                'entityType': resource_info[
-                    'resourceName'].rsplit('/', 1)[-1]})
+            return client.execute_command('get', {'name': resource_info['resourceName']})
 
 
 @resources.register('dialogflow-intent')
@@ -71,8 +60,4 @@ class DialogFlowIntent(QueryResourceManager):
 
         @staticmethod
         def get(client, resource_info):
-            return client.execute_command('get', {
-                'project': resource_info['project_id'],
-                'region': resource_info['location'],
-                'address': resource_info[
-                    'resourceName'].rsplit('/', 1)[-1]})
+            return client.execute_command('get', {'name': resource_info['resourceName']})

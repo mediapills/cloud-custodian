@@ -1,0 +1,49 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "yauhen_shaliou@comelfo.com"
+    },
+    "requestMetadata": {
+      "callerIp": "217.21.63.2",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2019-05-28T09:58:32.675823498Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "dialogflow.googleapis.com",
+    "methodName": "google.cloud.dialogflow.v2.Intents.GetIntent",
+    "authorizationInfo": [
+      {
+        "resource": "projects/custodian-test-project-0/agent/intents/a48c3483-addd-416a-b272-397c97b213f7",
+        "permission": "dialogflow.intents.get",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/custodian-test-project-0/agent/intents/a48c3483-addd-416a-b272-397c97b213f7",
+    "request": {
+      "name": "projects/custodian-test-project-0/agent/intents/a48c3483-addd-416a-b272-397c97b213f7",
+      "@type": "type.googleapis.com/google.cloud.dialogflow.v2.GetIntentRequest"
+    },
+    "response": {
+      "@type": "type.googleapis.com/google.cloud.dialogflow.v2.Intent",
+      "name": "projects/custodian-test-project-0/agent/intents/a48c3483-addd-416a-b272-397c97b213f7"
+    }
+  },
+  "insertId": "4q6adsc357",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "service": "dialogflow.googleapis.com",
+      "method": "/google.cloud.dialogflow.v2.Intents/GetIntent",
+      "project_id": "custodian-test-project-0"
+    }
+  },
+  "timestamp": "2019-05-28T09:58:32.665995204Z",
+  "severity": "INFO",
+  "logName": "projects/custodian-test-project-0/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "receiveTimestamp": "2019-05-28T09:58:33.172069234Z"
+}

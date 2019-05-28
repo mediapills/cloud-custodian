@@ -1,0 +1,39 @@
+{
+  "body": {
+    "displayName": "Default Welcome Intent", 
+    "name": "projects/custodian-test-project-0/agent/intents/a48c3483-addd-416a-b272-397c97b213f7", 
+    "messages": [
+      {
+        "text": {
+          "text": [
+            "Hi! How are you doing?", 
+            "Hello! How can I help you?", 
+            "Good day! What can I do for you today?", 
+            "Greetings! How can I assist?"
+          ]
+        }
+      }
+    ], 
+    "priority": 500000, 
+    "action": "input.welcome", 
+    "events": [
+      "WELCOME"
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "482", 
+    "x-xss-protection": "0", 
+    "content-location": "https://dialogflow.googleapis.com/v2/projects/custodian-test-project-0/agent/intents/a48c3483-addd-416a-b272-397c97b213f7?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Tue, 28 May 2019 14:14:51 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
