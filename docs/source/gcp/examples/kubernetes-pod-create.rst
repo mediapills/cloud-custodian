@@ -7,18 +7,23 @@ Details about all available kubernetes resources are available at the :ref:`gcp_
 
 To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
+In the example below, the policy notifies users if the GKE CreatePod action appears in the logs.
+
 .. code-block:: yaml
 
     policies:
-        - name: {name}
+        - name:
           description: |
-            {description}
-          resource: {resource name}
-          filters: {filters}
+            Kubernetes. List of clusters node pools
+          resource: gcp.gke-cluster-nodepool
+          mode:
+            type: gcp-audit
+            methods:
+            - "io.k8s.core.v1.pods.create"
           actions:
             - type: notify
               to:
-                - email@address
+                - email@email
               format: json
               transport:
                 type: pubsub
