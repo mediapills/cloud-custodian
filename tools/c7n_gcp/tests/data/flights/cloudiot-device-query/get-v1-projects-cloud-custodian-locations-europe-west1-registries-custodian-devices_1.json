@@ -1,0 +1,26 @@
+{
+  "body": {
+    "devices": [
+      {
+        "numId": "2945293131701148", 
+        "id": "custodian-device"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "101", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudiot.googleapis.com/v1/projects/cloud-custodian/locations/europe-west1/registries/custodian/devices?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Wed, 22 May 2019 19:19:47 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "alex.karpitski@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "86.57.255.91",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2019-05-22T16:16:47.262050368Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "cloudiot.googleapis.com",
+    "methodName": "google.cloud.iot.v1.DeviceManager.CreateDevice",
+    "authorizationInfo": [
+      {
+        "resource": "projects/cloud-custodian/locations/europe-west1/custodian/custodian-device",
+        "permission": "cloudiot.devices.create",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/cloud-custodian/locations/europe-west1/registries/custodian/devices/custodian-device",
+    "request": {
+      "@type": "type.googleapis.com/google.cloud.iot.v1.CreateDeviceRequest",
+      "parent": "projects/cloud-custodian/locations/europe-west1/registries/custodian",
+      "device": {
+        "blocked": false,
+        "logLevel": "ERROR",
+        "id": "custodian-device",
+        "gatewayConfig": {
+          "gatewayType": "NON_GATEWAY"
+        }
+      }
+    },
+    "response": {
+      "logLevel": "ERROR",
+      "gatewayConfig": {
+        "gatewayType": "NON_GATEWAY"
+      },
+      "id": "custodian-device",
+      "@type": "type.googleapis.com/google.cloud.iot.v1.Device",
+      "name": "projects/cloud-custodian/locations/europe-west1/registries/custodian/devices/2945293131701148"
+    }
+  },
+  "insertId": "1rtg6wfdqss4",
+  "resource": {
+    "type": "cloudiot_device",
+    "labels": {
+      "device_num_id": "2945293131701148",
+      "project_id": "cloud-custodian",
+      "device_registry_id": "custodian",
+      "location": "europe-west1"
+    }
+  },
+  "timestamp": "2019-05-22T16:16:47.244064824Z",
+  "severity": "NOTICE",
+  "logName": "projects/cloud-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-05-22T16:16:48.159678127Z"
+}

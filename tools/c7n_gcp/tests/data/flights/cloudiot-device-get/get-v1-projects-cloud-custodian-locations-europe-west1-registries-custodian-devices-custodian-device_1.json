@@ -1,0 +1,31 @@
+{
+  "body": {
+    "gatewayConfig": {
+      "gatewayType": "NON_GATEWAY"
+    }, 
+    "logLevel": "ERROR", 
+    "numId": "2945293131701148", 
+    "config": {
+      "version": "1", 
+      "cloudUpdateTime": "2019-05-22T16:16:47.345832Z"
+    }, 
+    "id": "custodian-device", 
+    "name": "projects/cloud-custodian/locations/europe-west1/registries/custodian/devices/2945293131701148"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "350", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudiot.googleapis.com/v1/projects/cloud-custodian/locations/europe-west1/registries/custodian/devices/custodian-device?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Wed, 22 May 2019 19:46:08 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
