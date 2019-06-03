@@ -1,0 +1,42 @@
+{
+  "body": {
+    "transferConfigs": [
+      {
+        "updateTime": "2019-05-29T12:13:27.525132Z", 
+        "destinationDatasetId": "uuuuuu", 
+        "displayName": "test", 
+        "name": "projects/501876662786/locations/us/transferConfigs/5cf21fce-0000-2cee-9e91-30fd38105200", 
+        "schedule": "every day 12:12", 
+        "datasetRegion": "us", 
+        "userId": "-9050243047174292242", 
+        "state": "SUCCEEDED", 
+        "dataSourceId": "google_cloud_storage", 
+        "nextRunTime": "2019-06-04T12:12:00Z", 
+        "params": {
+          "file_format": "CSV", 
+          "field_delimiter": ",", 
+          "data_path_template": "gs://qwerty123567/qwerty/test1", 
+          "max_bad_records": "0", 
+          "skip_leading_rows": "0", 
+          "destination_table_name_template": "test1"
+        }
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "1494", 
+    "x-xss-protection": "0", 
+    "content-location": "https://bigquerydatatransfer.googleapis.com/v1/projects/new-project-26240/transferConfigs?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 03 Jun 2019 13:38:06 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
