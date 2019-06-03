@@ -1,0 +1,52 @@
+{
+  "body": {
+    "transferJobs": [
+      {
+        "transferSpec": {
+          "transferOptions": {}, 
+          "gcsDataSink": {
+            "bucketName": "qwerty123567"
+          }, 
+          "objectConditions": {}, 
+          "gcsDataSource": {
+            "bucketName": "zxcvbnmasdf"
+          }
+        }, 
+        "status": "ENABLED", 
+        "name": "transferJobs/12533737323236783615", 
+        "schedule": {
+          "scheduleStartDate": {
+            "month": 5, 
+            "day": 29, 
+            "year": 2019
+          }, 
+          "scheduleEndDate": {
+            "month": 5, 
+            "day": 29, 
+            "year": 2019
+          }
+        }, 
+        "projectId": "new-project-26240", 
+        "lastModificationTime": "2019-05-29T14:45:00.887824800Z", 
+        "creationTime": "2019-05-29T14:44:39.539685905Z", 
+        "description": "zxcvbnmasdf-qwerty123567_once"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "819", 
+    "x-xss-protection": "0", 
+    "content-location": "https://storagetransfer.googleapis.com/v1/transferJobs?filter=%7B%22project_id%22%3A+%22new-project-26240%22%7D&alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 03 Jun 2019 11:34:33 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
