@@ -38,6 +38,7 @@ import c7n_gcp.resources.service
 import c7n_gcp.resources.source
 import c7n_gcp.resources.spanner
 import c7n_gcp.resources.storage
+import c7n_gcp.resources.storage_transfer
 import c7n_gcp.resources.sql  # noqa: F401
 
 
