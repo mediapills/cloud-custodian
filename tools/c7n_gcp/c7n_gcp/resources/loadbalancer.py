@@ -357,27 +357,3 @@ class LoadBalancingGlobalAddress(QueryResourceManager):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
                 'address': resource_info['resourceName'].rsplit('/', 1)[-1]})
-
-
-@resources.register('loadbalancer-region-backend-service')
-class LoadBalancingRegionBackendService(QueryResourceManager):
-
-    class resource_type(TypeInfo):
-        service = 'compute'
-        version = 'v1'
-        component = 'regionBackendServices'
-        enum_spec = ('list', 'items[]', None)
-        scope = 'project'
-        id = 'name'
-
-        @staticmethod
-        def get(client, resource_info):
-            return client.execute_command('get', {
-                'project': resource_info['project_id'],
-                'region': resource_info['location'],
-                'backendService': resource_info[
-                    'resourceName'].rsplit('/', 1)[-1]})
-
-    def get_resource_query(self):
-        if 'query' in self.data and self.data.get('query')[0].__contains__('region'):
-            return {'region': self.data.get('query')[0]['region']}
