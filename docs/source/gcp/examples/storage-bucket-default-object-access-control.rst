@@ -1,4 +1,4 @@
-Storage - Audit bucket access controls changes
+Storage - Audit bucket default object access control changes
 ====================
 
 Custodian can audit bucket changes (e.g. a new file has been deployed). Note that the ``notify`` action requires a Pub/Sub topic to be configured.
@@ -12,12 +12,12 @@ In the example below, the policy notifies users if the ``update`` action appears
 .. code-block:: yaml
 
     policies:
-      - name: gcp-bucket-access-control-update
-        resource: gcp.bucket-access-control
+      - name: gcp-default-object-access-control-update
+        resource: gcp.default-object-access-control
         mode:
           type: gcp-audit
           methods:
-          - "storage.objects.update"
+          - "storage.buckets.update"
         actions:
           - type: notify
             to:
