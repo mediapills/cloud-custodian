@@ -84,46 +84,6 @@ The resource works with `default object access controls <https://cloud.google.co
                 type: pubsub
                 topic: projects/cloud-custodian/topics/storage
 
-Storage. Notifications
-~~~~~~~~~~~~~~~~~~~~~~~
-The resource works with `notification <https://cloud.google.com/storage/docs/json_api/v1/notifications>`_ GCP REST resource. Fields that are provided by the REST resource can be used in the policy filter.
-
-.. code-block:: yaml
-
-    policies:
-        - name: gcp-storage-bucket-notifications-notify
-          description: |
-            Storage. List of bucket notifications
-          resource: gcp.bucket-notification
-          actions:
-            - type: notify
-              to:
-                - email@address
-              format: json
-              transport:
-                type: pubsub
-                topic: projects/cloud-custodian/topics/storage
-
-Storage. Object access controls
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The resource works with `object access controls <https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls>`_ GCP REST resource. Fields that are provided by the REST resource can be used in the policy filter.
-
-.. code-block:: yaml
-
-    policies:
-        - name: gcp-storage-bucket-object-access-controls-notify
-          description: |
-            Storage. List of bucket object access controls
-          resource: gcp.bucket-object-access-control
-          actions:
-            - type: notify
-              to:
-                - email@address
-              format: json
-              transport:
-                type: pubsub
-                topic: projects/cloud-custodian/topics/storage
-
 Storage. Objects
 ~~~~~~~~~~~~~~~~~
 The resource works with `objects <https://cloud.google.com/storage/docs/json_api/v1/objects>`_ GCP REST resource. Fields that are provided by the REST resource can be used in the policy filter.
