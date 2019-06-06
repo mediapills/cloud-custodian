@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import time
-from gcp_common import BaseTest
+from gcp_common import BaseTest, event_data
 
 
 class InstanceTest(BaseTest):
@@ -164,3 +164,38 @@ class ImageTest(BaseTest):
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
+
+
+class GceAutoscalerTest(BaseTest):
+
+    def test_autoscaler_query(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'micro-instance-group-1-to-10'
+        session_factory = self.replay_flight_data('gce-autoscaler-query', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-autoscaler-dryrun',
+             'resource': 'gcp.gce-autoscaler'},
+            session_factory=session_factory)
+        resources = policy.run()
+
+        self.assertEqual(resources[0]['name'], resource_name)
+
+    def test_autoscaler_get(self):
+        resource_name = 'micro-instance-group-1-to-10'
+        session_factory = self.replay_flight_data(
+            'gce-autoscaler-get')
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-autoscaler-audit',
+             'resource': 'gcp.gce-autoscaler',
+             'mode': {
+                 'type': 'gcp-audit',
+                 'methods': ['v1.compute.instanceGroupManagers.insert']
+             }},
+            session_factory=session_factory)
+
+        exec_mode = policy.get_execution_mode()
+        event = event_data('gce-instance-group-insert.json')
+        resources = exec_mode.run(event, None)
+        self.assertEqual(resources[0]['name'], resource_name)

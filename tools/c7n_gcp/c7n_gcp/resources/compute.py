@@ -184,3 +184,21 @@ class DeleteSnapshot(MethodAction):
         # Docs are wrong :-(
         # https://cloud.google.com/compute/docs/reference/rest/v1/snapshots/delete
         return {'project': project, 'snapshot': snapshot_id}
+
+
+@resources.register('gce-autoscaler')
+class GceAutoscaler(QueryResourceManager):
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/autoscalers"""
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'autoscalers'
+        id = 'name'
+        enum_spec = ('aggregatedList', 'items.*.autoscalers[]', None)
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'zone': resource_info['location'],
+                        'autoscaler': resource_info['instance_group_manager_name']})
