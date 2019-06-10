@@ -184,3 +184,19 @@ class DeleteSnapshot(MethodAction):
         # Docs are wrong :-(
         # https://cloud.google.com/compute/docs/reference/rest/v1/snapshots/delete
         return {'project': project, 'snapshot': snapshot_id}
+
+
+@resources.register('gce-security-policy')
+class GceSecurityPolicy(QueryResourceManager):
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies"""
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'securityPolicies'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'securityPolicy': resource_info['policy_name']})

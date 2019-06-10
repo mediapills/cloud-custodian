@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import time
-from gcp_common import BaseTest
+from gcp_common import BaseTest, event_data
 
 
 class InstanceTest(BaseTest):
@@ -164,3 +164,38 @@ class ImageTest(BaseTest):
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
+
+
+class GceSecurityPolicyTest(BaseTest):
+    def test_security_policy_query(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'custodian-policy'
+        session_factory = self.replay_flight_data(
+            'gce-security-policy-query', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-security-policy-dryrun',
+             'resource': 'gcp.gce-security-policy'},
+            session_factory=session_factory)
+        resources = policy.run()
+
+        self.assertEqual(resources[0]['name'], resource_name)
+
+    def test_security_policy_get(self):
+        resource_name = 'custodian-policy'
+        session_factory = self.replay_flight_data(
+            'gce-security-policy-get')
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-security-policy-audit',
+             'resource': 'gcp.gce-security-policy',
+             'mode': {
+                 'type': 'gcp-audit',
+                 'methods': ['v1.compute.securityPolicies.insert']
+             }},
+            session_factory=session_factory)
+
+        exec_mode = policy.get_execution_mode()
+        event = event_data('gce-security-policy-insert.json')
+        resources = exec_mode.run(event, None)
+        self.assertEqual(resources[0]['name'], resource_name)
