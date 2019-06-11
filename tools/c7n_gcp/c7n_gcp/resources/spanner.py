@@ -18,7 +18,8 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildTypeInfo, ChildRe
 
 @resources.register('spanner-instance')
 class SpannerInstance(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances
+    """
     class resource_type(TypeInfo):
         service = 'spanner'
         version = 'v1'
