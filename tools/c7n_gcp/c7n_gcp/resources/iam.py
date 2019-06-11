@@ -18,7 +18,8 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 @resources.register('project-role')
 class ProjectRole(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/iam/reference/rest/v1/projects.roles
+    """
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
@@ -40,7 +41,8 @@ class ProjectRole(QueryResourceManager):
 
 @resources.register('service-account')
 class ServiceAccount(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts
+    """
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
@@ -62,7 +64,8 @@ class ServiceAccount(QueryResourceManager):
 
 @resources.register('iam-role')
 class Role(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/iam/reference/rest/v1/roles
+    """
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
