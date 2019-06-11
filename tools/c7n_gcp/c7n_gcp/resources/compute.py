@@ -184,3 +184,53 @@ class DeleteSnapshot(MethodAction):
         # Docs are wrong :-(
         # https://cloud.google.com/compute/docs/reference/rest/v1/snapshots/delete
         return {'project': project, 'snapshot': snapshot_id}
+
+
+@resources.register('instance-group-manager')
+class InstanceGroupManager(QueryResourceManager):
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/instanceGroupManagers
+    """
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'instanceGroupManagers'
+        enum_spec = ('aggregatedList', 'items.*.instanceGroupManagers[]', None)
+        scope = 'project'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'zone': resource_info['location'],
+                        'instanceGroupManager': resource_info['instance_group_manager_name']})
+
+
+@InstanceGroupManager.action_registry.register('delete')
+class InstanceGroupManagerDelete(MethodAction):
+    """`Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/instanceGroupManagers
+    /delete>`_ an instance group manager
+
+    :Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: instance-group-manager-delete
+            resource: gcp.instance-group-manager
+            filters:
+              - type: value
+                key: name
+                op: eq
+                value: test-instance-group
+            actions:
+              - delete
+    """
+
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+    path_param_re = re.compile('.*?/projects/(.*?)/zones/(.*?)/instanceGroupManagers/(.*)')
+
+    def get_resource_params(self, m, r):
+        project, zone, name = self.path_param_re.match(r['selfLink']).groups()
+        return {'project': project, 'zone': zone, 'instanceGroupManager': name}
