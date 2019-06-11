@@ -22,7 +22,8 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, 
 
 @resources.register('sql-instance')
 class SqlInstance(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/sql/docs/mysql/admin-api/v1beta4/instances
+    """
     class resource_type(TypeInfo):
         service = 'sqladmin'
         version = 'v1beta4'
@@ -72,7 +73,8 @@ class SqlInstanceStop(MethodAction):
 
 @resources.register('sql-database')
 class SqlDatabase(ChildResourceManager):
-
+    """GCP resource: https://cloud.google.com/sql/docs/mysql/admin-api/v1beta4/databases
+    """
     def _get_parent_resource_info(self, child_instance):
         project = child_instance['project']
         return {
@@ -104,7 +106,8 @@ class SqlDatabase(ChildResourceManager):
 
 @resources.register('sql-user')
 class SqlUser(ChildResourceManager):
-
+    """GCP resource: https://cloud.google.com/sql/docs/mysql/admin-api/v1beta4/users
+    """
     class resource_type(ChildTypeInfo):
         service = 'sqladmin'
         version = 'v1beta4'
@@ -144,7 +147,8 @@ class SqlInstanceChildWithSelfLink(ChildResourceManager):
 
 @resources.register('sql-backup-run')
 class SqlBackupRun(SqlInstanceChildWithSelfLink):
-
+    """GCP resource: https://cloud.google.com/sql/docs/mysql/admin-api/v1beta4/backupRuns
+    """
     class resource_type(ChildTypeInfo):
         service = 'sqladmin'
         version = 'v1beta4'
@@ -167,7 +171,8 @@ class SqlBackupRun(SqlInstanceChildWithSelfLink):
 
 @resources.register('sql-ssl-cert')
 class SqlSslCert(SqlInstanceChildWithSelfLink):
-
+    """GCP resource: https://cloud.google.com/sql/docs/mysql/admin-api/v1beta4/sslCerts
+    """
     class resource_type(ChildTypeInfo):
         service = 'sqladmin'
         version = 'v1beta4'

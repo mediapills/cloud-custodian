@@ -25,6 +25,3 @@ In the example below, Cusodian will track SSL certificates which are in use by y
           transport:
             type: pubsub
             topic: projects/river-oxygen-233508/topics/first
-
-
-  
