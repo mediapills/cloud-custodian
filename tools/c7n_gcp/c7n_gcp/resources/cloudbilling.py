@@ -17,7 +17,8 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 @resources.register('cloudbilling-account')
 class CloudBillingAccount(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/billing/reference/rest/v1/billingAccounts
+    """
     class resource_type(TypeInfo):
         service = 'cloudbilling'
         version = 'v1'
