@@ -3,8 +3,6 @@ Service Management - Example 1
 
 {Description}
 
-Details about all available Service Management resources are available at the :ref:`gcp_servicemanagement` page.
-
 To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
 .. code-block:: yaml

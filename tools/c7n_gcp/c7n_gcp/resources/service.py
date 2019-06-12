@@ -20,7 +20,9 @@ from c7n.utils import type_schema, local_session
 
 @resources.register('service')
 class Service(QueryResourceManager):
-
+    """GCP resource:
+    https://cloud.google.com/service-infrastructure/docs/service-management/reference/rest/v1/services
+    """
     class resource_type(TypeInfo):
         service = 'servicemanagement'
         version = 'v1'
