@@ -3,8 +3,6 @@ DNS - Notify if logging is disabled in DNS Policy
 
 Custodian can check logging state in DNS Policy.
 
-Details about all available DNS resources are available at the :ref:`gcp_dns` page.
-
 To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
 .. code-block:: yaml
