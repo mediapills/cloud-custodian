@@ -17,7 +17,8 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 @resources.register('dm-deployment')
 class DMDeployment(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/deployment-manager/docs/reference/latest/deployments
+    """
     class resource_type(TypeInfo):
         service = 'deploymentmanager'
         version = 'v2'
