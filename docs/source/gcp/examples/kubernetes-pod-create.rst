@@ -3,8 +3,6 @@ Kubernetes - Example 1
 
 The example shows how to notify to Cloud Pub/Sub information about {details} ....
 
-Details about all available kubernetes resources are available at the :ref:`gcp_kubernetes` page.
-
 To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
 In the example below, the policy notifies users if the GKE CreatePod action appears in the logs.

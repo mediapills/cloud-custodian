@@ -17,7 +17,9 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 @resources.register('gke-cluster')
 class KubernetesCluster(QueryResourceManager):
-
+    """GCP resource:
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
+    """
     class resource_type(TypeInfo):
         service = 'container'
         version = 'v1beta1'
