@@ -3,8 +3,6 @@ Load Balancer - SSL certificates age
 
 This example uses GCP loadbalancer-ssl-certificate resource. The example shows how to notify to Cloud Pub/Sub information about age of SSL certificates.
 
-Details about all available load-balancer resources are available at the :ref:`gcp_loadbalancer` page.
-
 To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
 .. code-block:: yaml
