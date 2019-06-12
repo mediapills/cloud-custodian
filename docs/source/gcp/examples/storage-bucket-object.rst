@@ -3,8 +3,6 @@ Storage - Audit bucket object changes
 
 Custodian can audit bucket changes (e.g. a new file has been deployed). Note that the ``notify`` action requires a Pub/Sub topic to be configured.
 
-Details about all available Storage resources are available at the :ref:`gcp_storage` page.
-
 To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
 In the example below, the policy notifies users if the ``update`` action appears in the logs.

@@ -17,7 +17,8 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 @resources.register('bucket')
 class Bucket(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/storage/docs/json_api/v1/buckets
+    """
     class resource_type(TypeInfo):
         service = 'storage'
         version = 'v1'
