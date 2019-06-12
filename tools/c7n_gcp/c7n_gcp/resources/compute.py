@@ -96,6 +96,52 @@ class Delete(InstanceAction):
         '.*?/projects/(.*?)/zones/(.*?)/instances/(.*)')
 
 
+@Instance.action_registry.register('enforce-tags')
+class EnforceTags(InstanceAction):
+    """
+    The `action <https://cloud.google.com/compute/docs/reference/rest/v1/instances/setTags>`_ checks
+    if the required `tags` are present and adds the missing ones while preserving the existing.
+
+    policies:
+      - name: gce-compute-enforce-tags
+        resource: gcp.instance
+        filters:
+          - type: value
+            key: name
+            value: instance-whose-tags-to-enforce
+        actions:
+          - type: enforce-tags
+            tags:
+              - target
+              - tags
+              - you
+              - want
+              - to
+              - enforce
+    """
+    schema = type_schema(
+        'enforce-tags',
+        tags={'type': 'array',
+              'items': {'type': 'string',
+                        'pattern': '^[a-z0-9]+(-[a-z0-9]+)*$'}})
+    method_spec = {'op': 'setTags'}
+    path_param_re = re.compile(
+        '.*?/projects/(.*?)/zones/(.*?)/instances/(.*)')
+
+    def get_resource_params(self, model, resource):
+        params = InstanceAction.get_resource_params(self, model, resource)
+        instance_tags = resource['tags']
+        existing_tags = instance_tags['items'] if 'items' in instance_tags else []
+        tags_to_enforce = self._get_tags_to_enforce(existing_tags, self.data['tags'])
+        params['body'] = {'items': tags_to_enforce, 'fingerprint': instance_tags['fingerprint']}
+        return params
+
+    def _get_tags_to_enforce(self, existing_tags, target_tags):
+        updated_tags = list(existing_tags)
+        updated_tags.extend([tag for tag in target_tags if tag not in existing_tags])
+        return updated_tags
+
+
 @resources.register('image')
 class Image(QueryResourceManager):
 

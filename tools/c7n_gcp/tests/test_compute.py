@@ -104,6 +104,30 @@ class InstanceTest(BaseTest):
                      'zone': resources[0]['zone'].rsplit('/', 1)[-1]})
         self.assertEqual(result['items'][0]['status'], 'STOPPING')
 
+    def test_enforce_tags(self):
+        project_id = 'cloud-custodian'
+        zone = 'zones/us-central1-a'
+        initial_tags = ['cloud', 'custodian']
+        enforced_tags = ['custodian', 'gcp']
+        resulting_tags = ['cloud', 'custodian', 'gcp']
+        resource_name = 'custodian-instance'
+        session_factory = self.replay_flight_data(
+            'instance-enforce-tags', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-instance-enforce-labels',
+             'resource': 'gcp.instance',
+             'filters': [{'type': 'value', 'key': 'name', 'value': resource_name}],
+             'actions': [{'type': 'enforce-tags', 'tags': enforced_tags}]},
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(resources[0]['tags']['items'], initial_tags)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query('aggregatedList', {'project': project_id})
+        self.assertEqual(result['items'][zone]['instances'][0]['tags']['items'], resulting_tags)
+
 
 class DiskTest(BaseTest):
 
