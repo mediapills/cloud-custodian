@@ -18,7 +18,8 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 @resources.register('ml-model')
 class MLModel(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/ml-engine/reference/rest/v1/projects.models
+    """
     class resource_type(TypeInfo):
         service = 'ml'
         version = 'v1'
@@ -39,7 +40,8 @@ class MLModel(QueryResourceManager):
 
 @resources.register('ml-job')
 class MLJob(QueryResourceManager):
-
+    """GCP resource: https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs
+    """
     class resource_type(TypeInfo):
         service = 'ml'
         version = 'v1'
