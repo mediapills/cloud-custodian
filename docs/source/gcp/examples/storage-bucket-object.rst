@@ -1,5 +1,5 @@
 Storage - Audit bucket object changes
-====================
+======================================
 
 Custodian can audit bucket changes (e.g. a new file has been deployed). Note that the ``notify`` action requires a Pub/Sub topic to be configured.
 
