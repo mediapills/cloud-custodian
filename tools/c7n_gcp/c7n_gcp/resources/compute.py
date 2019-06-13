@@ -184,3 +184,49 @@ class DeleteSnapshot(MethodAction):
         # Docs are wrong :-(
         # https://cloud.google.com/compute/docs/reference/rest/v1/snapshots/delete
         return {'project': project, 'snapshot': snapshot_id}
+
+
+@resources.register('gce-instance-template')
+class GceInstanceTemplate(QueryResourceManager):
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/instanceTemplates"""
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'instanceTemplates'
+        scope = 'zone'
+        enum_spec = ('list', 'items[]', None)
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'instanceTemplate': resource_info['instance_template_name']})
+
+
+@GceInstanceTemplate.action_registry.register('delete')
+class GceInstanceTemplateDelete(MethodAction):
+    """
+    `Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/instanceTemplates/delete>`_
+    an Instance Template. The action does not specify any parameters.
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-gce-instance-template-delete
+            resource: gcp.gce-instance-template
+            filters:
+              - type: value
+                key: name
+                value: instance-template-to-delete
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, m, r):
+        project, instance_template = re.match('.*/projects/(.*?)/.*/instanceTemplates/(.*)',
+                                              r['selfLink']).groups()
+        return {'project': project,
+                'instanceTemplate': instance_template}
