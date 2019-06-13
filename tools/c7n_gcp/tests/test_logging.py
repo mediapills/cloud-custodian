@@ -60,16 +60,21 @@ class LogSinkTest(BaseTest):
 
     def test_get_log_sink(self):
         project_id = 'cloud-custodian'
-        sink_name = "storage"
+        sink_name = "testqqqqqqqqqqqqqqqqq"
         factory = self.replay_flight_data(
-            'logsink-resource', project_id)
-        p = self.load_policy({'name': 'logsink', 'resource': 'gcp.logsink'},
+            'log-project-sink-resource', project_id)
+        p = self.load_policy({'name': 'logsink',
+                              'resource': 'gcp.logsink',
+                              'mode': {
+                                  'type': 'gcp-audit',
+                                  'methods': ['google.logging.v2.ConfigServiceV2.CreateSink']}
+                              },
                              session_factory=factory)
-        sink = p.resource_manager.get_resource({
-            "name": sink_name,
-            "project_id": project_id,
-        })
-        self.assertEqual(sink['name'], sink_name)
+
+        exec_mode = p.get_execution_mode()
+        event = event_data('log-create-project-sink.json')
+        resource = exec_mode.run(event, None)
+        self.assertEqual(resource[0]['name'], sink_name)
 
 
 class LogProjectMetricTest(BaseTest):
@@ -101,51 +106,6 @@ class LogProjectMetricTest(BaseTest):
         event = event_data('log-create-project-metric.json')
         resource = exec_mode.run(event, None)
         self.assertEqual(resource[0]['name'], metric_name)
-
-
-class LogProjectTest(BaseTest):
-
-    def test_query(self):
-        project_id = 'cloud-custodian'
-        factory = self.replay_flight_data('log-project', project_id)
-        p = self.load_policy({
-            'name': 'log-project',
-            'resource': 'gcp.log-project'},
-            session_factory=factory)
-        resource = p.run()
-        self.assertEqual(len(resource), 3)
-
-
-class LogProjectExclusionTest(BaseTest):
-
-    def test_query(self):
-        project_id = 'cloud-custodian'
-        factory = self.replay_flight_data('log-project-exclusion', project_id)
-        p = self.load_policy({
-            'name': 'log-project-exclusion',
-            'resource': 'gcp.log-project-exclusion'},
-            session_factory=factory)
-        resource = p.run()
-        self.assertEqual(len(resource), 1)
-
-    def test_get_project_exclusion(self):
-        project_id = 'cloud-custodian'
-        exclusion_name = "qwerty"
-        factory = self.replay_flight_data(
-            'log-project-exclusion-get', project_id)
-
-        p = self.load_policy({'name': 'log-project-exclusion-get',
-                              'resource': 'gcp.log-project-exclusion',
-                              'mode': {
-                                  'type': 'gcp-audit',
-                                  'methods': ['google.logging.v2.ConfigServiceV2.CreateExclusion']}
-                              },
-                             session_factory=factory)
-
-        exec_mode = p.get_execution_mode()
-        event = event_data('log-create-project-exclusion.json')
-        resource = exec_mode.run(event, None)
-        self.assertEqual(resource[0]['name'], exclusion_name)
 
 
 class LogExclusionTest(BaseTest):
