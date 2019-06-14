@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import time
-from gcp_common import BaseTest
+from gcp_common import BaseTest, event_data
 
 
 class InstanceTest(BaseTest):
@@ -138,3 +138,38 @@ class SnapshotTest(BaseTest):
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
+
+
+class GceNetworkEndpointGroupTest(BaseTest):
+
+    def test_network_endpoint_group_query(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'custodian-network-endpoint-group'
+        session_factory = self.replay_flight_data(
+            'gce-network-endpoint-group-query', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-network-endpoint-group-dryrun',
+             'resource': 'gcp.gce-network-endpoint-group'},
+            session_factory=session_factory)
+        resources = policy.run()
+
+        self.assertEqual(resources[0]['name'], resource_name)
+
+    def test_network_endpoint_group_get(self):
+        resource_name = 'custodian-network-endpoint-group'
+        session_factory = self.replay_flight_data('gce-network-endpoint-group-get')
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-network-endpoint-group-audit',
+             'resource': 'gcp.gce-network-endpoint-group',
+             'mode': {
+                 'type': 'gcp-audit',
+                 'methods': ['beta.compute.networkEndpointGroups.insert']
+             }},
+            session_factory=session_factory)
+
+        exec_mode = policy.get_execution_mode()
+        event = event_data('gce-network-endpoint-group-create.json')
+        resources = exec_mode.run(event, None)
+        self.assertEqual(resources[0]['name'], resource_name)

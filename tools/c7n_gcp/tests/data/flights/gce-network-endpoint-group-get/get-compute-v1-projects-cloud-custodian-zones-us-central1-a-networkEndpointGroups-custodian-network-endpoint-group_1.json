@@ -1,0 +1,32 @@
+{
+  "body": {
+    "kind": "compute#networkEndpointGroup", 
+    "name": "custodian-network-endpoint-group", 
+    "zone": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-a", 
+    "defaultPort": 80, 
+    "network": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/global/networks/default", 
+    "networkEndpointType": "GCE_VM_IP_PORT", 
+    "subnetwork": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/regions/us-central1/subnetworks/default", 
+    "creationTimestamp": "2019-06-14T05:42:16.675-07:00", 
+    "id": "3228843466292078791", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-a/networkEndpointGroups/custodian-network-endpoint-group", 
+    "size": 0
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "759", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-a/networkEndpointGroups/custodian-network-endpoint-group?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "Ts_Jmpv3XaBQX1XzO3UzbUrI17c=/R7MnK0cmdHadpnfUsWZek1H7wME=", 
+    "cache-control": "private", 
+    "date": "Fri, 14 Jun 2019 13:47:52 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "alex.karpitski@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "86.57.255.91",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0,gzip(gfe)"
+    },
+    "serviceName": "compute.googleapis.com",
+    "methodName": "beta.compute.networkEndpointGroups.insert",
+    "resourceName": "projects/cloud-custodian/zones/us-central1-a/networkEndpointGroups/custodian-network-endpoint-group",
+    "request": {
+      "@type": "type.googleapis.com/compute.networkEndpointGroups.insert"
+    }
+  },
+  "insertId": "1dzrrqch08",
+  "resource": {
+    "type": "api",
+    "labels": {
+      "method": "compute.networkEndpointGroups.insert",
+      "version": "beta",
+      "project_id": "cloud-custodian",
+      "location": "global",
+      "service": "compute.googleapis.com"
+    }
+  },
+  "timestamp": "2019-06-14T12:42:22.602Z",
+  "severity": "NOTICE",
+  "logName": "projects/cloud-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "operation-1560516135966-58b47f9f35539-93f4e801-8b17214b",
+    "producer": "compute.googleapis.com",
+    "last": true
+  },
+  "receiveTimestamp": "2019-06-14T12:42:23.518135741Z"
+}

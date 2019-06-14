@@ -171,3 +171,23 @@ class DeleteSnapshot(MethodAction):
         # Docs are wrong :-(
         # https://cloud.google.com/compute/docs/reference/rest/v1/snapshots/delete
         return {'project': project, 'snapshot': snapshot_id}
+
+
+@resources.register('gce-network-endpoint-group')
+class GceNetworkEndpointGroup(QueryResourceManager):
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/networkEndpointGroups"""
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'networkEndpointGroups'
+        scope = 'zone'
+        enum_spec = ('aggregatedList', 'items.*.networkEndpointGroups[]', None)
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            project, zone, group = re.match(
+                'projects/(.+?)/zones/(.+?)/networkEndpointGroups/(.+)',
+                resource_info['resourceName']).groups()
+            return client.execute_command(
+                'get', {'project': project, 'zone': zone, 'networkEndpointGroup': group})
