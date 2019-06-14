@@ -171,3 +171,15 @@ class DeleteSnapshot(MethodAction):
         # Docs are wrong :-(
         # https://cloud.google.com/compute/docs/reference/rest/v1/snapshots/delete
         return {'project': project, 'snapshot': snapshot_id}
+
+
+@resources.register('gce-target-vpn-gateway')
+class GceTargetVpnGateway(QueryResourceManager):
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetVpnGateways"""
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'targetVpnGateways'
+        scope = 'zone'
+        enum_spec = ('aggregatedList', 'items.*.targetVpnGateways[]', None)
+        id = 'name'

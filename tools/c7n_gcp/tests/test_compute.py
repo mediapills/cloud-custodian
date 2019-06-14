@@ -138,3 +138,20 @@ class SnapshotTest(BaseTest):
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
+
+
+class GceTargetVpnGatewayTest(BaseTest):
+
+    def test_target_vpn_gateway_query(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'custodian-target-vpn-gateway'
+        session_factory = self.replay_flight_data(
+            'gce-target-vpn-gateway-query', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-target-vpn-gateway-dryrun',
+             'resource': 'gcp.gce-target-vpn-gateway'},
+            session_factory=session_factory)
+        resources = policy.run()
+
+        self.assertEqual(resources[0]['name'], resource_name)
