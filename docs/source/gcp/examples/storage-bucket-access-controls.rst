@@ -5,7 +5,7 @@ Custodian can audit metadata of buckets including their ACLs and report any susp
 
 Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
-In the example below, the policy notifies users if the ``update`` action on buckets with 'production' label appears in the logs.
+In the example below, the policy notifies users if the ``update`` action was performed on buckets with 'production' label, as appears in the logs.
 
 .. code-block:: yaml
 
@@ -18,8 +18,9 @@ In the example below, the policy notifies users if the ``update`` action on buck
           - "storage.objects.update"
           filters:
           - type: value
-          - key: labels.key
-          - value: "production"
+            key: labels.key
+            op: eq
+            value: "production"
         actions:
           - type: notify
             to:
