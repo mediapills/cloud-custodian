@@ -5,7 +5,7 @@ Objects are pieces of data that are uploaded to Google Cloud Storage. Custodian 
 
 Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
-In the example below, the policy notifies users if the ``update`` action was performed on objects with 'archive' label.
+In the example below, the policy notifies users if the ``update`` action was performed on objects of ColdLine storage class.
 
 .. code-block:: yaml
 
@@ -18,9 +18,9 @@ In the example below, the policy notifies users if the ``update`` action was per
           - "storage.objects.update"
           filters:
           - type: value
-            key: labels.key
+            key: storageClass
             op: eq
-            value: "archive"
+            value: "ColdLine"
         actions:
           - type: notify
             to:
