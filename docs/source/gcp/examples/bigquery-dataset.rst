@@ -1,9 +1,11 @@
-Big Query - Dataset creation
+Big Query - Audit Creations of New Datasets
 ============================================
 
-Custodian can audit dataset creation. Note that the ``notify`` action requires a Pub/Sub topic to be configured.
+In Big Query, dataset is container for tables. Custodian can audit creations of new datasets which may be required for compliance reasons. 
 
-In the example below, the policy notifies users if the ``datasetservice.insert`` action appears in the logs.
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+
+In the example below, the policy watches for ``datasetservice.insert`` action in logs and notifies users if a new dataset was created in a non-default location, e.g. EU.  
 
 .. code-block:: yaml
 
@@ -14,6 +16,11 @@ In the example below, the policy notifies users if the ``datasetservice.insert``
             type: gcp-audit
             methods:
             - "datasetservice.insert"
+            filters:
+            - type: value
+              key: location
+              op: equal
+              value: EU
           actions:
             - type: notify
               to:
