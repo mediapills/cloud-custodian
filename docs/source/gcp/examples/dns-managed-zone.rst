@@ -1,9 +1,9 @@
 DNS - Notify if DNS Managed Zone has no DNSSEC
 ==============================================
 
-Custodian can check if DNSSEC is disabled in DNS Managed Zones.
+A ManagedZone is a resource that represents a DNS zone hosted by the Cloud DNS service. Custodian can check if DNSSEC is disabled in DNS Managed Zone which may violate security policy of an organization.
 
-To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
 .. code-block:: yaml
 
