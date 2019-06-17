@@ -1,9 +1,9 @@
-DNS - Notify if logging is disabled in DNS Policy
+DNS - Notify if Logging is Disabled in DNS Policy
 =================================================
 
-Custodian can check logging state in DNS Policy.
+A policy is a collection of DNS rules applied to one or more Virtual Private Cloud resources. Custodian can check logging state in DNS policies and report those which violate an established logging convention.
 
-To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
 .. code-block:: yaml
 
