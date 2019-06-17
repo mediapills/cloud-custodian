@@ -124,7 +124,28 @@ class SpannerInstancePatch(SpannerInstanceAction):
 
 @SpannerInstance.action_registry.register('set-iam-policy')
 class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
-    """
+    """Sets IAM policy. It works with bindings only.
+
+    GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.
+    GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+        - name: gcp-spanner-instances-set-iam-policy
+          resource: gcp.spanner-instance
+          actions:
+          - type: set-iam-policy
+            bindings:
+            - members:
+              - user:user1@test.com
+              - user2@test.com
+              role:roles/owner
+            - members:
+              - user:user3@gmail.com
+              role:roles/viewer
     """
     schema = type_schema('setIamPolicy',
         required=['bindings'],
@@ -203,8 +224,30 @@ class SpannerDatabaseInstance(ChildResourceManager):
 
 @SpannerDatabaseInstance.action_registry.register('set-iam-policy')
 class SpannerDatabaseInstanceSetIamPolicy(SpannerInstanceAction):
+    """Sets IAM policy. It works with bindings only.
+
+    GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.
+    GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/setIamPolicy.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+        - name: gcp-spanner-database-instances-set-iam-policy
+          resource: gcp.spanner-database-instance
+          actions:
+          - type: set-iam-policy
+            bindings:
+            - members:
+              - user:user1@test.com
+              - user2@test.com
+              role:roles/owner
+            - members:
+              - user:user3@gmail.com
+              role:roles/viewer
     """
-    """
+
     schema = type_schema('setIamPolicy',
                          required=['bindings'],
                          **{
