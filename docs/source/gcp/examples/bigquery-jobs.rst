@@ -1,9 +1,11 @@
-Big Query - Check if job is done
+Big Query - Check for Abnormally Long Queries
 ============================================
 
-Custodian can check and notify if there are user-defined job is done. Note that the ``notify`` action requires a Pub/Sub topic to be configured.
+Once started, a job in the Big Query queries, loads, extracts or transforms data and then normally enters a terminal state. Custodian can check if there are any jobs which remain running abnormally long. 
 
-In the example below, the policy checks if there are any jobs has status done.
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+
+In the example below, the policy checks if there are any jobs of ``QUERY`` type which started over 1 day ago (configurable period) but not yet transitioned to a stable state for some reason (remains in ``RUNNING`` status) and therefore may need administrator's attention.
 
 .. code-block:: yaml
 
@@ -12,8 +14,18 @@ In the example below, the policy checks if there are any jobs has status done.
           resource: gcp.bq-job
           filters:
             - type: value
+              key: configuration.jobtype
+              op: equal
+              value: QUERY
+            - type: value
+              key: statistics.starttime
+              op: greater-than
+              value_type: age
+              value: 1
+            - type: value
               key: status.state
-              value: DONE
+              op: equal
+              value: RUNNING
           actions:
             - type: notify
               to:
