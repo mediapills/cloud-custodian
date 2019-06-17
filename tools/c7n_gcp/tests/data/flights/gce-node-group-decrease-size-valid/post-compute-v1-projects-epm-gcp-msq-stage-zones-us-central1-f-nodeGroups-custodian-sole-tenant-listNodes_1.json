@@ -1,0 +1,38 @@
+{
+  "body": {
+    "items": [
+      {
+        "status": "READY", 
+        "serverBinding": {
+          "type": "RESTART_NODE_ON_ANY_SERVER"
+        }, 
+        "nodeType": "https://www.googleapis.com/compute/v1/projects/epm-gcp-msq-stage/zones/us-central1-f/nodeTypes/n1-node-96-624", 
+        "name": "custodian-sole-tenant-vt8f"
+      }, 
+      {
+        "status": "READY", 
+        "serverBinding": {
+          "type": "RESTART_NODE_ON_ANY_SERVER"
+        }, 
+        "nodeType": "https://www.googleapis.com/compute/v1/projects/epm-gcp-msq-stage/zones/us-central1-f/nodeTypes/n1-node-96-624", 
+        "name": "custodian-sole-tenant-k3th"
+      }
+    ], 
+    "kind": "compute#nodeGroupsListNodes"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "643", 
+    "x-xss-protection": "0", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 22 Jul 2019 14:12:56 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
