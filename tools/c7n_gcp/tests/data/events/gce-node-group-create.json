@@ -1,0 +1,76 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "alex.karpitski@gmail.com"
+    },
+    "requestMetadata": {
+      "callerIp": "86.57.255.91",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2019-06-17T11:32:47.313Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "compute.googleapis.com",
+    "methodName": "v1.compute.nodeGroups.insert",
+    "authorizationInfo": [
+      {
+        "permission": "compute.nodeGroups.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "compute",
+          "name": "projects/cloud-custodian/zones/us-central1-f/nodeGroups/custodian-sole-tenant",
+          "type": "compute.nodeGroups"
+        }
+      }
+    ],
+    "resourceName": "projects/cloud-custodian/zones/us-central1-f/nodeGroups/custodian-sole-tenant",
+    "request": {
+      "nodeTemplate": "projects/cloud-custodian/regions/asia-east1/nodeTemplates/custodian-node-template",
+      "@type": "type.googleapis.com/compute.nodeGroups.insert",
+      "name": "custodian-sole-tenant",
+      "initialNodeCount": "1"
+    },
+    "response": {
+      "status": "RUNNING",
+      "name": "operation-1560771167185-58b835afee951-84eb379a-c52e43ac",
+      "targetId": "7760096914907514032",
+      "id": "4844718237309125808",
+      "@type": "type.googleapis.com/operation",
+      "startTime": "2019-06-17T04:32:47.680-07:00",
+      "progress": "0",
+      "zone": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-f",
+      "insertTime": "2019-06-17T04:32:47.639-07:00",
+      "user": "alex.karpitski@gmail.com",
+      "selfLink": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-f/operations/operation-1560771167185-58b835afee951-84eb379a-c52e43ac",
+      "targetLink": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-f/nodeGroups/custodian-sole-tenant",
+      "operationType": "compute.nodeGroups.insert",
+      "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-f/operations/4844718237309125808"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1-f"
+      ]
+    }
+  },
+  "insertId": "-9z5zikdyj96",
+  "resource": {
+    "type": "gce_node_group",
+    "labels": {
+      "node_group_id": "7760096914907514032",
+      "zone": "us-central1-f",
+      "project_id": "cloud-custodian"
+    }
+  },
+  "timestamp": "2019-06-17T11:32:47.267Z",
+  "severity": "NOTICE",
+  "logName": "projects/cloud-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "operation-1560771167185-58b835afee951-84eb379a-c52e43ac",
+    "producer": "type.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2019-06-17T11:32:48.506879973Z"
+}

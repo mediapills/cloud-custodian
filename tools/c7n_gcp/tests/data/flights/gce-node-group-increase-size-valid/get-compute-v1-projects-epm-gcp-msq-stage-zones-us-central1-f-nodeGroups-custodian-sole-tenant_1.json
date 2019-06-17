@@ -1,0 +1,30 @@
+{
+  "body": {
+    "status": "READY", 
+    "kind": "compute#nodeGroup", 
+    "name": "custodian-sole-tenant", 
+    "zone": "https://www.googleapis.com/compute/v1/projects/epm-gcp-msq-stage/zones/us-central1-f", 
+    "nodeTemplate": "https://www.googleapis.com/compute/v1/projects/epm-gcp-msq-stage/regions/us-central1/nodeTemplates/custodian-node-template", 
+    "creationTimestamp": "2019-07-22T06:59:13.368-07:00", 
+    "id": "3112576704428146654", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/epm-gcp-msq-stage/zones/us-central1-f/nodeGroups/custodian-sole-tenant", 
+    "size": 2
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "567", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/epm-gcp-msq-stage/zones/us-central1-f/nodeGroups/custodian-sole-tenant?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "W4p1qkkRo-08vU7PiUK8fKBNmGI=/3dEhHaThwZJJzbfq7Ksd5RLPmyA=", 
+    "cache-control": "private", 
+    "date": "Mon, 22 Jul 2019 14:01:30 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}

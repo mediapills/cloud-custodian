@@ -1,0 +1,762 @@
+{
+  "body": {
+    "items": {
+      "zones/europe-west3-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west3-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west3-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west3-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west3-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west3-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-east2-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-east2-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-east2-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west3-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west3-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west3-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west2-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west2-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west2-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west2-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west2-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west2-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-central1-f": {
+        "nodeGroups": [
+          {
+            "status": "READY", 
+            "kind": "compute#nodeGroup", 
+            "name": "custodian-sole-tenant", 
+            "zone": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-f", 
+            "nodeTemplate": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/regions/us-central1/nodeTemplates/custodian-sole-tenant", 
+            "creationTimestamp": "2019-06-17T05:11:25.575-07:00", 
+            "id": "4105557793051393410", 
+            "selfLink": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-f/nodeGroups/custodian-sole-tenant", 
+            "size": 1
+          }
+        ]
+      }, 
+      "zones/us-west2-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-west2-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-west2-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west1-d": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west1-d' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west1-d", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-east1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-east1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-east1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-east1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-east1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-east1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-east1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-east1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-east1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-west1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-west1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-west1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-west1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-west1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-west1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-west2-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-west2-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-west2-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/southamerica-east1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/southamerica-east1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/southamerica-east1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/southamerica-east1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/southamerica-east1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/southamerica-east1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/southamerica-east1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/southamerica-east1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/southamerica-east1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west2-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west2-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west2-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-northeast2-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-northeast2-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-northeast2-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-east2-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-east2-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-east2-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-northeast2-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-northeast2-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-northeast2-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-north1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-north1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-north1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-northeast2-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-northeast2-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-northeast2-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-east1-d": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-east1-d' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-east1-d", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-north1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-north1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-north1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west6-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west6-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west6-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-east1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-east1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-east1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/australia-southeast1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/australia-southeast1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/australia-southeast1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-east1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-east1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-east1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west6-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west6-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west6-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-southeast1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-southeast1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-southeast1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-southeast1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-southeast1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-southeast1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-north1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-north1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-north1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-southeast1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-southeast1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-southeast1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-east2-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-east2-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-east2-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/australia-southeast1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/australia-southeast1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/australia-southeast1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-central1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-central1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-central1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-south1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-south1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-south1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-central1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-central1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-central1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-central1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-central1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-central1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west6-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west6-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west6-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-northeast1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-northeast1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-northeast1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-northeast1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-northeast1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-northeast1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-northeast1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-northeast1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-northeast1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-west1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-west1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-west1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-east4-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-east4-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-east4-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-south1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-south1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-south1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-east4-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-east4-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-east4-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-east4-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-east4-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-east4-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west4-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west4-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west4-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west4-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west4-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west4-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/europe-west4-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/europe-west4-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/europe-west4-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/us-west2-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/us-west2-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/us-west2-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/northamerica-northeast1-c": {
+        "warning": {
+          "message": "There are no results for scope 'zones/northamerica-northeast1-c' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/northamerica-northeast1-c", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/asia-south1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/asia-south1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/asia-south1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/northamerica-northeast1-a": {
+        "warning": {
+          "message": "There are no results for scope 'zones/northamerica-northeast1-a' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/northamerica-northeast1-a", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/australia-southeast1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/australia-southeast1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/australia-southeast1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }, 
+      "zones/northamerica-northeast1-b": {
+        "warning": {
+          "message": "There are no results for scope 'zones/northamerica-northeast1-b' on this page.", 
+          "code": "NO_RESULTS_ON_PAGE", 
+          "data": [
+            {
+              "value": "zones/northamerica-northeast1-b", 
+              "key": "scope"
+            }
+          ]
+        }
+      }
+    }, 
+    "kind": "compute#nodeGroupAggregatedList", 
+    "id": "projects/cloud-custodian/aggregated/nodeGroups", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/aggregated/nodeGroups"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "17080", 
+    "transfer-encoding": "chunked", 
+    "expires": "Mon, 17 Jun 2019 12:14:38 GMT", 
+    "vary": "Origin, X-Origin", 
+    "-content-encoding": "gzip", 
+    "date": "Mon, 17 Jun 2019 12:14:38 GMT", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/aggregated/nodeGroups?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "server": "GSE", 
+    "etag": "\"P4P5nzpG31v4ETgKQIcRMdtOSQc=/g76YF2KiUdgeCMVp_pKoAuslnyw=\"", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

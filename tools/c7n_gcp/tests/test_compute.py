@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 import time
-from gcp_common import BaseTest
+
+from gcp_common import BaseTest, event_data
+from googleapiclient.errors import HttpError
 
 
 class InstanceTest(BaseTest):
@@ -164,3 +167,132 @@ class ImageTest(BaseTest):
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
+
+
+class GceNodeGroupTest(BaseTest):
+
+    def test_node_group_query(self):
+        resource_id = 'custodian-sole-tenant'
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data(
+            'gce-node-group-query', project_id=project_id)
+        p = self.load_policy(
+            {'name': 'gcp-gce-node-group-dryrun',
+             'resource': 'gcp.gce-node-group'},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(resources[0]['name'], resource_id)
+
+    def test_node_group_get(self):
+        resource_id = 'custodian-sole-tenant'
+        session_factory = self.replay_flight_data('gce-node-group-get')
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-node-group-audit',
+             'resource': 'gcp.gce-node-group',
+             'mode': {
+                 'type': 'gcp-audit',
+                 'methods': ['v1.compute.nodeGroups.insert']
+             }},
+            session_factory=session_factory)
+
+        exec_mode = policy.get_execution_mode()
+        event = event_data('gce-node-group-create.json')
+        resources = exec_mode.run(event, None)
+
+        self.assertEqual(resources[0]['name'], resource_id)
+
+    def test_node_group_delete(self):
+        project_id = 'epm-gcp-msq-stage'
+        zone_id = 'us-central1-f'
+        resource_id = 'custodian-sole-tenant'
+        resource_full_name = 'projects/%s/zones/%s/nodeGroups/%s'\
+                             % (project_id, zone_id, resource_id)
+        session_factory = self.replay_flight_data(
+            'gce-node-group-delete', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-node-group-delete',
+             'resource': 'gcp.gce-node-group',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'name',
+                 'value': resource_id
+             }],
+             'actions': [{'type': 'delete'}]},
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], resource_id)
+
+        client = policy.resource_manager.get_client()
+        try:
+            result = client.execute_query(
+                'get', {'project': project_id,
+                        'zone': zone_id,
+                        'nodeGroup': resource_id})
+            self.fail('found deleted resource: %s' % result)
+        except HttpError as e:
+            self.assertTrue(re.match(".*The resource '%s' was not found.*" %
+                                     resource_full_name, str(e)))
+
+    def test_node_group_set_size_increase_valid(self):
+        self._test_node_group_set_size_valid(1, 2, 'increase-size')
+
+    def test_node_group_set_size_increase_target_not_greater_than_current_error(self):
+        self._test_node_group_set_size_error(
+            1, 1, 'increase-size', 'error-target-not-greater-than-current', ValueError,
+            'Target node group size (1) must be greater than the current (1)')
+
+    def test_node_group_set_size_decrease_valid(self):
+        self._test_node_group_set_size_valid(2, 1, 'decrease-size')
+
+    def test_node_group_set_size_decrease_target_not_smaller_than_current_error(self):
+        self._test_node_group_set_size_error(
+            2, 2, 'decrease-size', 'error-target-not-smaller-than-current', ValueError,
+            'Target node group size (2) must be smaller than the current (2)')
+
+    def _test_node_group_set_size_valid(self, current_size, target_size, action_type):
+        project_id, zone_id, resource_id, policy, resources =\
+            self._test_node_group_set_size_base(current_size, target_size, action_type, 'valid')
+        self.assertEqual(resources[0]['name'], resource_id)
+
+        if self.recording:
+            time.sleep(15)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'get', {'project': project_id,
+                    'zone': zone_id,
+                    'nodeGroup': resource_id})
+        self.assertEqual(result['size'], target_size)
+
+    def _test_node_group_set_size_error(self, current_size, target_size, action_type, flight_id,
+                                        error_class, error_message):
+        try:
+            self._test_node_group_set_size_base(current_size, target_size, action_type, flight_id)
+        except error_class as e:
+            self.assertEqual(error_message, str(e))
+
+    def _test_node_group_set_size_base(self, current_size, target_size, action_type, flight_id):
+        project_id = 'epm-gcp-msq-stage'
+        zone_id = 'us-central1-f'
+        resource_id = 'custodian-sole-tenant'
+        session_factory = self.replay_flight_data(
+            'gce-node-group-%s-%s' % (action_type, flight_id), project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-gce-node-group-set-size',
+             'resource': 'gcp.gce-node-group',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'size',
+                 'value': current_size
+             }],
+             'actions': [{'type': action_type,
+                          'target-size': target_size}]},
+            session_factory=session_factory)
+
+        resources = policy.run()
+        return project_id, zone_id, resource_id, policy, resources
