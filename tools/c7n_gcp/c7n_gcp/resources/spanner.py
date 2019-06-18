@@ -150,13 +150,15 @@ class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
               role:roles/viewer
     """
     schema = type_schema('setIamPolicy',
-        required=['bindings'],
-        **{
-            'bindings': {
-                'type': 'array',
-                'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
-            }
-        })
+                         required=['bindings'],
+                         **{
+                             'type': {'enum': ['set-iam-policy']},
+                             'bindings': {
+                                 'type': 'array',
+                                 'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
+                             }
+                         }
+                         )
     method_spec = {'op': 'setIamPolicy'}
 
     MEMBER_TYPES = ['user', 'group', 'domain', 'serviceAccount']
@@ -256,6 +258,7 @@ https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.datab
     schema = type_schema('setIamPolicy',
                          required=['bindings'],
                          **{
+                             'type': {'enum': ['set-iam-policy']},
                              'bindings': {
                                  'type': 'array',
                                  'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
