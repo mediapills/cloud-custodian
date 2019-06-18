@@ -2,13 +2,6 @@
   "body": {
     "instances": [
       {
-        "nodeCount": 2, 
-        "displayName": "spanner-instance-0", 
-        "state": "READY", 
-        "config": "projects/custodian-test-project-0/instanceConfigs/regional-asia-east1", 
-        "name": "projects/custodian-test-project-0/instances/spanner-instance-0"
-      }, 
-      {
         "nodeCount": 1, 
         "displayName": "spanner-instance-1", 
         "state": "READY", 
@@ -27,7 +20,7 @@
     "server": "ESF", 
     "-content-encoding": "gzip", 
     "cache-control": "private", 
-    "date": "Tue, 18 Jun 2019 11:19:15 GMT", 
+    "date": "Mon, 10 Jun 2019 08:35:27 GMT", 
     "x-frame-options": "SAMEORIGIN", 
     "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
     "content-type": "application/json; charset=UTF-8"

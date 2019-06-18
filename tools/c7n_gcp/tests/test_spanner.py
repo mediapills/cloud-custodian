@@ -130,8 +130,8 @@ class SpannerInstanceTest(BaseTest):
              'actions': [{
                  'type': 'set-iam-policy',
                  'bindings':
-                     [{'members1': ['user:yauhen_shaliou@comelfo.com'],
-                       'role1': 'roles/owner'},
+                     [{'members': ['user:yauhen_shaliou@comelfo.com'],
+                       'role': 'roles/owner'},
                       {'members': ['dkhanas@gmail.com'],
                        'role': 'roles/viewer'}]
              }]},
@@ -182,10 +182,10 @@ class SpannerDatabaseInstanceTest(BaseTest):
 
     def test_spanner_database_instance_delete(self):
         project_id = 'custodian-test-project-0'
-        session_factory = self.replay_flight_data('spanner-instance-database-delete',
+        session_factory = self.replay_flight_data('spanner-database-instance-delete',
                                                   project_id=project_id)
         policy = self.load_policy(
-            {'name': 'gcp-spanner-instance-databases-delete-and-notify',
+            {'name': 'gcp-spanner-databases-instance-delete',
              'resource': 'gcp.spanner-database-instance',
              'filters': [{
                  'type': 'value',
@@ -200,10 +200,10 @@ class SpannerDatabaseInstanceTest(BaseTest):
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-0')
         self.assertEqual(resources[1]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-1')
 
-        session_factory = self.replay_flight_data('spanner-instance-database-after-delete',
+        session_factory = self.replay_flight_data('spanner-database-instance-after-delete',
                                                   project_id=project_id)
         policy = self.load_policy(
-            {'name': 'spanner-instance-after-delete',
+            {'name': 'spanner-database-instance-after-delete',
              'resource': 'gcp.spanner-database-instance'},
             session_factory=session_factory)
         time.sleep(1)
@@ -214,7 +214,7 @@ class SpannerDatabaseInstanceTest(BaseTest):
 
     def test_spanner_database_instance_set_iam_policy(self):
         project_id = 'custodian-test-project-0'
-        session_factory = self.replay_flight_data('spanner-instance-patch',
+        session_factory = self.replay_flight_data('spanner-instance-database-set-iam',
                                                   project_id=project_id)
         policy = self.load_policy(
             {'name': 'spanner-database-instance-set-iam-policy',
