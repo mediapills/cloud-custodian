@@ -99,7 +99,7 @@ class SpannerInstanceTest(BaseTest):
                  'type': 'change-node-count',
                  'nodeCount': 1
              }]},
-            session_factory=session_factory, validate=True)
+            session_factory=session_factory)
 
         resources = policy.run()
         self.assertEqual(len(resources), 1)
