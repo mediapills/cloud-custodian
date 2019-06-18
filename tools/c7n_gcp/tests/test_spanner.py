@@ -200,12 +200,12 @@ class SpannerDatabaseInstanceTest(BaseTest):
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-0')
         self.assertEqual(resources[1]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-1')
 
-        session_factory = self.replay_flight_data('spanner-database-instance-after-delete',
+        session_factory_1 = self.replay_flight_data('spanner-database-instance-after-delete',
                                                   project_id=project_id)
         policy = self.load_policy(
             {'name': 'spanner-database-instance-after-delete',
              'resource': 'gcp.spanner-database-instance'},
-            session_factory=session_factory)
+            session_factory=session_factory_1)
         time.sleep(1)
         resources = policy.run()
         self.assertEqual(len(resources), 2)
