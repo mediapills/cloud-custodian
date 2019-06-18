@@ -67,7 +67,7 @@ class SpannerInstanceDelete(SpannerInstanceAction):
     method_spec = {'op': 'delete'}
 
 
-@SpannerInstance.action_registry.register('patch')
+@SpannerInstance.action_registry.register('change-node-count')
 class SpannerInstancePatch(SpannerInstanceAction):
     """The action is used for spanner instances patch. Values from following fields can be updated
     - config,
@@ -82,7 +82,7 @@ class SpannerInstancePatch(SpannerInstanceAction):
 
     .. code-block:: yaml
         policies:
-        - name: gcp-spanner-instances-patch
+        - name: gcp-spanner-instances-change-node-count
           resource: gcp.spanner-instance
           filters:
             - type: value
@@ -90,35 +90,23 @@ class SpannerInstancePatch(SpannerInstanceAction):
               op: gte
               value: 2
           actions:
-          - type: patch
+          - type: change-node-count
             nodeCount: 1
     """
     schema = type_schema('patch', required=['nodeCount'],
-                         **{'nodeCount': 'number'})
+                         **{'type': {'enum': ['change-node-count']},
+                            'nodeCount': 'number'})
     method_spec = {'op': 'patch'}
 
-    FIELDS_TO_UPDATE = ['config', 'displayName', 'nodeCount', 'labels']
-
-    def validate(self):
-        valid = False
-        for field in self.data.keys():
-            if field in self.FIELDS_TO_UPDATE:
-                valid = True
-                break
-
-        if not valid:
-            raise PolicyValidationError("Nothing to update")
-
     def get_resource_params(self, model, resource):
-        result = super(SpannerInstancePatch, self).get_resource_params(model, resource)
+        result = {'name': resource['name'],
+             'body': {
+                 'instance': {
+                     'nodeCount': None
+                 }
+             }}
         field_mask = []
-        result['body'] = {}
-        result['body']['instance'] = {}
-        for field in self.data.keys():
-            if field in self.FIELDS_TO_UPDATE:
-                field_mask.append(field)
-                result['body']['instance'][field] = self.data[field]
-
+        result['body']['instance']['nodeCount'] = self.data['nodeCount']
         result['body']['field_mask'] = ', '.join([x for x in field_mask])
         return result
 
