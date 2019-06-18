@@ -81,7 +81,7 @@ class SpannerInstanceTest(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['displayName'], non_deleting_instance_name)
 
-    def test_spanner_instance_patch(self):
+    def test_spanner_instance_change_node_count(self):
         project_id = 'custodian-test-project-0'
         patching_instance_name = 'spanner-instance-0'
         non_patching_instance_name = 'spanner-instance-1'
@@ -96,10 +96,10 @@ class SpannerInstanceTest(BaseTest):
                  'value': 1,
                  'op': 'greater-than'}],
              'actions': [{
-                 'type': 'patch',
+                 'type': 'change-node-count',
                  'nodeCount': 1
              }]},
-            session_factory=session_factory)
+            session_factory=session_factory, validate=True)
 
         resources = policy.run()
         self.assertEqual(len(resources), 1)
@@ -200,13 +200,14 @@ class SpannerDatabaseInstanceTest(BaseTest):
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-0')
         self.assertEqual(resources[1]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-1')
 
-        session_factory_1 = self.replay_flight_data('spanner-database-instance-after-delete',
+        session_factory = self.replay_flight_data('spanner-database-instance-after-delete',
                                                   project_id=project_id)
         policy = self.load_policy(
             {'name': 'spanner-database-instance-after-delete',
              'resource': 'gcp.spanner-database-instance'},
-            session_factory=session_factory_1)
+            session_factory=session_factory)
         time.sleep(1)
+        print(policy)
         resources = policy.run()
         self.assertEqual(len(resources), 2)
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-prod')
