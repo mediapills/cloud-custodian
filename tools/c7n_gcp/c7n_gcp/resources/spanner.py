@@ -127,7 +127,8 @@ class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
     """Sets IAM policy. It works with bindings only.
 
     GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.
-    GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy.
+    GCP action is
+    https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy.
 
     Example:
 
@@ -151,11 +152,10 @@ class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
         required=['bindings'],
         **{
             'bindings': {
-             'type': 'array',
-             'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
+                'type': 'array',
+                'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
             }
-        }
-                         )
+        })
     method_spec = {'op': 'setIamPolicy'}
 
     MEMBER_TYPES = ['user', 'group', 'domain', 'serviceAccount']
@@ -165,13 +165,14 @@ class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
                   'body': {
                       'policy': {
                           'bindings': []
-                      }
-                  }}
+                      }}
+                  }
         bindings = result['body']['policy']['bindings']
 
         if self.data['bindings'] is not None:
             for binding in self.data['bindings']:
                 if binding['role'] and binding['members']:
+                    members = []
                     for member in binding['members']:
                         requires_update = True
                         for member_type in self.MEMBER_TYPES:
@@ -180,7 +181,8 @@ class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
                                 break
                         if requires_update:
                             member = 'user:' + member
-                        bindings.append({'role': binding['role'],'members': member})
+                        members.append(member)
+                    bindings.append({'role': binding['role'], 'members': members})
 
         return result
 
@@ -226,8 +228,10 @@ class SpannerDatabaseInstance(ChildResourceManager):
 class SpannerDatabaseInstanceSetIamPolicy(SpannerInstanceAction):
     """Sets IAM policy. It works with bindings only.
 
-    GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.
-    GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/setIamPolicy.
+    GCP resource is
+    https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.
+    GCP action is
+https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/setIamPolicy.
 
     Example:
 
@@ -266,13 +270,14 @@ class SpannerDatabaseInstanceSetIamPolicy(SpannerInstanceAction):
                   'body': {
                       'policy': {
                           'bindings': []
-                      }
-                  }}
+                      }}
+                  }
         bindings = result['body']['policy']['bindings']
 
         if self.data['bindings'] is not None:
             for binding in self.data['bindings']:
                 if binding['role'] and binding['members']:
+                    members = []
                     for member in binding['members']:
                         requires_update = True
                         for member_type in self.MEMBER_TYPES:
@@ -281,16 +286,18 @@ class SpannerDatabaseInstanceSetIamPolicy(SpannerInstanceAction):
                                 break
                         if requires_update:
                             member = 'user:' + member
-                        bindings.append({'role': binding['role'],'members': member})
-
+                        members.append(member)
+                    bindings.append({'role': binding['role'], 'members': members})
         return result
 
 
 @SpannerDatabaseInstance.action_registry.register('delete')
 class SpannerDatabaseInstanceDropDatabase(SpannerInstanceAction):
     """The action is used for databases deleting.
-    GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.
-    GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/dropDatabase.
+    GCP resource is
+    https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.
+    GCP action is
+https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/dropDatabase.
 
     Example:
 

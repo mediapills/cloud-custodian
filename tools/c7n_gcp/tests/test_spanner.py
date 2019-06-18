@@ -133,8 +133,7 @@ class SpannerInstanceTest(BaseTest):
                      [{'members1': ['user:yauhen_shaliou@comelfo.com'],
                        'role1': 'roles/owner'},
                       {'members': ['dkhanas@gmail.com'],
-                       'role': 'roles/viewer'},
-                     ]
+                       'role': 'roles/viewer'}]
              }]},
             session_factory=session_factory)
 
