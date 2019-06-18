@@ -93,7 +93,8 @@ class SpannerInstancePatch(SpannerInstanceAction):
           - type: patch
             nodeCount: 1
     """
-    schema = type_schema('patch', attributes={'nodeCount': 'object'})
+    schema = type_schema('patch', required=['nodeCount'],
+                         **{'nodeCount': 'number'})
     method_spec = {'op': 'patch'}
 
     FIELDS_TO_UPDATE = ['config', 'displayName', 'nodeCount', 'labels']
