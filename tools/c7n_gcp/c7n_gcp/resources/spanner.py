@@ -100,14 +100,12 @@ class SpannerInstancePatch(SpannerInstanceAction):
 
     def get_resource_params(self, model, resource):
         result = {'name': resource['name'],
-             'body': {
-                 'instance': {
-                     'nodeCount': None
-                 }
-             }}
-        field_mask = []
-        result['body']['instance']['nodeCount'] = self.data['nodeCount']
-        result['body']['field_mask'] = ', '.join([x for x in field_mask])
+                  'body': {
+                      'instance': {
+                          'nodeCount': self.data['nodeCount']
+                      },
+                      'field_mask': ', '.join(['nodeCount'])
+                  }}
         return result
 
 
