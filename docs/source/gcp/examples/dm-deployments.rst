@@ -1,8 +1,8 @@
 Deployment Manager - Find expired deployments
 =============================================
-Custodian can check and notify which deployments reached their expiration date which is in turn determined by your governance rules.
+Custodian can check and delete deployments that have reached their expiration date which is in turn determined by your governance rules.
 
-In the example below, the policy is set to filter deployments which were created more than 6 days ago.
+In the example below, the policy is set to delete deployments which were created more than 6 days ago.
 
 .. code-block:: yaml
 
@@ -17,11 +17,4 @@ In the example below, the policy is set to filter deployments which were created
           op: gte
           value: 7
         actions:
-          - type: notify
-            subject: Expired deployments
-            to:
-              - mail@mail
-            format: txt
-            transport:
-              type: pubsub
-              topic: projects/project/topics/topic
+          - delete
