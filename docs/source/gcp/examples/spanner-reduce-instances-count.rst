@@ -8,7 +8,7 @@ To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_generic
 .. code-block:: yaml
 
     policies:
-    - name: gcp-spanner-instances-patch
+    - name: gcp-spanner-instances-change-node-count
       resource: gcp.spanner-instance
       filters:
         - type: value
