@@ -303,7 +303,7 @@ https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.datab
           actions:
           - type: delete
     """
-    schema = type_schema('dropDatabase')
+    schema = type_schema('dropDatabase', **{'type': {'enum': ['delete']}})
     method_spec = {'op': 'dropDatabase'}
 
     def get_resource_params(self, model, resource):
