@@ -16,10 +16,10 @@ To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_generic
         - members:
           - user:user1@test.com
           - user2@test.com
-          role:roles/owner
+          role: roles/owner
         - members:
           - user:user3@gmail.com
-          role:roles/viewer
+          role: roles/viewer
     - name: gcp-spanner-database-instances-set-iam-policy
       resource: gcp.spanner-database-instance
       actions:
@@ -28,7 +28,7 @@ To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_generic
         - members:
           - user:user1@test.com
           - user2@test.com
-          role:roles/owner
+          role: roles/owner
         - members:
           - user:user3@gmail.com
-          role:roles/viewer
+          role: roles/viewer
