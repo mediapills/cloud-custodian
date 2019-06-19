@@ -207,7 +207,6 @@ class SpannerDatabaseInstanceTest(BaseTest):
              'resource': 'gcp.spanner-database-instance'},
             session_factory=session_factory)
         time.sleep(1)
-        print(policy)
         resources = policy.run()
         self.assertEqual(len(resources), 2)
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-prod')
