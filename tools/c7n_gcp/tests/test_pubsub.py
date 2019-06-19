@@ -13,6 +13,9 @@
 # limitations under the License.
 
 from gcp_common import BaseTest, event_data
+from time import sleep
+
+from googleapiclient.errors import HttpError
 
 
 class PubSubTopicTest(BaseTest):
@@ -45,6 +48,34 @@ class PubSubTopicTest(BaseTest):
         pubsub_topic_resource = policy.resource_manager.get_resource(
             {'project_id': project_id, 'topic_id': pubsub_topic_name})
         self.assertEqual(pubsub_topic_resource['name'], pubsub_topic_name)
+
+    def test_pubsub_topic_delete(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'projects/%s/topics/topic-to-delete' % project_id
+        session_factory = self.replay_flight_data(
+            'pubsub-topic-delete', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-pubsub-topic-delete',
+             'resource': 'gcp.pubsub-topic',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_name}],
+             'actions': [{'type': 'delete'}]},
+            session_factory=session_factory)
+        result = policy.run()
+        self.assertEqual(result[0]['name'], resource_name)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        try:
+            result = client.execute_query(
+                'get', {'topic': resource_name})
+            self.fail('found deleted resource: %s' % result)
+        except HttpError as e:
+            self.assertTrue("Resource not found" in str(e))
 
 
 class PubSubSubscriptionTest(BaseTest):
@@ -84,6 +115,72 @@ class PubSubSubscriptionTest(BaseTest):
         resources = exec_mode.run(event, None)
         self.assertEqual(resources[0]['name'], resource_name)
 
+    def test_pubsub_subscription_delete(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'projects/%s/subscriptions/subscription-to-delete' % project_id
+        session_factory = self.replay_flight_data(
+            'pubsub-subscription-delete', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-pubsub-subscription-delete',
+             'resource': 'gcp.pubsub-subscription',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_name}],
+             'actions': [{'type': 'delete'}]},
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], resource_name)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        try:
+            result = client.execute_query(
+                'get', {'subscription': resource_name})
+            self.fail('found deleted resource: %s' % result)
+        except HttpError as e:
+            self.assertTrue("Resource not found" in str(e))
+
+    def test_pubsub_subscription_set(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'projects/%s/subscriptions/subscription-to-update' % project_id
+        session_factory = self.replay_flight_data(
+            'pubsub-subscription-set', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-pubsub-subscription-set',
+             'resource': 'gcp.pubsub-subscription',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'name',
+                 'value': resource_name
+             }],
+             'actions': [{
+                 'type': 'set',
+                 'expiration-policy-ttl': {
+                     'days': 10
+                 },
+                 'message-retention-duration': {
+                     'days': 1,
+                     'hours': 2,
+                     'minutes': 3
+                 }
+             }]},
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], resource_name)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query('get', {'subscription': resource_name})
+        self.assertEqual(result['name'], resource_name)
+        self.assertEqual(result['expirationPolicy']['ttl'], '864000s')
+        self.assertEqual(result['messageRetentionDuration'], '93780s')
+
 
 class PubSubSnapshotTest(BaseTest):
 
@@ -100,3 +197,27 @@ class PubSubSnapshotTest(BaseTest):
 
         pubsub_snapshot_resources = policy.run()
         self.assertEqual(pubsub_snapshot_resources[0]['name'], pubsub_snapshot_name)
+
+    def test_pubsub_snapshot_delete(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'projects/%s/snapshots/snapshot-to-delete' % project_id
+        session_factory = self.replay_flight_data(
+            'pubsub-snapshot-delete', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-pubsub-snapshot-delete',
+             'resource': 'gcp.pubsub-snapshot',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_name}],
+             'actions': [{'type': 'delete'}]},
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], resource_name)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        resources = client.execute_query('list', {'project': 'projects/%s' % project_id})
+        self.assertTrue('snapshots' not in resources, True)

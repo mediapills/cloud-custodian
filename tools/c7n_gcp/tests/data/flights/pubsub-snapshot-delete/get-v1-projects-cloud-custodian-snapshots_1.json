@@ -1,0 +1,27 @@
+{
+  "body": {
+    "snapshots": [
+      {
+        "topic": "projects/cloud-custodian/topics/custodian", 
+        "expireTime": "2019-07-18T10:05:51.142Z", 
+        "name": "projects/cloud-custodian/snapshots/snapshot-to-delete"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "229", 
+    "x-xss-protection": "0", 
+    "content-location": "https://pubsub.googleapis.com/v1/projects/cloud-custodian/snapshots?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Thu, 11 Jul 2019 10:09:40 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
