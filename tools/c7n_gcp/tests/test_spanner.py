@@ -196,7 +196,7 @@ class SpannerDatabaseInstanceTest(BaseTest):
              'actions': ['delete']},
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(len(resources), 2)
+        self.assertEqual(2, len(resources))
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-0')
         self.assertEqual(resources[1]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-1')
 
@@ -206,9 +206,12 @@ class SpannerDatabaseInstanceTest(BaseTest):
             {'name': 'spanner-database-instance-after-delete',
              'resource': 'gcp.spanner-database-instance'},
             session_factory=session_factory)
-        time.sleep(1)
+
+        if self.recording:
+            time.sleep(2)
+
         resources = policy.run()
-        self.assertEqual(len(resources), 2)
+        self.assertEqual(2, len(resources))
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-prod')
         self.assertEqual(resources[1]['name'].rsplit('/', 1)[-1], 'custodian-database-qa')
 
