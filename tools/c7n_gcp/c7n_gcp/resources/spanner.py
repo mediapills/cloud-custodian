@@ -68,11 +68,7 @@ class SpannerInstanceDelete(SpannerInstanceAction):
 
 @SpannerInstance.action_registry.register('change-node-count')
 class SpannerInstancePatch(SpannerInstanceAction):
-    """The action is used for spanner instances patch. Values from following fields can be updated
-    - config,
-    - displayName,
-    - nodeCount,
-    - labels.
+    """The action is used for spanner instances nodeCount patch.
 
     GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.
     GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/patch
