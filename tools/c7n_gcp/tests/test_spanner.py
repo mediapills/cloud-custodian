@@ -111,7 +111,10 @@ class SpannerInstanceTest(BaseTest):
             {'name': 'spanner-instances-after-patch',
              'resource': 'gcp.spanner-instance'},
             session_factory=session_factory)
-        time.sleep(1)
+
+        if self.recording:
+            time.sleep(2)
+
         resources = policy.run()
         self.assertEqual(len(resources), 2)
         self.assertEqual(resources[0]['displayName'], patching_instance_name)

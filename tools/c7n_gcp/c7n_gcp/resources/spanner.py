@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from c7n.exceptions import PolicyValidationError
 from c7n.utils import type_schema
 from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
@@ -104,8 +103,8 @@ class SpannerInstancePatch(SpannerInstanceAction):
                       'instance': {
                           'nodeCount': self.data['nodeCount']
                       },
-                      'field_mask': ', '.join(['nodeCount'])
-                  }}
+                      'field_mask': ', '.join(['nodeCount'])}
+                  }
         return result
 
 
@@ -130,10 +129,10 @@ class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
             - members:
               - user:user1@test.com
               - user2@test.com
-              role:roles/owner
+              role: roles/owner
             - members:
               - user:user3@gmail.com
-              role:roles/viewer
+              role: roles/viewer
     """
     schema = type_schema('setIamPolicy',
                          required=['bindings'],
@@ -235,7 +234,7 @@ https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.datab
             - members:
               - user:user1@test.com
               - user2@test.com
-              role:roles/owner
+              role: roles/owner
             - members:
               - user:user3@gmail.com
               role:roles/viewer
