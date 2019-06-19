@@ -237,7 +237,7 @@ https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.datab
               role: roles/owner
             - members:
               - user:user3@gmail.com
-              role:roles/viewer
+              role: roles/viewer
     """
 
     schema = type_schema('setIamPolicy',
