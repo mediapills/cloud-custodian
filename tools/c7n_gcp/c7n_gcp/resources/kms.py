@@ -42,8 +42,9 @@ class KmsLocation(QueryResourceManager):
 class KmsKeyRing(ChildResourceManager):
 
     def _get_parent_resource_info(self, child_instance):
-        param_re = re.compile('projects/(.*?)/locations/(.*?)/keyRings/.*?')
-        project_id, location = param_re.match(child_instance['name']).groups()
+        project_id, location = re.match(
+            'projects/(.*?)/locations/(.*?)/keyRings/.*?',
+            child_instance['name']).groups()
         return {'project_id': project_id,
                 'location': location}
 
@@ -74,8 +75,9 @@ class KmsKeyRing(ChildResourceManager):
 class KmsCryptoKey(ChildResourceManager):
 
     def _get_parent_resource_info(self, child_instance):
-        param_re = re.compile('projects/(.*?)/locations/(.*?)/keyRings/(.*?)/cryptoKeys/.*')
-        project_id, location, key_ring_id = param_re.match(child_instance['name']).groups()
+        project_id, location, key_ring_id = re.match(
+            'projects/(.*?)/locations/(.*?)/keyRings/(.*?)/cryptoKeys/.*',
+            child_instance['name']).groups()
         return {'project_id': project_id,
                 'location': location,
                 'key_ring_id': key_ring_id}
@@ -108,10 +110,9 @@ class KmsCryptoKey(ChildResourceManager):
 class KmsCryptoKeyVersion(ChildResourceManager):
 
     def _get_parent_resource_info(self, child_instance):
-        param_re = re.compile(
-            'projects/(.*?)/locations/(.*?)/keyRings/(.*?)/cryptoKeys/(.*?)/cryptoKeyVersions/.*')
-        project_id, location, key_ring_id, crypto_key_id =\
-            param_re.match(child_instance['name']).groups()
+        path = 'projects/(.*?)/locations/(.*?)/keyRings/(.*?)/cryptoKeys/(.*?)/cryptoKeyVersions/.*'
+        project_id, location, key_ring_id, crypto_key_id = \
+            re.match(path, child_instance['name']).groups()
         return {'project_id': project_id,
                 'location': location,
                 'key_ring_id': key_ring_id,
