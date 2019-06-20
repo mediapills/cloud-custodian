@@ -1,11 +1,11 @@
-Kubernetes - Example 2
+Kubernetes - Control Cluster Settings
 =======================
 
-The example shows how to notify to Cloud Pub/Sub information about {details} ....
+In GKE, a cluster consists of at least one master and multiple worker machines called nodes. A cluster is the foundation of GKE: the Kubernetes objects that represent your containerized applications all run on top of a cluster. Custodian can check that configurations of all clusters in your organization follow an established devops convention and/or best practices.
 
-To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
-In the example below, the policy notifies users if the GKE CreateNode action appears in the logs.
+In the example below, the policy reports clusters which maintenance window (its start time) differs from a recommended value (e.g., 03:00 GMT).
 
 .. code-block:: yaml
 
@@ -15,12 +15,14 @@ In the example below, the policy notifies users if the GKE CreateNode action app
           Kubernetes. List of clusters
         resource: gcp.gke-cluster
         mode:
-          type: gcp-audit
-          methods:
-          - "io.k8s.core.v1.nodes.create"
+        filters:
+         -  type: value
+            key: maintenancePolicy.window.dailyMaintenanceWindow.startTime
+            op: not-equal
+            value: "03:00"
         actions:
           - type: notify
-            subject: k8s cluster has been created
+            subject: non-standard k8s clusters
               to:
                 - email@email
               format: json
