@@ -50,9 +50,12 @@ class DataSet(QueryResourceManager):
         results = []
         for r in resources:
             ref = r['datasetReference']
-            results.append(
-                client.execute_query(
-                    'get', verb_arguments=ref))
+            dataset_info = client.execute_query(
+                'get', verb_arguments=ref
+            )
+            dataset_info['creationTime'] = float(dataset_info['creationTime'])/1000.0
+            dataset_info['lastModifiedTime'] = float(dataset_info['lastModifiedTime'])/1000.0
+            results.append(dataset_info)
         return results
 
 
@@ -78,6 +81,13 @@ class BigQueryJob(QueryResourceManager):
                     'protoPayload.metadata.tableCreation.jobName', event
                 ).rsplit('/', 1)[-1]
             })
+
+    def augment(self, resources):
+        for r in resources:
+            r['statistics']['creationTime'] = float(r['statistics']['creationTime'])/1000.0
+            r['statistics']['endTime'] = float(r['statistics']['endTime'])/1000.0
+            r['statistics']['startTime'] = float(r['statistics']['startTime'])/1000.0
+        return resources
 
 
 @resources.register('bq-project')
@@ -123,3 +133,8 @@ class BigQueryTable(ChildResourceManager):
                 'datasetId': event['dataset_id'],
                 'tableId': event['resourceName'].rsplit('/', 1)[-1]
             })
+
+    def augment(self, resources):
+        for r in resources:
+            r['creationTime'] = float(r['creationTime'])/1000.0
+        return resources
