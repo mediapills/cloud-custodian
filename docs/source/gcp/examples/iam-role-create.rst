@@ -1,7 +1,11 @@
-IAM - Notify users about new roles creation
+IAM - Watch for Creation of New Roles
 ============================================================
 
-The following example policies will allow you to notify your Admin about new roles creation. Also you can extend this policy and add permission filtering to control access.
+In GCP, role is collection of permissions which can be granted to a user, a group, or a service account. GCP also provides the ability to create customized Cloud IAM roles.
+
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+
+The following policy audits logs in real-time for traces of "CreateRole" action and will notify an admin and/or IT security manager about creation of new roles with "Generally Available" stage.
 
 .. code-block:: yaml
 
@@ -14,6 +18,11 @@ The following example policies will allow you to notify your Admin about new rol
           type: gcp-audit
           methods:
           - "google.iam.admin.v1.CreateRole"
+          filters:
+          - type: value
+            key: stage
+            op: equal
+            value: GA
         actions:
           - type: notify
             subject: IAM role has been created
