@@ -47,17 +47,17 @@ class LoadBalancingAddressTest(BaseTest):
     def test_loadbalancer_address_delete(self):
         project_id = 'custodian-test-project-0'
         session_factory = self.replay_flight_data('lb-addresses-delete',
-                                                    project_id=project_id)
+                                                  project_id=project_id)
         base_policy = {'name': 'lb-addresses-delete',
                        'resource': 'gcp.loadbalancer-address'}
 
         policy = self.load_policy(
             dict(base_policy,
-                  filters=[{'type': 'value',
-                            'key': 'networkTier',
-                            'op': 'eq',
-                            'value': 'STANDARD'}],
-                  actions=[{'type': 'delete'}]),
+                 filters=[{'type': 'value',
+                           'key': 'networkTier',
+                           'op': 'eq',
+                           'value': 'STANDARD'}],
+                 actions=[{'type': 'delete'}]),
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(1, len(resources))
