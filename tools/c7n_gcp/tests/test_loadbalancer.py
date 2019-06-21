@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from time import sleep
 
 from gcp_common import BaseTest
 
@@ -42,6 +43,35 @@ class LoadBalancingAddressTest(BaseTest):
              'region': 'us-central1'})
         self.assertEqual(instance['kind'], 'compute#address')
         self.assertEqual(instance['address'], '35.193.10.19')
+
+    def test_loadbalancer_address_delete(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-addresses-delete',
+                                                    project_id=project_id)
+        base_policy = {'name': 'lb-addresses-delete',
+                       'resource': 'gcp.loadbalancer-address'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                  filters=[{'type': 'value',
+                            'key': 'networkTier',
+                            'op': 'eq',
+                            'value': 'STANDARD'}],
+                  actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian-address-2', resources[0]['name'])
+        self.assertEqual('STANDARD', resources[0]['networkTier'])
+
+        if self.recording:
+            sleep(1)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(len(resources), 2)
+        self.assertEqual('PREMIUM', resources[0]['networkTier'])
+        self.assertEqual('PREMIUM', resources[1]['networkTier'])
 
 
 class LoadBalancingUrlMapTest(BaseTest):

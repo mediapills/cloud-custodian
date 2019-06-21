@@ -11,8 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
+from c7n.utils import type_schema, local_session
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
@@ -35,6 +35,36 @@ class LoadBalancingAddress(QueryResourceManager):
                 'project': resource_info['project_id'],
                 'region': resource_info['region'],
                 'address': resource_info['name']})
+
+
+@LoadBalancingAddress.action_registry.register('delete')
+class LoadBalancingAddressDelete(MethodAction):
+    """The action is used for Load Balancing Addresses delete.
+    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/addresses.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/addresses/delete.
+
+    Example:
+
+    .. code-block:: yaml
+        policies:
+        - name: gcp-load-balancing-address-delete
+          resource: gcp.loadbalancer-address
+          filters:
+          - type: value
+            key: networkTier
+            op: eq
+            value: STANDARD
+          actions:
+          - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        return {
+            'project': local_session(self.manager.source.query.session_factory).get_default_project(),
+            'region': resource['region'].rsplit('/', 1)[-1],
+            'address': resource['name']}
 
 
 @resources.register('loadbalancer-url-map')
@@ -267,7 +297,7 @@ class LoadBalancingBackendService(QueryResourceManager):
 
 @resources.register('loadbalancer-target-instance')
 class LoadBalancingTargetInstance(QueryResourceManager):
-    """    GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetInstances
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetInstances
     """
     class resource_type(TypeInfo):
         service = 'compute'
@@ -287,7 +317,7 @@ class LoadBalancingTargetInstance(QueryResourceManager):
 
 @resources.register('loadbalancer-target-pool')
 class LoadBalancingTargetPool(QueryResourceManager):
-    """    GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetPools
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetPools
     """
     class resource_type(TypeInfo):
         service = 'compute'
