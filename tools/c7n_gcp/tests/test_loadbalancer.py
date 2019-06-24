@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from time import sleep
 from gcp_common import BaseTest
 
 
@@ -70,6 +70,52 @@ class LoadBalancingUrlMapTest(BaseTest):
              'name': 'lb'})
         self.assertEqual(instance['kind'], 'compute#urlMap')
         self.assertEqual(instance['fingerprint'], 'GMqHBoGzLDY=')
+
+    def test_loadbalancer_url_map_delete(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-url-map-delete',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-url-map-delete',
+                       'resource': 'gcp.loadbalancer-url-map'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'name',
+                           'op': 'contains',
+                           'value': 'url-map'}],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('url-map-0', resources[0]['name'])
+
+        if self.recording:
+            sleep(3)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual('custodian-load-balancer-0', resources[0]['name'])
+
+    def test_loadbalancer_url_map_invalidate_cache(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-url-map-invalidate-cache',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-url-map-invalidate-cache',
+                       'resource': 'gcp.loadbalancer-url-map'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'name',
+                           'op': 'contains',
+                           'value': 'custodian'}],
+                 actions=[{'type': 'invalidate-cache'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian-load-balancer-0', resources[0]['name'])
 
 
 class LoadBalancingTargetTcpProxyTest(BaseTest):

@@ -1,0 +1,47 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "compute#urlMap", 
+        "description": "1", 
+        "defaultService": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/backendServices/custodian-backend-service-0", 
+        "fingerprint": "oA9r95u1zRI=", 
+        "creationTimestamp": "2019-04-30T01:56:12.593-07:00", 
+        "id": "1466784282128528195", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/urlMaps/custodian-load-balancer-0", 
+        "name": "custodian-load-balancer-0"
+      }, 
+      {
+        "kind": "compute#urlMap", 
+        "description": "1", 
+        "defaultService": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/backendServices/custodian-backend-service-0", 
+        "fingerprint": "ebEoR67nWMw=", 
+        "creationTimestamp": "2019-06-24T09:03:09.612-07:00", 
+        "id": "7267079543146236626", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/urlMaps/url-map-0", 
+        "name": "url-map-0"
+      }
+    ], 
+    "kind": "compute#urlMapList", 
+    "id": "projects/custodian-test-project-0/global/urlMaps", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/urlMaps"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "1181", 
+    "transfer-encoding": "chunked", 
+    "expires": "Mon, 24 Jun 2019 16:06:07 GMT", 
+    "vary": "Origin, X-Origin", 
+    "-content-encoding": "gzip", 
+    "date": "Mon, 24 Jun 2019 16:06:07 GMT", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/urlMaps?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "server": "GSE", 
+    "etag": "\"fNC1x1Rywxiny1Rz-ESpq5yKw_0=/0cBgkSRawxTuUoL2iksfyy-ng4k=\"", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

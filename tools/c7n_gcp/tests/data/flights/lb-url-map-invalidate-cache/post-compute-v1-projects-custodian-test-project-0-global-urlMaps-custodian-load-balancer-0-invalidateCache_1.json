@@ -1,0 +1,34 @@
+{
+  "body": {
+    "status": "RUNNING", 
+    "kind": "compute#operation", 
+    "name": "operation-1561391678405-58c13d458bc89-4caeb2f3-9e7023e2", 
+    "startTime": "2019-06-24T08:54:38.932-07:00", 
+    "description": "/", 
+    "insertTime": "2019-06-24T08:54:38.928-07:00", 
+    "targetId": "1466784282128528195", 
+    "targetLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/urlMaps/custodian-load-balancer-0", 
+    "operationType": "invalidateCache", 
+    "progress": 0, 
+    "id": "9199519826517511377", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/operations/operation-1561391678405-58c13d458bc89-4caeb2f3-9e7023e2", 
+    "user": "eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "733", 
+    "x-xss-protection": "1; mode=block", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "GSE", 
+    "-content-encoding": "gzip", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Mon, 24 Jun 2019 15:54:39 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
