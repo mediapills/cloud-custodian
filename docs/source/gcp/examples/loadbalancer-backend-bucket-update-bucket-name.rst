@@ -6,6 +6,7 @@ If backend buckets should be replaced into another bucket the example allows to 
 .. code-block:: yaml
 
     policies:
+
     - name: gcp-loadbalancer-backend-buckets-update-bucket-name
       resource: gcp.loadbalancer-backend-bucket
       filters:

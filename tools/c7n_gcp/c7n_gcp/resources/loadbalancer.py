@@ -180,6 +180,7 @@ class LoadBalancingBackendBucketUpdateBucketName(MethodAction):
     Example:
 
     .. code-block:: yaml
+
         policies:
         - name: gcp-loadbalancer-backend-buckets-update
           resource: gcp.loadbalancer-backend-bucket
