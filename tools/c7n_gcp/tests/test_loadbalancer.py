@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from time import sleep
 from gcp_common import BaseTest
 
 
@@ -154,6 +154,34 @@ class LoadBalancingSslPolicyTest(BaseTest):
              'name': 'newpolicy'})
         self.assertEqual(instance['kind'], 'compute#sslPolicy')
         self.assertEqual(instance['name'], 'newpolicy')
+
+    def test_loadbalancer_ssl_policy_delete(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-ssl-policy-delete',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-ssl-policy-delete',
+                       'resource': 'gcp.loadbalancer-ssl-policy'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'minTlsVersion',
+                           'op': 'ne',
+                           'value': 'TLS_1_2'}],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(2, len(resources))
+        self.assertIsNot('TLS_1_2', resources[0]['minTlsVersion'])
+        self.assertIsNot('TLS_1_2', resources[1]['minTlsVersion'])
+
+        if self.recording:
+            sleep(1)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual('TLS_1_2', resources[0]['minTlsVersion'])
 
 
 class LoadBalancingSslCertificateTest(BaseTest):
