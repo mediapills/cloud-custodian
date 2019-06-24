@@ -1,9 +1,12 @@
-Spanner - Multi nodes instances
+Spanner - Report Multi-nodes Instances
 ================================
 
-These examples allow to work with GCP spanner resource. It describes below how to notify to Cloud Pub/Sub information about spanner instances with nodes count greater than 2.
+In GCP, Cloud Spanner is a managed relational database service which is globally consistent and scalable, intented for use in mission -critical applications. Teams may need to track consumption of Spanner resources thoroughly in order to stay in budget.
 
-To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+In the example below, the policy reports instances with 'nodes count' greater than or equal to 2.
+
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+
 
 .. code-block:: yaml
 
