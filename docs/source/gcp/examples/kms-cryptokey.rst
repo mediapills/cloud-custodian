@@ -1,8 +1,11 @@
 Key Management System - Audit Crypto Key protection level
 =========================================================
-Custodian can audit and notify if a KMS Cryptographic Key has been created using the wrong settings. Note that the ``notify`` action requires a Pub/Sub topic to be configured.
 
-In the example below, the policy is set to filter Keys with protection level other than Hardware Security Module (HSM).
+Cloud KMS allows to create and manage cryptographic keys in one central cloud service. Custodian can audit and notify if any of KMS cryptographic keys have been created using the wrong settings.
+
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+
+In the example below, the policy filters and reports keys with protection level other than Hardware Security Module (HSM).
 
 .. code-block:: yaml
 
