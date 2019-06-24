@@ -57,8 +57,6 @@ class LoadBalancingUrlMap(QueryResourceManager):
                 'urlMap': resource_info['name']})
 
 
-# TODO
-# example
 @LoadBalancingUrlMap.action_registry.register('delete')
 class LoadBalancingUrlMapDelete(MethodAction):
     """The action is used for Load Balancing URL Maps delete.
@@ -90,8 +88,6 @@ class LoadBalancingUrlMapDelete(MethodAction):
             'urlMap': resource['name']}
 
 
-# TODO
-# example
 @LoadBalancingUrlMap.action_registry.register('invalidate-cache')
 class LoadBalancingUrlMapInvalidateCache(MethodAction):
     """The action is used for Load Balancing URL Maps cache invalidating.
