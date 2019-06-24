@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+from c7n.utils import type_schema, local_session
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
@@ -168,6 +169,42 @@ class LoadBalancingBackendBucket(QueryResourceManager):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
                 'backendBucket': resource_info['name']})
+
+
+@LoadBalancingBackendBucket.action_registry.register('update-bucket-name')
+class LoadBalancingBackendBucketUpdateBucketName(MethodAction):
+    """The action is used for Load Balancing Backend Buckets replace into another bucket.
+    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/backendBuckets.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendBuckets/patch.
+
+    Example:
+
+    .. code-block:: yaml
+        policies:
+        - name: gcp-loadbalancer-backend-buckets-update
+          resource: gcp.loadbalancer-backend-bucket
+          filters:
+          - type: value
+            key: bucketName
+            op: eq
+            value: bucket-0
+          actions:
+          - type: update-bucket-name
+            bucketName: bucket-1
+    """
+    schema = type_schema('patch', required=['bucketName'],
+                         **{'type': {'enum': ['update-bucket-name']},
+                            'bucketName': {'type': 'text'}})
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        result = {'project': project,
+                  'backendBucket': resource['name'],
+                  'body': {
+                      'bucketName': self.data['bucketName']
+                  }}
+        return result
 
 
 @resources.register('loadbalancer-https-health-check')

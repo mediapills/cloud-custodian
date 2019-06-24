@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from time import sleep
 from gcp_common import BaseTest
 
 
@@ -238,6 +239,35 @@ class LoadBalancingBackendBucketTest(BaseTest):
              'name': 'newbucket'})
         self.assertEqual(instance['kind'], 'compute#backendBucket')
         self.assertEqual(instance['name'], 'newbucket')
+
+    def test_loadbalancer_backend_bucket_update_bucket_name(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-backend-buckets-update-bucket-name',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-backend-bucket-update-bucket-name',
+                       'resource': 'gcp.loadbalancer-backend-bucket'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'bucketName',
+                           'op': 'eq',
+                           'value': 'custodian-bucket-name-1'}],
+                 actions=[{'type': 'update-bucket-name',
+                           'bucketName': 'custodian-bucket-name-0'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian-bucket-name-1', resources[0]['bucketName'])
+
+        if self.recording:
+            sleep(5)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(2, len(resources))
+        self.assertEqual('custodian-bucket-name-0', resources[0]['bucketName'])
+        self.assertEqual('custodian-bucket-name-0', resources[1]['bucketName'])
 
 
 class LoadBalancingHttpsHealthCheckTest(BaseTest):

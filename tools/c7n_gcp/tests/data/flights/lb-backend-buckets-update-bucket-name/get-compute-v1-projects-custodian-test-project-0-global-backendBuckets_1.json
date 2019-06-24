@@ -1,0 +1,47 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "compute#backendBucket", 
+        "description": "", 
+        "enableCdn": false, 
+        "bucketName": "custodian-bucket-name-0", 
+        "creationTimestamp": "2019-06-24T04:07:28.160-07:00", 
+        "id": "2964520080701722655", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/backendBuckets/backend-bucket-4", 
+        "name": "backend-bucket-4"
+      }, 
+      {
+        "kind": "compute#backendBucket", 
+        "description": "", 
+        "enableCdn": false, 
+        "bucketName": "custodian-bucket-name-1", 
+        "creationTimestamp": "2019-06-21T09:46:38.008-07:00", 
+        "id": "4334816391327692545", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/backendBuckets/custodian-backend-bucket-2", 
+        "name": "custodian-backend-bucket-2"
+      }
+    ], 
+    "kind": "compute#backendBucketList", 
+    "id": "projects/custodian-test-project-0/global/backendBuckets", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/backendBuckets"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "1016", 
+    "transfer-encoding": "chunked", 
+    "expires": "Mon, 24 Jun 2019 12:13:09 GMT", 
+    "vary": "Origin, X-Origin", 
+    "-content-encoding": "gzip", 
+    "date": "Mon, 24 Jun 2019 12:13:09 GMT", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/backendBuckets?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "server": "GSE", 
+    "etag": "\"2IdVbVbPM9MaCQiulNwxPVbcbI0=/bLcQoyQt6I_H-h1g-MtS26eiKfI=\"", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
