@@ -179,6 +179,7 @@ class LoadBalancingBackendBucketDelete(MethodAction):
     Example:
 
     .. code-block:: yaml
+
         policies:
         - name: gcp-loadbalancer-backend-buckets-delete
           resource: gcp.loadbalancer-backend-bucket
