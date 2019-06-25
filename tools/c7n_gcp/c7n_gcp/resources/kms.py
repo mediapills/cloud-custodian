@@ -100,6 +100,11 @@ class KmsCryptoKeyVersion(ChildResourceManager):
                 'key_ring_id': key_ring_id,
                 'crypto_key_id': crypto_key_id}
 
+    def get_resource_query(self):
+        """Does nothing as self does not need query values unlike its parent
+        which receives them with the use_child_query flag."""
+        pass
+
     class resource_type(ChildTypeInfo):
         service = 'cloudkms'
         version = 'v1'
@@ -111,7 +116,8 @@ class KmsCryptoKeyVersion(ChildResourceManager):
             'resource': 'kms-cryptokey',
             'child_enum_params': [
                 ('name', 'parent')
-            ]
+            ],
+            'use_child_query': True
         }
 
         @staticmethod

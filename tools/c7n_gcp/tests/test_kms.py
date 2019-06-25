@@ -135,6 +135,7 @@ class KmsCryptoKeyVersionTest(BaseTest):
         policy = self.load_policy(
             {'name': 'gcp-kms-cryptokey-version-dryrun',
              'resource': 'gcp.kms-cryptokey-version',
+             'query': [{'location': location_name}],
              'filters': [{
                  'type': 'value',
                  'key': '\"{}\".name'.format(filter_parent_annotation_key),
