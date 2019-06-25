@@ -16,6 +16,7 @@ import time
 
 from gcp_common import BaseTest, event_data
 from googleapiclient.errors import HttpError
+from time import sleep
 
 
 class SqlInstanceTest(BaseTest):
@@ -84,6 +85,50 @@ class SqlInstanceTest(BaseTest):
             self.fail('found deleted instance: %s' % result)
         except HttpError as e:
             self.assertTrue("does not exist" in str(e))
+
+    def test_sqlinstance_set(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'custodian-sql'
+        session_factory = self.replay_flight_data(
+            'sqlinstance-set', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-sql-instance-set',
+             'resource': 'gcp.sql-instance',
+             'filters': [{'name': resource_name}],
+             'actions': [{'type': 'set',
+                          'backup-configuration': {
+                              'start-time': {
+                                  'hours': 23,
+                                  'minutes': 59
+                              },
+                              'enabled': True,
+                              'binary-log-enabled': True
+                          },
+                          'maintenance-window': {
+                              'restart-time': {
+                                  'day-of-week': 7,
+                                  'hour-of-day': 23
+                              },
+                              'update-track': 'canary'}}]},
+            session_factory=session_factory)
+        result = policy.run()
+        self.assertEqual(result[0]['name'], resource_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query('get', {'project': project_id,
+                                              'instance': resource_name})
+        backup_config = result['settings']['backupConfiguration']
+        self.assertEqual(backup_config['startTime'], '23:59')
+        self.assertEqual(backup_config['enabled'], True)
+        self.assertEqual(backup_config['binaryLogEnabled'], True)
+        maintenance_window = result['settings']['maintenanceWindow']
+        self.assertEqual(maintenance_window['day'], 7)
+        self.assertEqual(maintenance_window['hour'], 23)
+        self.assertEqual(maintenance_window['updateTrack'], 'canary')
 
 
 class SqlUserTest(BaseTest):
@@ -158,6 +203,42 @@ class SqlBackupRunTest(BaseTest):
 
         self.assertEqual(resources[0]['id'], backup_run_id)
         self.assertEqual(resources[0][parent_annotation_key]['name'], instance_name)
+
+    def test_sqlbackuprun_delete(self):
+        backup_run_id = '1562716740047'
+        instance_name = 'custodian-sql'
+        project_id = 'cloud-custodian'
+        session_factory = self.replay_flight_data('sqlbackuprun-delete', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-sql-backup-run-delete',
+             'resource': 'gcp.sql-backup-run',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'id',
+                 'value': backup_run_id
+             }, {
+                 'type': 'value',
+                 'key': 'instance',
+                 'value': instance_name
+             }],
+             'actions': [{'type': 'delete'}]},
+            session_factory=session_factory)
+
+        parent_annotation_key = policy.resource_manager.resource_type.get_parent_annotation_key()
+        resources = policy.run()
+
+        self.assertEqual(resources[0]['id'], backup_run_id)
+        self.assertEqual(resources[0][parent_annotation_key]['name'], instance_name)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        resources = client.execute_query(
+            'list', {'project': project_id,
+                     'instance': instance_name})
+        self.assertEqual('items' not in resources, True)
 
     def test_from_insert_time_to_id(self):
         insert_time = '2019-05-10T11:56:21.417Z'

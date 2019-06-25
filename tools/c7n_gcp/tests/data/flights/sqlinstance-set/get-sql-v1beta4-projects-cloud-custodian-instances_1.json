@@ -1,0 +1,90 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "sql#instance", 
+        "backendType": "SECOND_GEN", 
+        "name": "custodian-sql", 
+        "settings": {
+          "kind": "sql#settings", 
+          "dataDiskType": "PD_SSD", 
+          "maintenanceWindow": {
+            "kind": "sql#maintenanceWindow", 
+            "updateTrack": "canary", 
+            "day": 7, 
+            "hour": 23
+          }, 
+          "authorizedGaeApplications": [], 
+          "activationPolicy": "ALWAYS", 
+          "backupConfiguration": {
+            "replicationLogArchivingEnabled": false, 
+            "kind": "sql#backupConfiguration", 
+            "enabled": true, 
+            "binaryLogEnabled": true, 
+            "startTime": "23:59"
+          }, 
+          "ipConfiguration": {
+            "ipv4Enabled": true, 
+            "authorizedNetworks": []
+          }, 
+          "userLabels": {
+            "custodian": ""
+          }, 
+          "pricingPlan": "PER_USE", 
+          "replicationType": "SYNCHRONOUS", 
+          "storageAutoResizeLimit": "0", 
+          "tier": "db-n1-standard-1", 
+          "settingsVersion": "112", 
+          "storageAutoResize": true, 
+          "locationPreference": {
+            "kind": "sql#locationPreference", 
+            "zone": "us-central1-a"
+          }, 
+          "dataDiskSizeGb": "10"
+        }, 
+        "region": "us-central1", 
+        "serverCaCert": {
+          "certSerialNumber": "0", 
+          "kind": "sql#sslCert", 
+          "sha1Fingerprint": "494a209f4838610d2b81a612beaffc8b760bf0bc", 
+          "commonName": "C=US,O=Google\\, Inc,CN=Google Cloud SQL Server CA", 
+          "instance": "custodian-sql", 
+          "cert": "-----BEGIN CERTIFICATE-----\nMIIDITCCAgmgAwIBAgIBADANBgkqhkiG9w0BAQsFADBIMSMwIQYDVQQDExpHb29n\nbGUgQ2xvdWQgU1FMIFNlcnZlciBDQTEUMBIGA1UEChMLR29vZ2xlLCBJbmMxCzAJ\nBgNVBAYTAlVTMB4XDTE5MDIyMDE1MTczNFoXDTI5MDIxNzE1MTgzNFowSDEjMCEG\nA1UEAxMaR29vZ2xlIENsb3VkIFNRTCBTZXJ2ZXIgQ0ExFDASBgNVBAoTC0dvb2ds\nZSwgSW5jMQswCQYDVQQGEwJVUzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC\nggEBAIDVi5UR71JiK4jiX8ieoeXVqQyinDcjtG0K3C1AAHNVxd7Xs6u67czd0iVY\n85FzRQOiFA492RPgXsfwkf/FkeuU0GSoSGb+HESyx/EqDA7OuH1J9nyLrGeXbDKJ\nqCQEqu1Z1p5EXY+rGmcuIN09/Gu0IYYzWLRsOY2m0jJBMePPjjUzd6YO1LnB4o+Z\nG634ds4ihWaeXL+6Ob/Dd8UM1Bdvr19yH0wWupzcXMDM+q5zUsgJy1KR7vuGzfZz\nrqztTff313el8nWwXXpSzrHsgS2in40ov3rIoORoVAMGpwl7bO4TO2GVErfJTRde\nR3mMozLmylHIvItQmFkJUOyBNOkCAwEAAaMWMBQwEgYDVR0TAQH/BAgwBgEB/wIB\nADANBgkqhkiG9w0BAQsFAAOCAQEAdOEeRmaNdwpwxEKNigUNWAy27qJ44H2Z2zHm\n9WdUg3PWB8usAHlorolLVWe+xlwPbRlfB2970f0byW3gjNj76NAXKM74dfm5zekD\n/MDGZhqGHg1jbhZ9JS/UNJ71iV/vNKak+C4IZEHvcBadwhvwj7Eruev4BfJsXwm9\nuxjWvtUB/BMDNiGWo1Bzsfa7Eqpj3LxeLsgdk61pchUjYP3QGaLgl0eAywU0WeLb\n3kyzuHXkM3C14WZtpggul0NrnX0DoXh7Y7M8yj/6YzdE8v+iumovxYYM8JoIQuAz\nIYqo2vf4Vuksigms9YgRXFH2RSFaPYLWDrmtjZx+kIJJdEB8vg==\n-----END CERTIFICATE-----", 
+          "expirationTime": "2029-02-17T15:18:34.305Z", 
+          "createTime": "2019-02-20T15:17:34.305Z"
+        }, 
+        "gceZone": "us-central1-a", 
+        "project": "cloud-custodian", 
+        "state": "RUNNABLE", 
+        "etag": "d9f2ff9a57254360b2a79a7f7b38bb07b64dd8c450849c3d4a12dd7473cd4a0e", 
+        "serviceAccountEmailAddress": "p62100636004-x12gur@gcp-sa-cloud-sql.iam.gserviceaccount.com", 
+        "ipAddresses": [
+          {
+            "ipAddress": "35.202.217.114", 
+            "type": "PRIMARY"
+          }
+        ], 
+        "connectionName": "cloud-custodian:us-central1:custodian-sql", 
+        "databaseVersion": "MYSQL_5_7", 
+        "instanceType": "CLOUD_SQL_INSTANCE", 
+        "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/cloud-custodian/instances/custodian-sql"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "7115", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/sql/v1beta4/projects/cloud-custodian/instances?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Wed, 10 Jul 2019 11:40:49 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
