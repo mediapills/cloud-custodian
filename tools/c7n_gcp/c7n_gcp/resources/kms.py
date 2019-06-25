@@ -14,33 +14,21 @@
 
 import re
 
+from c7n.utils import local_session
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 
 
 @resources.register('kms-keyring')
-class KmsKeyRing(ChildResourceManager):
+class KmsKeyRing(QueryResourceManager):
 
-    def _get_parent_resource_info(self, child_instance):
-        project_id, location = re.match(
-            'projects/(.*?)/locations/(.*?)/keyRings/.*?',
-            child_instance['name']).groups()
-        return {'project_id': project_id,
-                'location': location}
-
-    class resource_type(ChildTypeInfo):
+    class resource_type(TypeInfo):
         service = 'cloudkms'
         version = 'v1'
         component = 'projects.locations.keyRings'
         enum_spec = ('list', 'keyRings[]', None)
         scope = None
         id = 'name'
-        parent_spec = {
-            'resource': 'kms-location',
-            'child_enum_params': [
-                ('name', 'parent')
-            ]
-        }
 
         @staticmethod
         def get(client, resource_info):
@@ -49,6 +37,14 @@ class KmsKeyRing(ChildResourceManager):
                         resource_info['location'],
                         resource_info['key_ring_id'])
             return client.execute_command('get', {'name': name})
+
+    def get_resource_query(self):
+        if 'query' in self.data:
+            for child in self.data.get('query'):
+                if 'location' in child:
+                    project = local_session(self.session_factory).get_default_project()
+                    return {'parent': 'projects/{}/locations/{}'.
+                        format(project, child['location'])}
 
 
 @resources.register('kms-cryptokey')

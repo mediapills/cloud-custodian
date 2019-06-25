@@ -20,36 +20,25 @@ class KmsKeyRingTest(BaseTest):
         project_id = 'cloud-custodian'
         location_name = 'us-central1'
         keyring_name = 'cloud-custodian'
-        parent_resource_name = 'projects/{}/locations/{}'.format(project_id, location_name)
-        resource_name = '{}/keyRings/{}'.format(parent_resource_name, keyring_name)
+        resource_name = 'projects/{}/locations/{}/keyRings/{}'.\
+            format(project_id, location_name, keyring_name)
         session_factory = self.replay_flight_data('kms-keyring-query', project_id=project_id)
 
-        filter_parent_annotation_key = 'c7n:kms-location'
         policy = self.load_policy(
             {'name': 'gcp-kms-keyring-dryrun',
              'resource': 'gcp.kms-keyring',
-             'filters': [{
-                 'type': 'value',
-                 'key': '\"{}\".name'.format(filter_parent_annotation_key),
-                 'op': 'regex',
-                 'value': parent_resource_name
-             }]},
+             'query': [{'location': location_name}]},
             session_factory=session_factory)
-        parent_annotation_key = policy.resource_manager.resource_type.get_parent_annotation_key()
-        # If fails there, policies using filters for the resource
-        # need to be updated since the key has been changed.
-        self.assertEqual(parent_annotation_key, filter_parent_annotation_key)
 
         resources = policy.run()
         self.assertEqual(resources[0]['name'], resource_name)
-        self.assertEqual(resources[0][parent_annotation_key]['name'], parent_resource_name)
 
     def test_kms_keyring_get(self):
         project_id = 'cloud-custodian'
         location_name = 'us-central1'
         keyring_name = 'cloud-custodian'
-        parent_resource_name = 'projects/{}/locations/{}'.format(project_id, location_name)
-        resource_name = '{}/keyRings/{}'.format(parent_resource_name, keyring_name)
+        resource_name = 'projects/{}/locations/{}/keyRings/{}'. \
+            format(project_id, location_name, keyring_name)
         session_factory = self.replay_flight_data('kms-keyring-get', project_id=project_id)
 
         policy = self.load_policy(
@@ -60,14 +49,12 @@ class KmsKeyRingTest(BaseTest):
                  'methods': ['CreateKeyRing']
              }},
             session_factory=session_factory)
-        parent_annotation_key = policy.resource_manager.resource_type.get_parent_annotation_key()
 
         exec_mode = policy.get_execution_mode()
         event = event_data('kms-keyring-create.json')
         resources = exec_mode.run(event, None)
 
         self.assertEqual(resources[0]['name'], resource_name)
-        self.assertEqual(resources[0][parent_annotation_key]['name'], parent_resource_name)
 
 
 class KmsCryptoKeyTest(BaseTest):
