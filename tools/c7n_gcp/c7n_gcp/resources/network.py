@@ -110,7 +110,7 @@ class SetGcpPrivateAccess(SubnetAction):
 
 @resources.register('firewall')
 class Firewall(QueryResourceManager):
-    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/routers
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/firewalls/list
     """
     class resource_type(TypeInfo):
         service = 'compute'
@@ -144,6 +144,37 @@ class Router(QueryResourceManager):
                         'router': resource_info['resourceName'].rsplit('/', 1)[-1]})
 
 
+@Router.action_registry.register('delete')
+class DeleteRouter(MethodAction):
+    """Deletes a router
+
+    :Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: router-delete
+            resource: gcp.router
+            filters:
+              - type: value
+                key: name
+                op: eq
+                value: test-router
+            actions:
+              - delete
+
+    https://cloud.google.com/compute/docs/reference/rest/v1/instanceGroupManagers/delete
+    """
+
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+    path_param_re = re.compile('.*?/projects/(.*?)/regions/(.*?)/routers/(.*)')
+
+    def get_resource_params(self, m, r):
+        project, region, router = self.path_param_re.match(r['selfLink']).groups()
+        return {'project': project, 'region': region, 'router': router}
+
+
 @resources.register('route')
 class Route(QueryResourceManager):
     """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/routes
@@ -164,7 +195,7 @@ class Route(QueryResourceManager):
 
 @resources.register('interconnect')
 class Interconnect(QueryResourceManager):
-    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/routers
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/interconnects/list
     """
     class resource_type(TypeInfo):
         service = 'compute'

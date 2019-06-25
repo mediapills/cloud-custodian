@@ -1,8 +1,8 @@
 Network - Check if there are unattached Cloud Routers
 ============================================================
-Custodian can check and notify if there are unused (unattached) Cloud Routers. Note that the ``notify`` action requires a Pub/Sub topic to be configured.
+Custodian can check and delete unused Cloud Routers (those that don't have any attached interface like VPN tunnel etc.)
 
-In the example below, the policy is set to filter routers which don't have any attached interface.
+In the example below, the policy finds and deletes unused routers.
 
 .. code-block:: yaml
 
@@ -15,11 +15,4 @@ In the example below, the policy is set to filter routers which don't have any a
              key: interfaces
              value: absent
         actions:
-           - type: notify
-             subject: Unattached Cloud Routers
-             to:
-               - email@address
-             format: txt
-             transport:
-               type: pubsub
-               topic: projects/my-gcp-project/topics/my-topic
+           - delete
