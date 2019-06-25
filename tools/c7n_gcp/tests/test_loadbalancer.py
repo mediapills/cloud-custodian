@@ -379,7 +379,6 @@ class LoadBalancingBackendServiceTest(BaseTest):
         self.assertEqual(instance['kind'], 'compute#backendService')
         self.assertEqual(instance['name'], 'new-backend-service')
 
-# TODO
     def test_loadbalancer_backend_service_delete(self):
         project_id = 'custodian-test-project-0'
         session_factory = self.replay_flight_data('lb-backend-service-delete',
@@ -390,22 +389,22 @@ class LoadBalancingBackendServiceTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  filters=[{'type': 'value',
-                           'key': 'name',
-                           'op': 'contains',
-                           'value': 'url-map'}],
-                 actions=[{'type': 'delete'}]),
+                           'key': 'backends',
+                           'value': 'absent'}],
+                  actions=[{'type': 'delete'}]
+                 ),
             session_factory=session_factory)
         resources = policy.run()
-        #self.assertEqual(1, len(resources))
-        #self.assertEqual('url-map-0', resources[0]['name'])
+        self.assertEqual('custodian-backend-service-1', resources[0]['name'])
+        self.assertNotIn('backends', resources[0])
 
         if self.recording:
-            sleep(3)
+            sleep(10)
 
         policy = self.load_policy(base_policy, session_factory=session_factory)
         resources = policy.run()
-        #self.assertEqual(len(resources), 1)
-        #self.assertEqual('custodian-load-balancer-0', resources[0]['name'])
+        self.assertEqual(1, len(resources))
+        self.assertGreater(len(resources[0]['backends']), 0)
 
     def test_loadbalancer_backend_service_set_security_policy(self):
         project_id = 'custodian-test-project-0'

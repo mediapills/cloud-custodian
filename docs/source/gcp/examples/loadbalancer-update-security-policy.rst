@@ -1,7 +1,7 @@
 Load Balancer - Set Security Policy
 ====================================
 
-It's possible to update security policy for appropriate backend services.
+The example allows to update security policy for appropriate backend services.
 
 .. code-block:: yaml
 

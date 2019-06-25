@@ -279,11 +279,10 @@ class LoadBalancingBackendServiceDelete(MethodAction):
         policies:
         - name: gcp-loadbalancer-backend-service-delete
           resource: gcp.loadbalancer-backend-service
-#          filters:
+          filters:
           - type: value
-            key: name
-            op: contains
-            value: url-map
+            key: backends
+            value: absent
           actions:
           - type: delete
     """
