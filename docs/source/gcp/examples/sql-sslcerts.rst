@@ -6,25 +6,21 @@ In the example below, Cusodian will track SSL certificates which are in use by y
 .. code-block:: yaml
 
     policies:
-    - name: sql-ssl-cert
-      description: |
-        check basic work of Cloud SQL filter on SSL certificates: returns certs which are about to expire in 60 days or less
-      resource: gcp.sql-ssl-cert
-      filters:
-        - type: value
-          key: expirationTime
-          op: less-than
-          value_type: expiration
-          value: 60
-      actions:
-        - type: notify
-          to:
-           - email@address
-          # address doesnt matter
-          format: txt
-          transport:
-            type: pubsub
-            topic: projects/river-oxygen-233508/topics/first
-
-
-  
+      - name: sql-ssl-cert
+        description: |
+            check basic work of Cloud SQL filter on SSL certificates: returns certs which are about to expire in 60 days or less
+        resource: gcp.sql-ssl-cert
+        filters:
+          - type: value
+            key: expirationTime
+            op: less-than
+            value_type: expiration
+            value: 60
+        actions:
+          - type: notify
+            to:
+              - email@address
+            format: txt
+            transport:
+                type: pubsub
+                topic: projects/my-project/topics/my-topic
