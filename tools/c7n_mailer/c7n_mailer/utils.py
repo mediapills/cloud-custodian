@@ -28,6 +28,11 @@ from dateutil.tz import gettz, tzutc
 from ruamel import yaml
 
 
+class Providers(object):
+    AWS = 0
+    Azure = 1
+
+
 def get_jinja_env(template_folders):
     env = jinja2.Environment(trim_blocks=True, autoescape=False)
     env.filters['yaml_safe'] = functools.partial(yaml.safe_dump, default_flow_style=False)
@@ -342,6 +347,13 @@ def resource_format(resource, resource_type):
         return "%s" % format_struct(resource)
 
 
+def get_provider(mailer_config):
+    if mailer_config.get('queue_url', '').startswith('asq'):
+        return Providers.Azure
+
+    return Providers.AWS
+
+
 def kms_decrypt(config, logger, session, encrypted_field):
     if config.get(encrypted_field):
         try:
@@ -360,6 +372,20 @@ def kms_decrypt(config, logger, session, encrypted_field):
                 "Error: %s Unable to decrypt %s with kms, will assume plaintext." %
                 (e, encrypted_field))
         return config[encrypted_field]
+    else:
+        logger.debug("No encrypted value to decrypt.")
+        return None
+
+
+def decrypt(config, logger, session, encrypted_field):
+    if config.get(encrypted_field):
+        provider = get_provider(config)
+        if provider == Providers.Azure:
+            return config[encrypted_field]
+        elif provider == Providers.AWS:
+            return kms_decrypt(config, logger, session, encrypted_field)
+        else:
+            raise Exception("Unknown provider")
     else:
         logger.debug("No encrypted value to decrypt.")
         return None

@@ -17,9 +17,11 @@ import c7n_azure.actions.base
 import c7n_azure.actions.delete
 import c7n_azure.actions.notify
 import c7n_azure.actions.tagging
+import c7n_azure.actions.logic_app
 import c7n_azure.filters
 import c7n_azure.output
 import c7n_azure.policy
+import c7n_azure.resources.generic_arm_resource
 import c7n_azure.resources.cosmos_db
 import c7n_azure.resources.key_vault
 import c7n_azure.resources.key_vault_keys
@@ -53,6 +55,7 @@ import c7n_azure.resources.policy_assignments
 import c7n_azure.resources.image
 import c7n_azure.resources.event_subscription
 import c7n_azure.resources.k8s_service
+import c7n_azure.resources.apimanagement
 import c7n_azure.resources.appserviceplan  # noqa: F401
 
 
