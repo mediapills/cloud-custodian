@@ -1,0 +1,33 @@
+{
+  "body": {
+    "status": "RUNNING", 
+    "kind": "compute#operation", 
+    "name": "operation-1561478785696-58c281c588450-782d94b7-936b27c6", 
+    "startTime": "2019-06-25T09:06:26.278-07:00", 
+    "insertTime": "2019-06-25T09:06:26.269-07:00", 
+    "targetId": "8339479473311560526", 
+    "targetLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/backendServices/custodian-backend-service-0", 
+    "operationType": "patch", 
+    "progress": 0, 
+    "id": "4078669644217448557", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/operations/operation-1561478785696-58c281c588450-782d94b7-936b27c6", 
+    "user": "eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "712", 
+    "x-xss-protection": "1; mode=block", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "GSE", 
+    "-content-encoding": "gzip", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Tue, 25 Jun 2019 16:06:26 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

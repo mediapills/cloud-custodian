@@ -437,6 +437,35 @@ class LoadBalancingBackendServiceTest(BaseTest):
         self.assertEqual('custodian-backend-service-0', resources[0]['name'])
         self.assertIn('security-policy-1', resources[0]['securityPolicy'])
 
+    def test_loadbalancer_backend_service_update_protocol(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-backend-service-update-protocol',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-backend-service-update-protocol',
+                       'resource': 'gcp.loadbalancer-backend-service'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'protocol',
+                           'value': 'HTTP'}],
+                 actions=[{'type': 'update-protocol',
+                           'protocol': 'HTTPS'}]
+                 ),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('HTTP', resources[0]['protocol'])
+        self.assertEqual('custodian-backend-service-0', resources[0]['name'])
+
+        if self.recording:
+            sleep(5)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual('HTTPS', resources[0]['protocol'])
+        self.assertEqual('custodian-backend-service-0', resources[0]['name'])
+
 
 class LoadBalancingTargetInstanceTest(BaseTest):
 

@@ -339,6 +339,43 @@ class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
         }
 
 
+@LoadBalancingBackendService.action_registry.register('update-protocol')
+class LoadBalancingBackendServiceUpdateProtocol(MethodAction):
+    """The action is used for Load Balancing Backend service delete.
+    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/patch.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+        - name: gcp-loadbalancer-backend-service-update-protocol
+          resource: gcp.loadbalancer-backend-update-protocol
+          filters:
+          - type: value
+            key: protocol
+            value: HTTP
+          actions:
+          - type: update-protocol
+            protocol: HTTPS
+    """
+    schema = type_schema('patch', required=['protocol'],
+                         **{'type': {'enum': ['update-protocol']},
+                            'protocol': {'enum': ['HTTP', 'HTTPS', 'HTTP2', 'SSL', 'TCP', 'UDP']}})
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        return {
+            'project': project,
+            'backendService': resource['name'],
+            'body': {
+                'protocol': self.data['protocol']
+            }
+        }
+
+
 @resources.register('loadbalancer-target-instance')
 class LoadBalancingTargetInstance(QueryResourceManager):
     """    GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetInstances
