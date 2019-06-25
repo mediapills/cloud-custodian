@@ -1,0 +1,34 @@
+{
+  "body": {
+    "kind": "bigquery#datasetList", 
+    "etag": "51jPBiq6VztzRcIrHPOvJA==", 
+    "datasets": [
+      {
+        "kind": "bigquery#dataset", 
+        "location": "US", 
+        "id": "cloud-custodian:dataset",
+        "datasetReference": {
+          "projectId": "cloud-custodian",
+          "datasetId": "dataset"
+        }
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "316", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/datasets?alt=json",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "51jPBiq6VztzRcIrHPOvJA==", 
+    "cache-control": "private", 
+    "date": "Tue, 25 Jun 2019 14:19:47 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}

@@ -11,8 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import jmespath
+import re
 
+import jmespath
+from c7n.utils import type_schema
+
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildTypeInfo, ChildResourceManager
 from c7n_gcp.provider import resources
 
@@ -53,6 +57,82 @@ class DataSet(QueryResourceManager):
                 client.execute_query(
                     'get', verb_arguments=ref))
         return results
+
+
+@DataSet.action_registry.register('delete')
+class DataSetActionDelete(MethodAction):
+    """The action is used for bigquery datasets delete.
+    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets.
+    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete
+    Example:
+    .. code-block:: yaml
+          policies:
+            - name: gcp-big-dataset-delete
+            resource: gcp.bq-dataset
+            filters:
+              - type: value
+                key: id
+                value: project_id:dataset_id
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+    path_param_re = re.compile(
+        '.*?/projects/(.*?)/datasets/(.*)')
+
+    def get_resource_params(self, model, resource):
+        project_id, dataset_id = self.path_param_re.match(
+            resource['selfLink']).groups()
+        return {
+            'projectId': project_id,
+            'datasetId': dataset_id,
+            'deleteContents': True
+        }
+
+
+@DataSet.action_registry.register('update-table-expiration')
+class DataSetActionPatch(MethodAction):
+    """The action is used for bigquery datasets defaultTableExpirationMs patch.
+    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets.
+    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/patch
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gcp-big-dataset-update-table-expiration
+            resource: gcp.bq-dataset
+            filters:
+              - type: value
+                key: id
+                value: project_id:dataset_id
+            actions:
+              - type: update-table-expiration
+                tableExpirationMs: 7200000
+    """
+
+    schema = type_schema(
+        'update-table-expiration',
+        **{
+            'type': {'enum': ['update-table-expiration']},
+            'tableExpirationMs': {
+                'type': 'number',
+                'minimum': 3600000
+            }
+        }
+    )
+
+    method_spec = {'op': 'patch'}
+    path_param_re = re.compile(
+        '.*?/projects/(.*?)/datasets/(.*)')
+
+    def get_resource_params(self, model, resource):
+        project_id, dataset_id = self.path_param_re.match(
+            resource['selfLink']).groups()
+        return {
+            'projectId': project_id,
+            'datasetId': dataset_id,
+            'body': {'defaultTableExpirationMs': self.data['tableExpirationMs']}
+        }
 
 
 @resources.register('bq-job')
