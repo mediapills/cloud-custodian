@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from time import sleep
 
 from gcp_common import BaseTest, event_data
 
@@ -30,6 +31,67 @@ class BigQueryDataSetTest(BaseTest):
             'devxyz')
         self.assertTrue('access' in dataset)
         self.assertEqual(dataset['labels'], {'env': 'dev'})
+
+    def test_delete_dataset(self):
+        project_id = 'cloud-custodian'
+        dataset_id = '{}:dataset'.format(project_id)
+        session_factory = self.replay_flight_data(
+            'bq-dataset-delete', project_id=project_id)
+
+        base_policy = {'name': 'gcp-big-dataset-delete',
+                       'resource': 'gcp.bq-dataset'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'id',
+                           'value': dataset_id}],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['id'], dataset_id)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'projectId': project_id})
+        self.assertNotIn('datasets', result)
+
+    def test_update_dates_expiration_time(self):
+        project_id = 'new-project-26240'
+        dataset_id = '{}:dataset'.format(project_id)
+        session_factory = self.replay_flight_data(
+            'bq-dataset-update-table-expiration', project_id=project_id)
+
+        base_policy = {'name': 'gcp-bq-dataset-update-table-expiration',
+                       'resource': 'gcp.bq-dataset',
+                       'filters': [{
+                           'type': 'value',
+                           'key': 'id',
+                           'value': dataset_id
+                       }]}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 actions=[{
+                     'type': 'update-table-expiration',
+                     'tableExpirationMs': 7200000
+                 }]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['id'], dataset_id)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        datasets = client.execute_query('list', {'projectId': project_id})['datasets']
+
+        result = client.execute_query('get', verb_arguments=datasets[0]['datasetReference'])
+        self.assertEqual(result['id'], dataset_id)
+        self.assertEqual(result['defaultTableExpirationMs'], '7200000')
 
 
 class BigQueryJobTest(BaseTest):
