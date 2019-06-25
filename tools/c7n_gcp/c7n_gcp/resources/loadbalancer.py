@@ -11,8 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
+import re
+from c7n.utils import type_schema, local_session
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
@@ -263,6 +264,80 @@ class LoadBalancingBackendService(QueryResourceManager):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
                 'backendService': resource_info['name']})
+
+
+@LoadBalancingBackendService.action_registry.register('delete')
+class LoadBalancingBackendServiceDelete(MethodAction):
+    """The action is used for Load Balancing Backend service delete.
+    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/delete.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+        - name: gcp-loadbalancer-backend-service-delete
+          resource: gcp.loadbalancer-backend-service
+#          filters:
+          - type: value
+            key: name
+            op: contains
+            value: url-map
+          actions:
+          - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        return {
+            'project': project,
+            'backendService': resource['name']}
+
+
+@LoadBalancingBackendService.action_registry.register('set-security-policy')
+class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
+    """The action is used for set up security policy for Load Balancing Backend service.
+    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices.
+    GCP action is
+    https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/setSecurityPolicy.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+        - name: gcp-loadbalancer-backend-service-set-security-policy
+          resource: gcp.loadbalancer-backend-service
+          filters:
+          - type: value
+            key: securityPolicy
+            op: contains
+            value: security-policy-0
+          actions:
+          - type: set-security-policy
+            security-policy: security-policy-1
+    """
+
+    schema = type_schema('setSecurityPolicy', required=['securityPolicy'],
+                         **{'type': {'enum': ['set-security-policy']},
+                            'securityPolicy': {'type': 'text'}})
+    method_spec = {'op': 'setSecurityPolicy'}
+
+    policy_template = '/projects/{}/global/securityPolicies/{}'
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        security_policy = self.policy_template.format(project, self.data['securityPolicy'])
+        return {
+            'project': project,
+            'backendService': resource['name'],
+            'body': {
+                'securityPolicy': security_policy
+            }
+        }
 
 
 @resources.register('loadbalancer-target-instance')

@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from time import sleep
 from gcp_common import BaseTest
 
 
@@ -378,6 +378,65 @@ class LoadBalancingBackendServiceTest(BaseTest):
              'name': 'new-backend-service'})
         self.assertEqual(instance['kind'], 'compute#backendService')
         self.assertEqual(instance['name'], 'new-backend-service')
+
+# TODO
+    def test_loadbalancer_backend_service_delete(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-backend-service-delete',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-backend-service-delete',
+                       'resource': 'gcp.loadbalancer-backend-service'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'name',
+                           'op': 'contains',
+                           'value': 'url-map'}],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        #self.assertEqual(1, len(resources))
+        #self.assertEqual('url-map-0', resources[0]['name'])
+
+        if self.recording:
+            sleep(3)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        #self.assertEqual(len(resources), 1)
+        #self.assertEqual('custodian-load-balancer-0', resources[0]['name'])
+
+    def test_loadbalancer_backend_service_set_security_policy(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-backend-service-set-security-policy',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-backend-service-set-security-policy',
+                       'resource': 'gcp.loadbalancer-backend-service'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'securityPolicy',
+                           'op': 'contains',
+                           'value': 'security-policy-0'}],
+                 actions=[{'type': 'set-security-policy',
+                           'securityPolicy': 'security-policy-1'}]
+                 ),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian-backend-service-0', resources[0]['name'])
+        self.assertIn('security-policy-0', resources[0]['securityPolicy'])
+
+        if self.recording:
+            sleep(3)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian-backend-service-0', resources[0]['name'])
+        self.assertIn('security-policy-1', resources[0]['securityPolicy'])
 
 
 class LoadBalancingTargetInstanceTest(BaseTest):
