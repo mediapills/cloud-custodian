@@ -18,26 +18,6 @@ from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 
 
-@resources.register('kms-location')
-class KmsLocation(QueryResourceManager):
-
-    class resource_type(TypeInfo):
-        service = 'cloudkms'
-        version = 'v1'
-        component = 'projects.locations'
-        enum_spec = ('list', 'locations[]', None)
-        scope = 'project'
-        scope_key = 'name'
-        scope_template = 'projects/{}'
-        id = 'name'
-
-        @staticmethod
-        def get(client, resource_info):
-            name = 'projects/{}/locations/{}'.format(
-                resource_info['project_id'], resource_info['location'])
-            return client.execute_command('get', {'name': name})
-
-
 @resources.register('kms-keyring')
 class KmsKeyRing(ChildResourceManager):
 
