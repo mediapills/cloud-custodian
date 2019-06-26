@@ -1,4 +1,4 @@
-Pub/Sub - Find Snapshots Referring to Deleted Topics
+Pub/Sub - Find Obsolete Snapshots
 ====================================================
 
 In Cloud Pub/Sub, the snapshot feature allows users to capture the message acknowledgment state of a subscription to a topic. Once a snapshot is created, it retains all messages that were unacknowledged in the source subscription (at the time of the snapshot's creation).
