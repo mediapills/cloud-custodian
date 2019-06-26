@@ -1,0 +1,191 @@
+{
+  "body": {
+    "kind": "bigquery#jobCancelResponse", 
+    "job": {
+      "status": {
+        "state": "DONE"
+      }, 
+      "kind": "bigquery#job", 
+      "statistics": {
+        "totalSlotMs": "449", 
+        "creationTime": "1561549839274", 
+        "totalBytesProcessed": "0", 
+        "startTime": "1561549839465", 
+        "query": {
+          "totalSlotMs": "449", 
+          "queryPlan": [
+            {
+              "readMsMax": "0", 
+              "computeMsMax": "4", 
+              "waitMsAvg": "1", 
+              "id": "0", 
+              "endMs": "1561549839753", 
+              "waitMsMax": "1", 
+              "startMs": "1561549839559", 
+              "waitRatioMax": 0.006711409395973154, 
+              "readRatioAvg": 0, 
+              "parallelInputs": "1", 
+              "recordsRead": "0", 
+              "computeRatioAvg": 0.026845637583892617, 
+              "writeMsAvg": "149", 
+              "status": "COMPLETE", 
+              "writeMsMax": "149", 
+              "computeMsAvg": "4", 
+              "shuffleOutputBytesSpilled": "0", 
+              "writeRatioMax": 1, 
+              "readMsAvg": "0", 
+              "waitRatioAvg": 0.006711409395973154, 
+              "completedParallelInputs": "1", 
+              "computeRatioMax": 0.026845637583892617, 
+              "name": "S00: Input", 
+              "shuffleOutputBytes": "9", 
+              "recordsWritten": "1", 
+              "readRatioMax": 0, 
+              "steps": [
+                {
+                  "kind": "READ", 
+                  "substeps": [
+                    "", 
+                    "FROM dataset.dataset_table"
+                  ]
+                }, 
+                {
+                  "kind": "AGGREGATE", 
+                  "substeps": [
+                    "$10 := COUNT_STAR()"
+                  ]
+                }, 
+                {
+                  "kind": "WRITE", 
+                  "substeps": [
+                    "$10", 
+                    "TO __stage00_output"
+                  ]
+                }
+              ], 
+              "writeRatioAvg": 1
+            }, 
+            {
+              "readMsMax": "0", 
+              "computeMsMax": "9", 
+              "inputStages": [
+                "0"
+              ], 
+              "waitMsAvg": "69", 
+              "id": "1", 
+              "endMs": "1561549839962", 
+              "waitMsMax": "69", 
+              "startMs": "1561549839750", 
+              "waitRatioMax": 0.46308724832214765, 
+              "readRatioAvg": 0, 
+              "parallelInputs": "1", 
+              "recordsRead": "1", 
+              "computeRatioAvg": 0.06040268456375839, 
+              "writeMsAvg": "117", 
+              "status": "COMPLETE", 
+              "writeMsMax": "117", 
+              "computeMsAvg": "9", 
+              "shuffleOutputBytesSpilled": "0", 
+              "writeRatioMax": 0.785234899328859, 
+              "readMsAvg": "0", 
+              "waitRatioAvg": 0.46308724832214765, 
+              "completedParallelInputs": "1", 
+              "computeRatioMax": 0.06040268456375839, 
+              "name": "S01: Output", 
+              "shuffleOutputBytes": "9", 
+              "recordsWritten": "1", 
+              "readRatioMax": 0, 
+              "steps": [
+                {
+                  "kind": "READ", 
+                  "substeps": [
+                    "$10", 
+                    "FROM __stage00_output"
+                  ]
+                }, 
+                {
+                  "kind": "AGGREGATE", 
+                  "substeps": [
+                    "$1 := SUM_OF_COUNTS($10)"
+                  ]
+                }, 
+                {
+                  "kind": "WRITE", 
+                  "substeps": [
+                    "$1", 
+                    "TO __stage01_output"
+                  ]
+                }
+              ], 
+              "writeRatioAvg": 0.785234899328859
+            }
+          ], 
+          "estimatedBytesProcessed": "0", 
+          "timeline": [
+            {
+              "totalSlotMs": "449", 
+              "completedUnits": "2", 
+              "elapsedMs": "729", 
+              "pendingUnits": "0"
+            }
+          ], 
+          "statementType": "SELECT", 
+          "totalBytesBilled": "0", 
+          "totalPartitionsProcessed": "0", 
+          "totalBytesProcessed": "0", 
+          "cacheHit": false, 
+          "billingTier": 1, 
+          "referencedTables": [
+            {
+              "projectId": "cloud-custodian",
+              "tableId": "dataset_table", 
+              "datasetId": "dataset"
+            }
+          ]
+        }, 
+        "endTime": "1561549840216"
+      }, 
+      "jobReference": {
+        "projectId": "cloud-custodian",
+        "location": "US", 
+        "jobId": "bquxjob_3cfe36ad_16b939b13fa"
+      }, 
+      "etag": "8bf43qfPU9OZ1mEQ/VcvdA==", 
+      "configuration": {
+        "query": {
+          "useQueryCache": true, 
+          "useLegacySql": false, 
+          "destinationTable": {
+            "projectId": "cloud-custodian",
+            "tableId": "anond4df76b592af3929153f1f7810f38e116d412336", 
+            "datasetId": "_ccdf081006b4af55c43f19aaddabf82c951422d4"
+          }, 
+          "priority": "INTERACTIVE", 
+          "writeDisposition": "WRITE_TRUNCATE", 
+          "allowLargeResults": false, 
+          "createDisposition": "CREATE_IF_NEEDED", 
+          "query": "select count(*) from `dataset.dataset_table` ;"
+        }, 
+        "jobType": "QUERY"
+      }, 
+      "id": "cloud-custodian:US.bquxjob_3cfe36ad_16b939b13fa",
+      "selfLink": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/jobs/bquxjob_3cfe36ad_16b939b13fa?location=US"
+    }
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "5226", 
+    "x-xss-protection": "0", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "8bf43qfPU9OZ1mEQ/VcvdA==", 
+    "cache-control": "private", 
+    "date": "Wed, 26 Jun 2019 12:50:04 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}

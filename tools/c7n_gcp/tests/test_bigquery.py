@@ -54,9 +54,9 @@ class BigQueryDataSetTest(BaseTest):
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 0)
+        client = policy.resource_manager.get_client()
+        result = client.execute_query('list', {'projectId': project_id})
+        self.assertNotIn('datasets', result)
 
     def test_update_dates_expiration_time(self):
         project_id = 'new-project-26240'
@@ -75,7 +75,7 @@ class BigQueryDataSetTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'update-table-expiration',
+                     'type': 'set-table-expiration',
                      'tableExpirationMs': 7200000
                  }]),
             session_factory=session_factory)
@@ -84,11 +84,9 @@ class BigQueryDataSetTest(BaseTest):
 
         if self.recording:
             sleep(1)
-
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(resources[0]['id'], dataset_id)
-        self.assertEqual(resources[0]['defaultTableExpirationMs'], '7200000')
+        client = policy.resource_manager.get_client()
+        result = client.execute_query('list', {'projectId': project_id})
+        self.assertEqual(result['datasets'][0]['id'], dataset_id)
 
 
 class BigQueryJobTest(BaseTest):
@@ -126,6 +124,25 @@ class BigQueryJobTest(BaseTest):
         self.assertEqual(job[0]['jobReference']['location'], location)
         self.assertEqual(job[0]['jobReference']['projectId'], project_id)
         self.assertEqual(job[0]['id'], "{}:{}.{}".format(project_id, location, job_id))
+
+    def test_cancel_job(self):
+        project_id = 'cloud-custodian'
+        job_id = 'bquxjob_3cfe36ad_16b939b13fa'
+        session_factory = self.replay_flight_data(
+            'bq-jobs-cancel', project_id=project_id)
+
+        base_policy = {'name': 'bq-jobs-cancel',
+                       'resource': 'gcp.bq-job'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'jobReference.jobId',
+                           'value': job_id}],
+                 actions=[{'type': 'cancel'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['jobReference']['jobId'], job_id)
 
 
 class BigQueryProjectTest(BaseTest):

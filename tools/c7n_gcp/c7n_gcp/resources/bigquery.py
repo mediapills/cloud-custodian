@@ -62,7 +62,6 @@ class DataSet(QueryResourceManager):
 @DataSet.action_registry.register('delete')
 class DataSetActionDelete(MethodAction):
     """The action is used for bigquery datasets delete.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets.
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete
     Example:
     .. code-block:: yaml
@@ -91,10 +90,9 @@ class DataSetActionDelete(MethodAction):
         }
 
 
-@DataSet.action_registry.register('update-table-expiration')
+@DataSet.action_registry.register('set-table-expiration')
 class DataSetActionPatch(MethodAction):
     """The action is used for bigquery datasets defaultTableExpirationMs patch.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets.
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/patch
     Example:
     .. code-block:: yaml
@@ -106,14 +104,14 @@ class DataSetActionPatch(MethodAction):
                 key: id
                 value: project_id:dataset_id
             actions:
-              - type: update-table-expiration
+              - type: set-table-expiration
                 tableExpirationMs: 7200000
     """
 
     schema = type_schema(
-        'update-table-expiration',
+        'set-table-expiration',
         **{
-            'type': {'enum': ['update-table-expiration']},
+            'type': {'enum': ['set-table-expiration']},
             'tableExpirationMs': {
                 'type': 'number',
                 'minimum': 3600000
@@ -156,6 +154,29 @@ class BigQueryJob(QueryResourceManager):
                     'protoPayload.metadata.tableCreation.jobName', event
                 ).rsplit('/', 1)[-1]
             })
+
+
+@BigQueryJob.action_registry.register('cancel')
+class BigQueryJobStop(MethodAction):
+    """The action is used for bigquery jobs cancel.
+    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/cancel
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gcp-big-jobs-cancel
+            resource: gcp.bq-job
+            filters:
+              - type: value
+                key: jobReference.jobId
+                value: jobId
+            actions:
+              - type: cancel
+    """
+    schema = type_schema('cancel')
+    method_spec = {'op': 'cancel'}
+
+    def get_resource_params(self, model, resource):
+        return resource['jobReference']
 
 
 @resources.register('bq-project')
