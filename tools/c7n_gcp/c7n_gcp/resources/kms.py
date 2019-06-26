@@ -42,9 +42,28 @@ class KmsKeyRing(QueryResourceManager):
         if 'query' in self.data:
             for child in self.data.get('query'):
                 if 'location' in child:
-                    project = local_session(self.session_factory).get_default_project()
-                    return {'parent': 'projects/{}/locations/{}'.
-                        format(project, child['location'])}
+                    location_query = child['location']
+                    return {'parent': location_query if isinstance(
+                        location_query, list) else [location_query]}
+
+    def _fetch_resources(self, query):
+        super_fetch_resources = QueryResourceManager._fetch_resources
+        session = local_session(self.session_factory)
+        project = session.get_default_project()
+        if query and 'parent' in query:
+            locations = ['projects/{}/locations/{}'.format(project, location)
+                         for location in query['parent']]
+        else:
+            location_resources = session.client(
+                self.resource_type.service,
+                self.resource_type.version,
+                'projects.locations').execute_query(
+                'list', verb_arguments={'name': 'projects/{}'.format(project)})
+            locations = [location['name'] for location in location_resources['locations']]
+        key_rings = []
+        for location in locations:
+            key_rings.extend(super_fetch_resources(self, {'parent': location}))
+        return key_rings
 
 
 @resources.register('kms-cryptokey')

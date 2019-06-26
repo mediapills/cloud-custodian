@@ -16,6 +16,45 @@ from gcp_common import BaseTest, event_data
 
 
 class KmsKeyRingTest(BaseTest):
+    def test_kms_keyring_query_unspecified_location(self):
+        project_id = 'cloud-custodian'
+        location_name = 'us-central1'
+        keyring_name = 'cloud-custodian'
+        resource_name = 'projects/{}/locations/{}/keyRings/{}'.\
+            format(project_id, location_name, keyring_name)
+        session_factory = self.replay_flight_data(
+            'kms-keyring-query-unspecified_location', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-kms-keyring-dryrun',
+             'resource': 'gcp.kms-keyring'},
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], resource_name)
+
+    def test_kms_keyring_query_array(self):
+        project_id = 'cloud-custodian'
+        location_name_1 = 'asia-east1'
+        location_name_2 = 'us-central1'
+        keyring_name_1 = 'cloud-custodian-asia'
+        keyring_name_2 = 'cloud-custodian'
+        resource_name_1 = 'projects/{}/locations/{}/keyRings/{}'.\
+            format(project_id, location_name_1, keyring_name_1)
+        resource_name_2 = 'projects/{}/locations/{}/keyRings/{}'. \
+            format(project_id, location_name_2, keyring_name_2)
+        session_factory = self.replay_flight_data('kms-keyring-query-array', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-kms-keyring-dryrun',
+             'resource': 'gcp.kms-keyring',
+             'query': [{'location': [location_name_1, location_name_2]}]},
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], resource_name_1)
+        self.assertEqual(resources[1]['name'], resource_name_2)
+
     def test_kms_keyring_query(self):
         project_id = 'cloud-custodian'
         location_name = 'us-central1'
