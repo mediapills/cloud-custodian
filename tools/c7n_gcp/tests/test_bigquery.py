@@ -127,6 +127,25 @@ class BigQueryJobTest(BaseTest):
         self.assertEqual(job[0]['jobReference']['projectId'], project_id)
         self.assertEqual(job[0]['id'], "{}:{}.{}".format(project_id, location, job_id))
 
+    def test_cancel_job(self):
+        project_id = 'cloud-custodian'
+        job_id = 'bquxjob_3cfe36ad_16b939b13fa'
+        session_factory = self.replay_flight_data(
+            'bq-jobs-cancel', project_id=project_id)
+
+        base_policy = {'name': 'bq-jobs-cancel',
+                       'resource': 'gcp.bq-job'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'jobReference.jobId',
+                           'value': job_id}],
+                 actions=[{'type': 'cancel'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['jobReference']['jobId'], job_id)
+
 
 class BigQueryProjectTest(BaseTest):
 

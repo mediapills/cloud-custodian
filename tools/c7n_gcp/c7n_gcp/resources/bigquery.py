@@ -160,6 +160,30 @@ class BigQueryJob(QueryResourceManager):
             })
 
 
+@BigQueryJob.action_registry.register('cancel')
+class BigQueryJobStop(MethodAction):
+    """The action is used for bigquery jobs cancel.
+    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs.
+    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/cancel
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gcp-big-jobs-cancel
+            resource: gcp.bq-job
+            filters:
+              - type: value
+                key: jobReference.jobId
+                value: jobId
+            actions:
+              - type: cancel
+    """
+    schema = type_schema('cancel')
+    method_spec = {'op': 'cancel'}
+
+    def get_resource_params(self, model, resource):
+        return resource['jobReference']
+
+
 @resources.register('bq-project')
 class BigQueryProject(QueryResourceManager):
     """GCP resource: https://cloud.google.com/bigquery/docs/reference/rest/v2/projects

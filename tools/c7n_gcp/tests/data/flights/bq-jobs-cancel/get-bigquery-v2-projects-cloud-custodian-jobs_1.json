@@ -1,0 +1,613 @@
+{
+  "body": {
+    "kind": "bigquery#jobList", 
+    "etag": "RAF7Hu0Ug6I36icKRl6KHw==", 
+    "jobs": [
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "dataset_table", 
+                "datasetId": "dataset"
+              }
+            ]
+          }, 
+          "endTime": "1561549840216", 
+          "creationTime": "1561549839274", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1561549839465"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_3cfe36ad_16b939b13fa"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_3cfe36ad_16b939b13fa"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "dataset_table", 
+                "datasetId": "dataset"
+              }
+            ]
+          }, 
+          "endTime": "1561549543282", 
+          "creationTime": "1561549542581", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1561549542835"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_1cc0a033_16b8f093ef9"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_1cc0a033_16b8f093ef9"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "newtable2", 
+                "datasetId": "new"
+              }
+            ]
+          }, 
+          "endTime": "1560869897699", 
+          "creationTime": "1560869896960", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560869897338"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_1ebcc5_16b6acdefa9"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_1ebcc5_16b6acdefa9"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "new1", 
+                "datasetId": "new"
+              }
+            ]
+          }, 
+          "endTime": "1560865010439", 
+          "creationTime": "1560865009747", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560865009842"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_242dbbab_16b6acd921a"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_242dbbab_16b6acd921a"
+      }, 
+      {
+        "status": {
+          "state": "DONE", 
+          "errorResult": {
+            "reason": "invalidQuery", 
+            "message": "Syntax error: Unexpected keyword NEW at [1:15]", 
+            "location": "query"
+          }
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "endTime": "1560864985769", 
+          "creationTime": "1560864985754", 
+          "startTime": "1560864985769"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_4169d20_16b6acbc406"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_4169d20_16b6acbc406",
+        "errorResult": {
+          "reason": "invalidQuery", 
+          "message": "Syntax error: Unexpected keyword NEW at [1:15]", 
+          "location": "query"
+        }
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560864844912", 
+          "creationTime": "1560864844494", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560864844821"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_2c5afebb_16b6ac3b18a"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_2c5afebb_16b6ac3b18a"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "test_table", 
+                "datasetId": "qqqqqqqq"
+              }
+            ]
+          }, 
+          "endTime": "1560862117358", 
+          "creationTime": "1560862116756", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560862116846"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_759524c4_16b6aa143e6"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_759524c4_16b6aa143e6"
+      }, 
+      {
+        "status": {
+          "state": "DONE", 
+          "errorResult": {
+            "reason": "invalid", 
+            "message": "Table qqqqqqqq.test_table does not have a schema."
+          }
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT"
+          }, 
+          "endTime": "1560862082306", 
+          "creationTime": "1560862082181", 
+          "startTime": "1560862082283"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_56f656ea_16b6aa0d7a1"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_56f656ea_16b6aa0d7a1",
+        "errorResult": {
+          "reason": "invalid", 
+          "message": "Table qqqqqqqq.test_table does not have a schema."
+        }
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560862054819", 
+          "creationTime": "1560862054482", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560862054773"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_8188fcc_16b6a9f4e8e"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_8188fcc_16b6a9f4e8e"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560861953945", 
+          "creationTime": "1560861953813", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560861953929"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_63e77676_16b6a9f194e"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_63e77676_16b6a9f194e"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560861940319", 
+          "creationTime": "1560861940192", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560861940298"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_703e96e9_16b6a9f107f"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_703e96e9_16b6a9f107f"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560861938123", 
+          "creationTime": "1560861937975", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560861938105"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_185650ba_16b6a9cf000"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_185650ba_16b6a9cf000"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560861799039", 
+          "creationTime": "1560861798695", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560861798980"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_41f39b98_16b6a985eaf"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_41f39b98_16b6a985eaf"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560861499372", 
+          "creationTime": "1560861499256", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560861499352"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_37d33890_16b6a97de07"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_37d33890_16b6a97de07"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "test1", 
+                "datasetId": "uuuuuu"
+              }
+            ]
+          }, 
+          "endTime": "1560861466985", 
+          "creationTime": "1560861466299", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560861466469"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_c7c9e69_16b6a952f43"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_c7c9e69_16b6a952f43"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560861291213", 
+          "creationTime": "1560861290841", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560861291173"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_1c54e847_16b6a8aa391"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_1c54e847_16b6a8aa391"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "cacheHit": true, 
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalBytesProcessed": "0"
+          }, 
+          "endTime": "1560860600052", 
+          "creationTime": "1560860599527", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560860600001"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_469dc0d1_16b6a6019e8"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_469dc0d1_16b6a6019e8"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "test1", 
+                "datasetId": "uuuuuu"
+              }
+            ]
+          }, 
+          "endTime": "1560857812439", 
+          "creationTime": "1560857811810", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560857812077"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_3339e04d_16b69b8b597"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_3339e04d_16b69b8b597"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "test1", 
+                "datasetId": "uuuuuu"
+              }
+            ]
+          }, 
+          "endTime": "1560846841939", 
+          "creationTime": "1560846841413", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1560846841619"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_285f49f2_16b69b84d57"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_285f49f2_16b69b84d57"
+      }, 
+      {
+        "status": {
+          "state": "DONE"
+        }, 
+        "kind": "bigquery#job", 
+        "statistics": {
+          "query": {
+            "statementType": "SELECT", 
+            "totalBytesBilled": "0", 
+            "totalPartitionsProcessed": "0", 
+            "totalBytesProcessed": "0", 
+            "cacheHit": false, 
+            "billingTier": 1, 
+            "referencedTables": [
+              {
+                "projectId": "cloud-custodian",
+                "tableId": "test1", 
+                "datasetId": "uuuuuu"
+              }
+            ]
+          }, 
+          "endTime": "1558704838367", 
+          "creationTime": "1558704837630", 
+          "totalBytesProcessed": "0", 
+          "startTime": "1558704837909"
+        }, 
+        "jobReference": {
+          "projectId": "cloud-custodian",
+          "location": "US", 
+          "jobId": "bquxjob_e5dc313_16aea0c4314"
+        }, 
+        "state": "DONE", 
+        "id": "cloud-custodian:US.bquxjob_e5dc313_16aea0c4314"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "16292", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/jobs?alt=json&allUsers=true",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "RAF7Hu0Ug6I36icKRl6KHw==", 
+    "cache-control": "private", 
+    "date": "Wed, 26 Jun 2019 12:50:03 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}
