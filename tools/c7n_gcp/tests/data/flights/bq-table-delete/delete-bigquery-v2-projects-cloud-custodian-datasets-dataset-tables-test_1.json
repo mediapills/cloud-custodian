@@ -1,0 +1,15 @@
+{
+  "body": {}, 
+  "headers": {
+    "status": "204", 
+    "content-length": "0", 
+    "x-xss-protection": "0", 
+    "x-content-type-options": "nosniff", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "date": "Tue, 02 Jul 2019 11:37:47 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

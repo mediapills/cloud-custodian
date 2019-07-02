@@ -227,3 +227,81 @@ class BigQueryTable(ChildResourceManager):
                 'datasetId': event['dataset_id'],
                 'tableId': event['resourceName'].rsplit('/', 1)[-1]
             })
+
+
+@BigQueryTable.action_registry.register('delete')
+class BigQueryTableActionDelete(MethodAction):
+    """The action is used for bigquery table delete.
+    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables.
+    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/delete
+    Example:
+    .. code-block:: yaml
+          policies:
+            - name: gcp-big-table-delete
+            resource: gcp.bq-table
+            filters:
+              - type: value
+                key: id
+                value: project_id:dataset_id.table_id
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        return resource['tableReference']
+
+
+@BigQueryTable.action_registry.register('update-table-label')
+class BigQueryTableActionPatch(MethodAction):
+    """The action is used for bigquery table labels patch.
+    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables.
+    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/patch
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gcp-bq-table-delete
+            resource: gcp.bq-table
+            filters:
+              - type: value
+                key: id
+                value: new-project-26240:dataset.test
+            actions:
+              - type: update-table-label
+                labels:
+                    - key: example
+                      value: example
+                    - key: example1
+                      value: example1
+    """
+
+    schema = type_schema(
+        'update-table-label',
+        **{
+            'type': {'enum': ['update-table-label']},
+            'labels': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'key': {'type': 'string'},
+                        'value': {'type': 'string'}
+                    }
+                }
+            }
+        }
+    )
+
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        patch_data = resource['tableReference']
+        patch_data.update(
+            {'body': {
+                'labels': {
+                    label['key']: label['value'] for label in self.data['labels']
+                }
+            }}
+        )
+        return patch_data

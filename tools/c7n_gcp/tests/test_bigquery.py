@@ -189,3 +189,67 @@ class BigQueryTableTest(BaseTest):
         event = event_data('bq-table-create.json')
         job = exec_mode.run(event, None)
         self.assertIn('tableReference', job[0].keys())
+
+    def test_delete_table(self):
+        project_id = 'cloud-custodian'
+        table_id = 'test'
+        dataset_id = '{}:dataset.{}'.format(project_id, table_id)
+        session_factory = self.replay_flight_data(
+            'bq-table-delete', project_id=project_id)
+
+        base_policy = {'name': 'gcp-big-table-delete',
+                       'resource': 'gcp.bq-table'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'id',
+                           'value': dataset_id}],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['id'], dataset_id)
+
+        if self.recording:
+            sleep(1)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(len(resources), 0)
+
+    def test_update_table_label(self):
+        project_id = 'cloud-custodian'
+        table_id = 'test'
+        label = 'example'
+        dataset_id = '{}:dataset.{}'.format(project_id, table_id)
+        session_factory = self.replay_flight_data(
+            'bq-table-update-table-label', project_id=project_id)
+
+        base_policy = {'name': 'gcp-bq-table-update-table-label',
+                       'resource': 'gcp.bq-table',
+                       'filters': [{
+                           'type': 'value',
+                           'key': 'id',
+                           'value': dataset_id
+                       }]}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 actions=[{
+                     'type': 'update-table-label',
+                     'labels': [
+                         {'key': label, 'value': label},
+                         {'key': 'example1', 'value': 'example1'},
+                     ]
+                 }]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['id'], dataset_id)
+
+        if self.recording:
+            sleep(1)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['id'], dataset_id)
+        self.assertIn(label, resources[0]['labels'])
