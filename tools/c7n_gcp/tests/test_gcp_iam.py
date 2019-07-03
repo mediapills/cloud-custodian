@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from time import sleep
 
 from gcp_common import BaseTest, event_data
 
@@ -35,6 +36,65 @@ class ProjectRoleTest(BaseTest):
         self.assertEqual(len(roles), 1)
         self.assertEqual(roles[0]['name'], 'projects/mythic-tribute-232915/roles/CustomRole1')
 
+    def test_update_title(self):
+        project_id = 'cloud-custodian'
+        name = "projects/cloud-custodian/roles/CustomRole"
+        session_factory = self.replay_flight_data(
+            'iam-project-role-update-title', project_id=project_id)
+
+        base_policy = {'name': 'gcp-iam-project-role-update-title',
+                       'resource': 'gcp.project-role',
+                       'filters': [{
+                           'type': 'value',
+                           'key': 'name',
+                           'value': name
+                       }]}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 actions=[{
+                     'type': 'update-title',
+                     'title': 'CustomRole1'
+                 }]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['title'], 'CustomRole')
+
+        if self.recording:
+            sleep(1)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['title'], 'CustomRole1')
+
+    def test_delete_role(self):
+        project_id = 'cloud-custodian'
+        name = "projects/cloud-custodian/roles/CustomRole"
+        session_factory = self.replay_flight_data(
+            'iam-project-role-delete', project_id=project_id)
+
+        base_policy = {'name': 'gcp-iam-project-role-delete',
+                       'resource': 'gcp.project-role'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{
+                           'type': 'value',
+                           'key': 'name',
+                           'value': name
+                       }],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], name)
+
+        if self.recording:
+            sleep(1)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(len(resources), 0)
+
 
 class ServiceAccountTest(BaseTest):
 
@@ -49,6 +109,27 @@ class ServiceAccountTest(BaseTest):
              'email_id': 'devtest@custodian-1291.iam.gserviceaccount.com',
              'unique_id': '110936229421407410679'})
         self.assertEqual(resource['displayName'], 'devtest')
+
+    def test_iam_service_account_set_iam_policy(self):
+        project_id = 'cloud-custodian'
+        session_factory = self.replay_flight_data('iam-service-account-set-iam',
+                                                  project_id=project_id)
+        policy = self.load_policy(
+            {'name': 'gcp-iam-service-account-set-iam-policy',
+             'resource': 'gcp.service-account',
+             'actions': [{
+                 'type': 'set-iam-policy',
+                 'bindings':
+                     [{'members': ['user:yauhen_shaliou@comelfo.com'],
+                       'role': 'roles/owner'},
+                      {'members': ['dkhanas@gmail.com'],
+                       'role': 'roles/viewer'},
+                      ]
+             }]},
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 3)
 
 
 class IAMRoleTest(BaseTest):
