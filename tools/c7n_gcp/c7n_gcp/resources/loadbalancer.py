@@ -60,7 +60,6 @@ class LoadBalancingUrlMap(QueryResourceManager):
 @LoadBalancingUrlMap.action_registry.register('delete')
 class LoadBalancingUrlMapDelete(MethodAction):
     """The action is used for Load Balancing URL Maps delete.
-    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/urlMaps.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/urlMaps/delete.
 
     Example:
@@ -68,15 +67,15 @@ class LoadBalancingUrlMapDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-        - name: gcp-loadbalancer-url-map-delete
-          resource: gcp.loadbalancer-url-map
-          filters:
-          - type: value
-            key: name
-            op: contains
-            value: url-map
-          actions:
-          - type: delete
+          - name: gcp-loadbalancer-url-map-delete
+            resource: gcp.loadbalancer-url-map
+            filters:
+              - type: value
+                key: name
+                op: contains
+                value: url-map
+            actions:
+              - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
@@ -91,7 +90,6 @@ class LoadBalancingUrlMapDelete(MethodAction):
 @LoadBalancingUrlMap.action_registry.register('invalidate-cache')
 class LoadBalancingUrlMapInvalidateCache(MethodAction):
     """The action is used for Load Balancing URL Maps cache invalidating.
-    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/urlMaps.
     GCP action is
     https://cloud.google.com/compute/docs/reference/rest/v1/urlMaps/invalidateCache.
 
