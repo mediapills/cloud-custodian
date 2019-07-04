@@ -117,7 +117,6 @@ class LoadBalancingSslPolicy(QueryResourceManager):
 @LoadBalancingSslPolicy.action_registry.register('delete')
 class LoadBalancingSslPolicyDelete(MethodAction):
     """The action is used for Load Balancing SSL Policies delete.
-    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/sslPolicies.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/sslPolicies/delete.
 
     Example:
@@ -125,15 +124,15 @@ class LoadBalancingSslPolicyDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-        - name: gcp-load-balancing-ssl-policies-delete
-          resource: gcp.loadbalancer-ssl-policy
-          filters:
-          - type: value
-            key: minTlsVersion
-            op: ne
-            value: TLS_1_2
-          actions:
-          - type: delete
+          - name: gcp-load-balancing-ssl-policies-delete
+            resource: gcp.loadbalancer-ssl-policy
+            filters:
+              - type: value
+                key: minTlsVersion
+                op: ne
+                value: TLS_1_2
+            actions:
+              - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
