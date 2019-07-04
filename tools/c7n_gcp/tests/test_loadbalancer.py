@@ -240,7 +240,7 @@ class LoadBalancingBackendBucketTest(BaseTest):
         self.assertEqual(instance['kind'], 'compute#backendBucket')
         self.assertEqual(instance['name'], 'newbucket')
 
-    def test_loadbalancer_backend_bucket_update_bucket_name(self):
+    def test_loadbalancer_backend_bucket_patch_bucket_name(self):
         project_id = 'custodian-test-project-0'
         session_factory = self.replay_flight_data('lb-backend-buckets-update-bucket-name',
                                                   project_id=project_id)
@@ -253,7 +253,7 @@ class LoadBalancingBackendBucketTest(BaseTest):
                            'key': 'bucketName',
                            'op': 'eq',
                            'value': 'custodian-bucket-name-1'}],
-                 actions=[{'type': 'update-bucket-name',
+                 actions=[{'type': 'patch',
                            'bucketName': 'custodian-bucket-name-0'}]),
             session_factory=session_factory)
         resources = policy.run()
