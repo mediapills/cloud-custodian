@@ -449,7 +449,7 @@ class LoadBalancingBackendServiceTest(BaseTest):
                  filters=[{'type': 'value',
                            'key': 'protocol',
                            'value': 'HTTP'}],
-                 actions=[{'type': 'update-protocol',
+                 actions=[{'type': 'patch',
                            'protocol': 'HTTPS'}]
                  ),
             session_factory=session_factory)

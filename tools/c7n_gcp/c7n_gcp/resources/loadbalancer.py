@@ -337,8 +337,8 @@ class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
         }
 
 
-@LoadBalancingBackendService.action_registry.register('update-protocol')
-class LoadBalancingBackendServiceUpdateProtocol(MethodAction):
+@LoadBalancingBackendService.action_registry.register('patch')
+class LoadBalancingBackendServicePatch(MethodAction):
     """The action is used for Load Balancing Backend service delete.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/patch.
 
@@ -354,11 +354,11 @@ class LoadBalancingBackendServiceUpdateProtocol(MethodAction):
                 key: protocol
                 value: HTTP
             actions:
-              - type: update-protocol
+              - type: patch
                 protocol: HTTPS
     """
     schema = type_schema('patch', required=['protocol'],
-                         **{'type': {'enum': ['update-protocol']},
+                         **{'type': {'enum': ['patch']},
                             'protocol': {'enum': ['HTTP', 'HTTPS', 'HTTP2', 'SSL', 'TCP', 'UDP']}})
     method_spec = {'op': 'patch'}
 
