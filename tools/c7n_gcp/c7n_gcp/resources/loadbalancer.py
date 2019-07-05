@@ -269,7 +269,6 @@ class LoadBalancingBackendService(QueryResourceManager):
 @LoadBalancingBackendService.action_registry.register('delete')
 class LoadBalancingBackendServiceDelete(MethodAction):
     """The action is used for Load Balancing Backend service delete.
-    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/delete.
 
     Example:
@@ -277,14 +276,14 @@ class LoadBalancingBackendServiceDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-        - name: gcp-loadbalancer-backend-service-delete
-          resource: gcp.loadbalancer-backend-service
-          filters:
-          - type: value
-            key: backends
-            value: absent
-          actions:
-          - type: delete
+          - name: gcp-loadbalancer-backend-service-delete
+            resource: gcp.loadbalancer-backend-service
+            filters:
+              - type: value
+                key: backends
+                value: absent
+            actions:
+              - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
@@ -299,7 +298,6 @@ class LoadBalancingBackendServiceDelete(MethodAction):
 @LoadBalancingBackendService.action_registry.register('set-security-policy')
 class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
     """The action is used for set up security policy for Load Balancing Backend service.
-    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices.
     GCP action is
     https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/setSecurityPolicy.
 
@@ -308,21 +306,21 @@ class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
     .. code-block:: yaml
 
         policies:
-        - name: gcp-loadbalancer-backend-service-set-security-policy
-          resource: gcp.loadbalancer-backend-service
-          filters:
-          - type: value
-            key: securityPolicy
-            op: contains
-            value: security-policy-0
-          actions:
-          - type: set-security-policy
-            security-policy: security-policy-1
+          - name: gcp-loadbalancer-backend-service-set-security-policy
+            resource: gcp.loadbalancer-backend-service
+            filters:
+              - type: value
+                key: securityPolicy
+                op: contains
+                value: security-policy-0
+            actions:
+              - type: set-security-policy
+                security-policy: security-policy-1
     """
 
     schema = type_schema('setSecurityPolicy', required=['securityPolicy'],
                          **{'type': {'enum': ['set-security-policy']},
-                            'securityPolicy': {'type': 'text'}})
+                            'securityPolicy': {'type': 'string'}})
     method_spec = {'op': 'setSecurityPolicy'}
 
     policy_template = '/projects/{}/global/securityPolicies/{}'
@@ -342,7 +340,6 @@ class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
 @LoadBalancingBackendService.action_registry.register('update-protocol')
 class LoadBalancingBackendServiceUpdateProtocol(MethodAction):
     """The action is used for Load Balancing Backend service delete.
-    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/patch.
 
     Example:
@@ -350,15 +347,15 @@ class LoadBalancingBackendServiceUpdateProtocol(MethodAction):
     .. code-block:: yaml
 
         policies:
-        - name: gcp-loadbalancer-backend-service-update-protocol
-          resource: gcp.loadbalancer-backend-update-protocol
-          filters:
-          - type: value
-            key: protocol
-            value: HTTP
-          actions:
-          - type: update-protocol
-            protocol: HTTPS
+          - name: gcp-loadbalancer-backend-service-update-protocol
+            resource: gcp.loadbalancer-backend-update-protocol
+            filters:
+              - type: value
+                key: protocol
+                value: HTTP
+            actions:
+              - type: update-protocol
+                protocol: HTTPS
     """
     schema = type_schema('patch', required=['protocol'],
                          **{'type': {'enum': ['update-protocol']},

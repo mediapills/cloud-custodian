@@ -6,12 +6,12 @@ The example allows to replace protocols in the backend service.
 .. code-block:: yaml
 
     policies:
-    - name: gcp-loadbalancer-backend-service-update-protocol
-      resource: gcp.loadbalancer-backend-update-protocol
-      filters:
-      - type: value
-        key: protocol
-        value: HTTP
-      actions:
-      - type: update-protocol
-        protocol: HTTPS
+      - name: gcp-loadbalancer-backend-service-update-protocol
+        resource: gcp.loadbalancer-backend-update-protocol
+        filters:
+          - type: value
+            key: protocol
+            value: HTTP
+        actions:
+          - type: update-protocol
+            protocol: HTTPS
