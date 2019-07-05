@@ -65,10 +65,9 @@ class ProjectRoleActionDelete(MethodAction):
         return {'name': resource['name']}
 
 
-@ProjectRole.action_registry.register('update-title')
+@ProjectRole.action_registry.register('set-title')
 class ProjectRoleActionPatch(MethodAction):
     """The action is used for IAM projects.roles name patch.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/projects.roles.
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/projects.roles/patch
     Example:
     .. code-block:: yaml
@@ -80,14 +79,14 @@ class ProjectRoleActionPatch(MethodAction):
                 key: title
                 value: Custom Role
             actions:
-              - type: update-title
+              - type: set-title
                 name: CustomRole1
     """
 
     schema = type_schema(
-        'update-title',
+        'set-title',
         **{
-            'type': {'enum': ['update-title']},
+            'type': {'enum': ['set-title']},
             'title': {'type': 'string'}
         }
     )
@@ -184,6 +183,78 @@ class ServiceAccountSetIamPolicy(MethodAction):
                     bindings.append({'role': binding['role'], 'members': members})
 
         return result
+
+
+@ServiceAccount.action_registry.register('delete')
+class ServiceAccountActionDelete(MethodAction):
+    """The action is used for IAM projects.serviceAccounts delete.
+    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/delete
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gcp-iam-service-account-delete
+            resource: gcp.service-account
+            filters:
+              - type: value
+                key: name
+                value: projects/{project}/serviceAccounts/{acountid}
+            actions:
+              - type: delete
+    """
+
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
+
+
+@ServiceAccount.action_registry.register('disable')
+class ServiceAccountActionDisable(MethodAction):
+    """The action is used for IAM projects.serviceAccounts disable.
+    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/disable
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gcp-iam-service-account-disable
+            resource: gcp.service-account
+            filters:
+              - type: value
+                key: name
+                value: projects/{project}/serviceAccounts/{acountid}
+            actions:
+              - type: disable
+    """
+
+    schema = type_schema('disable')
+    method_spec = {'op': 'disable'}
+
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
+
+
+@ServiceAccount.action_registry.register('enable')
+class ServiceAccountActionEnable(MethodAction):
+    """The action is used for IAM projects.serviceAccounts enable.
+    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/enable
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gcp-iam-service-account-enable
+            resource: gcp.service-account
+            filters:
+              - type: value
+                key: name
+                value: projects/{project}/serviceAccounts/{acountid}
+            actions:
+              - type: disable
+    """
+
+    schema = type_schema('enable')
+    method_spec = {'op': 'enable'}
+
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
 
 
 @resources.register('iam-role')

@@ -13,6 +13,8 @@
 # limitations under the License.
 from time import sleep
 
+from google.auth.exceptions import RefreshError
+
 from gcp_common import BaseTest, event_data
 
 
@@ -53,7 +55,7 @@ class ProjectRoleTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'update-title',
+                     'type': 'set-title',
                      'title': 'CustomRole1'
                  }]),
             session_factory=session_factory)
@@ -63,9 +65,11 @@ class ProjectRoleTest(BaseTest):
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(resources[0]['title'], 'CustomRole1')
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'parent': 'projects/cloud-custodian'})
+
+        self.assertEqual(result['roles'][0]['title'], 'CustomRole1')
 
     def test_delete_role(self):
         project_id = 'cloud-custodian'
@@ -91,9 +95,11 @@ class ProjectRoleTest(BaseTest):
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 0)
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'parent': 'projects/cloud-custodian'})
+
+        self.assertNotIn('roles', result)
 
 
 class ServiceAccountTest(BaseTest):
@@ -130,6 +136,102 @@ class ServiceAccountTest(BaseTest):
 
         resources = policy.run()
         self.assertEqual(len(resources), 3)
+
+    def test_delete_service_account(self):
+        project_id = 'new-project-26240'
+        name = "projects/new-project-26240/serviceAccounts/" +\
+               "qwwww-235@new-project-26240.iam.gserviceaccount.com"
+
+        session_factory = self.replay_flight_data(
+            'iam-project-service-account-delete', project_id=project_id)
+
+        base_policy = {'name': 'gcp-iam-project-service-account-delete',
+                       'resource': 'gcp.service-account'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{
+                           'type': 'value',
+                           'key': 'name',
+                           'value': name
+                       }],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], name)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'name': 'projects/new-project-26240'})
+
+        self.assertNotIn(name, [resource['name'] for resource in result['accounts']])
+
+    def test_disable_service_account(self):
+        project_id = 'new-project-26240'
+        name = "projects/new-project-26240/serviceAccounts/" +\
+               "dddddddd@new-project-26240.iam.gserviceaccount.com"
+
+        session_factory = self.replay_flight_data(
+            'iam-project-service-account-disable', project_id=project_id)
+
+        base_policy = {'name': 'gcp-iam-project-service-account-disable',
+                       'resource': 'gcp.service-account'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{
+                           'type': 'value',
+                           'key': 'name',
+                           'value': name
+                       }],
+                 actions=[{'type': 'disable'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], name)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'name': 'projects/new-project-26240'})
+
+        self.assertTrue(result['accounts'][0]['disabled'])
+
+    def test_enable_service_account(self):
+        project_id = 'new-project-26240'
+        name = "projects/new-project-26240/serviceAccounts/" +\
+               "dddddddd@new-project-26240.iam.gserviceaccount.com"
+
+        session_factory = self.replay_flight_data(
+            'iam-project-service-account-enable', project_id=project_id)
+
+        base_policy = {'name': 'gcp-iam-project-service-account-enable',
+                       'resource': 'gcp.service-account'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{
+                           'type': 'value',
+                           'key': 'name',
+                           'value': name
+                       }],
+                 actions=[{'type': 'enable'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['name'], name)
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'name': 'projects/new-project-26240'})
+
+        self.assertNotIn('disabled', result['accounts'][0])
 
 
 class IAMRoleTest(BaseTest):

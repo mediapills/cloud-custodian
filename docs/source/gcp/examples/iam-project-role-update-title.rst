@@ -13,5 +13,5 @@ The example allows to update filtered project role title.
             key: title
             value: Custom Role
         actions:
-          - type: update-title
+          - type: set-title
             name: CustomRole1
