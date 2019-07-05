@@ -40,22 +40,22 @@ class LoadBalancingAddress(QueryResourceManager):
 @LoadBalancingAddress.action_registry.register('delete')
 class LoadBalancingAddressDelete(MethodAction):
     """The action is used for Load Balancing Addresses delete.
-    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/addresses.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/addresses/delete.
 
     Example:
 
     .. code-block:: yaml
+
         policies:
-        - name: gcp-load-balancing-address-delete
-          resource: gcp.loadbalancer-address
-          filters:
-          - type: value
-            key: networkTier
-            op: eq
-            value: STANDARD
-          actions:
-          - type: delete
+          - name: gcp-load-balancing-address-delete
+            resource: gcp.loadbalancer-address
+            filters:
+              - type: value
+                key: networkTier
+                op: eq
+                value: STANDARD
+            actions:
+              - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
