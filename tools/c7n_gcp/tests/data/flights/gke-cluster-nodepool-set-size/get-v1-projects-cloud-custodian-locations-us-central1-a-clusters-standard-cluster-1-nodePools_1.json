@@ -1,0 +1,59 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Mon, 15 Jul 2019 12:13:22 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "1410",
+    "-content-encoding": "gzip",
+    "content-location": "https://container.googleapis.com/v1/projects/second-impact-244209/locations/us-central1-a/clusters/standard-cluster-1/nodePools?alt=json"
+  },
+  "body": {
+    "nodePools": [
+      {
+        "name": "default-pool",
+        "config": {
+          "machineType": "n1-standard-1",
+          "diskSizeGb": 100,
+          "oauthScopes": [
+            "https://www.googleapis.com/auth/devstorage.read_only",
+            "https://www.googleapis.com/auth/logging.write",
+            "https://www.googleapis.com/auth/monitoring",
+            "https://www.googleapis.com/auth/servicecontrol",
+            "https://www.googleapis.com/auth/service.management.readonly",
+            "https://www.googleapis.com/auth/trace.append"
+          ],
+          "metadata": {
+            "disable-legacy-endpoints": "true"
+          },
+          "imageType": "COS",
+          "serviceAccount": "default",
+          "diskType": "pd-standard"
+        },
+        "initialNodeCount": 3,
+        "autoscaling": {},
+        "management": {
+          "autoUpgrade": true,
+          "autoRepair": true
+        },
+        "maxPodsConstraint": {
+          "maxPodsPerNode": "110"
+        },
+        "podIpv4CidrSize": 24,
+        "selfLink": "https://container.googleapis.com/v1/projects/second-impact-244209/zones/us-central1-a/clusters/standard-cluster-1/nodePools/default-pool",
+        "version": "1.12.8-gke.10",
+        "instanceGroupUrls": [
+          "https://www.googleapis.com/compute/v1/projects/second-impact-244209/zones/us-central1-a/instanceGroupManagers/gke-standard-cluster-1-default-pool-32a24426-grp"
+        ],
+        "status": "RUNNING"
+      }
+    ]
+  }
+}

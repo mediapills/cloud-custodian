@@ -1,0 +1,26 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Thu, 11 Jul 2019 11:29:04 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "449",
+    "-content-encoding": "gzip"
+  },
+  "body": {
+    "name": "operation-1562844544162-ea47f9db",
+    "zone": "us-central1-a",
+    "operationType": "DELETE_CLUSTER",
+    "status": "RUNNING",
+    "selfLink": "https://container.googleapis.com/v1/projects/162573236851/zones/us-central1-a/operations/operation-1562844544162-ea47f9db",
+    "targetLink": "https://container.googleapis.com/v1/projects/162573236851/zones/us-central1-a/clusters/standard-cluster-1",
+    "startTime": "2019-07-11T11:29:04.162196407Z"
+  }
+}

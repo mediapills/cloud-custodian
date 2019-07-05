@@ -16,7 +16,8 @@ import re
 from c7n_gcp.provider import resources
 from c7n_gcp.query import (QueryResourceManager, TypeInfo, ChildTypeInfo,
                            ChildResourceManager)
-from c7n.utils import local_session
+from c7n.utils import local_session, type_schema
+from c7n_gcp.actions import MethodAction
 
 
 @resources.register('gke-cluster')
@@ -45,10 +46,157 @@ class KubernetesCluster(QueryResourceManager):
                         resource_info['cluster_name'])})
 
 
+@KubernetesCluster.action_registry.register('delete')
+class KubernetesClusterActionDelete(MethodAction):
+    """The action is used for GKE projects.locations.clusters delete.
+    GCP action is
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
+    /delete
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gke-cluster-delete-biggest
+            resource: gcp.gke-cluster
+            filters:
+              - type: value
+                key: currentNodeCount
+                value: 3
+                op: gt
+            actions:
+              - type: delete
+    """
+
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        session = local_session(self.manager.session_factory)
+        name = 'projects/{}/locations/{}/clusters/{}'.format(
+            session.get_default_project(),
+            resource['locations'][0],
+            resource['name'])
+
+        return {"name": name}
+
+
+@KubernetesCluster.action_registry.register('set')
+class KubernetesClusterActionSetResourceLabels(MethodAction):
+    """The action is used for GKE projects.locations.clusters setResourceLabels.
+    GCP action is
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
+    /setResourceLabels
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gke-cluster-set-label-for-small
+            resource: gcp.gke-cluster
+            filters:
+              - type: value
+                key: currentNodeCount
+                value: 3
+            actions:
+              - type: set
+                labels:
+                    - key: nodes
+                      value: minimal
+    """
+
+    schema = type_schema(
+        'set',
+        **{
+            'labels': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'key': {'type': 'string'},
+                        'value': {'type': 'string'}
+                    }
+                }
+            }
+        }
+    )
+
+    method_spec = {'op': 'setResourceLabels'}
+
+    def get_resource_params(self, model, resource):
+        session = local_session(self.manager.session_factory)
+        name = 'projects/{}/locations/{}/clusters/{}'.format(
+            session.get_default_project(),
+            resource['locations'][0],
+            resource['name'])
+
+        return {
+            'name': name,
+            'body': {
+                'resourceLabels': {
+                    label['key']: label['value'] for label in self.data['labels']
+                }
+            }}
+
+
+@KubernetesCluster.action_registry.register('update')
+class KubernetesClusterActionUpdate(MethodAction):
+    """The action is used for GKE projects.locations.clusters update node version.
+    GCP action is
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
+    /update
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gke-cluster-update-node-version
+            resource: gcp.gke-cluster
+            filters:
+              - type: value
+                key: currentNodeVersion
+                value: 1.12.8-gke.10
+            actions:
+              - type: update-node-version
+                nodeversion: "1.13.6-gke.13"
+    """
+
+    schema = type_schema(
+        'update-node-version',
+        **{
+            'type': {'enum': ['update']},
+            'nodeversion': {
+                'type': 'string'
+            }
+        }
+    )
+
+    method_spec = {'op': 'update'}
+
+    def get_resource_params(self, model, resource):
+        session = local_session(self.manager.session_factory)
+        name = 'projects/{}/locations/{}/clusters/{}'.format(
+            session.get_default_project(),
+            resource['locations'][0],
+            resource['name'])
+
+        return {
+            'name': name,
+            'body': {
+                'update': {
+                    "desiredMasterVersion": self.data['nodeversion']
+                }
+            }}
+
+
 @resources.register('gke-nodepool')
 class KubernetesClusterNodePool(ChildResourceManager):
     """GCP resource:
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.zones.clusters.nodePools
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
+    /projects.zones.clusters.nodePools
     """
 
     def _get_parent_resource_info(self, child_instance):
@@ -95,3 +243,170 @@ class KubernetesClusterNodePool(ChildResourceManager):
                         resource_info['cluster_name'],
                         name)}
             )
+
+
+@KubernetesClusterNodePool.action_registry.register('set-autoscaling')
+class KubernetesClusterNodePoolSetActionAutoscaling(MethodAction):
+    """The action is used for GKE projects.zones.clusters.nodePools autoscaling setup.
+    GCP action is
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.zones.clusters.nodePools
+    /autoscaling
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gke-cluster-nodepool-set-acutoscaling
+            resource: gcp.gke-nodepool
+            filters:
+              - type: value
+                key: initialNodeCount
+                value: 3
+            actions:
+              - type: set-autoscaling
+                enabled: true,
+                minNodeCount: 3,
+                maxNodeCount: 3
+    """
+
+    schema = type_schema(
+        'set-autoscaling',
+        **{
+            'type': {'enum': ['set-autoscaling']},
+            'autoscaling': {
+                'type': 'string'
+            },
+            'minNodeCount': {
+                'type': 'string'
+            },
+            'maxNodeCount': {
+                'type': 'string'
+            }
+        }
+    )
+
+    method_spec = {'op': 'setAutoscaling'}
+
+    def get_resource_params(self, model, resource):
+        session = local_session(self.manager.session_factory)
+
+        name = 'projects/{}/locations/{}/clusters/{}/nodePools/{}'.format(
+            session.get_default_project(),
+            resource['c7n:gke-cluster']['locations'][0],
+            resource['c7n:gke-cluster']['name'],
+            resource['name'])
+
+        if self.data['autoscaling']:
+            params = {
+                "enabled": "true",
+                "minNodeCount": self.data['minNodeCount'],
+                "maxNodeCount": self.data['maxNodeCount']
+            }
+        else:
+            params = {"enabled": "false"}
+
+        return {
+            'name': name,
+            'body': {
+                "autoscaling": params
+            }}
+
+
+@KubernetesClusterNodePool.action_registry.register('set')
+class KubernetesClusterNodePoolSetActionSetSize(MethodAction):
+    """The action is used for GKE projects.zones.clusters.nodePools size setup.
+    GCP action is
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
+    /projects.zones.clusters.nodePools/setSize
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gke-cluster-nodepool-set-size
+            resource: gcp.gke-nodepool
+            filters:
+              - type: value
+                key: initialNodeCount
+                value: 4
+                op: greater-than
+            actions:
+              - type: set,
+                size: 3
+    """
+
+    schema = type_schema(
+        'set',
+        **{
+            'size': {
+                'type': 'string'
+            }
+        }
+    )
+
+    method_spec = {'op': 'setSize'}
+
+    def get_resource_params(self, model, resource):
+        session = local_session(self.manager.session_factory)
+
+        name = 'projects/{}/locations/{}/clusters/{}/nodePools/{}'.format(
+            session.get_default_project(),
+            resource['c7n:gke-cluster']['locations'][0],
+            resource['c7n:gke-cluster']['name'],
+            resource['name'])
+
+        return {
+            'name': name,
+            'body': {
+                "nodeCount": self.data['size']
+            }}
+
+
+@KubernetesClusterNodePool.action_registry.register('set-auto-upgrade')
+class KubernetesClusterNodePoolSetActionManagement(MethodAction):
+    """The action is used for GKE projects.zones.clusters.nodePools management setup.
+    GCP action is
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
+    /projects.zones.clusters.nodePools/setManagement
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gke-cluster-nodepool-set-auto-upgrade
+            resource: gcp.gke-nodepool
+            actions:
+              - type: set,
+                autoUpgrade: true
+    """
+
+    schema = type_schema(
+        'set-auto-upgrade',
+        **{
+            'upgrade': {
+                'type': 'string'
+            }
+        }
+    )
+
+    method_spec = {'op': 'setManagement'}
+
+    def get_resource_params(self, model, resource):
+        session = local_session(self.manager.session_factory)
+
+        name = 'projects/{}/locations/{}/clusters/{}/nodePools/{}'.format(
+            session.get_default_project(),
+            resource['c7n:gke-cluster']['locations'][0],
+            resource['c7n:gke-cluster']['name'],
+            resource['name'])
+
+        return {
+            'name': name,
+            'body': {
+                "management": {
+                    "autoUpgrade": self.data['upgrade']
+                }
+            }}

@@ -1,0 +1,21 @@
+GKE - Enforce Standard Configuration of Node Pools
+==================================================
+
+A generally accepted devops practice is to standardize your infrastructure as much as possible and reasonable, so you can easily deploy new versions of your software or add a new component into infrastructure. 
+
+Node pools are a set of nodes (i.e. VM's), with a common configuration and specification, under the control of the cluster master. The policy below will configure all node pools to be upgraded automatically and have the same initial size, as well as autoscaling constraints.
+
+.. code-block:: yaml
+
+    policies:
+      - name: gke-cluster-nodepool-set-auto-upgrade
+        resource: gcp.gke-nodepool
+        actions:
+          - type: set-auto-upgrade,
+            autoUpgrade: true
+          - type: set-size,
+            size: 5
+          - type: set
+            enabled: true,
+            minNodeCount: 3,
+            maxNodeCount: 10

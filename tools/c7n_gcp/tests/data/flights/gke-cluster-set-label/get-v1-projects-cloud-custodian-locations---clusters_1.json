@@ -1,0 +1,128 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Mon, 08 Jul 2019 13:51:51 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "9164",
+    "-content-encoding": "gzip",
+    "content-location": "https://container.googleapis.com/v1/projects/cloud-custodian/locations/-/clusters?alt=json"
+  },
+  "body": {
+    "clusters": [
+      {
+        "name": "standard-cluster-1",
+        "nodeConfig": {
+          "machineType": "n1-standard-1",
+          "diskSizeGb": 100,
+          "oauthScopes": [
+            "https://www.googleapis.com/auth/devstorage.read_only",
+            "https://www.googleapis.com/auth/logging.write",
+            "https://www.googleapis.com/auth/monitoring",
+            "https://www.googleapis.com/auth/servicecontrol",
+            "https://www.googleapis.com/auth/service.management.readonly",
+            "https://www.googleapis.com/auth/trace.append"
+          ],
+          "imageType": "COS",
+          "serviceAccount": "default",
+          "diskType": "pd-standard"
+        },
+        "masterAuth": {
+          "username": "admin",
+          "password": "MyRVsWZ6gbTJyfpU",
+          "clusterCaCertificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURERENDQWZTZ0F3SUJBZ0lSQUpKY0dyWGI1Nm5hWDA0ZzczV2ZTbW93RFFZSktvWklodmNOQVFFTEJRQXcKTHpFdE1Dc0dBMVVFQXhNa1ltVTJNV05qTVRVdE9HRTJOQzAwTURNd0xUZ3paVFV0T0RFMlpXUXlZMkpsTjJWbQpNQjRYRFRFNU1EY3dPREV5TXpNeE0xb1hEVEkwTURjd05qRXpNek14TTFvd0x6RXRNQ3NHQTFVRUF4TWtZbVUyCk1XTmpNVFV0T0dFMk5DMDBNRE13TFRnelpUVXRPREUyWldReVkySmxOMlZtTUlJQklqQU5CZ2txaGtpRzl3MEIKQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBcmVzSk1XbHFSVXhSRW04WlJ3QXpwN3lPRGlncnlvUTI0T2tUNkdLWQoyckx1blpnckY1S3dWV2FyQTJDbE45NnNLT1FrMXVOaG1Mc3h4bnV0SFFFbDVIeDFzZGYveU53RWVSOVZRL3grClVmNHhmQk9QdHViaTVWSUo1NEtwbis1UmZSOG9CZHBWdGhSOHBkU3lHU2pUKzFaeFlDNUdkenNDL0hDWkNoRGkKckxKaDl2RGVISmlSMVRiVEhZc1BRM2tnQTZZOEQ3VW91R1NsYlZCYUVuWmdrdkZ3RCs0MXJmcTlnUDFPZ2g5TQpJejMvUnBtNnJ6YmlXcDVEa2UvME5UbGhtYnFLQWVWVGpvejdkbDBpNWRmUithTnU1SjZnQjdPRjNVN0NRZnJWCjgwMmFyRkNMT2pXdTBUYkdBcC90em1QUlpuNVJMVTJ0d05CZ2ZLZzBHS2w0Z3dJREFRQUJveU13SVRBT0JnTlYKSFE4QkFmOEVCQU1DQWdRd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQQpMTG9UNW1TVWtraWh5VGg3WlhwdHlNcjg4RmZnZTI0L3FRNGlUcUtqN0MxazEvU1I0c3M3MmgvWGhUSUZyYURsClJUK25ObnJJeVRWTkNHM1pyb1YrUlhyV0lHTjFVZnVYbExMVjVrTFV2M0hobHFuK2szbU5UUnJWN1pOcFdtY2sKRGZvUzUxSHIxckw4NGFkWWJucWsyQWxQQ3M2N0htNjVCQ3FkQ2crakE2VkwvdG1CaE5oQUh4YUF6MVZRVmdSKwo1S0F2eTE0UzM1eEdueng3TTlNZlVuMXIydzVwbDNadDhaQjhtK2Z3MVFLZzZ2K2x5ZXM3cm4xM2lENnR2UDk5CjZXTHhWOHdWdURkeG5YWk9Pd2Q1UU5BaG1haURPajdRNFg3SU5JSFRWbzlMQ2gwcStCNzNSOHFTNzJ0dEdBeVMKVzE4N0NseGFMODNucnBxOGdyVGI1dz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+          "clientCertificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMyakNDQWNLZ0F3SUJBZ0lRT3RyK1BlSGhOVW9FRExRRnZSWjl4akFOQmdrcWhraUc5dzBCQVFzRkFEQXYKTVMwd0t3WURWUVFERXlSaVpUWXhZMk14TlMwNFlUWTBMVFF3TXpBdE9ETmxOUzA0TVRabFpESmpZbVUzWldZdwpIaGNOTVRrd056QTRNVE16TXpFMFdoY05NalF3TnpBMk1UTXpNekUwV2pBUk1ROHdEUVlEVlFRREV3WmpiR2xsCmJuUXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFDVUJUL1pzQnd0QzJSY3B2alIKK2ZuWFZuVkczMFZmOVRlZzFwN01RYytSWkQzQ3ZYRWhjWEttSmRMcGlTVThDVUM2SnhDTm5VRjY1QXRrd2lYZQp4MUEwWVQycTdBZ0JQaFBlVkdXak96K0NubENkVWF0eFNjRVd5YjRuQzdpaGFQNGZ5U1gwOEVVMEJsMDcycnZsCmN4aDQxUHhDZFVJQ09wUXVGMkZkakZRRmsycnprWERTclpwZEdLNHRQSW1LMmVmazI2eC9GNlB0R28xWC9LK2UKMm9XNEpWZVZNUFduZGhNQUhXcURjUEVlMTZCajVlSjBCVkEzRno1U2NNU0FWOUNtN2RjcVVPTC9raTc2U2ZtQwpzcEs2RDRPbzZBSXNOQnIrZWNaU0RSQUh2SkdPVEI3WmdLaUJ3M0xZekZTQzIrejBJRW9ENmJoK2U3czdRNmRwCnpRZC9BZ01CQUFHakVEQU9NQXdHQTFVZEV3RUIvd1FDTUFBd0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFFdloKZnBYam1NQllWd1BhYktpbGtxbm9yS0piMTdTLzFYam1GY0FPM2t2T0trRDhRczBnaE94TktsOFFkcXpsZldRUgpvRnIrQW5BRXNaZVR1QnhFNHdtQ2JHdWV4RVUzaW9xck01bVZyb01neSs3UmhUSi8xMWNDa2hpNkhpYi9aWUlDCkR6V0E4OW5TbjhLTlAxQzMwY1ZGSTJhYUZaSTRQU21sT0pDR2x3dEkyYm5tUDFKR2ZndTRHVkY4eXBVcGNyMzQKc24yTmE3SjhGbHIxM3BQNkVzbjhackY5SDNrNjM0SzZwQ3c4VzFKNWMwdElobWxhcWtFTk9BV0YyY1YyMjBLNAp3MjdwQ3BtUCtmRUdvZ0FJTERNbE5JQTNWWnkzNjR2SkxZSTV5MitmQ3ErMWVzcVNLOE1FUUs3VjJuTGkxWUJCCnNDcVdrUU0vbDdYTDJVWXNBcjQ9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+          "clientKey": "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBbEFVLzJiQWNMUXRrWEtiNDBmbjUxMVoxUnQ5RlgvVTNvTmFlekVIUGtXUTl3cjF4CklYRnlwaVhTNllrbFBBbEF1aWNRaloxQmV1UUxaTUlsM3NkUU5HRTlxdXdJQVQ0VDNsUmxvenMvZ3A1UW5WR3IKY1VuQkZzbStKd3U0b1dqK0g4a2w5UEJGTkFaZE85cTc1WE1ZZU5UOFFuVkNBanFVTGhkaFhZeFVCWk5xODVGdwowcTJhWFJpdUxUeUppdG5uNU51c2Z4ZWo3UnFOVi95dm50cUZ1Q1ZYbFREMXAzWVRBQjFxZzNEeEh0ZWdZK1hpCmRBVlFOeGMrVW5ERWdGZlFwdTNYS2xEaS81SXUra241Z3JLU3VnK0RxT2dDTERRYS9ubkdVZzBRQjd5Umprd2UKMllDb2djTnkyTXhVZ3R2czlDQktBK200Zm51N08wT25hYzBIZndJREFRQUJBb0lCQURPQ29pWW90WjF0VGZjNgpPZk9rYUsvcHkvVW1aSmVRbDlPMmJGdUxlV2JRdWZkbmdwT1BUY1VJKzUwK2wwRU52VU1xcmdXQ0dKUGlBUjhHCnV6UU1LMXFYRG1WSkx6M3pjdW1YZUNrMlNKTTFjYnRWZlBKM0pxVTkvcGpLNk96dXd5U2ZsTUJvenNSY2hKeDgKTVpBWEhnaUtvZUNrdXB4WTgxRVkzTTYzczFPZTRuNXVsMFcxdFdRUWx0akpQOHFKQnkwam5tQ1JtK0FxN0RodQp0UTcxdE8wemxaZDZzQ1UxamxFckVoUDhxSG5ra29veWZnUTdCUURiY1hvMWc3Uk9zd1FzV2U1MG1rcS9DNVpHCnNpdHhiTTNNSlplZEIvMlVWektKbHpmN21FTkYwdjFYN01kcG52aUN4eXdUV25URXZuQlZEaGZRTDBDb3FWZFUKR045dkx2a0NnWUVBeDNKeHp2b0VZblBjalROdGNCNUdJQlFiZ05jbVVpRkdwcm1kQ2czK0xHalZrOG9oZ3dqSQpYZG9oeDFLZ0FVaWV5Vnl0RjlKaVV4T1JxRHp5NHFleDZYVStzdkZGbXZGYk9qdVlsUUVUYllCOGZQV3JQbVJHCk1SMm00c21LMVFrODViSmxiYzlKMDFzSkRtT3JQTWJJVFRjOW9iTlJYbVI1NEU4dkhwTFo0VWtDZ1lFQXZmM1UKdHhNbC9qQ1JzOTJwV3RWNFdEWFZPbXVVd1JaeWcrQUY2Tnpab2p1em5NTjhiRWpZWnE4YmM1dVo3M2MvYzhDZgpacnBBbmZiblQ5VFdLVUxLb0pNQldIenRGQU5iUDNjYWFGRE1TMi8rT0NTTkVQcVJEdkJCTnhXeERWOUVjTHJvCkZuSjdyb0lZZ3NudFlSOGJGNEF2M092eHQ5QnQzMEZPUkhPbmFvY0NnWUJ6N0tVUnRHZ1FBVi9VQW13OW1wc1AKMGlBYVJ2TlRFVnhMVTk5ZkZMc0RmUHVHcHhuTFc3TjZPV3NndTNtY3hXVGxqU1Jla0QzdUk1V3B2Nk04OGxPSwpha2RESXRGZU9hTFl1Z0w1dUdKZVp5djBSYVorNFRHYklxejViRU54aDZrSnFTTWpMRFN3MEZ6M0xCOC9lQnE4CkpydC8zUVlTWXp3amtHTEcxbndsWVFLQmdRQzNzcU5uVitaV1BaUERPMEV5Q0ZEUnlVc2ZyMEVtNkpOVW10aGIKN0oybzFOeTNaL1AzcHY5RldXM0xlOWw4eGVuZCs1S2ordFhiWmcwRkRSNzh5ZzJzOERaTzNvdEQzSEx2akRORwpSVWtpYjJoMzFDOXBDVHdVRzR5U3ZEQnlZM2lESHRTa1Q1RHlpK3N6R2hhZzN6aU1vbTZreHFUeU8xN2dpLzRuCkJVUU1KUUtCZ0RUcHpLZWVHVUlhVS90N0NjVE1oMllHVXY4TUt3aC9lVDhWR0dMYU91ZnRhbDdxTDd4cWl2cngKTmZXRmVnR1d4L25GcHhzQS8rcEtIUzd5WHVuVzB4SWVnOGhYbHlpLzlyME9YS0RRbzYxcTFJUW9mRHJlNFNWTApwMS95NGZOMHZWQ0k4ZGo0Y1NPTjZwK0JxWVg2VThpeEhibjhkR0RLazZ6ci8zZlk4dEpjCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg=="
+        },
+        "loggingService": "logging.googleapis.com",
+        "monitoringService": "monitoring.googleapis.com",
+        "network": "default",
+        "clusterIpv4Cidr": "10.8.0.0/14",
+        "addonsConfig": {
+          "httpLoadBalancing": {},
+          "horizontalPodAutoscaling": {},
+          "kubernetesDashboard": {
+            "disabled": true
+          },
+          "networkPolicyConfig": {
+            "disabled": true
+          }
+        },
+        "subnetwork": "default",
+        "nodePools": [
+          {
+            "name": "default-pool",
+            "config": {
+              "machineType": "n1-standard-1",
+              "diskSizeGb": 100,
+              "oauthScopes": [
+                "https://www.googleapis.com/auth/devstorage.read_only",
+                "https://www.googleapis.com/auth/logging.write",
+                "https://www.googleapis.com/auth/monitoring",
+                "https://www.googleapis.com/auth/servicecontrol",
+                "https://www.googleapis.com/auth/service.management.readonly",
+                "https://www.googleapis.com/auth/trace.append"
+              ],
+              "imageType": "COS",
+              "serviceAccount": "default",
+              "diskType": "pd-standard"
+            },
+            "initialNodeCount": 3,
+            "autoscaling": {},
+            "management": {
+              "autoUpgrade": true,
+              "autoRepair": true
+            },
+            "podIpv4CidrSize": 24,
+            "selfLink": "https://container.googleapis.com/v1/projects/cloud-custodian/zones/us-central1-a/clusters/standard-cluster-1/nodePools/default-pool",
+            "version": "1.11.10-gke.5",
+            "instanceGroupUrls": [
+              "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-a/instanceGroupManagers/gke-standard-cluster-1-default-pool-c75597c2-grp"
+            ],
+            "status": "RUNNING"
+          }
+        ],
+        "locations": [
+          "us-central1-a"
+        ],
+        "resourceLabels": {
+          "nodes": "minimal"
+        },
+        "labelFingerprint": "03f6ce6e",
+        "legacyAbac": {},
+        "networkPolicy": {},
+        "ipAllocationPolicy": {},
+        "masterAuthorizedNetworksConfig": {},
+        "networkConfig": {
+          "network": "projects/cloud-custodian/global/networks/default",
+          "subnetwork": "projects/cloud-custodian/regions/us-central1/subnetworks/default"
+        },
+        "defaultMaxPodsConstraint": {
+          "maxPodsPerNode": "110"
+        },
+        "selfLink": "https://container.googleapis.com/v1/projects/cloud-custodian/zones/us-central1-a/clusters/standard-cluster-1",
+        "zone": "us-central1-a",
+        "endpoint": "35.193.163.131",
+        "initialClusterVersion": "1.11.10-gke.5",
+        "currentMasterVersion": "1.11.10-gke.5",
+        "currentNodeVersion": "1.11.10-gke.5",
+        "createTime": "2019-07-08T13:33:13+00:00",
+        "status": "RUNNING",
+        "nodeIpv4CidrSize": 24,
+        "servicesIpv4Cidr": "10.11.240.0/20",
+        "instanceGroupUrls": [
+          "https://www.googleapis.com/compute/v1/projects/cloud-custodian/zones/us-central1-a/instanceGroupManagers/gke-standard-cluster-1-default-pool-c75597c2-grp"
+        ],
+        "currentNodeCount": 3,
+        "location": "us-central1-a"
+      }
+    ]
+  }
+}

@@ -11,7 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import json
+import os
+import time
 from gcp_common import BaseTest, event_data
 
 
@@ -49,6 +51,83 @@ class KubernetesClusterTest(BaseTest):
         clusters = exec_mode.run(event, None)
 
         self.assertEqual(clusters[0]['name'], name)
+
+    def test_cluster_set_label(self):
+        project_id = "cloud-custodian"
+
+        factory = self.replay_flight_data('gke-cluster-set-label', project_id)
+
+        base_policy = {'name': 'gke-cluster-set-label',
+                       'resource': 'gcp.gke-cluster',
+                       'filters': [{
+                           'type': 'value',
+                           'key': 'currentNodeCount',
+                           'value': 3
+                       }]}
+
+        p = self.load_policy(
+            dict(base_policy,
+                 actions=[{
+                     'type': 'set',
+                     'labels': [{
+                         'key': 'nodes',
+                         'value': 'minimal'
+                     }]
+                 }]),
+            session_factory=factory)
+
+        resources = p.run()
+
+        self.assertEqual(resources[0]['resourceLabels'], {'nodes': 'minimal'})
+
+    def test_cluster_update_node_version(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('gke-cluster-update-node-version', project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'set-cluster-node-version',
+             'resource': 'gcp.gke-cluster',
+             'actions': [{
+                 'type': 'update',
+                 'nodeversion': "1.12.8-gke.10"
+             }]},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+        if self.recording:
+            time.sleep(10)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query('list', {
+            'parent': 'projects/{}/locations/-'.format(project_id)})
+
+        self.assertEqual(result['clusters'][0]['status'], 'RECONCILING')
+
+    def test_cluster_delete(self):
+        project_id = 'cloud-custodian'
+        factory = self.replay_flight_data('gke-cluster-delete', project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'set-cluster-node-version',
+             'resource': 'gcp.gke-cluster',
+             'actions': [{
+                 'type': 'delete'
+             }]},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+        if self.recording:
+            time.sleep(10)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query('list', {
+            'parent': 'projects/{}/locations/-'.format(project_id)})
+
+        self.assertEqual(result['clusters'][0]['status'], 'STOPPING')
 
 
 class KubernetesClusterNodePoolTest(BaseTest):
@@ -88,3 +167,114 @@ class KubernetesClusterNodePoolTest(BaseTest):
         pools = exec_mode.run(event, None)
 
         self.assertEqual(pools[0]['name'], name)
+
+    def test_cluster_node_pools_set_autoscaling(self):
+
+        project_id = "cloud-custodian"
+
+        factory = self.replay_flight_data('gke-cluster-nodepool-set-autoscaling', project_id)
+
+        p = self.load_policy({
+            'name': 'gke-cluster-nodepool-set-autoscaling',
+            'resource': 'gcp.gke-nodepool',
+            'filters': [{
+                'type': 'value',
+                'key': 'initialNodeCount',
+                'value': 3
+            }],
+            'actions': [{
+                'type': 'set-autoscaling',
+                'autoscaling': 'True',
+                'minNodeCount': '1',
+                'maxNodeCount': '3'
+            }],
+        }, session_factory=factory)
+
+        resources = p.run()
+
+        self.assertEqual(1, len(resources))
+
+        files_dir = os.path.join(os.path.dirname(__file__),
+                                 'data', 'flights', 'gke-cluster-nodepool-set-autoscaling')
+
+        files_paths = [file_path for file_path in os.listdir(files_dir)
+                       if file_path.__contains__('setAutoscaling')]
+
+        self.assertEqual(1, len(files_paths))
+
+        for file_path in files_paths:
+            with open(os.path.join(files_dir, file_path), 'rt') as file:
+                response = json.load(file)
+                self.assertEqual('UPDATE_CLUSTER', response['body']['operationType'])
+
+    def test_cluster_node_pools_set_size(self):
+
+        project_id = "cloud-custodian"
+
+        factory = self.replay_flight_data('gke-cluster-nodepool-set-size', project_id)
+
+        p = self.load_policy(
+            {
+                'name': 'gke-cluster-nodepool-set-size',
+                'resource': 'gcp.gke-nodepool',
+                'filters': [{
+                    'type': 'value',
+                    'key': 'initialNodeCount',
+                    'value': 2,
+                    'op': 'greater-than'
+                }],
+                'actions': [{
+                    'type': 'set',
+                    'size': '3',
+                }],
+            }, session_factory=factory)
+
+        resources = p.run()
+
+        self.assertEqual(1, len(resources))
+
+        files_dir = os.path.join(os.path.dirname(__file__),
+                                 'data', 'flights', 'gke-cluster-nodepool-set-size')
+
+        files_paths = [file_path for file_path in os.listdir(files_dir)
+                       if file_path.__contains__('setSize')]
+
+        self.assertEqual(1, len(files_paths))
+
+        for file_path in files_paths:
+            with open(os.path.join(files_dir, file_path), 'rt') as file:
+                response = json.load(file)
+                self.assertEqual('SET_NODE_POOL_SIZE', response['body']['operationType'])
+
+    def test_cluster_node_pools_set_auto_upgrade(self):
+
+        project_id = "cloud-custodian"
+
+        factory = self.replay_flight_data('gke-cluster-nodepool-set-auto-upgrade', project_id)
+
+        p = self.load_policy(
+            {
+                'name': 'gke-cluster-nodepool-set-auto-upgrade',
+                'resource': 'gcp.gke-nodepool',
+                'actions': [{
+                    'type': 'set-auto-upgrade',
+                    'upgrade': 'true',
+                }],
+            }, session_factory=factory)
+
+        resources = p.run()
+
+        self.assertEqual(1, len(resources))
+
+        files_dir = os.path.join(os.path.dirname(__file__),
+                                 'data', 'flights', 'gke-cluster-nodepool-set-auto-upgrade')
+
+        files_paths = [file_path for file_path in os.listdir(files_dir)
+                       if file_path.__contains__('setManagement')]
+
+        self.assertEqual(1, len(files_paths))
+
+        for file_path in files_paths:
+            with open(os.path.join(files_dir, file_path), 'rt') as file:
+                response = json.load(file)
+                self.assertEqual("SET_NODE_POOL_MANAGEMENT", response['body']['operationType'])

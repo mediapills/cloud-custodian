@@ -1,0 +1,26 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Mon, 15 Jul 2019 13:14:40 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "482",
+    "-content-encoding": "gzip"
+  },
+  "body": {
+    "name": "operation-1563196480875-cbabacd1",
+    "zone": "us-central1-a",
+    "operationType": "SET_NODE_POOL_MANAGEMENT",
+    "status": "RUNNING",
+    "selfLink": "https://container.googleapis.com/v1/projects/162573236851/zones/us-central1-a/operations/operation-1563196480875-cbabacd1",
+    "targetLink": "https://container.googleapis.com/v1/projects/162573236851/zones/us-central1-a/clusters/standard-cluster-1/nodePools/default-pool",
+    "startTime": "2019-07-15T13:14:40.875722543Z"
+  }
+}
