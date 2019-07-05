@@ -173,7 +173,6 @@ class LoadBalancingBackendBucket(QueryResourceManager):
 @LoadBalancingBackendBucket.action_registry.register('delete')
 class LoadBalancingBackendBucketDelete(MethodAction):
     """The action is used for Load Balancing Backend Buckets delete.
-    GCP resource is https://cloud.google.com/compute/docs/reference/rest/v1/backendBuckets.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendBuckets/delete.
 
     Example:
@@ -181,15 +180,15 @@ class LoadBalancingBackendBucketDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-        - name: gcp-loadbalancer-backend-buckets-delete
-          resource: gcp.loadbalancer-backend-bucket
-          filters:
-          - type: value
-            key: bucketName
-            op: eq
-            value: custodian-bucket-0
-          actions:
-          - type: delete
+          - name: gcp-loadbalancer-backend-buckets-delete
+            resource: gcp.loadbalancer-backend-bucket
+            filters:
+              - type: value
+                key: bucketName
+                op: eq
+                value: custodian-bucket-0
+            actions:
+              - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}

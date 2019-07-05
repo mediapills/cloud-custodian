@@ -6,12 +6,12 @@ If a bucket was deleted it doesn't mean that appropriate backend buckets were de
 .. code-block:: yaml
 
     policies:
-    - name: gcp-loadbalancer-backend-buckets-delete
-      resource: gcp.loadbalancer-backend-bucket
-      filters:
-      - type: value
-        key: bucketName
-        op: eq
-        value: custodian-bucket-0
-      actions:
-      - type: delete
+      - name: gcp-loadbalancer-backend-buckets-delete
+        resource: gcp.loadbalancer-backend-bucket
+        filters:
+          - type: value
+            key: bucketName
+            op: eq
+            value: custodian-bucket-0
+        actions:
+          - type: delete
