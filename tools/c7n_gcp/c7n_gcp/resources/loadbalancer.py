@@ -194,7 +194,7 @@ class LoadBalancingBackendBucketPatch(MethodAction):
     """
     schema = type_schema('patch', required=['bucketName'],
                          **{'type': {'enum': ['patch']},
-                            'bucketName': {'type': 'text'}})
+                            'bucketName': {'type': 'string'}})
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
