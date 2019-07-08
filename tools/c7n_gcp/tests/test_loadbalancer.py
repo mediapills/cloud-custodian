@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from time import sleep
 from gcp_common import BaseTest
 
 
@@ -468,6 +468,38 @@ class LoadBalancingForwardingRuleTest(BaseTest):
              'name': 'new-fe'})
         self.assertEqual(instance['kind'], 'compute#forwardingRule')
         self.assertEqual(instance['name'], 'new-fe')
+
+    def test_loadbalancer_forwarding_rules_delete(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-forwarding-rules-delete',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-forwarding-rules-delete',
+                       'resource': 'gcp.loadbalancer-forwarding-rule'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'portRange',
+                           'op': 'ni',
+                           'value': ['443-443']}],
+                 actions=[{'type': 'delete'}]
+                 ),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian-frontend-4a', resources[0]['name'])
+        self.assertEqual('80-80', resources[0]['portRange'])
+        self.assertIsNotNone(resources[0]['region'])
+
+        if self.recording:
+            sleep(10)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian-frontend-3', resources[0]['name'])
+        self.assertEqual('443-443', resources[0]['portRange'])
+        self.assertIsNotNone(resources[0]['region'])
 
 
 class LoadBalancingGlobalForwardingRuleTest(BaseTest):

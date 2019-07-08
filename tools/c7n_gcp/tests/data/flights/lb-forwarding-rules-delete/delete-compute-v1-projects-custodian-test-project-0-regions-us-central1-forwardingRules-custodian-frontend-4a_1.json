@@ -1,0 +1,34 @@
+{
+  "body": {
+    "status": "RUNNING", 
+    "kind": "compute#operation", 
+    "name": "operation-1562583213031-58d2941583fd1-e8b32332-8bf21395", 
+    "startTime": "2019-07-08T03:53:33.589-07:00", 
+    "region": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/regions/us-central1", 
+    "insertTime": "2019-07-08T03:53:33.573-07:00", 
+    "targetId": "5313661230751343337", 
+    "targetLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/regions/us-central1/forwardingRules/custodian-frontend-4a", 
+    "operationType": "delete", 
+    "progress": 0, 
+    "id": "3834644420092665410", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/regions/us-central1/operations/operation-1562583213031-58d2941583fd1-e8b32332-8bf21395", 
+    "user": "eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "839", 
+    "x-xss-protection": "1; mode=block", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "GSE", 
+    "-content-encoding": "gzip", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Mon, 08 Jul 2019 10:53:33 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

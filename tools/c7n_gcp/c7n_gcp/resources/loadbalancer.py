@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+from c7n.utils import type_schema, local_session
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
@@ -307,7 +308,7 @@ class LoadBalancingTargetPool(QueryResourceManager):
 
 @resources.register('loadbalancer-forwarding-rule')
 class LoadBalancingForwardingRule(QueryResourceManager):
-    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/addresses
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/forwardingRules
     """
     class resource_type(TypeInfo):
         service = 'compute'
@@ -323,6 +324,41 @@ class LoadBalancingForwardingRule(QueryResourceManager):
                 'project': resource_info['project_id'],
                 'region': resource_info['region'].rsplit('/', 1)[-1],
                 'forwardingRule': resource_info['name']})
+
+    def filter_resources(self, resources, event=None):
+        resources = [resource for resource in resources if resource.__contains__('region')]
+        return super(QueryResourceManager, self).filter_resources(resources, event)
+
+
+@LoadBalancingForwardingRule.action_registry.register('delete')
+class LoadBalancingForwardingRuleDelete(MethodAction):
+    """The action is used for Load Balancing Forwarding rules delete.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/forwardingRules/delete.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-loadbalancer-forwarding-rules-delete
+            resource: gcp.loadbalancer-forwarding-rule
+            filters:
+              - type: value
+                key: portRange
+                op: ni,
+                value: [443-443]
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        return {
+            'project': project,
+            'region': resource['region'].rsplit('/', 1)[-1],
+            'forwardingRule': resource['name']}
 
 
 @resources.register('loadbalancer-global-forwarding-rule')
