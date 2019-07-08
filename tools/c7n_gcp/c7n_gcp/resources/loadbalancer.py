@@ -383,7 +383,8 @@ class LoadBalancingGlobalForwardingRule(QueryResourceManager):
 @LoadBalancingGlobalForwardingRule.action_registry.register('delete')
 class LoadBalancingGlobalForwardingRuleDelete(MethodAction):
     """The action is used for Load Balancing Global Forwarding rules delete.
-    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/globalForwardingRules/delete.
+    GCP action is
+    https://cloud.google.com/compute/docs/reference/rest/v1/globalForwardingRules/delete.
 
     Example:
 
