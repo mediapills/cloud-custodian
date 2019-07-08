@@ -380,6 +380,36 @@ class LoadBalancingGlobalForwardingRule(QueryResourceManager):
                 'forwardingRule': resource_info['name']})
 
 
+@LoadBalancingGlobalForwardingRule.action_registry.register('delete')
+class LoadBalancingGlobalForwardingRuleDelete(MethodAction):
+    """The action is used for Load Balancing Global Forwarding rules delete.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/globalForwardingRules/delete.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-loadbalancer-global-forwarding-rules-delete
+            resource: gcp.loadbalancer-global-forwarding-rule
+            filters:
+              - type: value
+                key: portRange
+                op: ni,
+                value: [443-443]
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        return {
+            'project': project,
+            'forwardingRule': resource['name']}
+
+
 @resources.register('loadbalancer-global-address')
 class LoadBalancingGlobalAddress(QueryResourceManager):
     """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/globalAddresses

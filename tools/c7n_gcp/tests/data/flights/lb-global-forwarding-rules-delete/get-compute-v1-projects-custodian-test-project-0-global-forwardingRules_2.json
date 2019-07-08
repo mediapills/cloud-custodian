@@ -1,0 +1,41 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "compute#forwardingRule", 
+        "description": "", 
+        "creationTimestamp": "2019-07-08T04:27:46.249-07:00", 
+        "ipVersion": "IPV4", 
+        "networkTier": "PREMIUM", 
+        "loadBalancingScheme": "EXTERNAL", 
+        "target": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/targetHttpsProxies/custodian-load-balancer-5-target-proxy", 
+        "portRange": "443-443", 
+        "IPProtocol": "TCP", 
+        "IPAddress": "34.98.93.100", 
+        "id": "1077924205230462557", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/forwardingRules/custodian-frontend-5", 
+        "name": "custodian-frontend-5"
+      }
+    ], 
+    "kind": "compute#forwardingRuleList", 
+    "id": "projects/custodian-test-project-0/global/forwardingRules", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/forwardingRules"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "935", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/forwardingRules?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "f2_d_2x24yBxs0eiH2u95hL-TTY=/nn_zevEhpNSPD5VbmG0WJMCDpGc=", 
+    "cache-control": "private", 
+    "date": "Mon, 08 Jul 2019 11:29:45 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}
