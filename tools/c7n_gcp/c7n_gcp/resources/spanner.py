@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from c7n.utils import type_schema
-from c7n_gcp.actions import MethodAction, IamPolicyBase
+from c7n_gcp.actions import MethodAction, SetIamPolicyBaseAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildTypeInfo, ChildResourceManager
 
@@ -99,7 +99,7 @@ class SpannerInstancePatch(MethodAction):
 
 
 @SpannerInstance.action_registry.register('set-iam-policy')
-class SpannerInstanceSetIamPolicy(IamPolicyBase):
+class SpannerInstanceSetIamPolicy(SetIamPolicyBaseAction):
     """Sets IAM policy. It works with bindings only.
     GCP action is
     https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy.
@@ -162,7 +162,7 @@ class SpannerDatabaseInstance(ChildResourceManager):
 
 
 @SpannerDatabaseInstance.action_registry.register('set-iam-policy')
-class SpannerDatabaseInstanceSetIamPolicy(IamPolicyBase):
+class SpannerDatabaseInstanceSetIamPolicy(SetIamPolicyBaseAction):
     """Sets IAM policy. It works with bindings only.
     GCP action is
 https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/setIamPolicy.

@@ -16,7 +16,7 @@ from c7n.utils import type_schema
 from c7n_gcp.actions import MethodAction
 
 
-class IamPolicyBase(MethodAction):
+class SetIamPolicyBaseAction(MethodAction):
 
     schema = type_schema('setIamPolicy',
                          required=['bindings'],
