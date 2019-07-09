@@ -61,61 +61,57 @@ class SpannerInstanceTest(BaseTest):
         non_deleting_instance_name = 'spanner-instance-1'
         session_factory = self.replay_flight_data('spanner-instance-delete',
                                                   project_id=project_id)
+        base_policy = {'name': 'spanner-instance-delete',
+                       'resource': 'gcp.spanner-instance'}
         policy = self.load_policy(
-            {'name': 'spanner-instance-delete',
-             'resource': 'gcp.spanner-instance',
-             'filters': [{'displayName': deleting_instance_name}],
-             'actions': ['delete']},
+            dict(base_policy,
+                 filters=[{'displayName': deleting_instance_name}],
+                 actions=[{'type': 'delete'}]
+                 ),
             session_factory=session_factory)
+
         resources = policy.run()
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['displayName'], deleting_instance_name)
 
-        session_factory = self.replay_flight_data('spanner-instance-after-delete',
-                                                  project_id=project_id)
-        policy = self.load_policy(
-            {'name': 'spanner-instance-after-delete',
-             'resource': 'gcp.spanner-instance'},
-            session_factory=session_factory)
+        if self.recording:
+            time.sleep(10)
+
+        policy = self.load_policy(base_policy, session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['displayName'], non_deleting_instance_name)
 
-    def test_spanner_instance_change_node_count(self):
+    def test_spanner_instance_patch_node_count(self):
         project_id = 'custodian-test-project-0'
         patching_instance_name = 'spanner-instance-0'
         non_patching_instance_name = 'spanner-instance-1'
+
         session_factory = self.replay_flight_data('spanner-instance-patch',
                                                   project_id=project_id)
+        base_policy = {'name': 'spanner-instance-patch',
+                       'resource': 'gcp.spanner-instance'}
         policy = self.load_policy(
-            {'name': 'spanner-instance-patch',
-             'resource': 'gcp.spanner-instance',
-             'filters': [{
-                 'type': 'value',
-                 'key': 'nodeCount',
-                 'value': 1,
-                 'op': 'greater-than'}],
-             'actions': [{
-                 'type': 'change-node-count',
-                 'nodeCount': 1
-             }]},
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'nodeCount',
+                           'value': 1,
+                           'op': 'greater-than'}],
+                 actions=[{'type': 'patch',
+                           'nodeCount': 1}]
+                 ),
             session_factory=session_factory)
 
         resources = policy.run()
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['displayName'], patching_instance_name)
 
-        session_factory = self.replay_flight_data('spanner-instance-after-patch',
-                                                  project_id=project_id)
-        policy = self.load_policy(
-            {'name': 'spanner-instances-after-patch',
-             'resource': 'gcp.spanner-instance'},
-            session_factory=session_factory)
-
         if self.recording:
-            time.sleep(2)
+            time.sleep(5)
 
+        policy = self.load_policy(base_policy, session_factory=session_factory)
         resources = policy.run()
+
         self.assertEqual(len(resources), 2)
         self.assertEqual(resources[0]['displayName'], patching_instance_name)
         self.assertEqual(resources[1]['displayName'], non_patching_instance_name)
@@ -127,20 +123,21 @@ class SpannerInstanceTest(BaseTest):
         patching_instance_name = 'spanner-instance-0'
         session_factory = self.replay_flight_data('spanner-instance-set-iam-policy',
                                                   project_id=project_id)
+        base_policy = {'name': 'spanner-instance-set-iam-policy',
+                       'resource': 'gcp.spanner-instance'}
         policy = self.load_policy(
-            {'name': 'spanner-instance-set-iam-policy',
-             'resource': 'gcp.spanner-instance',
-             'actions': [{
-                 'type': 'set-iam-policy',
-                 'bindings':
-                     [{'members': ['user:yauhen_shaliou@comelfo.com'],
-                       'role': 'roles/owner'},
-                      {'members': ['dkhanas@gmail.com'],
-                       'role': 'roles/viewer'}]
-             }]},
+            dict(base_policy,
+                 actions=[{'type': 'set-iam-policy',
+                           'bindings':
+                               [{'members': ['user:yauhen_shaliou@comelfo.com'],
+                                 'role': 'roles/owner'},
+                                {'members': ['dkhanas@gmail.com'],
+                                 'role': 'roles/viewer'},
+                                ]}]
+                 ),
             session_factory=session_factory)
-
         resources = policy.run()
+
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['displayName'], patching_instance_name)
 
@@ -187,32 +184,26 @@ class SpannerDatabaseInstanceTest(BaseTest):
         project_id = 'custodian-test-project-0'
         session_factory = self.replay_flight_data('spanner-database-instance-delete',
                                                   project_id=project_id)
+        base_policy = {'name': 'gcp-spanner-databases-instance-delete',
+                       'resource': 'gcp.spanner-database-instance'}
         policy = self.load_policy(
-            {'name': 'gcp-spanner-databases-instance-delete',
-             'resource': 'gcp.spanner-database-instance',
-             'filters': [{
-                 'type': 'value',
-                 'key': 'name',
-                 'op': 'contains',
-                 'value': 'dev'
-             }],
-             'actions': ['delete']},
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'name',
+                           'op': 'contains',
+                           'value': 'dev'}],
+                 actions=[{'type': 'delete'}]
+                 ),
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(2, len(resources))
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-0')
         self.assertEqual(resources[1]['name'].rsplit('/', 1)[-1], 'custodian-database-dev-1')
 
-        session_factory = self.replay_flight_data('spanner-database-instance-after-delete',
-                                                  project_id=project_id)
-        policy = self.load_policy(
-            {'name': 'spanner-database-instance-after-delete',
-             'resource': 'gcp.spanner-database-instance'},
-            session_factory=session_factory)
-
         if self.recording:
-            time.sleep(2)
+            time.sleep(5)
 
+        policy = self.load_policy(base_policy, session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(2, len(resources))
         self.assertEqual(resources[0]['name'].rsplit('/', 1)[-1], 'custodian-database-prod')
@@ -222,18 +213,18 @@ class SpannerDatabaseInstanceTest(BaseTest):
         project_id = 'custodian-test-project-0'
         session_factory = self.replay_flight_data('spanner-instance-database-set-iam',
                                                   project_id=project_id)
+        base_policy = {'name': 'spanner-database-instance-set-iam-policy',
+                       'resource': 'gcp.spanner-database-instance'}
         policy = self.load_policy(
-            {'name': 'spanner-database-instance-set-iam-policy',
-             'resource': 'gcp.spanner-database-instance',
-             'actions': [{
-                 'type': 'set-iam-policy',
-                 'bindings':
-                     [{'members': ['user:yauhen_shaliou@comelfo.com'],
-                       'role': 'roles/owner'},
-                      {'members': ['dkhanas@gmail.com'],
-                       'role': 'roles/viewer'},
-                      ]
-             }]},
+            dict(base_policy,
+                 actions=[{'type': 'set-iam-policy',
+                           'bindings':
+                               [{'members': ['user:yauhen_shaliou@comelfo.com'],
+                                 'role': 'roles/owner'},
+                                {'members': ['dkhanas@gmail.com'],
+                                 'role': 'roles/viewer'},
+                                ]}]
+                 ),
             session_factory=session_factory)
 
         resources = policy.run()
