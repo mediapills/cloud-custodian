@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from c7n.utils import type_schema
-from c7n_gcp.actions import MethodAction
+from c7n_gcp.actions import MethodAction, IamPolicyBase
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildTypeInfo, ChildResourceManager
 
@@ -36,16 +36,9 @@ class SpannerInstance(QueryResourceManager):
             )
 
 
-class SpannerInstanceAction(MethodAction):
-
-    def get_resource_params(self, model, resource):
-        return {'name': resource['name']}
-
-
 @SpannerInstance.action_registry.register('delete')
-class SpannerInstanceDelete(SpannerInstanceAction):
+class SpannerInstanceDelete(MethodAction):
     """The action is used for spanner instances delete.
-    GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.
     GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/delete
 
     Example:
@@ -65,12 +58,13 @@ class SpannerInstanceDelete(SpannerInstanceAction):
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
 
-@SpannerInstance.action_registry.register('change-node-count')
-class SpannerInstancePatch(SpannerInstanceAction):
+
+@SpannerInstance.action_registry.register('patch')
+class SpannerInstancePatch(MethodAction):
     """The action is used for spanner instances nodeCount patch.
-
-    GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.
     GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/patch
 
     Example:
@@ -85,11 +79,11 @@ class SpannerInstancePatch(SpannerInstanceAction):
               op: gte
               value: 2
           actions:
-          - type: change-node-count
+          - type: patch
             nodeCount: 1
     """
     schema = type_schema('patch', required=['nodeCount'],
-                         **{'type': {'enum': ['change-node-count']},
+                         **{'type': {'enum': ['patch']},
                             'nodeCount': {'type': 'number'}})
     method_spec = {'op': 'patch'}
 
@@ -105,10 +99,8 @@ class SpannerInstancePatch(SpannerInstanceAction):
 
 
 @SpannerInstance.action_registry.register('set-iam-policy')
-class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
+class SpannerInstanceSetIamPolicy(IamPolicyBase):
     """Sets IAM policy. It works with bindings only.
-
-    GCP resource is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.
     GCP action is
     https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy.
 
@@ -130,45 +122,6 @@ class SpannerInstanceSetIamPolicy(SpannerInstanceAction):
               - user:user3@gmail.com
               role: roles/viewer
     """
-    schema = type_schema('setIamPolicy',
-                         required=['bindings'],
-                         **{
-                             'type': {'enum': ['set-iam-policy']},
-                             'bindings': {
-                                 'type': 'array',
-                                 'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
-                             }
-                         }
-                         )
-    method_spec = {'op': 'setIamPolicy'}
-
-    MEMBER_TYPES = ['user', 'group', 'domain', 'serviceAccount']
-
-    def get_resource_params(self, model, resource):
-        result = {'resource': resource['name'],
-                  'body': {
-                      'policy': {
-                          'bindings': []
-                      }}
-                  }
-        bindings = result['body']['policy']['bindings']
-
-        if self.data['bindings'] is not None:
-            for binding in self.data['bindings']:
-                if binding['role'] and binding['members']:
-                    members = []
-                    for member in binding['members']:
-                        requires_update = True
-                        for member_type in self.MEMBER_TYPES:
-                            if member.startswith(member_type + ':'):
-                                requires_update = False
-                                break
-                        if requires_update:
-                            member = 'user:' + member
-                        members.append(member)
-                    bindings.append({'role': binding['role'], 'members': members})
-
-        return result
 
 
 @resources.register('spanner-database-instance')
@@ -209,11 +162,8 @@ class SpannerDatabaseInstance(ChildResourceManager):
 
 
 @SpannerDatabaseInstance.action_registry.register('set-iam-policy')
-class SpannerDatabaseInstanceSetIamPolicy(SpannerInstanceAction):
+class SpannerDatabaseInstanceSetIamPolicy(IamPolicyBase):
     """Sets IAM policy. It works with bindings only.
-
-    GCP resource is
-    https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.
     GCP action is
 https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/setIamPolicy.
 
@@ -236,51 +186,10 @@ https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.datab
               role: roles/viewer
     """
 
-    schema = type_schema('setIamPolicy',
-                         required=['bindings'],
-                         **{
-                             'type': {'enum': ['set-iam-policy']},
-                             'bindings': {
-                                 'type': 'array',
-                                 'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
-                             }
-                         }
-                         )
-    method_spec = {'op': 'setIamPolicy'}
-
-    MEMBER_TYPES = ['user', 'group', 'domain', 'serviceAccount']
-
-    def get_resource_params(self, model, resource):
-        result = {'resource': resource['name'],
-                  'body': {
-                      'policy': {
-                          'bindings': []
-                      }}
-                  }
-        bindings = result['body']['policy']['bindings']
-
-        if self.data['bindings'] is not None:
-            for binding in self.data['bindings']:
-                if binding['role'] and binding['members']:
-                    members = []
-                    for member in binding['members']:
-                        requires_update = True
-                        for member_type in self.MEMBER_TYPES:
-                            if member.startswith(member_type + ':'):
-                                requires_update = False
-                                break
-                        if requires_update:
-                            member = 'user:' + member
-                        members.append(member)
-                    bindings.append({'role': binding['role'], 'members': members})
-        return result
-
 
 @SpannerDatabaseInstance.action_registry.register('delete')
-class SpannerDatabaseInstanceDropDatabase(SpannerInstanceAction):
+class SpannerDatabaseInstanceDropDatabase(MethodAction):
     """The action is used for databases deleting.
-    GCP resource is
-    https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.
     GCP action is
 https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/dropDatabase.
 

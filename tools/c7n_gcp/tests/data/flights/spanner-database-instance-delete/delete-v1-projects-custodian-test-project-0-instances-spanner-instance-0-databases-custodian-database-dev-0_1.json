@@ -9,9 +9,9 @@
     "server": "ESF", 
     "-content-encoding": "gzip", 
     "cache-control": "private", 
-    "date": "Wed, 19 Jun 2019 14:44:17 GMT", 
+    "date": "Tue, 09 Jul 2019 13:33:22 GMT", 
     "x-frame-options": "SAMEORIGIN", 
-    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
     "content-type": "application/json; charset=UTF-8"
   }
 }
