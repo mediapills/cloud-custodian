@@ -108,7 +108,7 @@ class LoadBalancingUrlMapInvalidateCache(MethodAction):
           actions:
           - type: invalidate-cache
     """
-    schema = type_schema('invalidateCache', **{'type': {'enum': ['change-node-count']}})
+    schema = type_schema('invalidateCache', **{'type': {'enum': ['invalidate-cache']}})
     method_spec = {'op': 'invalidateCache'}
 
     def get_resource_params(self, model, resource):
