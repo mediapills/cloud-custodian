@@ -110,7 +110,7 @@ class SetGcpPrivateAccess(SubnetAction):
 
 @resources.register('firewall')
 class Firewall(QueryResourceManager):
-    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/firewalls/list
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/firewalls
     """
     class resource_type(TypeInfo):
         service = 'compute'
@@ -146,24 +146,22 @@ class Router(QueryResourceManager):
 
 @Router.action_registry.register('delete')
 class DeleteRouter(MethodAction):
-    """Deletes a router
+    """`Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/routers/delete>`_ a router
 
     :Example:
 
     .. code-block:: yaml
 
         policies:
-          - name: router-delete
+          - name: gcp-network-unattached-routers
+            description: Deletes unattached Cloud Routers
             resource: gcp.router
             filters:
-              - type: value
-                key: name
-                op: eq
-                value: test-router
+               - type: value
+                 key: interfaces
+                 value: absent
             actions:
-              - delete
-
-    https://cloud.google.com/compute/docs/reference/rest/v1/instanceGroupManagers/delete
+               - delete
     """
 
     schema = type_schema('delete')
@@ -195,7 +193,7 @@ class Route(QueryResourceManager):
 
 @resources.register('interconnect')
 class Interconnect(QueryResourceManager):
-    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/interconnects/list
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/interconnects
     """
     class resource_type(TypeInfo):
         service = 'compute'
