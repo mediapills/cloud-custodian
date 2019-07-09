@@ -95,7 +95,7 @@ class BigQueryProject(QueryResourceManager):
 
 @resources.register('bq-table')
 class BigQueryTable(ChildResourceManager):
-    """GCP resource: https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/list
+    """GCP resource: https://cloud.google.com/bigquery/docs/reference/rest/v2/tables
     """
 
     class resource_type(ChildTypeInfo):
