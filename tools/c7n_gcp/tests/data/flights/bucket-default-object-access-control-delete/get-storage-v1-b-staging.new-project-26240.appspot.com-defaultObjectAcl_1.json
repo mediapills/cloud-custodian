@@ -1,0 +1,51 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "owners"
+        }, 
+        "role": "OWNER", 
+        "etag": "CAY=", 
+        "entity": "project-owners-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "editors"
+        }, 
+        "role": "OWNER", 
+        "etag": "CAY=", 
+        "entity": "project-editors-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "viewers"
+        }, 
+        "role": "READER", 
+        "etag": "CAY=", 
+        "entity": "project-viewers-501876662786"
+      }
+    ], 
+    "kind": "storage#objectAccessControls"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "715", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/staging.new-project-26240.appspot.com/defaultObjectAcl?alt=json", 
+    "expires": "Tue, 09 Jul 2019 13:53:44 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAY=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Tue, 09 Jul 2019 13:53:44 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2Ups3SWET5vg31B2GShfR0z67yxauMBuJ0f1V-JJClAmfzstr0q6vOOh9rGKQPwmJLt2O94Rlmt_ZnK6mPXHeYCCM8-bVQ"
+  }
+}

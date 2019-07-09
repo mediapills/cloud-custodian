@@ -1,0 +1,23 @@
+{
+  "body": {
+    "kind": "storage#objectAccessControl", 
+    "etag": "CBM=", 
+    "role": "OWNER", 
+    "email": "yauhen_shaliou@comelfo.com", 
+    "entity": "user-yauhen_shaliou@comelfo.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "164", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CBM=", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Tue, 09 Jul 2019 13:33:15 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UrPna7AQJBj-kdEglMcsfZO7KD-rjxOyor9o0lCqyxr36bEmU26LlPJeZal9VJeU2_J8KBpDorM4bc2QJOnuWbet0PuqA"
+  }
+}

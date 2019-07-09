@@ -1,0 +1,178 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "storage#bucket", 
+        "name": "new-project-26240.appspot.com", 
+        "timeCreated": "2019-06-04T10:15:26.457Z", 
+        "locationType": "multi-region", 
+        "updated": "2019-07-09T13:33:58.596Z", 
+        "projectNumber": "501876662786", 
+        "defaultObjectAcl": [
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "owners"
+            }, 
+            "role": "OWNER", 
+            "etag": "CBQ=", 
+            "entity": "project-owners-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "editors"
+            }, 
+            "role": "OWNER", 
+            "etag": "CBQ=", 
+            "entity": "project-editors-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "viewers"
+            }, 
+            "role": "READER", 
+            "etag": "CBQ=", 
+            "entity": "project-viewers-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "etag": "CBQ=", 
+            "role": "OWNER", 
+            "email": "dkhanas@gmail.com", 
+            "entity": "user-dkhanas@gmail.com"
+          }
+        ], 
+        "metageneration": "20", 
+        "location": "US", 
+        "iamConfiguration": {
+          "uniformBucketLevelAccess": {
+            "enabled": false
+          }, 
+          "bucketPolicyOnly": {
+            "enabled": false
+          }
+        }, 
+        "owner": {
+          "entity": "project-owners-501876662786"
+        }, 
+        "etag": "CBQ=", 
+        "acl": [
+          {
+            "kind": "storage#bucketAccessControl", 
+            "bucket": "new-project-26240.appspot.com", 
+            "entity": "user-dkhanas@gmail.com", 
+            "email": "dkhanas@gmail.com", 
+            "etag": "CBQ=", 
+            "role": "OWNER", 
+            "id": "new-project-26240.appspot.com/user-dkhanas@gmail.com", 
+            "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-dkhanas@gmail.com"
+          }, 
+          {
+            "kind": "storage#bucketAccessControl", 
+            "bucket": "new-project-26240.appspot.com", 
+            "entity": "project-owners-501876662786", 
+            "etag": "CBQ=", 
+            "role": "OWNER", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "owners"
+            }, 
+            "id": "new-project-26240.appspot.com/project-owners-501876662786", 
+            "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/project-owners-501876662786"
+          }
+        ], 
+        "id": "new-project-26240.appspot.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com", 
+        "storageClass": "MULTI_REGIONAL"
+      }, 
+      {
+        "kind": "storage#bucket", 
+        "name": "staging.new-project-26240.appspot.com", 
+        "timeCreated": "2019-06-04T10:15:26.363Z", 
+        "locationType": "multi-region", 
+        "updated": "2019-07-09T09:02:33.258Z", 
+        "projectNumber": "501876662786", 
+        "defaultObjectAcl": [
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "owners"
+            }, 
+            "role": "OWNER", 
+            "etag": "CAY=", 
+            "entity": "project-owners-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "editors"
+            }, 
+            "role": "OWNER", 
+            "etag": "CAY=", 
+            "entity": "project-editors-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "viewers"
+            }, 
+            "role": "READER", 
+            "etag": "CAY=", 
+            "entity": "project-viewers-501876662786"
+          }
+        ], 
+        "metageneration": "6", 
+        "location": "US", 
+        "iamConfiguration": {
+          "uniformBucketLevelAccess": {
+            "enabled": false
+          }, 
+          "bucketPolicyOnly": {
+            "enabled": false
+          }
+        }, 
+        "owner": {
+          "entity": "project-owners-501876662786"
+        }, 
+        "etag": "CAY=", 
+        "lifecycle": {
+          "rule": [
+            {
+              "action": {
+                "type": "Delete"
+              }, 
+              "condition": {
+                "age": 15
+              }
+            }
+          ]
+        }, 
+        "id": "staging.new-project-26240.appspot.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/staging.new-project-26240.appspot.com", 
+        "storageClass": "STANDARD"
+      }
+    ], 
+    "kind": "storage#buckets"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "4160", 
+    "content-location": "https://www.googleapis.com/storage/v1/b?project=new-project-26240&alt=json&projection=full", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "expires": "Tue, 09 Jul 2019 13:42:26 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "x-guploader-uploadid": "AEnB2UrWmwkK3HLAH6UZOPlzy4U1hhndypzNkJYFCG_Xc4njDDRtPuREhrbVCRDIQOOqEQFI0TZShnDKsU7GWTfaIgVlOrSvcQ", 
+    "date": "Tue, 09 Jul 2019 13:42:26 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

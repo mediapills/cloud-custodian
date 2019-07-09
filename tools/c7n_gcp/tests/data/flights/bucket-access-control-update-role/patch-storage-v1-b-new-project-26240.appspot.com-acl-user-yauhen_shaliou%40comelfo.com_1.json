@@ -1,0 +1,26 @@
+{
+  "body": {
+    "kind": "storage#bucketAccessControl", 
+    "bucket": "new-project-26240.appspot.com", 
+    "entity": "user-yauhen_shaliou@comelfo.com", 
+    "email": "yauhen_shaliou@comelfo.com", 
+    "etag": "CBA=", 
+    "role": "OWNER", 
+    "id": "new-project-26240.appspot.com/user-yauhen_shaliou@comelfo.com", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-yauhen_shaliou@comelfo.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "402", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CBA=", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Tue, 09 Jul 2019 12:13:03 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2Uqz9888TnsaudApK75ooTvHQwnlMTqiPmEV3Y3vJ00TlmcATojpwIxwsKl-hnk6TWamLao6p7J4PfbFPzIIefDcWTtwoA"
+  }
+}

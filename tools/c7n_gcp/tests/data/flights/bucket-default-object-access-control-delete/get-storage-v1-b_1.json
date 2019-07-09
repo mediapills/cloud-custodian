@@ -1,0 +1,185 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "storage#bucket", 
+        "name": "new-project-26240.appspot.com", 
+        "timeCreated": "2019-06-04T10:15:26.457Z", 
+        "locationType": "multi-region", 
+        "updated": "2019-07-09T13:53:36.590Z", 
+        "projectNumber": "501876662786", 
+        "defaultObjectAcl": [
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "owners"
+            }, 
+            "role": "OWNER", 
+            "etag": "CBs=", 
+            "entity": "project-owners-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "editors"
+            }, 
+            "role": "OWNER", 
+            "etag": "CBs=", 
+            "entity": "project-editors-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "viewers"
+            }, 
+            "role": "READER", 
+            "etag": "CBs=", 
+            "entity": "project-viewers-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "etag": "CBs=", 
+            "role": "OWNER", 
+            "email": "dkhanas@gmail.com", 
+            "entity": "user-dkhanas@gmail.com"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "etag": "CBs=", 
+            "role": "OWNER", 
+            "email": "yauhen_shaliou@comelfo.com", 
+            "entity": "user-yauhen_shaliou@comelfo.com"
+          }
+        ], 
+        "metageneration": "27", 
+        "location": "US", 
+        "iamConfiguration": {
+          "uniformBucketLevelAccess": {
+            "enabled": false
+          }, 
+          "bucketPolicyOnly": {
+            "enabled": false
+          }
+        }, 
+        "owner": {
+          "entity": "project-owners-501876662786"
+        }, 
+        "etag": "CBs=", 
+        "acl": [
+          {
+            "kind": "storage#bucketAccessControl", 
+            "bucket": "new-project-26240.appspot.com", 
+            "entity": "user-dkhanas@gmail.com", 
+            "email": "dkhanas@gmail.com", 
+            "etag": "CBs=", 
+            "role": "OWNER", 
+            "id": "new-project-26240.appspot.com/user-dkhanas@gmail.com", 
+            "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-dkhanas@gmail.com"
+          }, 
+          {
+            "kind": "storage#bucketAccessControl", 
+            "bucket": "new-project-26240.appspot.com", 
+            "entity": "project-owners-501876662786", 
+            "etag": "CBs=", 
+            "role": "OWNER", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "owners"
+            }, 
+            "id": "new-project-26240.appspot.com/project-owners-501876662786", 
+            "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/project-owners-501876662786"
+          }
+        ], 
+        "id": "new-project-26240.appspot.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com", 
+        "storageClass": "MULTI_REGIONAL"
+      }, 
+      {
+        "kind": "storage#bucket", 
+        "name": "staging.new-project-26240.appspot.com", 
+        "timeCreated": "2019-06-04T10:15:26.363Z", 
+        "locationType": "multi-region", 
+        "updated": "2019-07-09T09:02:33.258Z", 
+        "projectNumber": "501876662786", 
+        "defaultObjectAcl": [
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "owners"
+            }, 
+            "role": "OWNER", 
+            "etag": "CAY=", 
+            "entity": "project-owners-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "editors"
+            }, 
+            "role": "OWNER", 
+            "etag": "CAY=", 
+            "entity": "project-editors-501876662786"
+          }, 
+          {
+            "kind": "storage#objectAccessControl", 
+            "projectTeam": {
+              "projectNumber": "501876662786", 
+              "team": "viewers"
+            }, 
+            "role": "READER", 
+            "etag": "CAY=", 
+            "entity": "project-viewers-501876662786"
+          }
+        ], 
+        "metageneration": "6", 
+        "location": "US", 
+        "iamConfiguration": {
+          "uniformBucketLevelAccess": {
+            "enabled": false
+          }, 
+          "bucketPolicyOnly": {
+            "enabled": false
+          }
+        }, 
+        "owner": {
+          "entity": "project-owners-501876662786"
+        }, 
+        "etag": "CAY=", 
+        "lifecycle": {
+          "rule": [
+            {
+              "action": {
+                "type": "Delete"
+              }, 
+              "condition": {
+                "age": 15
+              }
+            }
+          ]
+        }, 
+        "id": "staging.new-project-26240.appspot.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/staging.new-project-26240.appspot.com", 
+        "storageClass": "STANDARD"
+      }
+    ], 
+    "kind": "storage#buckets"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "4353", 
+    "content-location": "https://www.googleapis.com/storage/v1/b?project=new-project-26240&alt=json&projection=full", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "expires": "Tue, 09 Jul 2019 13:53:44 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "x-guploader-uploadid": "AEnB2Urk2-4UwMoxIcns7riuIJuH0N_32RxhqtfCoREda9MQV8yUH5KAj4NYQe7tv6iEVyv93Xdep7cLx-HiC9PIwE3YeoEt_Q", 
+    "date": "Tue, 09 Jul 2019 13:53:44 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

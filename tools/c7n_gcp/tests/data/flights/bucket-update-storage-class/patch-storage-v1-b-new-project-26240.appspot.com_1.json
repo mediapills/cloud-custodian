@@ -1,0 +1,80 @@
+{
+  "body": {
+    "kind": "storage#bucket", 
+    "name": "new-project-26240.appspot.com", 
+    "timeCreated": "2019-06-04T10:15:26.457Z", 
+    "locationType": "multi-region", 
+    "updated": "2019-07-09T09:11:45.278Z", 
+    "projectNumber": "501876662786", 
+    "defaultObjectAcl": [
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "owners"
+        }, 
+        "role": "OWNER", 
+        "etag": "CA0=", 
+        "entity": "project-owners-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "editors"
+        }, 
+        "role": "OWNER", 
+        "etag": "CA0=", 
+        "entity": "project-editors-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "viewers"
+        }, 
+        "role": "READER", 
+        "etag": "CA0=", 
+        "entity": "project-viewers-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "etag": "CA0=", 
+        "role": "OWNER", 
+        "email": "dkhanas@gmail.com", 
+        "entity": "user-dkhanas@gmail.com"
+      }
+    ], 
+    "metageneration": "13", 
+    "location": "US", 
+    "iamConfiguration": {
+      "uniformBucketLevelAccess": {
+        "enabled": false
+      }, 
+      "bucketPolicyOnly": {
+        "enabled": false
+      }
+    }, 
+    "owner": {
+      "entity": "project-owners-501876662786"
+    }, 
+    "etag": "CA0=", 
+    "id": "new-project-26240.appspot.com", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com", 
+    "storageClass": "MULTI_REGIONAL"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "1478", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CA0=", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Tue, 09 Jul 2019 09:11:45 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UpxUEQOd9yvqp1_IiRLbcyjZspJUBo9yHcgf22UB2NSMF4-gQksBirLcJ8hxLAvHLw7uEeOXh3H3pASoJnRwanvMzapIA"
+  }
+}

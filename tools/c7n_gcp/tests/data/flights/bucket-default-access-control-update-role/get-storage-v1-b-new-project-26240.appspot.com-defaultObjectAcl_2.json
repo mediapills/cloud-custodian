@@ -1,0 +1,65 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "owners"
+        }, 
+        "role": "OWNER", 
+        "etag": "CBM=", 
+        "entity": "project-owners-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "editors"
+        }, 
+        "role": "OWNER", 
+        "etag": "CBM=", 
+        "entity": "project-editors-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "viewers"
+        }, 
+        "role": "READER", 
+        "etag": "CBM=", 
+        "entity": "project-viewers-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "etag": "CBM=", 
+        "role": "OWNER", 
+        "email": "dkhanas@gmail.com", 
+        "entity": "user-dkhanas@gmail.com"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "etag": "CBM=", 
+        "role": "OWNER", 
+        "email": "yauhen_shaliou@comelfo.com", 
+        "entity": "user-yauhen_shaliou@comelfo.com"
+      }
+    ], 
+    "kind": "storage#objectAccessControls"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "1055", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/defaultObjectAcl?alt=json", 
+    "expires": "Tue, 09 Jul 2019 13:33:17 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CBM=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Tue, 09 Jul 2019 13:33:17 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UpKe-rVu6pQ4GtylRuPGByIzCFaLWiJH189fPS9ciDuTFypr0r7ufW8yscus5hFVJf2t-9QRUjsN_h9xVohvOSEIgRWTA"
+  }
+}

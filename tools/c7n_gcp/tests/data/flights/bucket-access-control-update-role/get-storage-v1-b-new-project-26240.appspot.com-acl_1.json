@@ -1,0 +1,54 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "new-project-26240.appspot.com", 
+        "entity": "user-dkhanas@gmail.com", 
+        "email": "dkhanas@gmail.com", 
+        "etag": "CA8=", 
+        "role": "OWNER", 
+        "id": "new-project-26240.appspot.com/user-dkhanas@gmail.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-dkhanas@gmail.com"
+      }, 
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "new-project-26240.appspot.com", 
+        "entity": "project-owners-501876662786", 
+        "etag": "CA8=", 
+        "role": "OWNER", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "owners"
+        }, 
+        "id": "new-project-26240.appspot.com/project-owners-501876662786", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/project-owners-501876662786"
+      }, 
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "new-project-26240.appspot.com", 
+        "entity": "user-yauhen_shaliou@comelfo.com", 
+        "email": "yauhen_shaliou@comelfo.com", 
+        "etag": "CA8=", 
+        "role": "READER", 
+        "id": "new-project-26240.appspot.com/user-yauhen_shaliou@comelfo.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-yauhen_shaliou@comelfo.com"
+      }
+    ], 
+    "kind": "storage#bucketAccessControls"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "1323", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl?alt=json", 
+    "expires": "Tue, 09 Jul 2019 12:13:01 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CA8=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Tue, 09 Jul 2019 12:13:01 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2Uq8sQ7a0CVayoxhGtJxaEB4qgeMIw0h4-GaNB_JGd2bVyLt16DKSEH2-BZ5M15ixIGTbjFnes0XPJyhBTqbby9nAWJ2eg"
+  }
+}
