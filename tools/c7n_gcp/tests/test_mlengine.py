@@ -51,6 +51,62 @@ class MLModelTest(BaseTest):
         models = exec_mode.run(event, None)
         self.assertIn(name, models[0]['name'])
 
+    def test_patch(self):
+        project_id = "cloud-custodian"
+        description = "Custom description"
+
+        factory = self.replay_flight_data('ml-model-update-description', project_id)
+
+        base_policy = {
+            'name': 'ml-model-update-description',
+            'resource': 'gcp.ml-model',
+            'filters': [{
+                'type': 'value',
+                'key': 'name',
+                'value': 'projects/cloud-custodian/models/test'
+            }]}
+
+        p = self.load_policy(
+            dict(base_policy, actions=[{
+                'type': 'set',
+                'description': description
+            }]),
+            session_factory=factory)
+
+        resources = p.run()
+
+        self.assertEqual(resources[0]['description'], description)
+
+    def test_delete(self):
+        project_id = "cloud-custodian"
+        name = 'projects/cloud-custodian/models/test'
+        factory = self.replay_flight_data('ml-model-delete', project_id)
+
+        base_policy = {
+            'name': 'ml-model-delete',
+            'resource': 'gcp.ml-model',
+            'filters': [{
+                'type': 'value',
+                'key': 'name',
+                'value': name
+            }]}
+
+        p = self.load_policy(
+            dict(base_policy, actions=[{
+                'type': 'delete'
+            }]),
+            session_factory=factory)
+
+        resources = p.run()
+
+        self.assertEqual(resources[0]['name'], name)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'parent': 'projects/' + project_id})
+
+        self.assertEqual(len(result), 0)
+
 
 class MLJobTest(BaseTest):
 
@@ -87,3 +143,35 @@ class MLJobTest(BaseTest):
         event = event_data('ml-job-create.json')
         jobs = exec_mode.run(event, None)
         self.assertIn(name, jobs[0]['jobId'])
+
+    def test_patch(self):
+        project_id = "cloud-custodian"
+
+        factory = self.replay_flight_data('ml-job-set-labels', project_id)
+
+        base_policy = {'name': 'ml-job-set-labels',
+                       'resource': 'gcp.ml-job',
+                       'filters': [{
+                           'type': 'value',
+                           'key': 'jobId',
+                           'value': 'test_job'
+                       }]}
+
+        p = self.load_policy(
+            dict(base_policy,
+                 actions=[{
+                     'type': 'set',
+                     'labels': [{
+                         'key': 'version',
+                         'value': 'current'
+                     }]
+                 }]),
+            session_factory=factory)
+
+        p.run()
+
+        p = self.load_policy(base_policy, session_factory=factory)
+
+        resources = p.run()
+
+        self.assertEqual(resources[0]['labels'], {'version': 'current'})
