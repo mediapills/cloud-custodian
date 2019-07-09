@@ -26,7 +26,7 @@ if path.exists(readme):
 
 setup(
     name="c7n_azure",
-    version='0.5.3',
+    version='0.5.5',
     description="Cloud Custodian - Azure Support",
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -42,10 +42,12 @@ setup(
             'azure = c7n_azure.entry:initialize_azure']
     },
     install_requires=["azure-mgmt-authorization",
+                      "azure-mgmt-apimanagement",
                       "azure-mgmt-applicationinsights==0.1.1",
                       "azure-mgmt-batch",
                       "azure-mgmt-cognitiveservices",
                       "azure-mgmt-cosmosdb",
+                      "azure-mgmt-costmanagement",
                       "azure-mgmt-compute",
                       "azure-mgmt-cdn",
                       "azure-mgmt-containerregistry",
@@ -53,6 +55,7 @@ setup(
                       "azure-mgmt-databricks",
                       "azure-mgmt-datalake-store",
                       "azure-mgmt-datafactory",
+                      "azure-mgmt-dns",
                       "azure-mgmt-iothub",
                       "azure-mgmt-keyvault",
                       "azure-mgmt-managementgroups",
@@ -65,11 +68,20 @@ setup(
                       "azure-mgmt-monitor",
                       "azure-mgmt-policyinsights",
                       "azure-mgmt-eventgrid",
+                      "azure-mgmt-logic",
+                      "azure-cosmos",
                       "azure-graphrbac",
                       "azure-keyvault",
                       "azure-storage-blob",
+                      # azure-cosmosdb-table has incompatible dependency ~=1.1
+                      # Remove this when fixed:
+                      # https://github.com/Azure/azure-cosmos-table-python/issues/39
+                      "azure-storage-common~=2.0",
                       "azure-storage-queue",
+                      "azure-storage-file",
+                      "azure-cosmosdb-table",
                       "distlib",
+                      "jsonpickle",
                       "requests",
                       "PyJWT",
                       "c7n",

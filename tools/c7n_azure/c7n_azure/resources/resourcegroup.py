@@ -23,11 +23,25 @@ from c7n.utils import type_schema
 
 @resources.register('resourcegroup')
 class ResourceGroup(ArmResourceManager):
+    """Resource Group Resource
+
+    :example:
+
+    Finds all Resource Groups in the subscription.
+
+    .. code-block:: yaml
+
+        policies:
+            - name: find-all-resource-groups
+              resource: azure.resourcegroup
+
+    """
 
     class resource_type(ArmResourceManager.resource_type):
         service = 'azure.mgmt.resource'
         client = 'ResourceManagementClient'
         enum_spec = ('resource_groups', 'list', None)
+        resource_type = 'Microsoft.Resources/subscriptions/resourceGroups'
 
     def get_resources(self, resource_ids):
         resource_client = self.get_client('azure.mgmt.resource.ResourceManagementClient')
@@ -50,6 +64,8 @@ class EmptyGroup(Filter):
     #   resource: azure.resourcegroup
     #   filters:
     #       - type: empty-group
+
+    schema = type_schema('empty-group')
 
     def __call__(self, group):
         resources_iterator = (
