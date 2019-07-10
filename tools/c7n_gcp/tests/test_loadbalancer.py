@@ -11,6 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import json
+import os
+from os import listdir
 from time import sleep
 from gcp_common import BaseTest
 
@@ -116,8 +119,21 @@ class LoadBalancingUrlMapTest(BaseTest):
                  actions=[{'type': 'invalidate-cache'}]),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(1, len(resources))
+        self.assertEqual(4, len(resources))
         self.assertEqual('custodian-load-balancer-0', resources[0]['name'])
+
+        files_dir = os.path.join(os.path.dirname(__file__),
+                                 'data', 'flights', 'lb-url-map-invalidate-cache')
+        files_paths = [file_path for file_path in listdir(files_dir)
+                       if file_path.__contains__('invalidateCache')]
+
+        self.assertEqual(4, len(files_paths))
+        for file_path in files_paths:
+            with open(os.path.join(files_dir, file_path), 'rt') as file:
+                response = json.load(file)
+                self.assertEqual("RUNNING", response['body']['status'])
+                self.assertEqual("invalidateCache", response['body']['operationType'])
+                self.assertEqual("200", response['headers']['status'])
 
 
 class LoadBalancingTargetTcpProxyTest(BaseTest):
