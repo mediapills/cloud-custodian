@@ -178,10 +178,12 @@ class LoadBalancingSslPolicyTest(BaseTest):
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 1)
-        self.assertEqual('TLS_1_2', resources[0]['minTlsVersion'])
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id})
+        items = result['items']
+        self.assertEqual(1, len(items))
+        self.assertEqual('TLS_1_2', items[0]['minTlsVersion'])
 
 
 class LoadBalancingSslCertificateTest(BaseTest):
