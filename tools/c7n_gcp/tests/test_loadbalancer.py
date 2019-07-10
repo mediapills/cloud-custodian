@@ -93,10 +93,12 @@ class LoadBalancingUrlMapTest(BaseTest):
         if self.recording:
             sleep(3)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 1)
-        self.assertEqual('custodian-load-balancer-0', resources[0]['name'])
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id})
+        items = result['items']
+        self.assertEqual(len(items), 1)
+        self.assertEqual('custodian-load-balancer-0', items[0]['name'])
 
     def test_loadbalancer_url_map_invalidate_cache(self):
         project_id = 'custodian-test-project-0'
