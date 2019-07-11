@@ -77,10 +77,12 @@ class SpannerInstanceTest(BaseTest):
         if self.recording:
             time.sleep(10)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]['displayName'], non_deleting_instance_name)
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'parent': 'projects/' + project_id})
+        instances = result['instances']
+        self.assertEqual(len(instances), 1)
+        self.assertEqual(instances[0]['displayName'], non_deleting_instance_name)
 
     def test_spanner_instance_patch_node_count(self):
         project_id = 'custodian-test-project-0'
@@ -109,14 +111,16 @@ class SpannerInstanceTest(BaseTest):
         if self.recording:
             time.sleep(5)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'parent': 'projects/' + project_id})
+        instances = result['instances']
 
-        self.assertEqual(len(resources), 2)
-        self.assertEqual(resources[0]['displayName'], patching_instance_name)
-        self.assertEqual(resources[1]['displayName'], non_patching_instance_name)
-        self.assertEqual(resources[0]['nodeCount'], 1)
-        self.assertEqual(resources[1]['nodeCount'], 1)
+        self.assertEqual(len(instances), 2)
+        self.assertEqual(instances[0]['displayName'], patching_instance_name)
+        self.assertEqual(instances[1]['displayName'], non_patching_instance_name)
+        self.assertEqual(instances[0]['nodeCount'], 1)
+        self.assertEqual(instances[1]['nodeCount'], 1)
 
     def test_spanner_instance_set_iam_policy(self):
         project_id = 'custodian-test-project-0'
