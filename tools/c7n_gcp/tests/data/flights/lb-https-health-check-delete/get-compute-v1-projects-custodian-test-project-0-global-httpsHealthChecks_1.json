@@ -1,0 +1,56 @@
+{
+  "headers": {
+    "etag": "W7IqB4EYVtCWqUdzp9W7KUHcmlk=/Q5QfJyi5m5trgDuAjOApb-FVTbY=",
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Fri, 12 Jul 2019 15:13:31 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "1374",
+    "-content-encoding": "gzip",
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpsHealthChecks?alt=json"
+  },
+  "body": {
+    "id": "projects/custodian-test-project-0/global/httpsHealthChecks",
+    "items": [
+      {
+        "id": "1753877810522446690",
+        "creationTimestamp": "2019-06-21T07:11:25.891-07:00",
+        "name": "custodian-health-check-2",
+        "description": "",
+        "host": "cloudcustodian.com",
+        "requestPath": "/test",
+        "port": 8080,
+        "checkIntervalSec": 10,
+        "timeoutSec": 9,
+        "unhealthyThreshold": 10,
+        "healthyThreshold": 2,
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpsHealthChecks/custodian-health-check-2",
+        "kind": "compute#httpsHealthCheck"
+      },
+      {
+        "id": "3959752857445831418",
+        "creationTimestamp": "2019-04-30T04:05:57.742-07:00",
+        "name": "custodian-https-health-check",
+        "description": "",
+        "host": "myproject-dev-feature1.com",
+        "requestPath": "/",
+        "port": 443,
+        "checkIntervalSec": 10,
+        "timeoutSec": 5,
+        "unhealthyThreshold": 3,
+        "healthyThreshold": 2,
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpsHealthChecks/custodian-https-health-check",
+        "kind": "compute#httpsHealthCheck"
+      }
+    ],
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpsHealthChecks",
+    "kind": "compute#httpsHealthCheckList"
+  }
+}

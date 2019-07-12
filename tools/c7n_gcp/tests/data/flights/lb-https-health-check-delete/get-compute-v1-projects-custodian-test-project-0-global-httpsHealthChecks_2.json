@@ -1,0 +1,41 @@
+{
+  "headers": {
+    "etag": "OdMWC0Xya3avGOWepSJom6XOfXE=/hPe3zsCRlf8U4GgFmXZaiSR9azs=",
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Fri, 12 Jul 2019 15:13:38 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "805",
+    "-content-encoding": "gzip",
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpsHealthChecks?alt=json"
+  },
+  "body": {
+    "id": "projects/custodian-test-project-0/global/httpsHealthChecks",
+    "items": [
+      {
+        "id": "1753877810522446690",
+        "creationTimestamp": "2019-06-21T07:11:25.891-07:00",
+        "name": "custodian-health-check-2",
+        "description": "",
+        "host": "cloudcustodian.com",
+        "requestPath": "/test",
+        "port": 8080,
+        "checkIntervalSec": 10,
+        "timeoutSec": 9,
+        "unhealthyThreshold": 10,
+        "healthyThreshold": 2,
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpsHealthChecks/custodian-health-check-2",
+        "kind": "compute#httpsHealthCheck"
+      }
+    ],
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpsHealthChecks",
+    "kind": "compute#httpsHealthCheckList"
+  }
+}

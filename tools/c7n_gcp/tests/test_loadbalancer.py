@@ -347,6 +347,86 @@ class LoadBalancingHttpsHealthCheckTest(BaseTest):
         self.assertEqual(instances[0]['kind'], 'compute#httpsHealthCheck')
         self.assertEqual(instances[0]['name'], 'custodian-https-health-check')
 
+    def test_loadbalancer_https_health_check_patch(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-https-health-check-patch',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-https-health-check-patch',
+                       'resource': 'gcp.loadbalancer-https-health-check'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'host',
+                           'op': 'eq',
+                           'value': 'custodian.com'}],
+                 actions=[{'type': 'patch',
+                           'healthyThreshold': 2,
+                           'host': 'cloudcustodian.com',
+                           'requestPath': '/test',
+                           'port': 8080,
+                           'checkIntervalSec': 10,
+                           'timeoutSec': 9,
+                           'unhealthyThreshold': 10}]
+                 ),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian.com', resources[0]['host'])
+
+        if self.recording:
+            sleep(5)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id})
+        items = result['items']
+        self.assertEqual(2, len(items))
+        self.assertEqual('cloudcustodian.com', items[0]['host'])
+        self.assertEqual('/test', items[0]['requestPath'])
+        self.assertEqual(8080, items[0]['port'])
+        self.assertEqual(10, items[0]['checkIntervalSec'])
+        self.assertEqual(9, items[0]['timeoutSec'])
+        self.assertEqual(10, items[0]['unhealthyThreshold'])
+        self.assertEqual(2, items[0]['healthyThreshold'])
+        self.assertEqual('', items[1]['host'])
+        self.assertEqual('/', items[1]['requestPath'])
+        self.assertEqual(443, items[1]['port'])
+        self.assertEqual(10, items[1]['checkIntervalSec'])
+        self.assertEqual(5, items[1]['timeoutSec'])
+        self.assertEqual(3, items[1]['unhealthyThreshold'])
+        self.assertEqual(2, items[1]['healthyThreshold'])
+
+    def test_loadbalancer_https_health_check_delete(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-https-health-check-delete',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-https-health-check-delete',
+                       'resource': 'gcp.loadbalancer-https-health-check'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'host',
+                           'op': 'contains',
+                           'value': 'dev-'}],
+                 actions=[{'type': 'delete'}]
+                 ),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('myproject-dev-feature1.com', resources[0]['host'])
+
+        if self.recording:
+            sleep(5)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id})
+        items = result['items']
+        self.assertEqual(1, len(items))
+        self.assertEqual('cloudcustodian.com', items[0]['host'])
+
 
 class LoadBalancingHttpHealthCheckTest(BaseTest):
 
@@ -379,6 +459,96 @@ class LoadBalancingHttpHealthCheckTest(BaseTest):
         self.assertEqual(len(instances), 1)
         self.assertEqual(instances[0]['kind'], 'compute#httpHealthCheck')
         self.assertEqual(instances[0]['name'], 'custodian-http-health-check')
+
+    def test_loadbalancer_http_health_check_patch(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-http-health-check-patch',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-http-health-check-patch',
+                       'resource': 'gcp.loadbalancer-http-health-check'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'host',
+                           'op': 'eq',
+                           'value': 'custodian.com'}],
+                 actions=[{'type': 'patch',
+                           'healthyThreshold': 2,
+                           'host': 'cloudcustodian.com',
+                           'requestPath': '/test',
+                           'port': 8080,
+                           'checkIntervalSec': 10,
+                           'timeoutSec': 9,
+                           'unhealthyThreshold': 10}]
+                 ),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('custodian.com', resources[0]['host'])
+
+        if self.recording:
+            sleep(5)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id})
+        items = result['items']
+        self.assertEqual(3, len(items))
+        self.assertEqual('', items[0]['host'])
+        self.assertEqual('/', items[0]['requestPath'])
+        self.assertEqual(80, items[0]['port'])
+        self.assertEqual(10, items[0]['checkIntervalSec'])
+        self.assertEqual(5, items[0]['timeoutSec'])
+        self.assertEqual(3, items[0]['unhealthyThreshold'])
+        self.assertEqual(2, items[0]['healthyThreshold'])
+
+        self.assertEqual('cloudcustodian.com', items[1]['host'])
+        self.assertEqual('/test', items[1]['requestPath'])
+        self.assertEqual(8080, items[1]['port'])
+        self.assertEqual(10, items[1]['checkIntervalSec'])
+        self.assertEqual(9, items[1]['timeoutSec'])
+        self.assertEqual(10, items[1]['unhealthyThreshold'])
+        self.assertEqual(2, items[1]['healthyThreshold'])
+
+        self.assertEqual('', items[2]['host'])
+        self.assertEqual('/', items[2]['requestPath'])
+        self.assertEqual(80, items[2]['port'])
+        self.assertEqual(10, items[2]['checkIntervalSec'])
+        self.assertEqual(5, items[2]['timeoutSec'])
+        self.assertEqual(3, items[2]['unhealthyThreshold'])
+        self.assertEqual(2, items[2]['healthyThreshold'])
+
+    def test_loadbalancer_http_health_check_delete(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-http-health-check-delete',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-http-health-check-delete',
+                       'resource': 'gcp.loadbalancer-http-health-check'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'host',
+                           'op': 'contains',
+                           'value': 'dev-'}],
+                 actions=[{'type': 'delete'}]
+                 ),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(2, len(resources))
+        self.assertEqual('myproject-dev-feature1.com', resources[0]['host'])
+        self.assertEqual('myproject-dev-feature2.com', resources[1]['host'])
+
+        if self.recording:
+            sleep(5)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id})
+        items = result['items']
+        self.assertEqual(2, len(items))
+        self.assertEqual('cloudcustodian.com', items[0]['host'])
 
 
 class LoadBalancingHealthCheckTest(BaseTest):

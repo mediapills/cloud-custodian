@@ -227,6 +227,88 @@ class LoadBalancingHttpsHealthCheck(QueryResourceManager):
                     'resourceName'].rsplit('/', 1)[-1]})
 
 
+@LoadBalancingHttpsHealthCheck.action_registry.register('delete')
+class LoadBalancingHttpsHealthCheckDelete(MethodAction):
+    """The action is used for Load Balancing HTTPs Health Checks delete.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpsHealthChecks/delete.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-loadbalancer-delete-https-health-checks
+            resource: gcp.loadbalancer-https-health-check
+            filters:
+              - type: value
+                key: host
+                op: contains
+                value: dev-
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        return {
+            'project': project,
+            'httpsHealthCheck': resource['name']}
+
+
+@LoadBalancingHttpsHealthCheck.action_registry.register('patch')
+class LoadBalancingHttpsHealthCheckPatch(MethodAction):
+    """The action is used for Load Balancing HTTPs Health Checks patch.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpsHealthChecks/patch.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-loadbalancer-update-https-health-checks
+            resource: gcp.loadbalancer-https-health-check
+            filters:
+              - type: value
+                key: host
+                op: eq
+                value: custodian.com
+            actions:
+              - type: patch
+                healthyThreshold: 2
+                host: cloudcustodian.com
+                requestPath: /test
+                port: 8080
+                checkIntervalSec: 10
+                timeoutSec: 9
+                unhealthyThreshold: 10
+    """
+    schema = type_schema('patch',
+                         **{'type': {'enum': ['patch']},
+                            'host': {'type': 'string'},
+                            'requestPath': {'type': 'string'},
+                            'port': {'type': 'integer'},
+                            'checkIntervalSec': {'type': 'integer'},
+                            'timeoutSec': {'type': 'integer'},
+                            'unhealthyThreshold': {'type': 'integer'},
+                            'healthyThreshold': {'type': 'integer'}
+                            })
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        body = {}
+        for field in self.data:
+            if field != 'name' and field != 'type':
+                body[field] = self.data[field]
+
+        return {
+            'project': project,
+            'httpsHealthCheck': resource['name'],
+            'body': body}
+
+
 @resources.register('loadbalancer-http-health-check')
 class LoadBalancingHttpHealthCheck(QueryResourceManager):
     """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/httpHealthChecks
@@ -245,6 +327,88 @@ class LoadBalancingHttpHealthCheck(QueryResourceManager):
                 'project': resource_info['project_id'],
                 'httpHealthCheck': resource_info[
                     'resourceName'].rsplit('/', 1)[-1]})
+
+
+@LoadBalancingHttpHealthCheck.action_registry.register('delete')
+class LoadBalancingHttpHealthCheckDelete(MethodAction):
+    """The action is used for Load Balancing HTTP Health Checks delete.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpHealthChecks/delete.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-loadbalancer-delete-http-health-checks
+            resource: gcp.loadbalancer-http-health-check
+            filters:
+              - type: value
+                key: host
+                op: contains
+                value: dev-
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        return {
+            'project': project,
+            'httpHealthCheck': resource['name']}
+
+
+@LoadBalancingHttpHealthCheck.action_registry.register('patch')
+class LoadBalancingHttpHealthCheckPatch(MethodAction):
+    """The action is used for Load Balancing HTTP Health Checks patch.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpHealthChecks/patch.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-loadbalancer-update-http-health-checks
+            resource: gcp.loadbalancer-http-health-check
+            filters:
+              - type: value
+                key: host
+                op: eq
+                value: custodian.com
+            actions:
+              - type: patch
+                healthyThreshold: 2
+                host: cloudcustodian.com
+                requestPath: /test
+                port: 8080
+                checkIntervalSec: 10
+                timeoutSec: 9
+                unhealthyThreshold: 10
+    """
+    schema = type_schema('patch',
+                         **{'type': {'enum': ['patch']},
+                            'host': {'type': 'string'},
+                            'requestPath': {'type': 'string'},
+                            'port': {'type': 'integer'},
+                            'checkIntervalSec': {'type': 'integer'},
+                            'timeoutSec': {'type': 'integer'},
+                            'unhealthyThreshold': {'type': 'integer'},
+                            'healthyThreshold': {'type': 'integer'}
+                            })
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        body = {}
+        for field in self.data:
+            if field != 'name' and field != 'type':
+                body[field] = self.data[field]
+
+        return {
+            'project': project,
+            'httpHealthCheck': resource['name'],
+            'body': body}
 
 
 @resources.register('loadbalancer-health-check')
