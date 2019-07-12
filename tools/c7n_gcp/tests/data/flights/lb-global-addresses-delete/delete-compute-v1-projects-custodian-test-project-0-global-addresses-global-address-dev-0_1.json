@@ -1,0 +1,33 @@
+{
+  "body": {
+    "status": "RUNNING", 
+    "kind": "compute#operation", 
+    "name": "operation-1562931455625-58d7a56388a79-e95d76c6-76df4a9f", 
+    "startTime": "2019-07-12T04:37:36.080-07:00", 
+    "insertTime": "2019-07-12T04:37:36.067-07:00", 
+    "targetId": "2444169000192953898", 
+    "targetLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-dev-0", 
+    "operationType": "delete", 
+    "progress": 0, 
+    "id": "9072586504781811695", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/operations/operation-1562931455625-58d7a56388a79-e95d76c6-76df4a9f", 
+    "user": "eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "700", 
+    "x-xss-protection": "1; mode=block", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "GSE", 
+    "-content-encoding": "gzip", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Fri, 12 Jul 2019 11:37:36 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

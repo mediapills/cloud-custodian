@@ -37,6 +37,10 @@ class LoadBalancingAddress(QueryResourceManager):
                 'address': resource_info[
                     'resourceName'].rsplit('/', 1)[-1]})
 
+    def filter_resources(self, resources, event=None):
+        resources = [resource for resource in resources if resource.__contains__('region')]
+        return super(QueryResourceManager, self).filter_resources(resources, event)
+
 
 @LoadBalancingAddress.action_registry.register('delete')
 class LoadBalancingAddressDelete(MethodAction):
@@ -436,3 +440,33 @@ class LoadBalancingGlobalAddress(QueryResourceManager):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
                 'address': resource_info['resourceName'].rsplit('/', 1)[-1]})
+
+
+@LoadBalancingGlobalAddress.action_registry.register('delete')
+class LoadBalancingGlobalAddressDelete(MethodAction):
+    """The action is used for Load Balancing Global Addresses delete.
+    GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/globalAddresses/delete.
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-load-balancing-global-address-delete
+            resource: gcp.loadbalancer-global-address
+            filters:
+              - type: value
+                key: name
+                op: contains
+                value: -dev-
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        return {
+            'project': project,
+            'address': resource['name']}

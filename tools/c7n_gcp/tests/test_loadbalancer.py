@@ -71,11 +71,17 @@ class LoadBalancingAddressTest(BaseTest):
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 2)
-        self.assertEqual('PREMIUM', resources[0]['networkTier'])
-        self.assertEqual('PREMIUM', resources[1]['networkTier'])
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'aggregatedList', {'project': project_id})
+        addresses = []
+        items = result['items']
+        for region in items:
+            if items[region].__contains__('addresses'):
+                addresses.extend(items[region]['addresses'])
+        self.assertEqual(len(addresses), 2)
+        self.assertEqual('PREMIUM', addresses[0]['networkTier'])
+        self.assertEqual('PREMIUM', addresses[1]['networkTier'])
 
 
 class LoadBalancingUrlMapTest(BaseTest):
@@ -672,3 +678,34 @@ class LoadBalancingGlobalAddressTest(BaseTest):
         self.assertEqual(len(instances), 1)
         self.assertEqual(instances[0]['kind'], 'compute#address')
         self.assertEqual(instances[0]['name'], 'custodian-global-address-0')
+
+    def test_loadbalancer_global_address_delete(self):
+        project_id = 'custodian-test-project-0'
+        session_factory = self.replay_flight_data('lb-global-addresses-delete',
+                                                  project_id=project_id)
+        base_policy = {'name': 'lb-global-addresses-delete',
+                       'resource': 'gcp.loadbalancer-global-address'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'type': 'value',
+                           'key': 'name',
+                           'op': 'contains',
+                           'value': '-dev-'}],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(2, len(resources))
+        self.assertEqual('global-address-dev-0', resources[0]['name'])
+        self.assertEqual('global-address-dev-1', resources[1]['name'])
+
+        if self.recording:
+            sleep(5)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query('list', {'project': project_id})
+        items = result['items']
+        self.assertEqual(3, len(items))
+        self.assertEqual('global-address-0', items[0]['name'])
+        self.assertEqual('global-address-1', items[1]['name'])
+        self.assertEqual('global-address-2', items[2]['name'])

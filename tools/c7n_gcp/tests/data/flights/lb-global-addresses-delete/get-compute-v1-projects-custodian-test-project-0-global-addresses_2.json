@@ -1,0 +1,63 @@
+{
+  "body": {
+    "items": [
+      {
+        "status": "RESERVED", 
+        "kind": "compute#address", 
+        "addressType": "EXTERNAL", 
+        "description": "", 
+        "networkTier": "PREMIUM", 
+        "address": "34.96.83.6", 
+        "creationTimestamp": "2019-07-12T03:07:57.372-07:00", 
+        "id": "3233394697104123154", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-0", 
+        "name": "global-address-0"
+      }, 
+      {
+        "status": "RESERVED", 
+        "kind": "compute#address", 
+        "addressType": "EXTERNAL", 
+        "description": "", 
+        "networkTier": "PREMIUM", 
+        "address": "34.98.94.185", 
+        "creationTimestamp": "2019-07-12T04:11:40.217-07:00", 
+        "id": "5324266557269201923", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-1", 
+        "name": "global-address-1"
+      }, 
+      {
+        "status": "RESERVED", 
+        "kind": "compute#address", 
+        "addressType": "EXTERNAL", 
+        "description": "", 
+        "networkTier": "PREMIUM", 
+        "address": "34.98.71.66", 
+        "creationTimestamp": "2019-07-12T04:20:16.595-07:00", 
+        "id": "3959366971833045535", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-2", 
+        "name": "global-address-2"
+      }
+    ], 
+    "kind": "compute#addressList", 
+    "id": "projects/custodian-test-project-0/global/addresses", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "1467", 
+    "transfer-encoding": "chunked", 
+    "expires": "Fri, 12 Jul 2019 11:37:42 GMT", 
+    "vary": "Origin, X-Origin", 
+    "-content-encoding": "gzip", 
+    "date": "Fri, 12 Jul 2019 11:37:42 GMT", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "server": "GSE", 
+    "etag": "\"adl5MQ9ulvK6jbsYx0PNwPxenhE=/2gGkAtH2-wY6n_wIpd55XWxuIeo=\"", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

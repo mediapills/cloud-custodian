@@ -1,0 +1,86 @@
+{
+  "body": {
+    "items": [
+      {
+        "status": "RESERVED", 
+        "kind": "compute#address", 
+        "addressType": "EXTERNAL", 
+        "description": "", 
+        "networkTier": "PREMIUM", 
+        "address": "34.96.83.6", 
+        "creationTimestamp": "2019-07-12T03:07:57.372-07:00", 
+        "id": "3233394697104123154", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-0", 
+        "name": "global-address-0"
+      }, 
+      {
+        "status": "RESERVED", 
+        "kind": "compute#address", 
+        "addressType": "EXTERNAL", 
+        "description": "", 
+        "networkTier": "PREMIUM", 
+        "address": "34.98.94.185", 
+        "creationTimestamp": "2019-07-12T04:11:40.217-07:00", 
+        "id": "5324266557269201923", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-1", 
+        "name": "global-address-1"
+      }, 
+      {
+        "status": "RESERVED", 
+        "kind": "compute#address", 
+        "addressType": "EXTERNAL", 
+        "description": "", 
+        "networkTier": "PREMIUM", 
+        "address": "34.98.71.66", 
+        "creationTimestamp": "2019-07-12T04:20:16.595-07:00", 
+        "id": "3959366971833045535", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-2", 
+        "name": "global-address-2"
+      }, 
+      {
+        "status": "RESERVED", 
+        "kind": "compute#address", 
+        "addressType": "EXTERNAL", 
+        "description": "", 
+        "networkTier": "PREMIUM", 
+        "address": "34.98.105.123", 
+        "creationTimestamp": "2019-07-12T04:36:37.912-07:00", 
+        "id": "2444169000192953898", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-dev-0", 
+        "name": "global-address-dev-0"
+      }, 
+      {
+        "status": "RESERVED", 
+        "kind": "compute#address", 
+        "addressType": "EXTERNAL", 
+        "description": "", 
+        "networkTier": "PREMIUM", 
+        "address": "34.95.83.205", 
+        "creationTimestamp": "2019-07-12T04:36:40.453-07:00", 
+        "id": "8644445966940098087", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses/global-address-dev-1", 
+        "name": "global-address-dev-1"
+      }
+    ], 
+    "kind": "compute#addressList", 
+    "id": "projects/custodian-test-project-0/global/addresses", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "2495", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/addresses?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "8zEMx2jsDX34Bw3gQ4ED70rxV3o=/krciJy9OXl2LrvgLJ6Eq4_oV-pU=", 
+    "cache-control": "private", 
+    "date": "Fri, 12 Jul 2019 11:37:35 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}
