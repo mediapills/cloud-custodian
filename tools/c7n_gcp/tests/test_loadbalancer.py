@@ -547,7 +547,7 @@ class LoadBalancingHttpHealthCheckTest(BaseTest):
         result = client.execute_query(
             'list', {'project': project_id})
         items = result['items']
-        self.assertEqual(2, len(items))
+        self.assertEqual(1, len(items))
         self.assertEqual('cloudcustodian.com', items[0]['host'])
 
 

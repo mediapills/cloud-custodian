@@ -1,9 +1,9 @@
 {
   "headers": {
-    "etag": "xf0zBy4EPYwO8-34cUfiWONvnYI=/PqmLMNK5HLKoe242PTrHWUXUoes=",
+    "etag": "A6pr3FyLN842G7RmoXdxBKDm9O0=/p00J92FZoIEyVrXVYogUxgEkEfE=",
     "content-type": "application/json; charset=UTF-8",
     "vary": "Origin, X-Origin, Referer",
-    "date": "Fri, 12 Jul 2019 16:05:00 GMT",
+    "date": "Mon, 15 Jul 2019 09:47:48 GMT",
     "server": "ESF",
     "cache-control": "private",
     "x-xss-protection": "0",
@@ -12,7 +12,7 @@
     "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
     "transfer-encoding": "chunked",
     "status": "200",
-    "content-length": "1363",
+    "content-length": "800",
     "-content-encoding": "gzip",
     "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpHealthChecks?alt=json"
   },
@@ -32,21 +32,6 @@
         "unhealthyThreshold": 10,
         "healthyThreshold": 2,
         "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpHealthChecks/custodian-health-check-1",
-        "kind": "compute#httpHealthCheck"
-      },
-      {
-        "id": "214562875940115180",
-        "creationTimestamp": "2019-04-30T04:05:39.719-07:00",
-        "name": "custodian-http-health-check",
-        "description": "",
-        "host": "myproject-dev-feature2.com",
-        "requestPath": "/",
-        "port": 80,
-        "checkIntervalSec": 10,
-        "timeoutSec": 5,
-        "unhealthyThreshold": 3,
-        "healthyThreshold": 2,
-        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/httpHealthChecks/custodian-http-health-check",
         "kind": "compute#httpHealthCheck"
       }
     ],
