@@ -1,5 +1,5 @@
 Load Balancer - Update HTTP/HTTPs health checks
-==========================================
+================================================
 
 The policies allow to update HTTP and HTTPs health checks for different environments.
 

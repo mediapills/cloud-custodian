@@ -1,5 +1,5 @@
 Load Balancer - Delete HTTP/HTTPs health checks
-==========================================
+================================================
 
 The policies allow to delete HTTP and HTTPs health checks for feature environments.
 
