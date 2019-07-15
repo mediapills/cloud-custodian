@@ -1,0 +1,31 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Mon, 15 Jul 2019 12:17:11 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "722",
+    "-content-encoding": "gzip"
+  },
+  "body": {
+    "id": "2420153716326912040",
+    "name": "operation-1563193030651-58db73d4eae94-4b71265d-1fe4cc7c",
+    "operationType": "delete",
+    "targetLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodian-http-health-check2",
+    "targetId": "743796232299861725",
+    "status": "RUNNING",
+    "user": "eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com",
+    "progress": 0,
+    "insertTime": "2019-07-15T05:17:11.223-07:00",
+    "startTime": "2019-07-15T05:17:11.239-07:00",
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/operations/operation-1563193030651-58db73d4eae94-4b71265d-1fe4cc7c",
+    "kind": "compute#operation"
+  }
+}

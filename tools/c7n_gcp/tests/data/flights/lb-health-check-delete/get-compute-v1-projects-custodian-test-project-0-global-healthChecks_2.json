@@ -1,0 +1,43 @@
+{
+  "headers": {
+    "etag": "8H3OwGsgtxKDWPmcKM-UefYm1fY=/XLlxw29jcA6bzJbaO2r-8oQCesw=",
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Mon, 15 Jul 2019 12:17:16 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "794",
+    "-content-encoding": "gzip",
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks?alt=json"
+  },
+  "body": {
+    "id": "projects/custodian-test-project-0/global/healthChecks",
+    "items": [
+      {
+        "id": "305912909021280456",
+        "creationTimestamp": "2019-04-29T02:38:47.562-07:00",
+        "name": "custodain-health-check",
+        "description": "",
+        "checkIntervalSec": 10,
+        "timeoutSec": 5,
+        "unhealthyThreshold": 3,
+        "healthyThreshold": 2,
+        "type": "TCP",
+        "tcpHealthCheck": {
+          "port": 80,
+          "proxyHeader": "NONE"
+        },
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodain-health-check",
+        "kind": "compute#healthCheck"
+      }
+    ],
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks",
+    "kind": "compute#healthCheckList"
+  }
+}

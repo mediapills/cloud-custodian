@@ -1,0 +1,83 @@
+{
+  "headers": {
+    "etag": "hHtb63q3m96-GAbynnZkWtjLmns=/kvISug7GvcEYtBbFG3sIjUoWM-g=",
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Mon, 15 Jul 2019 11:49:45 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "2143",
+    "-content-encoding": "gzip",
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks?alt=json"
+  },
+  "body": {
+    "id": "projects/custodian-test-project-0/global/healthChecks",
+    "items": [
+      {
+        "id": "305912909021280456",
+        "creationTimestamp": "2019-04-29T02:38:47.562-07:00",
+        "name": "custodain-health-check",
+        "description": "",
+        "checkIntervalSec": 10,
+        "timeoutSec": 5,
+        "unhealthyThreshold": 3,
+        "healthyThreshold": 2,
+        "type": "TCP",
+        "tcpHealthCheck": {
+          "port": 80,
+          "proxyHeader": "NONE"
+        },
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodain-health-check",
+        "kind": "compute#healthCheck"
+      },
+      {
+        "id": "1794934502414472957",
+        "creationTimestamp": "2019-07-15T04:48:34.633-07:00",
+        "name": "custodian-http-health-check1",
+        "description": "",
+        "checkIntervalSec": 10,
+        "timeoutSec": 9,
+        "unhealthyThreshold": 10,
+        "healthyThreshold": 2,
+        "type": "HTTP",
+        "httpHealthCheck": {
+          "port": 8080,
+          "host": "cloudcustodian.com",
+          "requestPath": "/test",
+          "proxyHeader": "NONE",
+          "response": ""
+        },
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodian-http-health-check1",
+        "kind": "compute#healthCheck"
+      },
+      {
+        "id": "743796232299861725",
+        "creationTimestamp": "2019-07-15T04:49:06.889-07:00",
+        "name": "custodian-http-health-check2",
+        "description": "",
+        "checkIntervalSec": 10,
+        "timeoutSec": 9,
+        "unhealthyThreshold": 10,
+        "healthyThreshold": 2,
+        "type": "HTTP",
+        "httpHealthCheck": {
+          "port": 8080,
+          "host": "cloudcustodian.com",
+          "requestPath": "/test",
+          "proxyHeader": "NONE",
+          "response": ""
+        },
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodian-http-health-check2",
+        "kind": "compute#healthCheck"
+      }
+    ],
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks",
+    "kind": "compute#healthCheckList"
+  }
+}

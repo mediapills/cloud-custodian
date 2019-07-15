@@ -1,0 +1,33 @@
+{
+  "headers": {
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "pragma": "no-cache",
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT",
+    "date": "Mon, 15 Jul 2019 11:49:34 GMT",
+    "vary": "Origin, X-Origin",
+    "content-type": "application/json; charset=UTF-8",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-xss-protection": "1; mode=block",
+    "server": "GSE",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "709",
+    "-content-encoding": "gzip"
+  },
+  "body": {
+    "kind": "compute#operation",
+    "id": "6607702355540563617",
+    "name": "operation-1563191373961-58db6da8f9a60-ffae4ff9-d135ec84",
+    "operationType": "patch",
+    "targetLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodian-http-health-check2",
+    "targetId": "743796232299861725",
+    "status": "RUNNING",
+    "user": "eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com",
+    "progress": 0,
+    "insertTime": "2019-07-15T04:49:34.516-07:00",
+    "startTime": "2019-07-15T04:49:34.531-07:00",
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/operations/operation-1563191373961-58db6da8f9a60-ffae4ff9-d135ec84"
+  }
+}

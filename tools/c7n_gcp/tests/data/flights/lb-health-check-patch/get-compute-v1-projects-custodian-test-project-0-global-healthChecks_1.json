@@ -1,0 +1,84 @@
+{
+  "headers": {
+    "expires": "Mon, 15 Jul 2019 11:49:31 GMT",
+    "date": "Mon, 15 Jul 2019 11:49:31 GMT",
+    "cache-control": "private, max-age=0, must-revalidate, no-transform",
+    "etag": "\"sFH1RGW56iNMwo_5BinJtW_cBMg=/VK34ApfgTqn8K7FLe-0GMLF_2DU=\"",
+    "vary": "Origin, X-Origin",
+    "content-type": "application/json; charset=UTF-8",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-xss-protection": "1; mode=block",
+    "server": "GSE",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "1963",
+    "-content-encoding": "gzip",
+    "content-location": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks?alt=json"
+  },
+  "body": {
+    "kind": "compute#healthCheckList",
+    "id": "projects/custodian-test-project-0/global/healthChecks",
+    "items": [
+      {
+        "kind": "compute#healthCheck",
+        "id": "305912909021280456",
+        "creationTimestamp": "2019-04-29T02:38:47.562-07:00",
+        "name": "custodain-health-check",
+        "description": "",
+        "checkIntervalSec": 10,
+        "timeoutSec": 5,
+        "unhealthyThreshold": 3,
+        "healthyThreshold": 2,
+        "type": "TCP",
+        "tcpHealthCheck": {
+          "port": 80,
+          "proxyHeader": "NONE"
+        },
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodain-health-check"
+      },
+      {
+        "kind": "compute#healthCheck",
+        "id": "1794934502414472957",
+        "creationTimestamp": "2019-07-15T04:48:34.633-07:00",
+        "name": "custodian-http-health-check1",
+        "description": "",
+        "checkIntervalSec": 10,
+        "timeoutSec": 5,
+        "unhealthyThreshold": 3,
+        "healthyThreshold": 2,
+        "type": "HTTP",
+        "httpHealthCheck": {
+          "port": 80,
+          "host": "myproject-dev-feature1.com",
+          "requestPath": "/",
+          "proxyHeader": "NONE",
+          "response": ""
+        },
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodian-http-health-check1"
+      },
+      {
+        "kind": "compute#healthCheck",
+        "id": "743796232299861725",
+        "creationTimestamp": "2019-07-15T04:49:06.889-07:00",
+        "name": "custodian-http-health-check2",
+        "description": "",
+        "checkIntervalSec": 10,
+        "timeoutSec": 5,
+        "unhealthyThreshold": 3,
+        "healthyThreshold": 2,
+        "type": "HTTP",
+        "httpHealthCheck": {
+          "port": 80,
+          "host": "myproject-dev-feature2.com",
+          "requestPath": "/",
+          "proxyHeader": "NONE",
+          "response": ""
+        },
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks/custodian-http-health-check2"
+      }
+    ],
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/custodian-test-project-0/global/healthChecks"
+  }
+}
