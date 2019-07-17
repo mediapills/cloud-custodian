@@ -99,7 +99,7 @@ class SpannerInstanceTest(BaseTest):
                            'key': 'nodeCount',
                            'value': 1,
                            'op': 'greater-than'}],
-                 actions=[{'type': 'patch',
+                 actions=[{'type': 'set',
                            'nodeCount': 1}]
                  ),
             session_factory=session_factory)

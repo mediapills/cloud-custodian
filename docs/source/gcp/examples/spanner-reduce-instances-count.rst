@@ -16,5 +16,5 @@ To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_generic
           op: gte
           value: 2
       actions:
-      - type: patch
+      - type: set
         nodeCount: 1
