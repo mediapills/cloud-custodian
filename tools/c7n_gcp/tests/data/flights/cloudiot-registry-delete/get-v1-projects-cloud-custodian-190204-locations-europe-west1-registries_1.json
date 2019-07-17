@@ -1,0 +1,52 @@
+{
+  "body": {
+    "deviceRegistries": [
+      {
+        "name": "projects/cloud-custodian-190204/locations/europe-west1/registries/custodian", 
+        "stateNotificationConfig": {
+          "pubsubTopicName": "projects/cloud-custodian-190204/topics/iot-registry-state"
+        }, 
+        "logLevel": "ERROR", 
+        "eventNotificationConfigs": [
+          {
+            "pubsubTopicName": "projects/cloud-custodian-190204/topics/iot-registry-telemetry"
+          }
+        ], 
+        "httpConfig": {
+          "httpEnabledState": "HTTP_ENABLED"
+        }, 
+        "mqttConfig": {
+          "mqttEnabledState": "MQTT_ENABLED"
+        }, 
+        "id": "custodian"
+      }, 
+      {
+        "httpConfig": {
+          "httpEnabledState": "HTTP_ENABLED"
+        }, 
+        "stateNotificationConfig": {}, 
+        "id": "registry-to-delete", 
+        "mqttConfig": {
+          "mqttEnabledState": "MQTT_ENABLED"
+        }, 
+        "name": "projects/cloud-custodian-190204/locations/europe-west1/registries/registry-to-delete"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "958", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudiot.googleapis.com/v1/projects/cloud-custodian-190204/locations/europe-west1/registries?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Wed, 17 Jul 2019 13:52:46 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

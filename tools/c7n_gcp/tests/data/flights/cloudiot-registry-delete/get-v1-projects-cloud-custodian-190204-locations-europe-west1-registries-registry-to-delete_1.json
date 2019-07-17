@@ -1,0 +1,31 @@
+{
+  "body": {
+    "error": {
+      "status": "NOT_FOUND", 
+      "message": "A registry with the name 'projects/cloud-custodian-190204/locations/europe-west1/registries/registry-to-delete' doesn't exist.", 
+      "code": 404, 
+      "errors": [
+        {
+          "reason": "notFound", 
+          "message": "A registry with the name 'projects/cloud-custodian-190204/locations/europe-west1/registries/registry-to-delete' doesn't exist.", 
+          "domain": "global"
+        }
+      ]
+    }
+  }, 
+  "headers": {
+    "status": "404", 
+    "content-length": "454", 
+    "x-xss-protection": "0", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Wed, 17 Jul 2019 13:52:48 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

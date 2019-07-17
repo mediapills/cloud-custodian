@@ -14,6 +14,8 @@
 
 import re
 
+from c7n.utils import type_schema
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 from c7n.utils import local_session
@@ -40,6 +42,16 @@ class CloudIotRegistry(QueryResourceManager):
         def get(client, resource_info):
             return client.execute_query(
                 'get', {'name': resource_info['resourceName']})
+
+
+@CloudIotRegistry.action_registry.register('delete')
+class CloudIotRegistryDelete(MethodAction):
+
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, m, r):
+        return {'name': r['name']}
 
 
 @resources.register('cloudiot-device')
