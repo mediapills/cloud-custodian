@@ -62,7 +62,7 @@ class SpannerInstanceDelete(MethodAction):
         return {'name': resource['name']}
 
 
-@SpannerInstance.action_registry.register('patch')
+@SpannerInstance.action_registry.register('set')
 class SpannerInstancePatch(MethodAction):
     """The action is used for spanner instances nodeCount patch.
     GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/patch
@@ -79,11 +79,11 @@ class SpannerInstancePatch(MethodAction):
               op: gte
               value: 2
           actions:
-          - type: patch
+          - type: set
             nodeCount: 1
     """
     schema = type_schema('patch', required=['nodeCount'],
-                         **{'type': {'enum': ['patch']},
+                         **{'type': {'enum': ['set']},
                             'nodeCount': {'type': 'number'}})
     method_spec = {'op': 'patch'}
 
