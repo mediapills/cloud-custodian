@@ -18,17 +18,21 @@ from c7n.filters.offhours import Time
 class Tag(AzureBaseAction):
     """Adds tags to Azure resources
 
-        .. code-block:: yaml
+    :example:
 
-          policies:
-            - name: azure-tag-resourcegroups
-              resource: azure.resourcegroup
-              description: |
-                Tag all existing resource groups with a value such as Environment
-              actions:
-               - type: tag
-                 tag: Environment
-                 value: Test
+    This policy will tag all existing resource groups with a value such as Environment
+
+    .. code-block:: yaml
+
+      policies:
+        - name: azure-tag-resourcegroups
+          resource: azure.resourcegroup
+          description: |
+            Tag all existing resource groups with a value such as Environment
+          actions:
+           - type: tag
+             tag: Environment
+             value: Test
     """
 
     schema = utils.type_schema(
@@ -39,6 +43,7 @@ class Tag(AzureBaseAction):
             'tags': {'type': 'object'}
         }
     )
+    schema_alias = True
 
     def __init__(self, data=None, manager=None, log_dir=None):
         super(Tag, self).__init__(data, manager, log_dir)
@@ -64,6 +69,10 @@ class Tag(AzureBaseAction):
 class RemoveTag(AzureBaseAction):
     """Removes tags from Azure resources
 
+    :example:
+
+    This policy will remove tag for all existing resource groups with a key such as Environment
+
         .. code-block:: yaml
 
           policies:
@@ -78,6 +87,7 @@ class RemoveTag(AzureBaseAction):
     schema = utils.type_schema(
         'untag',
         tags={'type': 'array', 'items': {'type': 'string'}})
+    schema_alias = True
 
     def __init__(self, data=None, manager=None, log_dir=None):
         super(RemoveTag, self).__init__(data, manager, log_dir)
@@ -96,6 +106,10 @@ class RemoveTag(AzureBaseAction):
 
 class AutoTagUser(AzureEventAction):
     """Attempts to tag a resource with the first user who created/modified it.
+
+    :example:
+
+    This policy will tag all existing resource groups with the 'CreatorEmail' tag
 
     .. code-block:: yaml
 
@@ -131,6 +145,7 @@ class AutoTagUser(AzureEventAction):
         **{'update': {'type': 'boolean'},
            'tag': {'type': 'string'},
            'days': {'type': 'integer'}})
+    schema_alias = True
 
     def __init__(self, data=None, manager=None, log_dir=None):
         super(AutoTagUser, self).__init__(data, manager, log_dir)
@@ -264,6 +279,8 @@ class TagTrim(AzureBaseAction):
     Setting the space value to 0 removes all tags but those
     listed to preserve.
 
+    :example:
+
     .. code-block :: yaml
 
        policies:
@@ -293,6 +310,7 @@ class TagTrim(AzureBaseAction):
                  - Environment
                  - downtime
                  - custodian_status
+
     """
     max_tag_count = 15
 
@@ -300,6 +318,7 @@ class TagTrim(AzureBaseAction):
         'tag-trim',
         space={'type': 'integer'},
         preserve={'type': 'array', 'items': {'type': 'string'}})
+    schema_alias = True
 
     def __init__(self, data=None, manager=None, log_dir=None):
         super(TagTrim, self).__init__(data, manager, log_dir)
@@ -348,6 +367,8 @@ class TagDelayedAction(AzureBaseAction):
     If neither 'days' nor 'hours' is specified, Cloud Custodian will default
     to marking the resource for action 4 days in the future.
 
+    :example:
+
     .. code-block :: yaml
 
        policies:
@@ -360,6 +381,7 @@ class TagDelayedAction(AzureBaseAction):
           actions:
             - type: mark-for-op
               op: stop
+
     """
 
     schema = utils.type_schema(
@@ -370,6 +392,7 @@ class TagDelayedAction(AzureBaseAction):
         hours={'type': 'integer', 'minimum': 0, 'exclusiveMinimum': False},
         tz={'type': 'string'},
         op={'type': 'string'})
+    schema_alias = True
 
     default_template = 'Resource does not meet policy: {op}@{action_date}'
 

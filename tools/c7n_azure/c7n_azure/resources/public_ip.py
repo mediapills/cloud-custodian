@@ -18,6 +18,19 @@ from c7n_azure.resources.arm import ArmResourceManager
 
 @resources.register('publicip')
 class PublicIPAddress(ArmResourceManager):
+    """Public IP Resource
+
+    :example:
+
+    Finds all Public IPs in the subscription.
+
+    .. code-block:: yaml
+
+        policies:
+            - name: find-all-public-ips
+              resource: azure.publicip
+
+    """
 
     class resource_type(ArmResourceManager.resource_type):
         service = 'azure.mgmt.network'
@@ -32,3 +45,4 @@ class PublicIPAddress(ArmResourceManager):
             'properties.publicIPAllocationMethod',
             'properties.ipAddress'
         )
+        resource_type = 'Microsoft.Network/publicIPAddresses'

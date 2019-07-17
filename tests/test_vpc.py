@@ -645,6 +645,41 @@ class NetworkInterfaceTest(BaseTest):
             [k for k in resources[0] if k.startswith("c7n")], ["c7n:MatchedFilters"]
         )
 
+    def test_interface_delete(self):
+        factory = self.replay_flight_data("test_network_interface_delete")
+        client = factory().client("ec2")
+        eni = "eni-d834cdcf"
+
+        p = self.load_policy(
+            {
+                "name": "eni-delete",
+                "resource": "eni",
+                "filters": [
+                    {
+                        "type": "value",
+                        "key": "NetworkInterfaceId",
+                        "value": eni,
+                    }
+                ],
+                "actions": [
+                    {
+                        "type": "delete",
+                    },
+                    {
+                        # ensure graceful handling of multiple delete attempts
+                        "type": "delete",
+                    },
+                ],
+            },
+            session_factory=factory,
+        )
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        with self.assertRaises(client.exceptions.ClientError) as e:
+            client.describe_network_interfaces(NetworkInterfaceIds=[eni])
+        self.assertEqual(e.exception.response['Error']['Code'],
+            'InvalidNetworkInterfaceID.NotFound')
+
     @functional
     def test_interface_subnet(self):
         factory = self.replay_flight_data("test_network_interface_filter")
@@ -1364,6 +1399,23 @@ class SecurityGroupTest(BaseTest):
             0
         ]
         self.assertEqual(group_info.get("IpPermissions", []), [])
+
+    def test_permission_cidr_kv(self):
+        factory = self.replay_flight_data('test_security_group_perm_cidr_kv')
+        p = self.load_policy({
+            'name': 'sg-ingress',
+            'resource': 'security-group',
+            'source': 'config',
+            'filters': [{
+                'type': 'egress',
+                'Cidr': '0.0.0.0/0',
+            }],
+            'query': [
+                {'clause': "resourceId ='sg-6c7fa917'"},
+            ]}, session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['GroupId'], 'sg-6c7fa917')
 
     def test_default_vpc(self):
         # preconditions, more than one vpc, each with at least one
@@ -2171,7 +2223,7 @@ class SecurityGroupTest(BaseTest):
 
     def test_egress_validation_error(self):
         self.assertRaises(
-            PolicyValidationError,
+            Exception,
             self.load_policy,
             {
                 "name": "sg-find2",

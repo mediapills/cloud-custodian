@@ -11,61 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import smtplib
-from email.mime.text import MIMEText
 from itertools import chain
+
 import six
+from c7n_mailer.smtp_delivery import SmtpDelivery
+from c7n_mailer.utils_email import is_email, get_mimetext_message
 
 from .ldap_lookup import LdapLookup
-from c7n_mailer.utils_email import is_email
 from .utils import (
-    get_message_subject, get_resource_tag_targets,
-    get_rendered_jinja, kms_decrypt, get_aws_username_from_event)
-
-# Those headers are defined as follows:
-#  'X-Priority': 1 (Highest), 2 (High), 3 (Normal), 4 (Low), 5 (Lowest)
-#              Non-standard, cf https://people.dsv.su.se/~jpalme/ietf/ietf-mail-attributes.html
-#              Set by Thunderbird
-#  'X-MSMail-Priority': High, Normal, Low
-#              Cf Microsoft https://msdn.microsoft.com/en-us/library/gg671973(v=exchg.80).aspx
-#              Note: May increase SPAM level on Spamassassin:
-#                    https://wiki.apache.org/spamassassin/Rules/MISSING_MIMEOLE
-#  'Priority': "normal" / "non-urgent" / "urgent"
-#              Cf https://tools.ietf.org/html/rfc2156#section-5.3.6
-#  'Importance': "low" / "normal" / "high"
-#              Cf https://tools.ietf.org/html/rfc2156#section-5.3.4
-PRIORITIES = {
-    '1': {
-        'X-Priority': '1 (Highest)',
-        'X-MSMail-Priority': 'High',
-        'Priority': 'urgent',
-        'Importance': 'high',
-    },
-    '2': {
-        'X-Priority': '2 (High)',
-        'X-MSMail-Priority': 'High',
-        'Priority': 'urgent',
-        'Importance': 'high',
-    },
-    '3': {
-        'X-Priority': '3 (Normal)',
-        'X-MSMail-Priority': 'Normal',
-        'Priority': 'normal',
-        'Importance': 'normal',
-    },
-    '4': {
-        'X-Priority': '4 (Low)',
-        'X-MSMail-Priority': 'Low',
-        'Priority': 'non-urgent',
-        'Importance': 'low',
-    },
-    '5': {
-        'X-Priority': '5 (Lowest)',
-        'X-MSMail-Priority': 'Low',
-        'Priority': 'non-urgent',
-        'Importance': 'low',
-    }
-}
+    get_resource_tag_targets,
+    kms_decrypt, get_aws_username_from_event)
 
 
 class EmailDelivery(object):
@@ -83,17 +38,6 @@ class EmailDelivery(object):
                                                             self.session, 'ldap_bind_password')
             return LdapLookup(self.config, self.logger)
         return None
-
-    def priority_header_is_valid(self, priority_header):
-        try:
-            priority_header_int = int(priority_header)
-        except ValueError:
-            return False
-        if priority_header_int and 0 < int(priority_header_int) < 6:
-            return True
-        else:
-            self.logger.warning('mailer priority_header is not a valid string from 1 to 5')
-            return False
 
     def get_valid_emails_from_list(self, targets):
         emails = []
@@ -240,7 +184,9 @@ class EmailDelivery(object):
         to_addrs_to_resources_map = self.get_email_to_addrs_to_resources_map(sqs_message)
         to_addrs_to_mimetext_map = {}
         for to_addrs, resources in six.iteritems(to_addrs_to_resources_map):
-            to_addrs_to_mimetext_map[to_addrs] = self.get_mimetext_message(
+            to_addrs_to_mimetext_map[to_addrs] = get_mimetext_message(
+                self.config,
+                self.logger,
                 sqs_message,
                 resources,
                 list(to_addrs)
@@ -248,66 +194,14 @@ class EmailDelivery(object):
         # eg: { ('milton@initech.com', 'peter@initech.com'): mimetext_message }
         return to_addrs_to_mimetext_map
 
-    def send_smtp_email(self, smtp_server, message, to_addrs):
-        smtp_port = int(self.config.get('smtp_port', 25))
-        smtp_ssl = bool(self.config.get('smtp_ssl', True))
-        smtp_connection = smtplib.SMTP(smtp_server, smtp_port)
-        if smtp_ssl:
-            smtp_connection.starttls()
-            smtp_connection.ehlo()
-        if self.config.get('smtp_username') or self.config.get('smtp_password'):
-            smtp_username = self.config.get('smtp_username')
-            smtp_password = kms_decrypt(self.config, self.logger, self.session, 'smtp_password')
-            smtp_connection.login(smtp_username, smtp_password)
-        smtp_connection.sendmail(message['From'], to_addrs, message.as_string())
-        smtp_connection.quit()
-
-    def set_mimetext_headers(self, message, subject, from_addr, to_addrs, cc_addrs, priority):
-        """Sets headers on Mimetext message"""
-
-        message['Subject'] = subject
-        message['From'] = from_addr
-        message['To'] = ', '.join(to_addrs)
-        if cc_addrs:
-            message['Cc'] = ', '.join(cc_addrs)
-
-        if priority and self.priority_header_is_valid(priority):
-            priority = PRIORITIES[str(priority)].copy()
-            for key in priority:
-                message[key] = priority[key]
-
-        return message
-
-    def get_mimetext_message(self, sqs_message, resources, to_addrs):
-        body = get_rendered_jinja(
-            to_addrs, sqs_message, resources, self.logger,
-            'template', 'default', self.config['templates_folders'])
-
-        if not body:
-            return None
-
-        email_format = sqs_message['action'].get('template_format', None)
-        if not email_format:
-            email_format = sqs_message['action'].get(
-                'template', 'default').endswith('html') and 'html' or 'plain'
-
-        message = self.set_mimetext_headers(
-            message=MIMEText(body, email_format, 'utf-8'),
-            subject=get_message_subject(sqs_message),
-            from_addr=sqs_message['action'].get('from', self.config['from_address']),
-            to_addrs=to_addrs,
-            cc_addrs=sqs_message['action'].get('cc', []),
-            priority=sqs_message['action'].get('priority_header', None),
-        )
-
-        return message
-
     def send_c7n_email(self, sqs_message, email_to_addrs, mimetext_msg):
         try:
             # if smtp_server is set in mailer.yml, send through smtp
-            smtp_server = self.config.get('smtp_server')
-            if smtp_server:
-                self.send_smtp_email(smtp_server, mimetext_msg, email_to_addrs)
+            if 'smtp_server' in self.config:
+                smtp_delivery = SmtpDelivery(config=self.config,
+                                             session=self.session,
+                                             logger=self.logger)
+                smtp_delivery.send_message(message=mimetext_msg, to_addrs=email_to_addrs)
             # if smtp_server isn't set in mailer.yml, use aws ses normally.
             else:
                 self.aws_ses.send_raw_email(RawMessage={'Data': mimetext_msg.as_string()})

@@ -23,7 +23,7 @@ from common import logger, get_ldap_lookup
 from common import MAILER_CONFIG, RESOURCE_1, SQS_MESSAGE_1, SQS_MESSAGE_4
 from mock import patch, call
 
-from c7n_mailer.utils_email import is_email
+from c7n_mailer.utils_email import is_email, priority_header_is_valid, get_mimetext_message
 
 # note principalId is very org/domain specific for federated?, it would be good to get
 # confirmation from capone on this event / test.
@@ -77,7 +77,7 @@ class EmailTest(unittest.TestCase):
         messages_map = deliver.get_to_addrs_email_messages_map(msg)
 
         with patch("smtplib.SMTP") as mock_smtp:
-            with patch('c7n_mailer.email_delivery.kms_decrypt') as mock_decrypt:
+            with patch('c7n_mailer.utils.kms_decrypt') as mock_decrypt:
                 mock_decrypt.return_value = 'xyz'
                 for email_addrs, mimetext_msg in messages_map.items():
                     deliver.send_c7n_email(msg, list(email_addrs), mimetext_msg)
@@ -85,12 +85,12 @@ class EmailTest(unittest.TestCase):
             mock_smtp.assert_has_calls([call().login('alice', 'xyz')])
 
     def test_priority_header_is_valid(self):
-        self.assertFalse(self.email_delivery.priority_header_is_valid('0'))
-        self.assertFalse(self.email_delivery.priority_header_is_valid('-1'))
-        self.assertFalse(self.email_delivery.priority_header_is_valid('6'))
-        self.assertFalse(self.email_delivery.priority_header_is_valid('sd'))
-        self.assertTrue(self.email_delivery.priority_header_is_valid('1'))
-        self.assertTrue(self.email_delivery.priority_header_is_valid('5'))
+        self.assertFalse(priority_header_is_valid('0', self.email_delivery.logger))
+        self.assertFalse(priority_header_is_valid('-1', self.email_delivery.logger))
+        self.assertFalse(priority_header_is_valid('6', self.email_delivery.logger))
+        self.assertFalse(priority_header_is_valid('sd', self.email_delivery.logger))
+        self.assertTrue(priority_header_is_valid('1', self.email_delivery.logger))
+        self.assertTrue(priority_header_is_valid('5', self.email_delivery.logger))
 
     def test_get_valid_emails_from_list(self):
         list_1 = [
@@ -293,6 +293,7 @@ class EmailTest(unittest.TestCase):
         self.assertEqual(ldap_emails, ['milton@initech.com'])
 
     def test_cc_email_functionality(self):
-        email = self.email_delivery.get_mimetext_message(
+        email = get_mimetext_message(
+            self.email_delivery.config, self.email_delivery.logger,
             SQS_MESSAGE_4, SQS_MESSAGE_4['resources'], ['hello@example.com'])
         self.assertEqual(email['Cc'], 'hello@example.com, cc@example.com')

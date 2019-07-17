@@ -252,12 +252,6 @@ and here is a description of the options:
 | &#x2705;  | `queue_url`     | string           | the queue to listen to for messages                                                                                                                                                 |
 |           | `from_address`  | string           | default from address                                                                                                                                                                |
 |           | `contact_tags`  | array of strings | tags that we should look at for address information                                                                                                                                 |
-|           | `smtp_server`   | string           | if this is unset, aws ses is used by default. To configure your lambda role to talk to smtpd in your private vpc, see [here](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html) |
-|           | `smtp_port`     | integer          | smtp port                                                                                                                                                                           |
-|           | `smtp_ssl`      | boolean          | this defaults to True                                                                                                                                                               |
-|           | `smtp_username` | string           |                                                                                                                                                                                     |
-|           | `smtp_password` | string           |                                                                                                                                                                                     |
-
 
 #### Standard Lambda Function Config
 
@@ -277,12 +271,12 @@ and here is a description of the options:
 | Required? | Key                   | Type   | Notes                                                                                  |
 |:---------:|:----------------------|:-------|:---------------------------------------------------------------------------------------|
 |           | `function_properties` | object | Contains `appInsights`, `storageAccount` and `servicePlan` objects                     |
-|           | `appInsights`         | object | Contains `name`, `location` and `resource_group_name` properties                       |
-|           | `storageAccount`      | object | Contains `name`, `location` and `resource_group_name` properties                       |
-|           | `servicePlan`         | object | Contains `name`, `location`, `resource_group_name`, `skuTier` and `skuName` properties |
+|           | `appInsights`         | object | Contains `name`, `location` and `resourceGroupName` properties                       |
+|           | `storageAccount`      | object | Contains `name`, `location` and `resourceGroupName` properties                       |
+|           | `servicePlan`         | object | Contains `name`, `location`, `resourceGroupName`, `skuTier` and `skuName` properties |
 |           | `name`                | string |                                                                                        |
 |           | `location`            | string | Default: `west us 2`                                                                   |
-|           | `resource_group_name` | string | Default `cloud-custodian`                                                              |
+|           | `resourceGroupName`   | string | Default `cloud-custodian`                                                              |
 |           | `skuTier`             | string | Default: `Basic`                                                                       |
 |           | `skuName`             | string | Default: `B1`                                                                          |
 
@@ -311,6 +305,17 @@ and here is a description of the options:
 |           | `redis_port`                | integer | redis port, default: 6369                                                                                                                                                                          |
 |           | `ses_region`                | string  | AWS region that handles SES API calls                                                                                                                                                              |
 
+#### SMTP Config
+
+| Required? | Key             | Type             | Notes                                                                                                                                                                               |
+|:---------:|:----------------|:-----------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|           | `smtp_server`   | string           | to configure your lambda role to talk to smtpd in your private vpc, see [here](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html) |                                             |
+|           | `smtp_port`     | integer          | smtp port (default is 25)                                                                                                                                                           |
+|           | `smtp_ssl`      | boolean          | this defaults to True                                                                                                                                                               |
+|           | `smtp_username` | string           |                                                                                                                                                                                     |
+|           | `smtp_password` | string           |                                                                                                                                                                                     |
+
+If `smtp_server` is unset, `c7n_mailer` will use AWS SES or Azure SendGrid.
 
 #### DataDog Config
 
@@ -572,3 +577,26 @@ the message file to be base64-encoded, gzipped JSON, just like c7n sends to SQS.
   receive mail, and print the rendered message body template to STDOUT.
 * With the ``-d`` | ``--dry-run`` argument, it will print the actual email body (including headers)
   that would be sent, for each message that would be sent, to STDOUT.
+  
+#### Testing Templates for Azure
+
+The ``c7n-mailer-replay`` entrypoint can be used to test templates for Azure with either of the arguments:
+* ``-T`` | ``--template-print`` 
+* ``-d`` | ``--dry-run`` 
+  
+Running ``c7n-mailer-replay`` without either of these arguments will throw an error as it will attempt
+to authorize with AWS. 
+
+The following is an example for retrieving a sample message to test against templates:
+
+* Run a policy with the notify action, providing the name of the template to test, to populate the queue.
+
+* Using the azure cli, save the message locally: 
+```
+$ az storage message get --queue-name <queuename> --account-name <storageaccountname> --query '[].content' > test_message.gz
+```
+* The example message can be provided to ``c7n-mailer-replay`` by running:
+
+```
+$ c7n-mailer-replay test_message.gz -T --config mailer.yml
+```

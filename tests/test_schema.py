@@ -17,8 +17,11 @@ import mock
 from json import dumps
 from jsonschema.exceptions import best_match
 
+from c7n.filters import ValueFilter
 from c7n.manager import resources
-from c7n.schema import Validator, validate, generate, specific_error, policy_error_scope
+from c7n.schema import (
+    ElementSchema, resource_vocabulary, Validator, validate,
+    generate, specific_error, policy_error_scope)
 from .common import BaseTest
 
 
@@ -242,6 +245,13 @@ class SchemaTest(BaseTest):
         errors = list(self.validator.iter_errors(data))
         self.assertEqual(errors, [])
 
+    def test_bool_operator_child_validation(self):
+        data = {'policies': [
+            {'name': 'test', 'resource': 'ec2', 'filters': [
+                {'or': [{'type': 'imagex', 'key': 'tag:Foo', 'value': 'a'}]}]}]}
+        errors = list(self.validator.iter_errors(data))
+        self.assertTrue(errors)
+
     def test_value_filter_short_form(self):
         data = {
             "policies": [
@@ -371,3 +381,42 @@ class SchemaTest(BaseTest):
         self.assertEqual(len(errors_with("python2.7")), 0)
         self.assertEqual(len(errors_with("python3.6")), 0)
         self.assertEqual(len(errors_with("python4.5")), 1)
+
+    def test_element_resolve(self):
+        vocab = resource_vocabulary()
+        self.assertEqual(ElementSchema.resolve(vocab, 'mode.periodic').type, 'periodic')
+        self.assertEqual(ElementSchema.resolve(vocab, 'aws.ec2').type, 'ec2')
+        self.assertEqual(ElementSchema.resolve(vocab, 'aws.ec2.actions.stop').type, 'stop')
+        self.assertRaises(ValueError, ElementSchema.resolve, vocab, 'aws.ec2.actions.foo')
+
+    def test_element_doc(self):
+
+        class A(object):
+            pass
+
+        class B(object):
+            """Hello World
+
+            xyz
+            """
+
+        class C(B):
+            pass
+
+        class D(ValueFilter):
+            pass
+
+        class E(ValueFilter):
+            """Something"""
+
+        class F(D):
+            pass
+
+        class G(E):
+            pass
+
+        self.assertEqual(ElementSchema.doc(G), "Something")
+        self.assertEqual(ElementSchema.doc(D), "")
+        self.assertEqual(ElementSchema.doc(F), "")
+        self.assertEqual(
+            ElementSchema.doc(B), "Hello World\n\nxyz")

@@ -18,6 +18,24 @@ from c7n_azure.resources.arm import ArmResourceManager
 
 @resources.register('containerregistry')
 class ContainerRegistry(ArmResourceManager):
+    """Container Registry Resource
+
+    :example:
+
+    Returns all container registry named my-test-container-registry
+
+    .. code-block:: yaml
+
+        policies:
+        - name: get-container-registry
+          resource: azure.containerregistry
+          filters:
+            - type: value
+              key: name
+              op: eq
+              value: my-test-container-registry
+
+    """
 
     class resource_type(ArmResourceManager.resource_type):
         service = 'azure.mgmt.containerregistry'
@@ -28,3 +46,4 @@ class ContainerRegistry(ArmResourceManager):
             'location',
             'resourceGroup'
         )
+        resource_type = 'Microsoft.ContainerRegistry/registries'
