@@ -1,0 +1,27 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Fri, 19 Jul 2019 18:13:35 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "175",
+    "-content-encoding": "gzip",
+    "content-location": "https://accesscontextmanager.googleapis.com/v1/accessPolicies?parent=organizations%2F926683928810&alt=json"
+  },
+  "body": {
+    "accessPolicies": [
+      {
+        "name": "accessPolicies/1016634752304",
+        "parent": "organizations/926683928810",
+        "title": "Custodian access policy"
+      }
+    ]
+  }
+}

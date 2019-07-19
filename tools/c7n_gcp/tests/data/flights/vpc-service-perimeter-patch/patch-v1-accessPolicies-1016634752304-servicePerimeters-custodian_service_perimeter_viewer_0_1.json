@@ -1,0 +1,40 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Fri, 19 Jul 2019 18:00:46 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "811",
+    "-content-encoding": "gzip"
+  },
+  "body": {
+    "name": "operations/accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0/update/1563559246872599",
+    "done": true,
+    "response": {
+      "@type": "type.googleapis.com/google.identity.accesscontextmanager.v1.ServicePerimeter",
+      "name": "accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0",
+      "title": "custodian_service_perimeter_viewer_0",
+      "status": {
+        "resources": [
+          "projects/359546646409",
+          "projects/2030697917"
+        ],
+        "accessLevels": [
+          "accessPolicies/1016634752304/accessLevels/custodian_viewer",
+          "accessPolicies/1016634752304/accessLevels/custodian_viewer_2"
+        ],
+        "restrictedServices": [
+          "bigquery.googleapis.com",
+          "pubsub.googleapis.com"
+        ]
+      }
+    }
+  }
+}

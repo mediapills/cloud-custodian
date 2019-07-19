@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from gcp_common import BaseTest, event_data
-
+import time
 
 class VpcAccessPolicyTest(BaseTest):
 
@@ -28,6 +28,34 @@ class VpcAccessPolicyTest(BaseTest):
         resources = policy.run()
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['name'], 'accessPolicies/1016634752304')
+
+    def test_vpc_access_policy_delete(self):
+        project_id = 'custodian-test-project-0'
+        organization_id = 123
+        session_factory = self.replay_flight_data('vpc-access-policies-delete',
+                                                  project_id=project_id)
+        base_policy = {'name': 'vpc-access-policies-delete',
+                       'resource': 'gcp.vpc-access-policy'}
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{'name': ''}],
+                 actions=[{'type': 'delete'}]
+                 ),
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['displayName'], '')
+
+        if self.recording:
+            time.sleep(10)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'parent': 'organizations/' + organization_id})
+        instances = result['instances']
+        self.assertEqual(len(instances), 1)
+        self.assertEqual(instances[0]['displayName'], '')
 
 
 class VpcAccessLevelTest(BaseTest):
@@ -46,10 +74,89 @@ class VpcAccessLevelTest(BaseTest):
                          'accessPolicies/1016634752304/accessLevels/custodian_admin')
         self.assertIn('BY', resources[0]['basic']['conditions'][0]['regions'])
 
+    def test_vpc_access_level_delete(self):
+        organization_id = '926683928810'
+        session_factory = self.replay_flight_data('vpc-access-levels-delete')
+        base_policy = {'name': 'vpc-access-levels-delete',
+                       'resource': 'gcp.vpc-access-level'}
+        policy = self.load_policy(
+            dict(base_policy,
+                 query=[{'organization_id': organization_id}],
+                 filters=[{'type': 'value',
+                           'key': 'title',
+                           'value': 'custodian_admin_2',
+                           'op': 'eq'}],
+                 actions=[{'type': 'delete'}]),
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin_2', resources[0]['name'])
+        self.assertEqual('custodian_admin_2', resources[0]['title'])
+
+        if self.recording:
+            time.sleep(10)
+
+        client = policy.resource_manager.get_client()
+
+        result = client.execute_query('list', {'parent': 'accessPolicies/1016634752304'})
+
+        access_levels = result['accessLevels']
+        self.assertEqual(2, len(access_levels))
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin', access_levels[0]['name'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_viewer', access_levels[1]['name'])
+
+    def test_vpc_access_level_patch(self):
+        organization_id = '926683928810'
+        session_factory = self.replay_flight_data('vpc-access-levels-patch')
+        base_policy = {'name': 'vpc-access-levels-patch',
+                       'resource': 'gcp.vpc-access-level'}
+        policy = self.load_policy(
+            dict(base_policy,
+                 query=[{'organization_id': organization_id}],
+                 filters=[{'type': 'value',
+                           'key': 'title',
+                           'value': 'custodian_admin',
+                           'op': 'eq'}],
+                 actions=[{'type': 'set',
+                           'description': 'new description',
+                           'basic': {
+                                'conditions': [{
+                                   "regions": [
+                                       "BY",
+                                       "US",
+                                       "RU"
+                                   ]}]}
+                           }]),
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin', resources[0]['name'])
+        self.assertEqual('custodian_admin', resources[0]['title'])
+        self.assertEqual(['BY', 'GB'], resources[0]['basic']['conditions'][0]['regions'])
+        self.assertEqual('no description', resources[0]['description'])
+
+        if self.recording:
+            time.sleep(10)
+
+        client = policy.resource_manager.get_client()
+
+        result = client.execute_query('list', {'parent': 'accessPolicies/1016634752304'})
+
+        access_levels = result['accessLevels']
+        self.assertEqual(3, len(access_levels))
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin', access_levels[0]['name'])
+        self.assertEqual('custodian_admin', access_levels[0]['title'])
+        self.assertEqual('new description', access_levels[0]['description'])
+        self.assertEqual(['BY', 'US', 'RU'], access_levels[0]['basic']['conditions'][0]['regions'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_viewer', access_levels[1]['name'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin_2', access_levels[2]['name'])
+
 
 class VpcServicePerimeterTest(BaseTest):
 
-    def test_vpc_access_level_query(self):
+    def test_vpc_service_perimeter_query(self):
         factory = self.replay_flight_data('vpc-service-perimeters-query')
         policy = self.load_policy(
             {'name': 'all-vpc-service-perimeters',
@@ -65,3 +172,88 @@ class VpcServicePerimeterTest(BaseTest):
         self.assertEqual(len(resources[0]['status']['accessLevels']), 1)
         self.assertEqual(resources[0]['status']['accessLevels'][0],
                          'accessPolicies/1016634752304/accessLevels/custodian_admin')
+
+    def test_vpc_service_perimeter_delete(self):
+        organization_id = '926683928810'
+        session_factory = self.replay_flight_data('vpc-service-perimeter-delete')
+        base_policy = {'name': 'vpc-service-perimeter-delete',
+                       'resource': 'gcp.vpc-service-perimeter'}
+        policy = self.load_policy(
+            dict(base_policy,
+                 query=[{'organization_id': organization_id}],
+                 filters=[{'type': 'value',
+                           'key': 'status.accessLevels',
+                           'value': 'accessPolicies/1016634752304/accessLevels/custodian_viewer',
+                           'op': 'contains'}],
+                 actions=[{'type': 'delete'}]
+                 ),
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0', resources[0]['name'])
+        self.assertEqual(['projects/359546646409', 'projects/2030697917'], resources[0]['status']['resources'])
+        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer', 'accessPolicies/1016634752304/accessLevels/custodian_viewer_2'], resources[0]['status']['accessLevels'])
+        self.assertEqual(['bigquery.googleapis.com', 'pubsub.googleapis.com'], resources[0]['status']['restrictedServices'])
+
+        if self.recording:
+            time.sleep(10)
+
+        client = policy.resource_manager.get_client()
+
+        result = client.execute_query('list', {'parent': 'accessPolicies/1016634752304'})
+
+        service_perimeters = result['servicePerimeters']
+        self.assertEqual(1, len(service_perimeters))
+        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_perimeter_core', service_perimeters[0]['name'])
+
+    def test_vpc_service_perimeter_patch(self):
+        organization_id = '926683928810'
+        session_factory = self.replay_flight_data('vpc-service-perimeter-patch')
+        base_policy = {'name': 'vpc-service-perimeter-patch',
+                       'resource': 'gcp.vpc-service-perimeter'}
+        policy = self.load_policy(
+            dict(base_policy,
+                 query=[{'organization_id': organization_id}],
+                 filters=[{'type': 'value',
+                           'key': 'status.accessLevels',
+                           'value': 'accessPolicies/1016634752304/accessLevels/custodian_viewer',
+                           'op': 'contains'}],
+                 actions=[{'type': 'set',
+                           'status': {
+                               'resources': [
+                                   'projects/359546646409',
+                                   'projects/2030697917'
+                               ],
+                               'accessLevels': [
+                                   'accessPolicies/1016634752304/accessLevels/custodian_viewer',
+                                   'accessPolicies/1016634752304/accessLevels/custodian_viewer_2'
+                               ],
+                               'restrictedServices': [
+                                   'bigquery.googleapis.com',
+                                   'pubsub.googleapis.com'
+                               ]
+                           }
+                           }]
+                 ),
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(1, len(resources))
+        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0', resources[0]['name'])
+        self.assertEqual(['projects/359546646409', 'projects/2030697917'], resources[0]['status']['resources'])
+        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer'], resources[0]['status']['accessLevels'])
+        self.assertEqual(['bigquery.googleapis.com', 'pubsub.googleapis.com'], resources[0]['status']['restrictedServices'])
+
+        if self.recording:
+            time.sleep(10)
+
+        client = policy.resource_manager.get_client()
+
+        result = client.execute_query('list', {'parent': 'accessPolicies/1016634752304'})
+
+        service_perimeters = result['servicePerimeters']
+        self.assertEqual(2, len(service_perimeters))
+        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_perimeter_core', service_perimeters[0]['name'])
+        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0', service_perimeters[1]['name'])
+        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer', 'accessPolicies/1016634752304/accessLevels/custodian_viewer_2'], service_perimeters[1]['status']['accessLevels'])

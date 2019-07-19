@@ -11,7 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from c7n.utils import type_schema
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 
@@ -77,6 +78,80 @@ class VpcAccessLevel(ChildResourceManager):
         return result_query
 
 
+@VpcAccessLevel.action_registry.register('delete')
+class VpcAccessLevelDelete(MethodAction):
+    """The action is used for VPC access levels delete.
+    GCP action is https://cloud.google.com/access-context-manager/docs
+                            /reference/rest/v1/accessPolicies.accessLevels/delete
+
+    Example:
+
+    .. code-block:: yaml
+        policies:
+          - name: gcp-vpc-access-levels-delete
+            resource: gcp.vpc-access-level
+            filters:
+              - type: value
+                key: title
+                op: eq
+                value: custodian_admin_2
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
+
+
+@VpcAccessLevel.action_registry.register('set')
+class VpcAccessLevelPatch(MethodAction):
+    """The action is used for VPC access levels patch.
+    GCP action is https://cloud.google.com/access-context-manager/docs
+                            /reference/rest/v1/accessPolicies.accessLevels/patch
+
+    Example:
+
+    .. code-block:: yaml
+        policies:
+          - name: gcp-vpc-access-levels-patch
+            resource: gcp.vpc-access-level
+            filters:
+              - type: value
+                key: title
+                op: eq
+                value: custodian_admin
+            actions:
+              - type: set
+                description: new description
+                basic:
+                    conditions:
+                      - regions: [BY, US, RU]
+    """
+    schema = type_schema('patch',
+                         **{'type': {'enum': ['set']},
+                            'title': {'type': 'string'},
+                            'description': {'type': 'string'},
+                            'basic': {'type': 'object'}})
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        data = self.data
+        available_properties = self.schema['properties']
+        intersection_set = data.keys() & available_properties
+        update_mask = []
+        body = {}
+        for element in intersection_set:
+            if element != 'type':
+                body[element] = data[element]
+                update_mask.append(element)
+        result = {'name': resource['name'],
+                  'updateMask': ','.join(update_mask),
+                  'body': body}
+        return result
+
+
 @resources.register('vpc-service-perimeter')
 class VpcServicePerimeter(ChildResourceManager):
 
@@ -109,3 +184,84 @@ class VpcServicePerimeter(ChildResourceManager):
                     if element.__contains__('organization_id'):
                         result_query[0]['organization_id'] = element['organization_id']
         return result_query
+
+
+@VpcServicePerimeter.action_registry.register('delete')
+class VpcServicePerimeterDelete(MethodAction):
+    """The action is used for VPC service perimeter delete.
+    GCP action is https://cloud.google.com/access-context-manager/docs
+                            /reference/rest/v1/accessPolicies.servicePerimeters/delete
+
+    Example:
+
+    .. code-block:: yaml
+        policies:
+          - name: gcp-vpc-service-perimeter-delete
+            resource: gcp.vpc-service-perimeter
+            filters:
+              - type: value
+                key: status.accessLevels
+                op: contains
+                value: accessPolicies/1016634752304/accessLevels/custodian_viewer
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
+
+
+@VpcServicePerimeter.action_registry.register('set')
+class VpcServicePerimeterPatch(MethodAction):
+    """The action is used for VPC service perimeter patch.
+    GCP action is https://cloud.google.com/access-context-manager/docs
+                            /reference/rest/v1/accessPolicies.servicePerimeters/patch
+
+    Example:
+
+    .. code-block:: yaml
+        policies:
+          - name: gcp-vpc-service-perimeters-patch
+            resource: gcp.vpc-service-perimeter
+            filters:
+              - type: value
+                key: status.accessLevels
+                op: contains
+                value: accessPolicies/1016634752304/accessLevels/custodian_viewer
+            actions:
+              - type: set
+                description: new description
+                status:
+                    resources:
+                      - projects/359546646409
+                      - projects/2030697917
+                    accessLevels:
+                      - accessPolicies/1016634752304/accessLevels/custodian_viewer
+                      - accessPolicies/1016634752304/accessLevels/custodian_viewer_2
+                    restrictedServices:
+                      - bigquery.googleapis.com
+                      - pubsub.googleapis.com
+    """
+    schema = type_schema('patch',
+                         **{'type': {'enum': ['set']},
+                            'title': {'type': 'string'},
+                            'description': {'type': 'string'},
+                            'status': {'type': 'object'}})
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        data = self.data
+        available_properties = self.schema['properties']
+        intersection_set = data.keys() & available_properties
+        update_mask = []
+        body = {}
+        for element in intersection_set:
+            if element != 'type':
+                body[element] = data[element]
+                update_mask.append(element)
+        result = {'name': resource['name'],
+                  'updateMask': ','.join(update_mask),
+                  'body': body}
+        return result
