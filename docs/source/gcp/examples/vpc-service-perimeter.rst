@@ -1,32 +1,31 @@
-VPC - Find policies by service perimeters' options
-===================================================
+VPC Service perimeters - Restore default state for an access level
+===================================================================
 
-It described below how to notify to Cloud Pub\Sub information if Cloud Spanner API available in the service perimeter.
-
-Details about all available VPC resources are available at the :ref:`gcp_vpc` page.
-
-To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+The example shows how to set a description and a status for service perimeters with specific access level.
+The status has an information about resources, access levels, restricted services.
 
 .. code-block:: yaml
 
     policies:
-        - name: vpc-service-perimeters
-          description: |
-            VPC. List of Service Perimeters
-          resource: gcp.vpc-service-perimeter
-          query:
-            - organization_id: <organization_id>
-          filters:
+      - name: gcp-vpc-service-perimeters-patch
+        resource: gcp.vpc-service-perimeter
+        query:
+          - organization_id: 926683928810
+        filters:
           - type: value
-            key: status.restrictedServices[]
-            value: spanner.googleapis.com
-            op: in
-            value_type: swap
-          actions:
-            - type: notify
-              to:
-                - email@address
-              format: json
-              transport:
-                type: pubsub
-                topic: projects/cloud-custodian/topics/vpc
+            key: status.accessLevels
+            op: contains
+            value: accessPolicies/1016634752304/accessLevels/custodian_viewer
+        actions:
+          - type: set
+            description: new description
+            status:
+                resources:
+                  - projects/359546646409
+                  - projects/2030697917
+                accessLevels:
+                  - accessPolicies/1016634752304/accessLevels/custodian_viewer
+                  - accessPolicies/1016634752304/accessLevels/custodian_viewer_2
+                restrictedServices:
+                  - bigquery.googleapis.com
+                  - pubsub.googleapis.com

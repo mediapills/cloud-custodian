@@ -1,32 +1,26 @@
-VPC - Access levels in a region
-================================
+VPC Access levels - Set regions for an access level
+====================================================
 
-It described below how to notify to Cloud Pub\Sub information about available access levels in BY region.
-
-Details about all available VPC resources are available at the :ref:`gcp_vpc` page.
-
-To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+The following example shows how to set regions for a specific access level.
 
 .. code-block:: yaml
 
     policies:
-        - name: access-level-for-by-region
-          description: |
-            VPC. List of Service Perimeters
-          resource: gcp.vpc-access-level
-          query:
-            - organization_id: <organization_id>
-          filters:
+      - name: gcp-vpc-access-levels-patch
+        resource: gcp.vpc-access-level
+        query:
+          - organization_id: 926683928810
+        filters:
           - type: value
-            key: basic.conditions[].regions[]
-            value: BY
-            op: in
-            value_type: swap
-          actions:
-            - type: notify
-              to:
-                - email@address
-              format: json
-              transport:
-                type: pubsub
-                topic: projects/cloud-custodian/topics/vpc
+            key: title
+            op: eq
+            value: custodian_admin
+        actions:
+          - type: set
+            description: new description
+            basic:
+                conditions:
+                  - regions:
+                    - BY
+                    - US
+                    - RU
