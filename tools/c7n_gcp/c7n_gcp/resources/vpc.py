@@ -127,13 +127,38 @@ class VpcAccessLevelPatch(MethodAction):
                 description: new description
                 basic:
                     conditions:
-                      - regions: [BY, US, RU]
+                      - regions:
+                          - BY
+                          - US
+                          - RU
     """
     schema = type_schema('patch',
                          **{'type': {'enum': ['set']},
                             'title': {'type': 'string'},
                             'description': {'type': 'string'},
-                            'basic': {'type': 'object'}})
+                            'basic': {
+                                'type': 'object',
+                                'conditions': {
+                                    'type': 'array',
+                                    'items': {
+                                        'type': 'object',
+                                        'negate': {'type': 'boolean'},
+                                        'ipSubnetworks': {
+                                            'type': 'array',
+                                            'items': {'type': 'string'}},
+                                        'devicePolicy': {
+                                            'type': 'array',
+                                            'items': {'type': 'string'}},
+                                        'requiredAccessLevels': {
+                                            'type': 'array',
+                                            'items': {'type': 'string'}},
+                                        'members': {
+                                            'type': 'array',
+                                            'items': {'type': 'string'}},
+                                        'regions': {
+                                            'type': 'array',
+                                            'items': {'type': 'string'}}
+                                        }}}})
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
@@ -248,7 +273,13 @@ class VpcServicePerimeterPatch(MethodAction):
                          **{'type': {'enum': ['set']},
                             'title': {'type': 'string'},
                             'description': {'type': 'string'},
-                            'status': {'type': 'object'}})
+                            'status': {
+                                'type': 'object',
+                                'description': {'type': 'string'},
+                                'resources': {'type': 'array', 'items': {'type': 'string'}},
+                                'accessLevels': {'type': 'array', 'items': {'type': 'string'}},
+                                'restrictedServices': {'type': 'array',
+                                                       'items': {'type': 'string'}}}})
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):

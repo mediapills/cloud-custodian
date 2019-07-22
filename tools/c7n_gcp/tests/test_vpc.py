@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gcp_common import BaseTest, event_data
+from gcp_common import BaseTest
 import time
+
 
 class VpcAccessPolicyTest(BaseTest):
 
@@ -91,7 +92,8 @@ class VpcAccessLevelTest(BaseTest):
 
         resources = policy.run()
         self.assertEqual(1, len(resources))
-        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin_2', resources[0]['name'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin_2',
+                         resources[0]['name'])
         self.assertEqual('custodian_admin_2', resources[0]['title'])
 
         if self.recording:
@@ -103,8 +105,10 @@ class VpcAccessLevelTest(BaseTest):
 
         access_levels = result['accessLevels']
         self.assertEqual(2, len(access_levels))
-        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin', access_levels[0]['name'])
-        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_viewer', access_levels[1]['name'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin',
+                         access_levels[0]['name'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_viewer',
+                         access_levels[1]['name'])
 
     def test_vpc_access_level_patch(self):
         organization_id = '926683928810'
@@ -121,18 +125,19 @@ class VpcAccessLevelTest(BaseTest):
                  actions=[{'type': 'set',
                            'description': 'new description',
                            'basic': {
-                                'conditions': [{
-                                   "regions": [
-                                       "BY",
-                                       "US",
-                                       "RU"
+                               'conditions': [{
+                                   'regions': [
+                                       'BY',
+                                       'US',
+                                       'RU'
                                    ]}]}
                            }]),
             session_factory=session_factory)
 
         resources = policy.run()
         self.assertEqual(1, len(resources))
-        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin', resources[0]['name'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin',
+                         resources[0]['name'])
         self.assertEqual('custodian_admin', resources[0]['title'])
         self.assertEqual(['BY', 'GB'], resources[0]['basic']['conditions'][0]['regions'])
         self.assertEqual('no description', resources[0]['description'])
@@ -146,12 +151,16 @@ class VpcAccessLevelTest(BaseTest):
 
         access_levels = result['accessLevels']
         self.assertEqual(3, len(access_levels))
-        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin', access_levels[0]['name'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin',
+                         access_levels[0]['name'])
         self.assertEqual('custodian_admin', access_levels[0]['title'])
         self.assertEqual('new description', access_levels[0]['description'])
-        self.assertEqual(['BY', 'US', 'RU'], access_levels[0]['basic']['conditions'][0]['regions'])
-        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_viewer', access_levels[1]['name'])
-        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin_2', access_levels[2]['name'])
+        self.assertEqual(['BY', 'US', 'RU'],
+                         access_levels[0]['basic']['conditions'][0]['regions'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_viewer',
+                         access_levels[1]['name'])
+        self.assertEqual('accessPolicies/1016634752304/accessLevels/custodian_admin_2',
+                         access_levels[2]['name'])
 
 
 class VpcServicePerimeterTest(BaseTest):
@@ -191,10 +200,16 @@ class VpcServicePerimeterTest(BaseTest):
 
         resources = policy.run()
         self.assertEqual(1, len(resources))
-        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0', resources[0]['name'])
-        self.assertEqual(['projects/359546646409', 'projects/2030697917'], resources[0]['status']['resources'])
-        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer', 'accessPolicies/1016634752304/accessLevels/custodian_viewer_2'], resources[0]['status']['accessLevels'])
-        self.assertEqual(['bigquery.googleapis.com', 'pubsub.googleapis.com'], resources[0]['status']['restrictedServices'])
+        service_perimeter_name_viewer = \
+            'accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0'
+        self.assertEqual(service_perimeter_name_viewer, resources[0]['name'])
+        self.assertEqual(['projects/359546646409', 'projects/2030697917'],
+                         resources[0]['status']['resources'])
+        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer',
+                          'accessPolicies/1016634752304/accessLevels/custodian_viewer_2'],
+                         resources[0]['status']['accessLevels'])
+        self.assertEqual(['bigquery.googleapis.com', 'pubsub.googleapis.com'],
+                         resources[0]['status']['restrictedServices'])
 
         if self.recording:
             time.sleep(10)
@@ -205,10 +220,16 @@ class VpcServicePerimeterTest(BaseTest):
 
         service_perimeters = result['servicePerimeters']
         self.assertEqual(1, len(service_perimeters))
-        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_perimeter_core', service_perimeters[0]['name'])
+        service_perimeter_name_core = \
+            'accessPolicies/1016634752304/servicePerimeters/custodian_perimeter_core'
+        self.assertEqual(service_perimeter_name_core, service_perimeters[0]['name'])
 
     def test_vpc_service_perimeter_patch(self):
         organization_id = '926683928810'
+        service_perimeter_name_viewer = \
+            'accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0'
+        service_perimeter_name_core = \
+            'accessPolicies/1016634752304/servicePerimeters/custodian_perimeter_core'
         session_factory = self.replay_flight_data('vpc-service-perimeter-patch')
         base_policy = {'name': 'vpc-service-perimeter-patch',
                        'resource': 'gcp.vpc-service-perimeter'}
@@ -236,14 +257,17 @@ class VpcServicePerimeterTest(BaseTest):
                            }
                            }]
                  ),
-            session_factory=session_factory)
+            session_factory=session_factory, validate=True)
 
         resources = policy.run()
         self.assertEqual(1, len(resources))
-        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0', resources[0]['name'])
-        self.assertEqual(['projects/359546646409', 'projects/2030697917'], resources[0]['status']['resources'])
-        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer'], resources[0]['status']['accessLevels'])
-        self.assertEqual(['bigquery.googleapis.com', 'pubsub.googleapis.com'], resources[0]['status']['restrictedServices'])
+        self.assertEqual(service_perimeter_name_viewer, resources[0]['name'])
+        self.assertEqual(['projects/359546646409', 'projects/2030697917'],
+                         resources[0]['status']['resources'])
+        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer'],
+                         resources[0]['status']['accessLevels'])
+        self.assertEqual(['bigquery.googleapis.com', 'pubsub.googleapis.com'],
+                         resources[0]['status']['restrictedServices'])
 
         if self.recording:
             time.sleep(10)
@@ -254,6 +278,8 @@ class VpcServicePerimeterTest(BaseTest):
 
         service_perimeters = result['servicePerimeters']
         self.assertEqual(2, len(service_perimeters))
-        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_perimeter_core', service_perimeters[0]['name'])
-        self.assertEqual('accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0', service_perimeters[1]['name'])
-        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer', 'accessPolicies/1016634752304/accessLevels/custodian_viewer_2'], service_perimeters[1]['status']['accessLevels'])
+        self.assertEqual(service_perimeter_name_core, service_perimeters[0]['name'])
+        self.assertEqual(service_perimeter_name_viewer, service_perimeters[1]['name'])
+        self.assertEqual(['accessPolicies/1016634752304/accessLevels/custodian_viewer',
+                          'accessPolicies/1016634752304/accessLevels/custodian_viewer_2'],
+                         service_perimeters[1]['status']['accessLevels'])
