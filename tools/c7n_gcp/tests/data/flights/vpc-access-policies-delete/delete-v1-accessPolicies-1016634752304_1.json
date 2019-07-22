@@ -1,0 +1,24 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Mon, 22 Jul 2019 14:13:23 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "174",
+    "-content-encoding": "gzip"
+  },
+  "body": {
+    "name": "operations/accessPolicies/1016634752304/delete/1563804803008748",
+    "done": true,
+    "response": {
+      "@type": "type.googleapis.com/google.protobuf.Empty"
+    }
+  }
+}

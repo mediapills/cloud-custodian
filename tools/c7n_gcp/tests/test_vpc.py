@@ -31,22 +31,21 @@ class VpcAccessPolicyTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'accessPolicies/1016634752304')
 
     def test_vpc_access_policy_delete(self):
-        project_id = 'custodian-test-project-0'
-        organization_id = 123
-        session_factory = self.replay_flight_data('vpc-access-policies-delete',
-                                                  project_id=project_id)
+        organization_id = '926683928810'
+        session_factory = self.replay_flight_data('vpc-access-policies-delete')
         base_policy = {'name': 'vpc-access-policies-delete',
                        'resource': 'gcp.vpc-access-policy'}
         policy = self.load_policy(
             dict(base_policy,
-                 filters=[{'name': ''}],
+                 query=[{'organization_id': organization_id}],
+                 filters=[{'parent': 'organizations/926683928810'}],
                  actions=[{'type': 'delete'}]
                  ),
             session_factory=session_factory)
 
         resources = policy.run()
-        self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]['displayName'], '')
+        self.assertEqual(1, len(resources))
+        self.assertEqual('organizations/926683928810', resources[0]['parent'])
 
         if self.recording:
             time.sleep(10)
@@ -54,9 +53,7 @@ class VpcAccessPolicyTest(BaseTest):
         client = policy.resource_manager.get_client()
         result = client.execute_query(
             'list', {'parent': 'organizations/' + organization_id})
-        instances = result['instances']
-        self.assertEqual(len(instances), 1)
-        self.assertEqual(instances[0]['displayName'], '')
+        self.assertIsNone(result.get('accessPolicies'))
 
 
 class VpcAccessLevelTest(BaseTest):
@@ -132,7 +129,7 @@ class VpcAccessLevelTest(BaseTest):
                                        'RU'
                                    ]}]}
                            }]),
-            session_factory=session_factory)
+            session_factory=session_factory, validate=True)
 
         resources = policy.run()
         self.assertEqual(1, len(resources))
