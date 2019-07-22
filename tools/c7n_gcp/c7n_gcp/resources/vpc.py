@@ -44,6 +44,36 @@ class VpcAccessPolicy(QueryResourceManager):
         return result_query
 
 
+@VpcAccessPolicy.action_registry.register('delete')
+class VpcAccessPolicyDelete(MethodAction):
+    """The action is used for VPC access policy delete.
+    GCP action is https://cloud.google.com/access-context-manager/docs
+                                    /reference/rest/v1/accessPolicies/delete
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-vpc-access-policies-delete
+            resource: gcp.vpc-access-level
+            query:
+              - organization_id: 926683928810
+            filters:
+              - type: value
+                key: parent
+                op: eq
+                value: organizations/926683928810
+            actions:
+              - type: delete
+    """
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
+
+
 @resources.register('vpc-access-level')
 class VpcAccessLevel(ChildResourceManager):
 
@@ -87,9 +117,12 @@ class VpcAccessLevelDelete(MethodAction):
     Example:
 
     .. code-block:: yaml
+
         policies:
           - name: gcp-vpc-access-levels-delete
             resource: gcp.vpc-access-level
+            query:
+              - organization_id: 926683928810
             filters:
               - type: value
                 key: title
@@ -114,9 +147,12 @@ class VpcAccessLevelPatch(MethodAction):
     Example:
 
     .. code-block:: yaml
+
         policies:
           - name: gcp-vpc-access-levels-patch
             resource: gcp.vpc-access-level
+            query:
+              - organization_id: 926683928810
             filters:
               - type: value
                 key: title
@@ -157,8 +193,7 @@ class VpcAccessLevelPatch(MethodAction):
                                             'items': {'type': 'string'}},
                                         'regions': {
                                             'type': 'array',
-                                            'items': {'type': 'string'}}
-                                        }}}})
+                                            'items': {'type': 'string'}}}}}})
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
@@ -220,9 +255,12 @@ class VpcServicePerimeterDelete(MethodAction):
     Example:
 
     .. code-block:: yaml
+
         policies:
           - name: gcp-vpc-service-perimeter-delete
             resource: gcp.vpc-service-perimeter
+            query:
+              - organization_id: 926683928810
             filters:
               - type: value
                 key: status.accessLevels
@@ -247,9 +285,12 @@ class VpcServicePerimeterPatch(MethodAction):
     Example:
 
     .. code-block:: yaml
+
         policies:
           - name: gcp-vpc-service-perimeters-patch
             resource: gcp.vpc-service-perimeter
+            query:
+              - organization_id: 926683928810
             filters:
               - type: value
                 key: status.accessLevels
