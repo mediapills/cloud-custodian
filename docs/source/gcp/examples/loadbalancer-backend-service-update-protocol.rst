@@ -13,5 +13,5 @@ The example allows to replace protocols in the backend service.
             key: protocol
             value: HTTP
         actions:
-          - type: update-protocol
+          - type: set
             protocol: HTTPS
