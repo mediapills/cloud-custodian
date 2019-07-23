@@ -257,7 +257,7 @@ class LoadBalancingHttpsHealthCheckDelete(MethodAction):
             'httpsHealthCheck': resource['name']}
 
 
-@LoadBalancingHttpsHealthCheck.action_registry.register('patch')
+@LoadBalancingHttpsHealthCheck.action_registry.register('set')
 class LoadBalancingHttpsHealthCheckPatch(MethodAction):
     """The action is used for Load Balancing HTTPs Health Checks patch.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpsHealthChecks/patch.
@@ -275,7 +275,7 @@ class LoadBalancingHttpsHealthCheckPatch(MethodAction):
                 op: eq
                 value: custodian.com
             actions:
-              - type: patch
+              - type: set
                 healthyThreshold: 2
                 host: cloudcustodian.com
                 requestPath: /test
@@ -284,9 +284,8 @@ class LoadBalancingHttpsHealthCheckPatch(MethodAction):
                 timeoutSec: 9
                 unhealthyThreshold: 10
     """
-    schema = type_schema('patch',
-                         **{'type': {'enum': ['patch']},
-                            'host': {'type': 'string'},
+    schema = type_schema('set',
+                         **{'host': {'type': 'string'},
                             'requestPath': {'type': 'string'},
                             'port': {'type': 'integer'},
                             'checkIntervalSec': {'type': 'integer'},
@@ -359,7 +358,7 @@ class LoadBalancingHttpHealthCheckDelete(MethodAction):
             'httpHealthCheck': resource['name']}
 
 
-@LoadBalancingHttpHealthCheck.action_registry.register('patch')
+@LoadBalancingHttpHealthCheck.action_registry.register('set')
 class LoadBalancingHttpHealthCheckPatch(MethodAction):
     """The action is used for Load Balancing HTTP Health Checks patch.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpHealthChecks/patch.
@@ -377,7 +376,7 @@ class LoadBalancingHttpHealthCheckPatch(MethodAction):
                 op: eq
                 value: custodian.com
             actions:
-              - type: patch
+              - type: set
                 healthyThreshold: 2
                 host: cloudcustodian.com
                 requestPath: /test
@@ -386,9 +385,8 @@ class LoadBalancingHttpHealthCheckPatch(MethodAction):
                 timeoutSec: 9
                 unhealthyThreshold: 10
     """
-    schema = type_schema('patch',
-                         **{'type': {'enum': ['patch']},
-                            'host': {'type': 'string'},
+    schema = type_schema('set',
+                         **{'host': {'type': 'string'},
                             'requestPath': {'type': 'string'},
                             'port': {'type': 'integer'},
                             'checkIntervalSec': {'type': 'integer'},
@@ -461,7 +459,7 @@ class LoadBalancingHealthCheckDelete(MethodAction):
             'healthCheck': resource['name']}
 
 
-@LoadBalancingHealthCheck.action_registry.register('patch')
+@LoadBalancingHealthCheck.action_registry.register('set')
 class LoadBalancingHealthCheckPatch(MethodAction):
     """The action is used for Load Balancing Health Checks patch.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks/patch.
@@ -479,7 +477,7 @@ class LoadBalancingHealthCheckPatch(MethodAction):
                 op: contains
                 value: -dev-
             actions:
-              - type: patch
+              - type: set
                 httpHealthCheck:
                     host: cloudcustodian.com
                     requestPath: /test
@@ -496,9 +494,8 @@ class LoadBalancingHealthCheckPatch(MethodAction):
         'port': {'type': 'integer'},
     }
 
-    schema = type_schema('patch',
-                         **{'type': {'enum': ['patch']},
-                            'tcpHealthCheck': health_check_type,
+    schema = type_schema('set',
+                         **{'tcpHealthCheck': health_check_type,
                             'sslHealthCheck': health_check_type,
                             'httpHealthCheck': health_check_type,
                             'httpsHealthCheck': health_check_type,

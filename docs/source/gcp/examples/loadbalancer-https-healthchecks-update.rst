@@ -14,7 +14,7 @@ The policies allow to update HTTP and HTTPs health checks for different environm
             op: contains
             value: -dev
         actions:
-          - type: patch
+          - type: set
             healthyThreshold: 2,
             host: cloudcustodian.com
             requestPath: /test
@@ -30,7 +30,7 @@ The policies allow to update HTTP and HTTPs health checks for different environm
             op: contains
             value: -qa
         actions:
-          - type: patch
+          - type: set
             healthyThreshold: 1,
             host: cloudcustodian.com
             requestPath: /test
