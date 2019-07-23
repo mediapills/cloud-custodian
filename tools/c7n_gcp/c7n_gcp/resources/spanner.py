@@ -82,9 +82,8 @@ class SpannerInstancePatch(MethodAction):
           - type: set
             nodeCount: 1
     """
-    schema = type_schema('patch', required=['nodeCount'],
-                         **{'type': {'enum': ['set']},
-                            'nodeCount': {'type': 'number'}})
+    schema = type_schema('set', required=['nodeCount'],
+                         **{'nodeCount': {'type': 'number'}})
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
