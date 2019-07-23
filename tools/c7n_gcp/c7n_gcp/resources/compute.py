@@ -236,3 +236,60 @@ class InstanceGroupManagerDelete(MethodAction):
     def get_resource_params(self, m, r):
         project, zone, name = self.path_param_re.match(r['selfLink']).groups()
         return {'project': project, 'zone': zone, 'instanceGroupManager': name}
+
+
+@InstanceGroupManager.action_registry.register('set')
+class InstanceGroupManagerSet(MethodAction):
+    """`Patches
+    <https://cloud.google.com/compute/docs/reference/rest/v1/instanceGroupManagers/patch>`_
+    an Instance Group Manager.
+
+    :Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: instance-group-manager-set
+            resource: gcp.instance-group-manager
+            filters:
+              - type: value
+                key: name
+                op: eq
+                value: test-instance-group
+            actions:
+              - type: set
+
+    """
+
+    schema = type_schema('set')
+    method_spec = {'op': 'patch'}
+    path_param_re = re.compile('.*?/projects/(.*?)/zones/(.*?)/instanceGroupManagers/(.*)')
+
+    def get_resource_params(self, m, r):
+        project, zone, name = self.path_param_re.match(r['selfLink']).groups()
+        policy = {'project': project,
+                  'zone': zone,
+                  'instanceGroupManager': name,
+                  'body': {
+                      'targetSize': 1,
+                      'autoHealingPolicies': [{
+                          'healthCheck':
+                              'https://www.googleapis.com/compute/v1/projects/cloud-custodian-190204/'
+                              'global/healthChecks/custodian-micro-instance-group-health-check',
+                          'initialDelaySec': 300
+                      }],
+                      'updatePolicy': {
+                          'type': 'OPPORTUNISTIC',
+                          'minimalAction': 'REPLACE',
+                          'maxSurge': {
+                              'fixed': 1
+                              #percent
+                          },
+                          'maxUnavailable': {
+                              'fixed': 1
+                              #percent
+                          }
+                      },
+                      'fingerprint': r['fingerprint']
+                  }}
+        return policy
