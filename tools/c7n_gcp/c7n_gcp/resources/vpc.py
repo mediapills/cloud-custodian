@@ -199,7 +199,7 @@ class VpcAccessLevelPatch(MethodAction):
     def get_resource_params(self, model, resource):
         data = self.data
         available_properties = self.schema['properties']
-        intersection_set = data.keys() & available_properties
+        intersection_set = set(data.keys()) & set(available_properties)
         update_mask = []
         body = {}
         for element in intersection_set:
@@ -326,7 +326,7 @@ class VpcServicePerimeterPatch(MethodAction):
     def get_resource_params(self, model, resource):
         data = self.data
         available_properties = self.schema['properties']
-        intersection_set = data.keys() & available_properties
+        intersection_set = set(data.keys()) & set(available_properties)
         update_mask = []
         body = {}
         for element in intersection_set:
