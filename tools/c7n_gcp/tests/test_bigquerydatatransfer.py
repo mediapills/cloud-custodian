@@ -11,14 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-from gcp_common import BaseTest, event_data
+import os
+import json
+from gcp_common import BaseTest
 
 
 class BigQueryDataTransferTest(BaseTest):
 
     def test_query(self):
-        project_id = 'new-project-26240'
+        project_id = 'cloud-custodian'
         factory = self.replay_flight_data('bq-datatransfer-get', project_id=project_id)
         p = self.load_policy({
             'name': 'bq-datatransfer-get',
@@ -29,3 +30,36 @@ class BigQueryDataTransferTest(BaseTest):
         self.assertEqual(resources[0]['state'], 'SUCCEEDED')
         self.assertEqual(resources[0]['dataSourceId'], 'google_cloud_storage')
 
+    def test_cluster_delete(self):
+        project_id = 'cloud-custodian'
+
+        factory = self.replay_flight_data('bq-datatransfer-delete', project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'bq-datatransfer-delete',
+             'resource': 'gcp.bq-datatransfer',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'state',
+                 'value': 'FAILED',
+             }],
+             'actions': [{
+                 'type': 'delete'
+             }]},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+        files_dir = os.path.join(os.path.dirname(__file__),
+                                 'data', 'flights', 'bq-datatransfer-delete')
+
+        files_paths = [file_path for file_path in os.listdir(files_dir)
+                       if file_path.__contains__('delete')]
+
+        self.assertEqual(1, len(files_paths))
+
+        for file_path in files_paths:
+            with open(os.path.join(files_dir, file_path), 'rt') as file:
+                response = json.load(file)
+                self.assertEqual('200', response['headers']['status'])

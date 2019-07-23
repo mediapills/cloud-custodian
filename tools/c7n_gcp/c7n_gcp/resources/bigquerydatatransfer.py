@@ -13,6 +13,8 @@
 # limitations under the License.
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 from c7n_gcp.provider import resources
+from c7n.utils import type_schema
+from c7n_gcp.actions import MethodAction
 
 
 @resources.register('bq-datatransfer')
@@ -31,3 +33,31 @@ class BigQueryDataTransfer(QueryResourceManager):
         scope_key = 'parent'
         scope_template = 'projects/{}'
         id = 'id'
+
+
+@BigQueryDataTransfer.action_registry.register('delete')
+class BigQueryDataTransferDelete(MethodAction):
+    """The action is used for BigQueryData projects.locations.transferConfigs delete.
+    GCP action is
+    https://cloud.google.com/bigquery/docs/reference/datatransfer/rest/v1/projects.locations.transferConfigs/delete
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gke-bq-datatransfer-delete-failed
+            resource: gcp.gke-cluster
+            filters:
+              - type: value
+                key: state
+                value: FAILED
+            actions:
+              - type: delete
+    """
+    pass
+
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+
+    def get_resource_params(self, model, resource):
+        name = resource["name"].split('/')
+        del name[2:4]
+        return {"name": '/'.join(name)}

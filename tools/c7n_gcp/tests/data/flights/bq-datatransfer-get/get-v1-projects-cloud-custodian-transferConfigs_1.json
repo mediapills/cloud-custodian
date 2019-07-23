@@ -27,7 +27,7 @@
     "status": "200", 
     "content-length": "1494", 
     "x-xss-protection": "0", 
-    "content-location": "https://bigquerydatatransfer.googleapis.com/v1/projects/new-project-26240/transferConfigs?alt=json", 
+    "content-location": "https://bigquerydatatransfer.googleapis.com/v1/projects/cloud-custodian/transferConfigs?alt=json",
     "x-content-type-options": "nosniff", 
     "transfer-encoding": "chunked", 
     "vary": "Origin, X-Origin, Referer", 

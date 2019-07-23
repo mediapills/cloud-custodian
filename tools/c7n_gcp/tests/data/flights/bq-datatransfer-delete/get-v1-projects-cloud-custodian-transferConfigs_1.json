@@ -1,0 +1,38 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Tue, 23 Jul 2019 11:48:52 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "597",
+    "-content-encoding": "gzip",
+    "content-location": "https://bigquerydatatransfer.googleapis.com/v1/projects/cloud-custodian/transferConfigs?alt=json"
+  },
+  "body": {
+    "transferConfigs": [
+      {
+        "name": "projects/162573236851/locations/us/transferConfigs/5d4544a1-0000-2dfa-8866-f4f5e8074d94",
+        "destinationDatasetId": "TetsID",
+        "displayName": "UC3vm_NDoprA_xrkAXkfRuqA",
+        "updateTime": "2019-07-23T11:22:51.430333Z",
+        "dataSourceId": "youtube_channel",
+        "schedule": "every day 14:10",
+        "nextRunTime": "2019-07-21T00:00:00Z",
+        "params": {
+          "configure_jobs": true,
+          "table_suffix": "youtube"
+        },
+        "state": "FAILED",
+        "userId": "-8743746777161680720",
+        "datasetRegion": "us"
+      }
+    ]
+  }
+}
