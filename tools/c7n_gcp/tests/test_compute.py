@@ -199,3 +199,44 @@ class GceAutoscalerTest(BaseTest):
         event = event_data('gce-instance-group-insert.json')
         resources = exec_mode.run(event, None)
         self.assertEqual(resources[0]['name'], resource_name)
+
+    def test_autoscaler_set(self):
+        project_id = 'mitrop-custodian'
+        factory = self.replay_flight_data('gce-autoscaler-set', project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'gcp-gce-autoscaler-set',
+             'resource': 'gcp.gce-autoscaler',
+             'filters': [{'name': 'instance-group-2'}],
+             'actions': [{'type': 'set',
+                          'coolDownPeriodSec': 30,
+                          'cpuUtilization': {
+                              'utilizationTarget': 0.7
+                          },
+                          'loadBalancingUtilization': {
+                              'utilizationTarget': 0.7
+                          },
+                          'minNumReplicas': 1,
+                          'maxNumReplicas': 4
+                          }]},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+        if self.recording:
+            time.sleep(3)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id,
+                     'zone': 'us-central1-a',
+                     'filter': 'name = instance-group-2'})
+
+        result_policy = result['items'][0]['autoscalingPolicy']
+
+        self.assertEqual(result_policy['coolDownPeriodSec'], 30)
+        self.assertEqual(result_policy['cpuUtilization']['utilizationTarget'], 0.7)
+        self.assertEqual(result_policy['loadBalancingUtilization']['utilizationTarget'], 0.7)
+        self.assertEqual(result_policy['minNumReplicas'], 1)
+        self.assertEqual(result_policy['maxNumReplicas'], 4)
