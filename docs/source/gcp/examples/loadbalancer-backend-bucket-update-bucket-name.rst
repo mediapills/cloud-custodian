@@ -14,5 +14,5 @@ If backend buckets should be replaced into another bucket the example allows to 
             op: eq
             value: bucket-0
         actions:
-          - type: patch
+          - type: set
             bucketName: bucket-1

@@ -171,7 +171,7 @@ class LoadBalancingBackendBucket(QueryResourceManager):
                 'backendBucket': resource_info['name']})
 
 
-@LoadBalancingBackendBucket.action_registry.register('patch')
+@LoadBalancingBackendBucket.action_registry.register('set')
 class LoadBalancingBackendBucketPatch(MethodAction):
     """The action is used for Load Balancing Backend Buckets replace into another bucket.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendBuckets/patch.
@@ -189,12 +189,11 @@ class LoadBalancingBackendBucketPatch(MethodAction):
             op: eq
             value: bucket-0
           actions:
-          - type: patch
+          - type: set
             bucketName: bucket-1
     """
-    schema = type_schema('patch', required=['bucketName'],
-                         **{'type': {'enum': ['patch']},
-                            'bucketName': {'type': 'string'}})
+    schema = type_schema('set',
+                         **{'bucketName': {'type': 'string'}})
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):

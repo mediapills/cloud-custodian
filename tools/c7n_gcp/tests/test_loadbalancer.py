@@ -253,7 +253,7 @@ class LoadBalancingBackendBucketTest(BaseTest):
                            'key': 'bucketName',
                            'op': 'eq',
                            'value': 'custodian-bucket-name-1'}],
-                 actions=[{'type': 'patch',
+                 actions=[{'type': 'set',
                            'bucketName': 'custodian-bucket-name-0'}]),
             session_factory=session_factory)
         resources = policy.run()
