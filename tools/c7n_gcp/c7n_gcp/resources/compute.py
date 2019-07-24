@@ -229,3 +229,62 @@ class DeleteGceSecurityPolicy(MethodAction):
     def get_resource_params(self, m, r):
         project, policy = self.path_param_re.match(r['selfLink']).groups()
         return {'project': project, 'securityPolicy': policy}
+
+
+@GceSecurityPolicy.action_registry.register('add-rule')
+class AddRuleGceSecurityPolicy(MethodAction):
+    """
+    `Inserts <https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies/addRule>`_
+    a rule into a security policy.
+    The 'action' specifies the action to perform when the client connection triggers the rule. Can
+    currently be either "allow" or "deny()" where valid values for status are 403, 404, 502.
+    The 'srcIpRanges' specifies CIDR IP address range.
+    The 'priority' specifies the priority of a rule in the list.
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-gce-security-policy-add-rule
+            resource: gcp.gce-security-policy
+            actions:
+              - type: add-rule
+                action: deny(403)
+                srcIpRanges: ['66.77.88.0/24']
+                priority: 0
+    """
+    schema = type_schema('add-rule',
+                         **{
+                             'action': {
+                                 'type': {'enum': ['allow', 'deny(403)', 'deny(404)', 'deny(502)']}
+                             },
+                             'srcIpRanges': {
+                                 'type': 'array',
+                                 'items': {'type': 'string'}
+                             },
+                             'priority': {
+                                 'type': 'integer',
+                                 'minimum': 0,
+                                 'maximum': 2147483647
+                             }
+                         })
+    method_spec = {'op': 'addRule'}
+    path_param_re = re.compile('.*?/projects/(.*?)/global/securityPolicies/(.*)')
+
+    def get_resource_params(self, model, resource):
+        project, policy = self.path_param_re.match(resource['selfLink']).groups()
+
+        result = {'project': project,
+                  'securityPolicy': policy,
+                  'body': {
+                      'action': self.data['action'],
+                      'match': {
+                          'config': {
+                              'srcIpRanges': self.data['srcIpRanges']
+                          },
+                          'versionedExpr': 'SRC_IPS_V1'
+                      },
+                      'priority': self.data['priority']
+                  }}
+
+        return result

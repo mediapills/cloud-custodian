@@ -1,0 +1,31 @@
+{
+  "body": {
+    "status": "RUNNING", 
+    "kind": "compute#operation", 
+    "name": "operation-1564004525738-58e742e2f0be7-c53c003c-a380d771", 
+    "startTime": "2019-07-24T14:42:06.205-07:00", 
+    "insertTime": "2019-07-24T14:42:06.190-07:00", 
+    "targetId": "2815240327593849698", 
+    "targetLink": "https://www.googleapis.com/compute/v1/projects/mitrop-custodian/global/securityPolicies/test-policy", 
+    "operationType": "AddRule", 
+    "progress": 0, 
+    "id": "5367378283641269825", 
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/mitrop-custodian/global/operations/operation-1564004525738-58e742e2f0be7-c53c003c-a380d771", 
+    "user": "test-sa@mitrop-custodian.iam.gserviceaccount.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "674", 
+    "x-xss-protection": "0", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Wed, 24 Jul 2019 21:42:06 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

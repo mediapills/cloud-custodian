@@ -222,3 +222,36 @@ class GceSecurityPolicyTest(BaseTest):
                      'filter': 'name = test-policy'})
 
         self.assertEqual(result.get('items', []), [])
+
+    def test_security_policy_add_rule(self):
+        project_id = 'mitrop-custodian'
+        factory = self.replay_flight_data('gce-security-policy-add-rule', project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'gcp-gce-security-policy-delete',
+             'resource': 'gcp.gce-security-policy',
+             'filters': [{'name': 'test-policy'}],
+             'actions': [{
+                 'type': 'add-rule',
+                 'action': 'deny(403)',
+                 'srcIpRanges': ['66.77.88.0/24'],
+                 'priority': 0
+             }]},
+            session_factory=factory)
+        resources = p.run()
+
+        if self.recording:
+            time.sleep(5)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id,
+                     'filter': 'name = test-policy'})
+
+        self.assertEqual(len(result['items'][0]['rules']), 2)
+
+        result_rule = result['items'][0]['rules'][0]
+
+        self.assertEqual(result_rule['action'], 'deny(403)')
+        self.assertEqual(result_rule['match']['config']['srcIpRanges'], ['66.77.88.0/24'])
+        self.assertEqual(result_rule['priority'], 0)
