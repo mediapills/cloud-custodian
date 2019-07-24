@@ -1,0 +1,38 @@
+{
+  "body": {
+    "tasks": [
+      {
+        "scheduleTime": "2019-07-26T14:06:13.817184Z", 
+        "appEngineHttpRequest": {
+          "httpMethod": "GET", 
+          "appEngineRouting": {
+            "host": "cloud-custodian.appspot.com"
+          }, 
+          "relativeUri": "/", 
+          "headers": {
+            "User-Agent": "AppEngine-Google; (+http://code.google.com/appengine)"
+          }
+        }, 
+        "view": "BASIC", 
+        "name": "projects/cloud-custodian/locations/europe-west3/queues/primary-queue/tasks/task-to-delete",
+        "createTime": "2019-07-26T14:06:13Z"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "762", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudtasks.googleapis.com/v2/projects/cloud-custodian/locations/europe-west3/queues/primary-queue/tasks?alt=json",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Fri, 26 Jul 2019 14:07:26 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

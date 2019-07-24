@@ -1,16 +1,14 @@
-Cloud Tasks - Notify if there are Tasks scheduled outside of planned operation period
-=====================================================================================
+Cloud Tasks - Delete Inappropriate Tasks
+========================================
 
-Custodian can send notifications if there are Cloud Tasks scheduled in more than specified number of days from today.
+GCP Cloud Task is a unit of scheduled work.
 
-Details about all available Cloud Tasks resources are available at the :ref:`gcp_cloudtasks` page.
-
-To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+The policy below makes Custodian to delete all Cloud Tasks that are scheduled in 7 or more days from now.
 
 .. code-block:: yaml
 
     vars:
-      deadline: &max_days_to_deadline 15
+      deadline: &max_days_to_deadline 7
 
     policies:
       - name: gcp-cloudtasks-task-audit-run
@@ -22,10 +20,4 @@ To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_generic
             value: *max_days_to_deadline
             op: ge
         actions:
-          - type: notify
-            to:
-              - email@email
-            format: json
-            transport:
-              type: pubsub
-              topic: projects/cloud-custodian/topics/cloudtasks
+          - type: delete
