@@ -200,3 +200,32 @@ class GceSecurityPolicy(QueryResourceManager):
             return client.execute_command(
                 'get', {'project': resource_info['project_id'],
                         'securityPolicy': resource_info['policy_name']})
+
+
+@GceSecurityPolicy.action_registry.register('delete')
+class DeleteGceSecurityPolicy(MethodAction):
+    """`Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies/delete>`_
+    a security policy
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gce-security-policy-delete
+            description: Deletes a security policy
+            resource: gcp.gce-security-policy
+            filters:
+               - type: value
+                 key: name
+                 value: test-policy
+            actions:
+               - delete
+    """
+
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+    path_param_re = re.compile('.*?/projects/(.*?)/global/securityPolicies/(.*)')
+
+    def get_resource_params(self, m, r):
+        project, policy = self.path_param_re.match(r['selfLink']).groups()
+        return {'project': project, 'securityPolicy': policy}

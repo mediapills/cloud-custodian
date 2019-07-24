@@ -199,3 +199,26 @@ class GceSecurityPolicyTest(BaseTest):
         event = event_data('gce-security-policy-insert.json')
         resources = exec_mode.run(event, None)
         self.assertEqual(resources[0]['name'], resource_name)
+
+    def test_security_policy_delete(self):
+        project_id = 'mitrop-custodian'
+        factory = self.replay_flight_data('gce-security-policy-delete', project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'gcp-gce-security-policy-delete',
+             'resource': 'gcp.gce-security-policy',
+             'filters': [{'name': 'test-policy'}],
+             'actions': ['delete']},
+            session_factory=factory)
+
+        resources = p.run()
+
+        if self.recording:
+            time.sleep(5)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id,
+                     'filter': 'name = test-policy'})
+
+        self.assertEqual(result.get('items', []), [])
