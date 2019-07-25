@@ -23,7 +23,10 @@ class SetIamPolicyBaseAction(MethodAction):
                          **{
                              'bindings': {
                                  'type': 'array',
-                                 'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
+                                 'items': {'role': {'type': 'string'},
+                                           'members': {'type': 'array',
+                                                       'items': {
+                                                           'type': 'string'}}}
                              }
                          }
                          )
