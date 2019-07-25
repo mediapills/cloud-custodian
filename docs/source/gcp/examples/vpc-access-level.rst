@@ -1,8 +1,6 @@
 VPC Service Controls - Update Access Levels
 ================================================
 
-With VPC Service Controls, you can configure security perimeters around the resources of your Google-managed services and control the movement of data across the perimeter boundary. 
-
 An AccessLevel is a label that can be applied to requests to GCP services, along with a list of requirements necessary for the label to be applied. BasicLevel is an AccessLevel using a set of recommended features and it is composed of Conditions which are necessary for an AccessLevel to be granted. The Condition is an AND over its fields. 
 
 The following policy sets new description for all AccessLevels that match the filter and also update their BasicLevel with a chosen set of regions.
