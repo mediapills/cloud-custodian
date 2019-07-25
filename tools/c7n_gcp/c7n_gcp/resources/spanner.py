@@ -45,15 +45,15 @@ class SpannerInstanceDelete(MethodAction):
 
     .. code-block:: yaml
         policies:
-        - name: gcp-spanner-instances-delete
-          resource: gcp.spanner-instance
-          filters:
-          - type: value
-            key: nodeCount
-            op: gte
-            value: 2
-          actions:
-          - type: delete
+          - name: gcp-spanner-instances-delete
+            resource: gcp.spanner-instance
+            filters:
+              - type: value
+                key: nodeCount
+                op: gte
+                value: 2
+            actions:
+              - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
@@ -70,17 +70,18 @@ class SpannerInstancePatch(MethodAction):
     Example:
 
     .. code-block:: yaml
+
         policies:
-        - name: gcp-spanner-instances-change-node-count
-          resource: gcp.spanner-instance
-          filters:
-            - type: value
-              key: nodeCount
-              op: gte
-              value: 2
-          actions:
-          - type: set
-            nodeCount: 1
+          - name: gcp-spanner-instances-change-node-count
+            resource: gcp.spanner-instance
+            filters:
+              - type: value
+                key: nodeCount
+                op: gte
+                value: 2
+            actions:
+              - type: set
+                nodeCount: 1
     """
     schema = type_schema('set', required=['nodeCount'],
                          **{'nodeCount': {'type': 'number'}})
@@ -108,18 +109,18 @@ class SpannerInstanceSetIamPolicy(SetIamPolicyBaseAction):
     .. code-block:: yaml
 
         policies:
-        - name: gcp-spanner-instances-set-iam-policy
-          resource: gcp.spanner-instance
-          actions:
-          - type: set-iam-policy
-            bindings:
-            - members:
-              - user:user1@test.com
-              - user2@test.com
-              role: roles/owner
-            - members:
-              - user:user3@gmail.com
-              role: roles/viewer
+          - name: gcp-spanner-instances-set-iam-policy
+            resource: gcp.spanner-instance
+            actions:
+              - type: set-iam-policy
+                bindings:
+                  - members:
+                    - user:user1@test.com
+                    - user2@test.com
+                    role: roles/owner
+                  - members:
+                    - user:user3@gmail.com
+                    role: roles/viewer
     """
 
 
@@ -171,18 +172,18 @@ https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.datab
     .. code-block:: yaml
 
         policies:
-        - name: gcp-spanner-database-instances-set-iam-policy
-          resource: gcp.spanner-database-instance
-          actions:
-          - type: set-iam-policy
-            bindings:
-            - members:
-              - user:user1@test.com
-              - user2@test.com
-              role: roles/owner
-            - members:
-              - user:user3@gmail.com
-              role: roles/viewer
+          - name: gcp-spanner-database-instances-set-iam-policy
+            resource: gcp.spanner-database-instance
+            actions:
+              - type: set-iam-policy
+                bindings:
+                  - members:
+                    - user:user1@test.com
+                    - user2@test.com
+                    role: roles/owner
+                  - members:
+                    - user:user3@gmail.com
+                    role: roles/viewer
     """
 
 
@@ -197,15 +198,15 @@ https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.datab
     .. code-block:: yaml
 
         policies:
-        - name: gcp-spanner-instance-databases-delete
-          resource: gcp.spanner-database-instance
-          filters:
-            - type: value
-              key: name
-              op: contains
-              value: dev
-          actions:
-          - type: delete
+          - name: gcp-spanner-instance-databases-delete
+            resource: gcp.spanner-database-instance
+            filters:
+              - type: value
+                key: name
+                op: contains
+                value: dev
+            actions:
+              - type: delete
     """
     schema = type_schema('dropDatabase', **{'type': {'enum': ['delete']}})
     method_spec = {'op': 'dropDatabase'}
