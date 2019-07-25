@@ -1,8 +1,13 @@
-VPC Service perimeters - Restore default state for an access level
-===================================================================
+VPC Service Controls - Restore Defaults for an Access Level of Perimeters
+==============================================================================
+
+With VPC Service Controls, you can configure security perimeters around the resources of your Google-managed services and control the movement of data across the perimeter boundary. 
+
+An AccessLevel is a label that can be applied to requests to GCP services, along with a list of requirements necessary for the label to be applied. BasicLevel is an AccessLevel using a set of recommended features and it is composed of Conditions which are necessary for an AccessLevel to be granted. The Condition is an AND over its fields. 
+
+The status has an information about resources, access levels, restricted services.
 
 The example shows how to set a description and a status for service perimeters with specific access level.
-The status has an information about resources, access levels, restricted services.
 
 .. code-block:: yaml
 
