@@ -1,7 +1,9 @@
-IAM - Set Service Account IAM policies
-===========================
+IAM - Enforce IAM policies of Service Accounts
+=============================================
 
-It's an example that updates IAM policy for spanner instances and databases.
+Custodian can control IAM policies of target resources and enforce an approved hard-coded configuration removing all custom changes in permissions (if any).
+
+The policy below updates IAM policy for spanner instances and databases.
 
 To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
