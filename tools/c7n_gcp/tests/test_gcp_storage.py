@@ -192,7 +192,7 @@ class BucketAccessControlTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'update-role',
+                     'type': 'set-role',
                      'role': 'OWNER'
                  }]),
             session_factory=session_factory)
@@ -487,7 +487,7 @@ class BucketObjectAccessControlTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'update-role',
+                     'type': 'set-role',
                      'role': 'OWNER'
                  }]),
             session_factory=session_factory)

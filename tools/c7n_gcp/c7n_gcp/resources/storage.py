@@ -209,7 +209,7 @@ class BucketAccessControl(ChildResourceManager):
                 })
 
 
-@BucketAccessControl.action_registry.register('update-role')
+@BucketAccessControl.action_registry.register('set-role')
 class BucketAccessControlActionPatch(MethodAction):
     """The action is used for BucketAccessControl role update.
     GCP resource is https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls.
@@ -224,14 +224,14 @@ class BucketAccessControlActionPatch(MethodAction):
                 key: entity
                 value: entity_name
             actions:
-              - type: update-role
+              - type: set-role
                 role: OWNER
     """
 
     schema = type_schema(
-        'update-role',
+        'set-role',
         **{
-            'type': {'enum': ['update-role'], 'required': ['role']},
+            'type': {'enum': ['set-role'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )
@@ -314,7 +314,7 @@ class BucketDefaultObjectAccessControl(ChildResourceManager):
             return info
 
 
-@BucketDefaultObjectAccessControl.action_registry.register('update-role')
+@BucketDefaultObjectAccessControl.action_registry.register('set-role')
 class BucketDefaultObjectAccessControlActionPatch(MethodAction):
     """The action is used for BucketDefaultObjectAccessControl role update.
     GCP resource is https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls.
@@ -322,21 +322,21 @@ class BucketDefaultObjectAccessControlActionPatch(MethodAction):
     Example:
     .. code-block:: yaml
         policies:
-          - name: gcp-bucket-default-object-access-control-update-role
+          - name: gcp-bucket-default-object-access-control-set-role
             resource: gcp.bucket-default-object-access-control
             filters:
               - type: value
                 key: entity
                 value: entity_name
             actions:
-              - type: update-role
+              - type: set-role
                 role: OWNER
     """
 
     schema = type_schema(
-        'update-role',
+        'set-role',
         **{
-            'type': {'enum': ['update-role'], 'required': ['role']},
+            'type': {'enum': ['set-role'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )
@@ -419,7 +419,6 @@ class BucketObject(ChildResourceManager):
 @BucketObject.action_registry.register('update-content-type')
 class BucketObjectActionPatch(MethodAction):
     """The action is used for BucketObject content type update.
-    GCP resource is https://cloud.google.com/storage/docs/json_api/v1/objects.
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/objects/patch
     Example:
     .. code-block:: yaml
@@ -456,7 +455,6 @@ class BucketObjectActionPatch(MethodAction):
 @BucketObject.action_registry.register('delete')
 class BucketObjectActionDelete(MethodAction):
     """The action is used for BucketObject delete.
-    GCP resource is https://cloud.google.com/storage/docs/json_api/v1/objects.
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/objects/delete
     Example:
     .. code-block:: yaml
@@ -525,7 +523,7 @@ class BucketObjectAccessControl(ChildResourceManager):
                 })
 
 
-@BucketObjectAccessControl.action_registry.register('update-role')
+@BucketObjectAccessControl.action_registry.register('set-role')
 class BucketObjectAccessControlActionPatch(MethodAction):
     """The action is used for BucketObjectAccessControl role update.
     GCP resource is https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls.
@@ -533,21 +531,21 @@ class BucketObjectAccessControlActionPatch(MethodAction):
     Example:
     .. code-block:: yaml
         policies:
-          - name: gcp-bucket-object-access-control-update-role
+          - name: gcp-bucket-object-access-control-set-role
             resource: gcp.bucket-object-access-control
             filters:
               - type: value
                 key: entity
                 value: entity_name
             actions:
-              - type: update-role
+              - type: set-role
                 role: OWNER
     """
 
     schema = type_schema(
-        'update-role',
+        'set-role',
         **{
-            'type': {'enum': ['update-role'], 'required': ['role']},
+            'type': {'enum': ['set-role'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )

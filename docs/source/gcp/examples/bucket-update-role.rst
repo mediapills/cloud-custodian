@@ -20,5 +20,5 @@ It can be used for few resources like
             key: entity
             value: entity_name
         actions:
-          - type: update-role
+          - type: set-role
             role: OWNER
