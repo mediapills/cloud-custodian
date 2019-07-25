@@ -18,10 +18,9 @@ from c7n_gcp.actions import MethodAction
 
 class SetIamPolicyBaseAction(MethodAction):
 
-    schema = type_schema('setIamPolicy',
+    schema = type_schema('set-iam-policy',
                          required=['bindings'],
                          **{
-                             'type': {'enum': ['set-iam-policy']},
                              'bindings': {
                                  'type': 'array',
                                  'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
@@ -30,7 +29,8 @@ class SetIamPolicyBaseAction(MethodAction):
                          )
     method_spec = {'op': 'setIamPolicy'}
 
-    MEMBER_TYPES = ['user', 'group', 'domain', 'serviceAccount']
+    MEMBER_TYPES = ['allUsers', 'allAuthenticatedUsers',
+                    'user', 'group', 'domain', 'serviceAccount']
 
     def get_resource_params(self, model, resource):
         result = {'resource': resource['name'],
@@ -41,7 +41,7 @@ class SetIamPolicyBaseAction(MethodAction):
                   }
         bindings = result['body']['policy']['bindings']
 
-        if self.data['bindings'] is not None:
+        if self.data['bindings']:
             for binding in self.data['bindings']:
                 if binding['role'] and binding['members']:
                     members = []

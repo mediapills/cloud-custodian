@@ -1,8 +1,8 @@
 Spanner - Drop databases
 =========================
 
-The policy from the example allows to drop databases and notify about the action by an email.
-The databases have `dev` in the name and can be used for dev environments.
+This policy drops (deletes) databases that have `dev` in the name and then
+notifies about the action taken via an email.
 
 To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
