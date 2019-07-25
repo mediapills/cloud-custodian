@@ -1,7 +1,9 @@
-IAM - Delete filtered project role
+IAM - Delete Project Roles
 ==================================
 
-The example allows to delete filtered project role.
+To enforce security of your organization, Custodian can automatically delete any newly created custom project roles which are not included into a 'white list'.
+
+The policy below deletes project roles which don't match the regexp.
 
 .. code-block:: yaml
 
@@ -11,6 +13,7 @@ The example allows to delete filtered project role.
         filters:
           - type: value
             key: title
-            value: Custom Role
+            op: regex
+            value: ^(mycloud?)\w+
         actions:
           - type: delete
