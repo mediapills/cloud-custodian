@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import json
 from gcp_common import BaseTest
 
 
@@ -27,3 +29,39 @@ class StorageTransferJobTest(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['name'], 'transferJobs/12533737323236783615')
         self.assertEqual(resources[0]['status'], 'ENABLED')
+
+
+class StorageTransferJobPatchTest(BaseTest):
+    def test_update_title(self):
+        project_id = 'cloud-custodian'
+
+        session_factory = self.replay_flight_data(
+            'storage-transfer-update', project_id=project_id)
+
+        base_policy = {'name': 'storage-transfer-update',
+                       'resource': 'gcp.st-transfer-job'}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 actions=[{
+                     'type': 'set',
+                     'status': 'DISABLED'
+                 }]),
+            session_factory=session_factory)
+
+        resources = policy.run()
+
+        self.assertEqual(1, len(resources))
+
+        files_dir = os.path.join(os.path.dirname(__file__),
+                                 'data', 'flights', 'storage-transfer-update')
+
+        files_paths = [file_path for file_path in os.listdir(files_dir)
+                       if file_path.__contains__('2395599000273777125_1')]
+
+        self.assertEqual(1, len(files_paths))
+
+        for file_path in files_paths:
+            with open(os.path.join(files_dir, file_path), 'rt') as file:
+                response = json.load(file)
+                self.assertEqual("DISABLED", response['body']['status'])

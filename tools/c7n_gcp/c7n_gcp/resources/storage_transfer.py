@@ -14,9 +14,10 @@
 import json
 
 
-from c7n.utils import local_session
+from c7n.utils import type_schema, local_session
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
+from c7n_gcp.actions import MethodAction
 
 
 @resources.register('st-transfer-job')
@@ -34,4 +35,32 @@ class StorageTransferJob(QueryResourceManager):
         id = 'name'
 
     def get_resource_query(self):
-        return {'filter': json.dumps({"project_id": local_session(self.session_factory).get_default_project()})}
+        return {'filter': json.dumps({
+            "project_id": local_session(self.session_factory).get_default_project()})}
+
+
+@StorageTransferJob.action_registry.register('set')
+class StorageTransferJobPatch(MethodAction):
+
+    schema = type_schema('set',
+         **{'status': {'type': 'string'},
+            'name': {'type': 'string'},
+            'description': {'type': 'integer'},
+            })
+
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        project = local_session(self.manager.source.query.session_factory).get_default_project()
+        body = {
+            "transferJob": {},
+            "projectId": project
+        }
+
+        for field in ["status", "name", "description"]:
+            if field in self.data:
+                body["transferJob"][field] = self.data[field]
+
+        return {
+            'jobName': resource['name'],
+            'body': body}
