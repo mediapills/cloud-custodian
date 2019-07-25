@@ -1,0 +1,50 @@
+{
+  "headers": {
+    "content-type": "application/json; charset=UTF-8",
+    "vary": "Origin, X-Origin, Referer",
+    "date": "Thu, 25 Jul 2019 14:18:01 GMT",
+    "server": "ESF",
+    "cache-control": "private",
+    "x-xss-protection": "0",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"",
+    "transfer-encoding": "chunked",
+    "status": "200",
+    "content-length": "784",
+    "-content-encoding": "gzip",
+    "content-location": "https://storagetransfer.googleapis.com/v1/transferJobs?filter=%7B%22project_id%22%3A+%22cloud-custodian%22%7D&alt=json"
+  },
+  "body": {
+    "transferJobs": [
+      {
+        "name": "transferJobs/2395599000273777125",
+        "description": "test storage data transfer",
+        "projectId": "cloud-custodian",
+        "transferSpec": {
+          "gcsDataSource": {
+            "bucketName": "second-c7n-test-data"
+          },
+          "gcsDataSink": {
+            "bucketName": "c7n-test-data"
+          },
+          "objectConditions": {},
+          "transferOptions": {}
+        },
+        "schedule": {
+          "scheduleStartDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 23
+          },
+          "startTimeOfDay": {
+            "hours": 19
+          }
+        },
+        "status": "DISABLED",
+        "creationTime": "2019-07-23T12:39:28.940112999Z",
+        "lastModificationTime": "2019-07-25T13:55:38.727358881Z"
+      }
+    ]
+  }
+}
