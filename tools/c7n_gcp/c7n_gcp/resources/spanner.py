@@ -44,6 +44,7 @@ class SpannerInstanceDelete(MethodAction):
     Example:
 
     .. code-block:: yaml
+
         policies:
           - name: gcp-spanner-instances-delete
             resource: gcp.spanner-instance
@@ -122,6 +123,7 @@ class SpannerInstanceSetIamPolicy(SetIamPolicyBaseAction):
                     - user:user3@gmail.com
                     role: roles/viewer
     """
+    pass
 
 
 @resources.register('spanner-database-instance')
@@ -165,7 +167,8 @@ class SpannerDatabaseInstance(ChildResourceManager):
 class SpannerDatabaseInstanceSetIamPolicy(SetIamPolicyBaseAction):
     """Sets IAM policy. It works with bindings only.
     GCP action is
-https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/setIamPolicy.
+    https://cloud.google.com/spanner/docs
+        /reference/rest/v1/projects.instances.databases/setIamPolicy.
 
     Example:
 
@@ -185,13 +188,15 @@ https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.datab
                     - user:user3@gmail.com
                     role: roles/viewer
     """
+    pass
 
 
 @SpannerDatabaseInstance.action_registry.register('delete')
 class SpannerDatabaseInstanceDropDatabase(MethodAction):
     """The action is used for databases deleting.
     GCP action is
-https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/dropDatabase.
+    https://cloud.google.com/spanner/docs
+        /reference/rest/v1/projects.instances.databases/dropDatabase.
 
     Example:
 
