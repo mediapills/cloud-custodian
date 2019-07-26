@@ -21,7 +21,7 @@ To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_generic
           - type: notify
             subject: The following databases were dropped
             to:
-            - email@address
+              - email@address
             transport:
-              type: pubsub
-              topic: projects/cloud-custodian/topics/demo-notifications
+                type: pubsub
+                topic: projects/cloud-custodian/topics/demo-notifications
