@@ -41,6 +41,7 @@ class BigQueryDataTransferDelete(MethodAction):
     GCP action is
     https://cloud.google.com/bigquery/docs/reference/datatransfer/rest/v1/projects.locations.transferConfigs/delete
     Example:
+
     .. code-block:: yaml
         policies:
           - name: gke-bq-datatransfer-delete-failed
