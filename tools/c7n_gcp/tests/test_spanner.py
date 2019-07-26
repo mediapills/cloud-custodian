@@ -225,7 +225,7 @@ class SpannerDatabaseInstanceTest(BaseTest):
                            'bindings':
                                [{'members': ['user:yauhen_shaliou@comelfo.com'],
                                  'role': 'roles/owner'},
-                                {'members': ['dkhanas@gmail.com'],
+                                {'members': ['user:dkhanas@gmail.com'],
                                  'role': 'roles/viewer'},
                                 ]}]
                  ),

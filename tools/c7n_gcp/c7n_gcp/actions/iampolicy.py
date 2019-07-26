@@ -23,39 +23,21 @@ class SetIamPolicyBaseAction(MethodAction):
                          **{
                              'bindings': {
                                  'type': 'array',
+                                 'minItems': 1,
                                  'items': {'role': {'type': 'string'},
                                            'members': {'type': 'array',
                                                        'items': {
-                                                           'type': 'string'}}}
+                                                           'type': 'string'},
+                                                       'minItems': 1}}
                              }
-                         }
-                         )
+                         })
     method_spec = {'op': 'setIamPolicy'}
-
-    MEMBER_TYPES = ['allUsers', 'allAuthenticatedUsers',
-                    'user', 'group', 'domain', 'serviceAccount']
 
     def get_resource_params(self, model, resource):
         result = {'resource': resource['name'],
                   'body': {
                       'policy': {
-                          'bindings': []
+                          'bindings': self.data['bindings']
                       }}
                   }
-        bindings = result['body']['policy']['bindings']
-
-        if self.data['bindings']:
-            for binding in self.data['bindings']:
-                if binding['role'] and binding['members']:
-                    members = []
-                    for member in binding['members']:
-                        requires_update = True
-                        for member_type in self.MEMBER_TYPES:
-                            if member.startswith(member_type + ':'):
-                                requires_update = False
-                                break
-                        if requires_update:
-                            member = 'user:' + member
-                        members.append(member)
-                    bindings.append({'role': binding['role'], 'members': members})
         return result

@@ -13,7 +13,7 @@ These policies update the IAM policy for spanner instances and databases, respec
             bindings:
               - members:
                   - user:user1@test.com
-                  - user2@test.com
+                  - user:user2@test.com
                 role: roles/owner
               - members:
                   - user:user3@gmail.com
@@ -26,7 +26,7 @@ These policies update the IAM policy for spanner instances and databases, respec
             bindings:
               - members:
                   - user:user1@test.com
-                  - user2@test.com
+                  - user:user2@test.com
                 role: roles/owner
               - members:
                   - user:user3@gmail.com

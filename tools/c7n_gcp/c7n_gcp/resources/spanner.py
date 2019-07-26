@@ -105,6 +105,14 @@ class SpannerInstanceSetIamPolicy(SetIamPolicyBaseAction):
     GCP action is
     https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy.
 
+    There are available following member types:
+    - allUsers,
+    - allAuthenticatedUsers,
+    - user,
+    - group,
+    - domain,
+    - serviceAccount.
+
     Example:
 
     .. code-block:: yaml
@@ -117,7 +125,7 @@ class SpannerInstanceSetIamPolicy(SetIamPolicyBaseAction):
                 bindings:
                   - members:
                       - user:user1@test.com
-                      - user2@test.com
+                      - user:user2@test.com
                     role: roles/owner
                   - members:
                       - user:user3@gmail.com
@@ -170,6 +178,14 @@ class SpannerDatabaseInstanceSetIamPolicy(SetIamPolicyBaseAction):
     https://cloud.google.com/spanner/docs
         /reference/rest/v1/projects.instances.databases/setIamPolicy.
 
+    There are available following member types:
+    - allUsers,
+    - allAuthenticatedUsers,
+    - user,
+    - group,
+    - domain,
+    - serviceAccount.
+
     Example:
 
     .. code-block:: yaml
@@ -182,7 +198,7 @@ class SpannerDatabaseInstanceSetIamPolicy(SetIamPolicyBaseAction):
                 bindings:
                   - members:
                       - user:user1@test.com
-                      - user2@test.com
+                      - user:user2@test.com
                     role: roles/owner
                   - members:
                       - user:user3@gmail.com
