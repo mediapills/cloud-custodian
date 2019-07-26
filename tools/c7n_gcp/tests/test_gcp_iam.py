@@ -55,7 +55,7 @@ class ProjectRoleTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'set-title',
+                     'type': 'set',
                      'title': 'CustomRole1'
                  }]),
             session_factory=session_factory)
@@ -138,9 +138,9 @@ class ServiceAccountTest(BaseTest):
         self.assertEqual(len(resources), 3)
 
     def test_delete_service_account(self):
-        project_id = 'new-project-26240'
-        name = "projects/new-project-26240/serviceAccounts/" +\
-               "qwwww-235@new-project-26240.iam.gserviceaccount.com"
+        project_id = 'cloud-custodian'
+        name = "projects/cloud-custodian/serviceAccounts/" +\
+               "qwwww-235@cloud-custodian.iam.gserviceaccount.com"
 
         session_factory = self.replay_flight_data(
             'iam-project-service-account-delete', project_id=project_id)
@@ -165,14 +165,14 @@ class ServiceAccountTest(BaseTest):
 
         client = policy.resource_manager.get_client()
         result = client.execute_query(
-            'list', {'name': 'projects/new-project-26240'})
+            'list', {'name': 'projects/cloud-custodian'})
 
         self.assertNotIn(name, [resource['name'] for resource in result['accounts']])
 
     def test_disable_service_account(self):
-        project_id = 'new-project-26240'
-        name = "projects/new-project-26240/serviceAccounts/" +\
-               "dddddddd@new-project-26240.iam.gserviceaccount.com"
+        project_id = 'cloud-custodian'
+        name = "projects/cloud-custodian/serviceAccounts/" +\
+               "dddddddd@cloud-custodian.iam.gserviceaccount.com"
 
         session_factory = self.replay_flight_data(
             'iam-project-service-account-disable', project_id=project_id)
@@ -197,14 +197,14 @@ class ServiceAccountTest(BaseTest):
 
         client = policy.resource_manager.get_client()
         result = client.execute_query(
-            'list', {'name': 'projects/new-project-26240'})
+            'list', {'name': 'projects/cloud-custodian'})
 
         self.assertTrue(result['accounts'][0]['disabled'])
 
     def test_enable_service_account(self):
-        project_id = 'new-project-26240'
-        name = "projects/new-project-26240/serviceAccounts/" +\
-               "dddddddd@new-project-26240.iam.gserviceaccount.com"
+        project_id = 'cloud-custodian'
+        name = "projects/cloud-custodian/serviceAccounts/" +\
+               "dddddddd@cloud-custodian.iam.gserviceaccount.com"
 
         session_factory = self.replay_flight_data(
             'iam-project-service-account-enable', project_id=project_id)
@@ -229,9 +229,43 @@ class ServiceAccountTest(BaseTest):
 
         client = policy.resource_manager.get_client()
         result = client.execute_query(
-            'list', {'name': 'projects/new-project-26240'})
+            'list', {'name': 'projects/cloud-custodian'})
 
         self.assertNotIn('disabled', result['accounts'][0])
+
+    def test_display_name(self):
+        project_id = 'cloud-custodian'
+        name = "projects/cloud-custodian/serviceAccounts/" +\
+               "dddddddd@cloud-custodian.iam.gserviceaccount.com"
+        session_factory = self.replay_flight_data(
+            'iam-service-account-set', project_id=project_id)
+
+        base_policy = {'name': 'iam-service-account-set',
+                       'resource': 'gcp.service-account',
+                       'filters': [{
+                           'type': 'value',
+                           'key': 'name',
+                           'value': name
+                       }]}
+
+        policy = self.load_policy(
+            dict(base_policy,
+                 actions=[{
+                     'type': 'set',
+                     'display_name': 'test-name'
+                 }]),
+            session_factory=session_factory)
+        resources = policy.run()
+        self.assertEqual(resources[0]['displayName'], 'name')
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'name': 'projects/cloud-custodian'})
+
+        self.assertEqual(result['accounts'][0]['displayName'], 'name')
 
 
 class IAMRoleTest(BaseTest):

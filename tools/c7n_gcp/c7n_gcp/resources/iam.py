@@ -65,7 +65,7 @@ class ProjectRoleActionDelete(MethodAction):
         return {'name': resource['name']}
 
 
-@ProjectRole.action_registry.register('set-title')
+@ProjectRole.action_registry.register('set')
 class ProjectRoleActionPatch(MethodAction):
     """The action is used for IAM projects.roles name patch.
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/projects.roles/patch
@@ -79,14 +79,14 @@ class ProjectRoleActionPatch(MethodAction):
                 key: title
                 value: Custom Role
             actions:
-              - type: set-title
+              - type: set
                 name: CustomRole1
     """
 
     schema = type_schema(
-        'set-title',
+        'set',
         **{
-            'type': {'enum': ['set-title']},
+            'type': {'enum': ['set']},
             'title': {'type': 'string'}
         }
     )
@@ -125,7 +125,6 @@ class ServiceAccount(QueryResourceManager):
 @ServiceAccount.action_registry.register('set-iam-policy')
 class ServiceAccountSetIamPolicy(MethodAction):
     """Sets IAM policy. It works with bindings only.
-    GCP resource is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts.
     GCP action is
     https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/setIamPolicy.
     Example:
@@ -255,6 +254,46 @@ class ServiceAccountActionEnable(MethodAction):
 
     def get_resource_params(self, model, resource):
         return {'name': resource['name']}
+
+
+@ServiceAccount.action_registry.register('set')
+class ServiceAccountActionSetDisplayName(MethodAction):
+    """The action is used for IAM projects.serviceAccounts set display name.
+    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/patch
+    Example:
+    .. code-block:: yaml
+        policies:
+          - name: gcp-iam-service-account-set
+            resource: gcp.service-account
+            filters:
+              - type: value
+                key: name
+                value: projects/{project}/serviceAccounts/{acountid}
+            actions:
+              - type: set
+              display_name: test-name
+    """
+
+    schema = type_schema(
+        'set',
+        **{
+            'type': {'enum': ['set'], 'required': ['name']},
+            'display_name': {'type': 'string'}
+        }
+    )
+
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        return {
+            'name': resource['name'],
+            'body': {
+                  "serviceAccount": {
+                    "displayName": self.data['display_name']
+                  },
+                  "updateMask": "displayName"
+                }
+        }
 
 
 @resources.register('iam-role')
