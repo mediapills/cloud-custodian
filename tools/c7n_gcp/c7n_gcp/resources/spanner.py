@@ -116,11 +116,11 @@ class SpannerInstanceSetIamPolicy(SetIamPolicyBaseAction):
               - type: set-iam-policy
                 bindings:
                   - members:
-                    - user:user1@test.com
-                    - user2@test.com
+                      - user:user1@test.com
+                      - user2@test.com
                     role: roles/owner
                   - members:
-                    - user:user3@gmail.com
+                      - user:user3@gmail.com
                     role: roles/viewer
     """
     pass
@@ -181,11 +181,11 @@ class SpannerDatabaseInstanceSetIamPolicy(SetIamPolicyBaseAction):
               - type: set-iam-policy
                 bindings:
                   - members:
-                    - user:user1@test.com
-                    - user2@test.com
+                      - user:user1@test.com
+                      - user2@test.com
                     role: roles/owner
                   - members:
-                    - user:user3@gmail.com
+                      - user:user3@gmail.com
                     role: roles/viewer
     """
     pass
