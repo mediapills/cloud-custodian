@@ -1,7 +1,7 @@
 {
   "body": {
     "kind": "storage#bucket", 
-    "name": "new-project-26240.appspot.com", 
+    "name": "cloud-custodian.appspot.com", 
     "timeCreated": "2019-06-04T10:15:26.457Z", 
     "locationType": "multi-region", 
     "updated": "2019-07-09T09:11:45.278Z", 
@@ -59,8 +59,8 @@
       "entity": "project-owners-501876662786"
     }, 
     "etag": "CA0=", 
-    "id": "new-project-26240.appspot.com", 
-    "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com", 
+    "id": "cloud-custodian.appspot.com", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com", 
     "storageClass": "MULTI_REGIONAL"
   }, 
   "headers": {

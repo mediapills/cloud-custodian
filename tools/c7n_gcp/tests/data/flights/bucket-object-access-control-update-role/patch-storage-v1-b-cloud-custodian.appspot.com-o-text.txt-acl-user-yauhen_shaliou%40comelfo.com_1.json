@@ -3,13 +3,13 @@
     "kind": "storage#objectAccessControl", 
     "generation": "1562679387949533", 
     "object": "text.txt", 
-    "bucket": "new-project-26240.appspot.com", 
+    "bucket": "cloud-custodian.appspot.com", 
     "entity": "user-yauhen_shaliou@comelfo.com", 
     "email": "yauhen_shaliou@comelfo.com", 
     "etag": "CN2TxK76p+MCEAc=", 
     "role": "OWNER", 
-    "id": "new-project-26240.appspot.com/text.txt/1562679387949533/user-yauhen_shaliou@comelfo.com", 
-    "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/o/text.txt/acl/user-yauhen_shaliou@comelfo.com"
+    "id": "cloud-custodian.appspot.com/text.txt/1562679387949533/user-yauhen_shaliou@comelfo.com", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/text.txt/acl/user-yauhen_shaliou@comelfo.com"
   }, 
   "headers": {
     "status": "200", 

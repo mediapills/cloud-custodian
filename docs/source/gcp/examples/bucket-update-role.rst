@@ -4,11 +4,9 @@ Bucket - Update role for filtered entity
 The example allows to update role for filtered entity.
 It can be used for few resources like
 
-```
-    bucket-access-control,
-    bucket-default-object-access-control,
-    bucket-object-access-control
-```
+- bucket-access-control,
+- bucket-default-object-access-control,
+- bucket-object-access-control
 
 .. code-block:: yaml
 
@@ -20,5 +18,5 @@ It can be used for few resources like
             key: entity
             value: entity_name
         actions:
-          - type: set-role
+          - type: set
             role: OWNER

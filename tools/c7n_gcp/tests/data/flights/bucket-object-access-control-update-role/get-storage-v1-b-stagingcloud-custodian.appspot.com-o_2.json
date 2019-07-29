@@ -5,7 +5,7 @@
   "headers": {
     "status": "200", 
     "content-length": "31", 
-    "content-location": "https://www.googleapis.com/storage/v1/b/staging.new-project-26240.appspot.com/o?alt=json", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/staging.cloud-custodian.appspot.com/o?alt=json", 
     "cache-control": "private, max-age=0, must-revalidate, no-transform", 
     "expires": "Tue, 09 Jul 2019 13:42:30 GMT", 
     "vary": "Origin, X-Origin", 

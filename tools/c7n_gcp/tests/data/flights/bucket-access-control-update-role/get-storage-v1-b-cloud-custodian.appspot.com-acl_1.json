@@ -3,17 +3,17 @@
     "items": [
       {
         "kind": "storage#bucketAccessControl", 
-        "bucket": "new-project-26240.appspot.com", 
+        "bucket": "cloud-custodian.appspot.com", 
         "entity": "user-dkhanas@gmail.com", 
         "email": "dkhanas@gmail.com", 
         "etag": "CA8=", 
         "role": "OWNER", 
-        "id": "new-project-26240.appspot.com/user-dkhanas@gmail.com", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-dkhanas@gmail.com"
+        "id": "cloud-custodian.appspot.com/user-dkhanas@gmail.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/acl/user-dkhanas@gmail.com"
       }, 
       {
         "kind": "storage#bucketAccessControl", 
-        "bucket": "new-project-26240.appspot.com", 
+        "bucket": "cloud-custodian.appspot.com", 
         "entity": "project-owners-501876662786", 
         "etag": "CA8=", 
         "role": "OWNER", 
@@ -21,18 +21,18 @@
           "projectNumber": "501876662786", 
           "team": "owners"
         }, 
-        "id": "new-project-26240.appspot.com/project-owners-501876662786", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/project-owners-501876662786"
+        "id": "cloud-custodian.appspot.com/project-owners-501876662786", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/acl/project-owners-501876662786"
       }, 
       {
         "kind": "storage#bucketAccessControl", 
-        "bucket": "new-project-26240.appspot.com", 
+        "bucket": "cloud-custodian.appspot.com", 
         "entity": "user-yauhen_shaliou@comelfo.com", 
         "email": "yauhen_shaliou@comelfo.com", 
         "etag": "CA8=", 
         "role": "READER", 
-        "id": "new-project-26240.appspot.com/user-yauhen_shaliou@comelfo.com", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-yauhen_shaliou@comelfo.com"
+        "id": "cloud-custodian.appspot.com/user-yauhen_shaliou@comelfo.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/acl/user-yauhen_shaliou@comelfo.com"
       }
     ], 
     "kind": "storage#bucketAccessControls"
@@ -40,7 +40,7 @@
   "headers": {
     "status": "200", 
     "content-length": "1323", 
-    "content-location": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl?alt=json", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/acl?alt=json", 
     "expires": "Tue, 09 Jul 2019 12:13:01 GMT", 
     "vary": "Origin, X-Origin", 
     "server": "UploadServer", 

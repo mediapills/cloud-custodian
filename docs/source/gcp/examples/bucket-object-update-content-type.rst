@@ -13,5 +13,5 @@ The example allows to update content type for filtered object.
             key: name
             value: object_name
         actions:
-          - type: set-content-type
+          - type: set
             content_type: image/png

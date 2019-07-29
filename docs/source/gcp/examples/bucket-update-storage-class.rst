@@ -13,5 +13,5 @@ The example allows to delete filtered bucket.
             key: id
             value: bucket_name
         actions:
-          - type: set-storage-class
+          - type: set
             class: MULTI_REGIONAL

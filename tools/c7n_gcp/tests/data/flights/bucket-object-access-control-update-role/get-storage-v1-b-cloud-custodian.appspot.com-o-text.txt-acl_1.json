@@ -5,7 +5,7 @@
         "kind": "storage#objectAccessControl", 
         "generation": "1562679387949533", 
         "object": "text.txt", 
-        "bucket": "new-project-26240.appspot.com", 
+        "bucket": "cloud-custodian.appspot.com", 
         "entity": "project-owners-501876662786", 
         "etag": "CN2TxK76p+MCEAY=", 
         "role": "OWNER", 
@@ -13,14 +13,14 @@
           "projectNumber": "501876662786", 
           "team": "owners"
         }, 
-        "id": "new-project-26240.appspot.com/text.txt/1562679387949533/project-owners-501876662786", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/o/text.txt/acl/project-owners-501876662786"
+        "id": "cloud-custodian.appspot.com/text.txt/1562679387949533/project-owners-501876662786", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/text.txt/acl/project-owners-501876662786"
       }, 
       {
         "kind": "storage#objectAccessControl", 
         "generation": "1562679387949533", 
         "object": "text.txt", 
-        "bucket": "new-project-26240.appspot.com", 
+        "bucket": "cloud-custodian.appspot.com", 
         "entity": "project-editors-501876662786", 
         "etag": "CN2TxK76p+MCEAY=", 
         "role": "OWNER", 
@@ -28,14 +28,14 @@
           "projectNumber": "501876662786", 
           "team": "editors"
         }, 
-        "id": "new-project-26240.appspot.com/text.txt/1562679387949533/project-editors-501876662786", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/o/text.txt/acl/project-editors-501876662786"
+        "id": "cloud-custodian.appspot.com/text.txt/1562679387949533/project-editors-501876662786", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/text.txt/acl/project-editors-501876662786"
       }, 
       {
         "kind": "storage#objectAccessControl", 
         "generation": "1562679387949533", 
         "object": "text.txt", 
-        "bucket": "new-project-26240.appspot.com", 
+        "bucket": "cloud-custodian.appspot.com", 
         "entity": "project-viewers-501876662786", 
         "etag": "CN2TxK76p+MCEAY=", 
         "role": "READER", 
@@ -43,32 +43,32 @@
           "projectNumber": "501876662786", 
           "team": "viewers"
         }, 
-        "id": "new-project-26240.appspot.com/text.txt/1562679387949533/project-viewers-501876662786", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/o/text.txt/acl/project-viewers-501876662786"
+        "id": "cloud-custodian.appspot.com/text.txt/1562679387949533/project-viewers-501876662786", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/text.txt/acl/project-viewers-501876662786"
       }, 
       {
         "kind": "storage#objectAccessControl", 
         "generation": "1562679387949533", 
         "object": "text.txt", 
-        "bucket": "new-project-26240.appspot.com", 
+        "bucket": "cloud-custodian.appspot.com", 
         "entity": "user-dkhanas@gmail.com", 
         "email": "dkhanas@gmail.com", 
         "etag": "CN2TxK76p+MCEAY=", 
         "role": "OWNER", 
-        "id": "new-project-26240.appspot.com/text.txt/1562679387949533/user-dkhanas@gmail.com", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/o/text.txt/acl/user-dkhanas@gmail.com"
+        "id": "cloud-custodian.appspot.com/text.txt/1562679387949533/user-dkhanas@gmail.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/text.txt/acl/user-dkhanas@gmail.com"
       }, 
       {
         "kind": "storage#objectAccessControl", 
         "generation": "1562679387949533", 
         "object": "text.txt", 
-        "bucket": "new-project-26240.appspot.com", 
+        "bucket": "cloud-custodian.appspot.com", 
         "entity": "user-yauhen_shaliou@comelfo.com", 
         "email": "yauhen_shaliou@comelfo.com", 
         "etag": "CN2TxK76p+MCEAY=", 
         "role": "READER", 
-        "id": "new-project-26240.appspot.com/text.txt/1562679387949533/user-yauhen_shaliou@comelfo.com", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/o/text.txt/acl/user-yauhen_shaliou@comelfo.com"
+        "id": "cloud-custodian.appspot.com/text.txt/1562679387949533/user-yauhen_shaliou@comelfo.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/text.txt/acl/user-yauhen_shaliou@comelfo.com"
       }
     ], 
     "kind": "storage#objectAccessControls"
@@ -76,7 +76,7 @@
   "headers": {
     "status": "200", 
     "content-length": "2793", 
-    "content-location": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/o/text.txt/acl?alt=json", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com/o/text.txt/acl?alt=json", 
     "expires": "Tue, 09 Jul 2019 13:42:27 GMT", 
     "vary": "Origin, X-Origin", 
     "server": "UploadServer", 

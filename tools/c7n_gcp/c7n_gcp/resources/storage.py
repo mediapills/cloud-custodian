@@ -141,7 +141,7 @@ class BucketActionDelete(MethodAction):
         return {'bucket': resource['id']}
 
 
-@Bucket.action_registry.register('update-storage-class')
+@Bucket.action_registry.register('set')
 class BucketActionPatch(MethodAction):
     """The action is used for Bucket storage-class update.
     GCP resource is https://cloud.google.com/storage/docs/json_api/v1/buckets.
@@ -159,14 +159,14 @@ class BucketActionPatch(MethodAction):
                 key: id
                 value: bucket_name
             actions:
-              - type: update-storage-class
+              - type: set
                 class: MULTI_REGIONAL
     """
 
     schema = type_schema(
-        'update-storage-class',
+        'set',
         **{
-            'type': {'enum': ['update-storage-class'], 'required': ['storageclass']},
+            'type': {'enum': ['set'], 'required': ['storageclass']},
             'class': {
                 'type': 'string',
                 "enum": [
@@ -219,7 +219,7 @@ class BucketAccessControl(ChildResourceManager):
                 })
 
 
-@BucketAccessControl.action_registry.register('set-role')
+@BucketAccessControl.action_registry.register('set')
 class BucketAccessControlActionPatch(MethodAction):
     """The action is used for BucketAccessControl role update.
     GCP resource is https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls.
@@ -237,14 +237,14 @@ class BucketAccessControlActionPatch(MethodAction):
                 key: entity
                 value: entity_name
             actions:
-              - type: set-role
+              - type: set
                 role: OWNER
     """
 
     schema = type_schema(
-        'set-role',
+        'set',
         **{
-            'type': {'enum': ['set-role'], 'required': ['role']},
+            'type': {'enum': ['set'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )
@@ -330,7 +330,7 @@ class BucketDefaultObjectAccessControl(ChildResourceManager):
             return info
 
 
-@BucketDefaultObjectAccessControl.action_registry.register('set-role')
+@BucketDefaultObjectAccessControl.action_registry.register('set')
 class BucketDefaultObjectAccessControlActionPatch(MethodAction):
     """The action is used for BucketDefaultObjectAccessControl role update.
     GCP resource is https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls.
@@ -348,14 +348,14 @@ class BucketDefaultObjectAccessControlActionPatch(MethodAction):
                 key: entity
                 value: entity_name
             actions:
-              - type: set-role
+              - type: set
                 role: OWNER
     """
 
     schema = type_schema(
-        'set-role',
+        'set',
         **{
-            'type': {'enum': ['set-role'], 'required': ['role']},
+            'type': {'enum': ['set'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )
@@ -438,7 +438,7 @@ class BucketObject(ChildResourceManager):
                 })
 
 
-@BucketObject.action_registry.register('update-content-type')
+@BucketObject.action_registry.register('set')
 class BucketObjectActionPatch(MethodAction):
     """The action is used for BucketObject content type update.
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/objects/patch
@@ -455,14 +455,14 @@ class BucketObjectActionPatch(MethodAction):
                 key: name
                 value: object_name
             actions:
-              - type: update-content-type
+              - type: set
                 content_type: image/png
     """
 
     schema = type_schema(
-        'update-content-type',
+        'set',
         **{
-            'type': {'enum': ['update-content-type'], 'required': ['content_type']},
+            'type': {'enum': ['set'], 'required': ['content_type']},
             'content_type': {'type': 'string'}
         }
     )
@@ -551,7 +551,7 @@ class BucketObjectAccessControl(ChildResourceManager):
                 })
 
 
-@BucketObjectAccessControl.action_registry.register('set-role')
+@BucketObjectAccessControl.action_registry.register('set')
 class BucketObjectAccessControlActionPatch(MethodAction):
     """The action is used for BucketObjectAccessControl role update.
     GCP resource is https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls.
@@ -569,14 +569,14 @@ class BucketObjectAccessControlActionPatch(MethodAction):
                 key: entity
                 value: entity_name
             actions:
-              - type: set-role
+              - type: set
                 role: OWNER
     """
 
     schema = type_schema(
-        'set-role',
+        'set',
         **{
-            'type': {'enum': ['set-role'], 'required': ['role']},
+            'type': {'enum': ['set'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )
