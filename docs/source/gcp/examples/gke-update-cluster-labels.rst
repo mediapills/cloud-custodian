@@ -15,7 +15,7 @@ In the example below, the policy marks clusters of 3 nodes with "nodes:minimal" 
             key: currentNodeCount
             value: 3
         actions:
-          - type: set
+          - type: set-resource-labels
             labels:
                 - key: nodes
                   value: minimal

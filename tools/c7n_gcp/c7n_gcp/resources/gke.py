@@ -82,7 +82,7 @@ class KubernetesClusterActionDelete(MethodAction):
         return {"name": name}
 
 
-@KubernetesCluster.action_registry.register('set')
+@KubernetesCluster.action_registry.register('set-resource-labels')
 class KubernetesClusterActionSetResourceLabels(MethodAction):
     """The action is used for GKE projects.locations.clusters setResourceLabels.
     GCP action is
@@ -101,14 +101,14 @@ class KubernetesClusterActionSetResourceLabels(MethodAction):
                 key: currentNodeCount
                 value: 3
             actions:
-              - type: set
+              - type: set-resource-labels
                 labels:
                     - key: nodes
                       value: minimal
     """
 
     schema = type_schema(
-        'set',
+        'set-resource-labels',
         **{
             'labels': {
                 'type': 'array',
@@ -136,7 +136,7 @@ class KubernetesClusterActionSetResourceLabels(MethodAction):
             'name': name,
             'body': {
                 'resourceLabels': {
-                    label['key']: label['value'] for label in self.data['labels']
+                    k: v for k, v in self.data['labels']
                 }
             }}
 
@@ -160,14 +160,13 @@ class KubernetesClusterActionUpdate(MethodAction):
                 key: currentNodeVersion
                 value: 1.12.8-gke.10
             actions:
-              - type: update-node-version
+              - type: update
                 nodeversion: "1.13.6-gke.13"
     """
 
     schema = type_schema(
-        'update-node-version',
+        'update',
         **{
-            'type': {'enum': ['update']},
             'nodeversion': {
                 'type': 'string'
             }
@@ -257,7 +256,7 @@ class KubernetesClusterNodePoolSetActionAutoscaling(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: gke-cluster-nodepool-set-acutoscaling
+          - name: gke-cluster-nodepool-set-autoscaling
             resource: gcp.gke-nodepool
             filters:
               - type: value
@@ -265,15 +264,14 @@ class KubernetesClusterNodePoolSetActionAutoscaling(MethodAction):
                 value: 3
             actions:
               - type: set-autoscaling
-                enabled: true,
-                minNodeCount: 3,
+                enabled: true
+                minNodeCount: 3
                 maxNodeCount: 3
     """
 
     schema = type_schema(
         'set-autoscaling',
         **{
-            'type': {'enum': ['set-autoscaling']},
             'autoscaling': {
                 'type': 'string'
             },
@@ -290,11 +288,12 @@ class KubernetesClusterNodePoolSetActionAutoscaling(MethodAction):
 
     def get_resource_params(self, model, resource):
         session = local_session(self.manager.session_factory)
+        key = self.manager.resource_type.get_parent_annotation_key()
 
         name = 'projects/{}/locations/{}/clusters/{}/nodePools/{}'.format(
             session.get_default_project(),
-            resource['c7n:gke-cluster']['locations'][0],
-            resource['c7n:gke-cluster']['name'],
+            resource[key]['locations'][0],
+            resource[key]['name'],
             resource['name'])
 
         if self.data['autoscaling']:
@@ -313,7 +312,7 @@ class KubernetesClusterNodePoolSetActionAutoscaling(MethodAction):
             }}
 
 
-@KubernetesClusterNodePool.action_registry.register('set')
+@KubernetesClusterNodePool.action_registry.register('set-size')
 class KubernetesClusterNodePoolSetActionSetSize(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools size setup.
     GCP action is
@@ -333,14 +332,14 @@ class KubernetesClusterNodePoolSetActionSetSize(MethodAction):
                 value: 4
                 op: greater-than
             actions:
-              - type: set,
-                size: 3
+              - type: set
+                node-count: 3
     """
 
     schema = type_schema(
-        'set',
+        'set-size',
         **{
-            'size': {
+            'node-count': {
                 'type': 'string'
             }
         }
@@ -350,21 +349,22 @@ class KubernetesClusterNodePoolSetActionSetSize(MethodAction):
 
     def get_resource_params(self, model, resource):
         session = local_session(self.manager.session_factory)
+        key = self.manager.resource_type.get_parent_annotation_key()
 
         name = 'projects/{}/locations/{}/clusters/{}/nodePools/{}'.format(
             session.get_default_project(),
-            resource['c7n:gke-cluster']['locations'][0],
-            resource['c7n:gke-cluster']['name'],
+            resource[key]['locations'][0],
+            resource[key]['name'],
             resource['name'])
 
         return {
             'name': name,
             'body': {
-                "nodeCount": self.data['size']
+                "nodeCount": self.data['node-count']
             }}
 
 
-@KubernetesClusterNodePool.action_registry.register('set-auto-upgrade')
+@KubernetesClusterNodePool.action_registry.register('set-management')
 class KubernetesClusterNodePoolSetActionManagement(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools management setup.
     GCP action is
@@ -379,12 +379,12 @@ class KubernetesClusterNodePoolSetActionManagement(MethodAction):
           - name: gke-cluster-nodepool-set-auto-upgrade
             resource: gcp.gke-nodepool
             actions:
-              - type: set,
+              - type: set-management
                 autoUpgrade: true
     """
 
     schema = type_schema(
-        'set-auto-upgrade',
+        'set-management',
         **{
             'upgrade': {
                 'type': 'string'
@@ -396,11 +396,12 @@ class KubernetesClusterNodePoolSetActionManagement(MethodAction):
 
     def get_resource_params(self, model, resource):
         session = local_session(self.manager.session_factory)
+        key = self.manager.resource_type.get_parent_annotation_key()
 
         name = 'projects/{}/locations/{}/clusters/{}/nodePools/{}'.format(
             session.get_default_project(),
-            resource['c7n:gke-cluster']['locations'][0],
-            resource['c7n:gke-cluster']['name'],
+            resource[key]['locations'][0],
+            resource[key]['name'],
             resource['name'])
 
         return {

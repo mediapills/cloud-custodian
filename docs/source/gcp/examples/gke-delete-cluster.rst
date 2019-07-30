@@ -9,7 +9,7 @@ Please note that when you delete an existing GKE cluster, most of its resources 
 
 .. code-block:: yaml
 
-       policies:
+        policies:
           - name: gke-cluster-delete-biggest
             resource: gcp.gke-cluster
             filters:

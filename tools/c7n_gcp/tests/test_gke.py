@@ -68,7 +68,7 @@ class KubernetesClusterTest(BaseTest):
         p = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'set',
+                     'type': 'set-resource-labels',
                      'labels': [{
                          'key': 'nodes',
                          'value': 'minimal'
@@ -224,8 +224,8 @@ class KubernetesClusterNodePoolTest(BaseTest):
                     'op': 'greater-than'
                 }],
                 'actions': [{
-                    'type': 'set',
-                    'size': '3',
+                    'type': 'set-size',
+                    'node-count': '3',
                 }],
             }, session_factory=factory)
 
@@ -257,7 +257,7 @@ class KubernetesClusterNodePoolTest(BaseTest):
                 'name': 'gke-cluster-nodepool-set-auto-upgrade',
                 'resource': 'gcp.gke-nodepool',
                 'actions': [{
-                    'type': 'set-auto-upgrade',
+                    'type': 'set-management',
                     'upgrade': 'true',
                 }],
             }, session_factory=factory)

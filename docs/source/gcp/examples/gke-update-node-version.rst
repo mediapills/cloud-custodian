@@ -17,5 +17,5 @@ Please note that a cluster's master and nodes are upgraded separately, also that
             key: currentNodeVersion
             value: 1.12.8-gke.10
         actions:
-          - type: update-node-version
+          - type: update
             nodeversion: "1.13.6-gke.13"
