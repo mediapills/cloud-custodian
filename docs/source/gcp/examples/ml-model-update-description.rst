@@ -3,7 +3,7 @@ ML Engine Model - Update description
 
 Description management for ML Engine Models was not implemented via GCP Console. This example show how to change description for particular model in ML Engine.
 
-In the example below, Cusodian will change description for test model.
+In the example below, Custodian will change description for test model.
 
 .. code-block:: yaml
 
