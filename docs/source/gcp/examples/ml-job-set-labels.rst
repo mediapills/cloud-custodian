@@ -17,5 +17,5 @@ In the example below, Custodian will set label "type" value "new" for ML Job aft
         actions:
           - type: set
             labels:
-                - key: type
-                  value: new
+              - key: type
+                value: new
