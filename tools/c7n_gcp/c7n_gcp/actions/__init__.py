@@ -16,4 +16,4 @@
 from .core import Action, MethodAction
 from .cscc import PostFinding
 from .notify import Notify
-from .iampolicy import SetIamPolicyBaseAction
+from .iampolicy import SetIamPolicy
