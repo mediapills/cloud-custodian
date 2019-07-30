@@ -46,7 +46,7 @@ class SetIamPolicy(MethodAction):
                         role: roles/viewer
         """
     schema = type_schema('set-iam-policy',
-                         required=['bindings', 'mode'],
+                         required=['bindings'],
                          **{
                              'bindings': {
                                  'type': 'array',
