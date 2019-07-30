@@ -101,36 +101,6 @@ class SpannerInstancePatch(MethodAction):
 
 @SpannerInstance.action_registry.register('set-iam-policy')
 class SpannerInstanceSetIamPolicy(SetIamPolicyBaseAction):
-    """Sets IAM policy. It works with bindings only.
-    GCP action is
-    https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy.
-
-    There are available following member types:
-    - allUsers,
-    - allAuthenticatedUsers,
-    - user,
-    - group,
-    - domain,
-    - serviceAccount.
-
-    Example:
-
-    .. code-block:: yaml
-
-        policies:
-          - name: gcp-spanner-instances-set-iam-policy
-            resource: gcp.spanner-instance
-            actions:
-              - type: set-iam-policy
-                bindings:
-                  - members:
-                      - user:user1@test.com
-                      - user:user2@test.com
-                    role: roles/owner
-                  - members:
-                      - user:user3@gmail.com
-                    role: roles/viewer
-    """
     pass
 
 
@@ -173,37 +143,6 @@ class SpannerDatabaseInstance(ChildResourceManager):
 
 @SpannerDatabaseInstance.action_registry.register('set-iam-policy')
 class SpannerDatabaseInstanceSetIamPolicy(SetIamPolicyBaseAction):
-    """Sets IAM policy. It works with bindings only.
-    GCP action is
-    https://cloud.google.com/spanner/docs
-        /reference/rest/v1/projects.instances.databases/setIamPolicy.
-
-    There are available following member types:
-    - allUsers,
-    - allAuthenticatedUsers,
-    - user,
-    - group,
-    - domain,
-    - serviceAccount.
-
-    Example:
-
-    .. code-block:: yaml
-
-        policies:
-          - name: gcp-spanner-database-instances-set-iam-policy
-            resource: gcp.spanner-database-instance
-            actions:
-              - type: set-iam-policy
-                bindings:
-                  - members:
-                      - user:user1@test.com
-                      - user:user2@test.com
-                    role: roles/owner
-                  - members:
-                      - user:user3@gmail.com
-                    role: roles/viewer
-    """
     pass
 
 
