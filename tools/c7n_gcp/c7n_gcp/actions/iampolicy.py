@@ -16,7 +16,7 @@ from c7n.utils import type_schema
 from c7n_gcp.actions import MethodAction
 
 
-class SetIamPolicyBaseAction(MethodAction):
+class SetIamPolicy(MethodAction):
     """ Sets IAM policy. It works with bindings only.
 
         There are available following member types:
@@ -46,7 +46,7 @@ class SetIamPolicyBaseAction(MethodAction):
                         role: roles/viewer
         """
     schema = type_schema('set-iam-policy',
-                         required=['bindings'],
+                         required=['bindings', 'mode'],
                          **{
                              'bindings': {
                                  'type': 'array',
@@ -56,16 +56,18 @@ class SetIamPolicyBaseAction(MethodAction):
                                                        'items': {
                                                            'type': 'string'},
                                                        'minItems': 1}}
-                             }
+                             },
+                             'mode': {'type': 'string', 'enum': ['add', 'remove', 'update']}
                          })
     method_spec = {'op': 'setIamPolicy'}
     schema_alias = True
 
     def get_resource_params(self, model, resource):
+        bindings = self.data['bindings']
         result = {'resource': resource['name'],
                   'body': {
                       'policy': {
-                          'bindings': self.data['bindings']
+                          'bindings': bindings
                       }}
                   }
         return result
