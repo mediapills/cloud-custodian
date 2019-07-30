@@ -20,7 +20,8 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 
 @resources.register('project-role')
 class ProjectRole(QueryResourceManager):
-
+    """ GCP resource is https://cloud.google.com/iam/reference/rest/v1/projects.roles
+    """
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
@@ -43,8 +44,8 @@ class ProjectRole(QueryResourceManager):
 @ProjectRole.action_registry.register('delete')
 class ProjectRoleActionDelete(MethodAction):
     """The action is used for IAM projects.roles delete.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/projects.roles.
-    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/projects.roles/delete
+    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/delete
+
     Example:
     .. code-block:: yaml
          policies:
@@ -68,7 +69,8 @@ class ProjectRoleActionDelete(MethodAction):
 @ProjectRole.action_registry.register('set')
 class ProjectRoleActionPatch(MethodAction):
     """The action is used for IAM projects.roles name patch.
-    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/projects.roles/patch
+    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/patch
+
     Example:
     .. code-block:: yaml
         policies:
@@ -102,7 +104,8 @@ class ProjectRoleActionPatch(MethodAction):
 
 @resources.register('service-account')
 class ServiceAccount(QueryResourceManager):
-
+    """ GCP resource is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts
+    """
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
@@ -126,7 +129,7 @@ class ServiceAccount(QueryResourceManager):
 class ServiceAccountSetIamPolicy(MethodAction):
     """Sets IAM policy. It works with bindings only.
     GCP action is
-    https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/setIamPolicy.
+    https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/setIamPolicy
     Example:
     .. code-block:: yaml
         policies:
@@ -246,7 +249,7 @@ class ServiceAccountActionEnable(MethodAction):
                 key: name
                 value: projects/{project}/serviceAccounts/{acountid}
             actions:
-              - type: disable
+              - type: enable
     """
 
     schema = type_schema('enable')
@@ -298,7 +301,8 @@ class ServiceAccountActionSetDisplayName(MethodAction):
 
 @resources.register('iam-role')
 class Role(QueryResourceManager):
-
+    """ GCP resource is https://cloud.google.com/iam/reference/rest/v1/roles
+    """
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
