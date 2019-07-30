@@ -228,3 +228,56 @@ class InstanceGroupManagerTest(BaseTest):
                      'zone': resources[0]['zone'].rsplit('/', 1)[-1]})
 
         self.assertEqual(result['items'][0]['currentActions']['deleting'], 1)
+
+    def test_instance_group_manager_set(self):
+        project_id = 'mitrop-custodian'
+        factory = self.replay_flight_data('instance-group-manager-set', project_id=project_id)
+
+        instance_template_url = ('https://www.googleapis.com/compute/v1/projects/mitrop-custodian'
+                                 '/global/instanceTemplates/instance-template-2')
+        health_check_url = ('https://www.googleapis.com/compute/v1/projects/mitrop-custodian'
+                            '/global/healthChecks/test-health-check')
+
+        p = self.load_policy(
+            {'name': 'set-instance-group-manager',
+             'resource': 'gcp.instance-group-manager',
+             'filters': [{'name': 'instance-group-1'}],
+             'actions': [{'type': 'set',
+                          'instanceTemplate': instance_template_url,
+                          'autoHealingPolicies': [{
+                              'healthCheck': health_check_url,
+                              'initialDelaySec': 10
+                          }],
+                          'updatePolicy': {
+                              'type': 'OPPORTUNISTIC',
+                              'minimalAction': 'REPLACE',
+                              'maxSurge': {
+                                  'fixed': 4
+                              },
+                              'maxUnavailable': {
+                                  'fixed': 1
+                              }
+                          }}]},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+        if self.recording:
+            time.sleep(60)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id,
+                     'zone': 'us-central1-a',
+                     'filter': 'name = instance-group-1'})
+
+        manager = result['items'][0]
+
+        self.assertEqual(manager['instanceTemplate'], instance_template_url)
+        self.assertEqual(manager['autoHealingPolicies'][0]['healthCheck'], health_check_url)
+        self.assertEqual(manager['autoHealingPolicies'][0]['initialDelaySec'], 10)
+        self.assertEqual(manager['updatePolicy']['type'], 'OPPORTUNISTIC')
+        self.assertEqual(manager['updatePolicy']['minimalAction'], 'REPLACE')
+        self.assertEqual(manager['updatePolicy']['maxSurge']['fixed'], 4)
+        self.assertEqual(manager['updatePolicy']['maxUnavailable']['fixed'], 1)
