@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from c7n.utils import type_schema
-from c7n_gcp.actions import MethodAction, SetIamPolicyBaseAction
+from c7n_gcp.actions import MethodAction, SetIamPolicy
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildTypeInfo, ChildResourceManager
 
@@ -99,9 +99,7 @@ class SpannerInstancePatch(MethodAction):
         return result
 
 
-@SpannerInstance.action_registry.register('set-iam-policy')
-class SpannerInstanceSetIamPolicy(SetIamPolicyBaseAction):
-    pass
+SpannerInstance.action_registry.register('set-iam-policy', SetIamPolicy)
 
 
 @resources.register('spanner-database-instance')
@@ -141,9 +139,7 @@ class SpannerDatabaseInstance(ChildResourceManager):
             )
 
 
-@SpannerDatabaseInstance.action_registry.register('set-iam-policy')
-class SpannerDatabaseInstanceSetIamPolicy(SetIamPolicyBaseAction):
-    pass
+SpannerDatabaseInstance.action_registry.register('set-iam-policy', SetIamPolicy)
 
 
 @SpannerDatabaseInstance.action_registry.register('delete')
