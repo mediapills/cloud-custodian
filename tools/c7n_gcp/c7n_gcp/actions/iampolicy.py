@@ -17,7 +17,34 @@ from c7n_gcp.actions import MethodAction
 
 
 class SetIamPolicyBaseAction(MethodAction):
+    """ Sets IAM policy. It works with bindings only.
 
+        There are available following member types:
+        - allUsers,
+        - allAuthenticatedUsers,
+        - user,
+        - group,
+        - domain,
+        - serviceAccount.
+
+        Example:
+
+        .. code-block:: yaml
+
+            policies:
+              - name: gcp-set-iam-policy-common
+                resource: gcp.<resource-name>
+                actions:
+                  - type: set-iam-policy
+                    bindings:
+                      - members:
+                          - user:user1@test.com
+                          - user:user2@test.com
+                        role: roles/owner
+                      - members:
+                          - user:user3@gmail.com
+                        role: roles/viewer
+        """
     schema = type_schema('set-iam-policy',
                          required=['bindings'],
                          **{
