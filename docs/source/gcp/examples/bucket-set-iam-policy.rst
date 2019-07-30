@@ -6,8 +6,8 @@ The example allows to update filtered bucket iam policy.
 .. code-block:: yaml
 
     policies:
-    - name: gcp-iam-service-account-set-iam-policy
-      resource: gcp.service-account
+    - name: gcp-storage-bucket-set-iam-policy
+      resource: gcp.bucket
       filters:
         - type: value
           key: id

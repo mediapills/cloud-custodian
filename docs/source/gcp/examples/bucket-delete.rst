@@ -5,7 +5,7 @@ The example allows to delete filtered bucket.
 
 .. code-block:: yaml
 
-     policies:
+    policies:
       - name: gcp-bucket-delete
         resource: gcp.bucket
         filters:
