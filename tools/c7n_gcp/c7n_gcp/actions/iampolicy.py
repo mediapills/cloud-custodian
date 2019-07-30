@@ -32,6 +32,7 @@ class SetIamPolicyBaseAction(MethodAction):
                              }
                          })
     method_spec = {'op': 'setIamPolicy'}
+    schema_alias = True
 
     def get_resource_params(self, model, resource):
         result = {'resource': resource['name'],
