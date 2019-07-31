@@ -1,10 +1,9 @@
 ML Engine - Delete Models
-===============================
+=============================
 
-It is a good practice for data science to control model live cycle. Training process can effect
-on model state and in nowadays dynamic models creation is common practice.
+Sometimes you may need to control geographical locations where your data and processing pipelines reside. 
 
-In the example below, after policy execution model will be deleted by name.
+The policy below automaticaly deletes all models which are deployed in regions specified in the black list.
 
 .. code-block:: yaml
 
@@ -13,7 +12,8 @@ In the example below, after policy execution model will be deleted by name.
         resource: gcp.ml-model
         filters:
           - type: value
-            key: name
-            value: projects/cloud-custodian/models/test
+            key: regions
+            op: in
+            value: [europe-west-1, europe-west4]
         actions:
           - type: delete
