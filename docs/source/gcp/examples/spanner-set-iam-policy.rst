@@ -1,4 +1,4 @@
-Spanner - Set IAM policies
+Spanner - Set IAM Policies
 ===========================
 
 These policies update the IAM policy for spanner instances and databases, respectively.
