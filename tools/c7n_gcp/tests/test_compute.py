@@ -212,6 +212,7 @@ class GceSecurityPolicyTest(BaseTest):
             session_factory=factory)
 
         resources = p.run()
+        self.assertEqual(len(resources), 1)
 
         if self.recording:
             time.sleep(5)
@@ -238,7 +239,9 @@ class GceSecurityPolicyTest(BaseTest):
                  'priority': 0
              }]},
             session_factory=factory)
+
         resources = p.run()
+        self.assertEqual(len(resources), 1)
 
         if self.recording:
             time.sleep(5)
