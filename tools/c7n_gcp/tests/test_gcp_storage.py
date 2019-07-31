@@ -53,32 +53,6 @@ class BucketTest(BaseTest):
         self.assertEqual(bucket[0]['storageClass'], "STANDARD")
         self.assertEqual(bucket[0]['location'], "US")
 
-    def test_bucket_set_iam_policy(self):
-        project_id = 'new-project-26240'
-        session_factory = self.replay_flight_data('bucket-set-iam',
-                                                  project_id=project_id)
-        policy = self.load_policy(
-            {'name': 'gcp-bucket-set-iam-policy',
-             'resource': 'gcp.bucket',
-             'filters': [{
-                 'type': 'value',
-                 'key': 'id',
-                 'value': 'new-project-26240.appspot.com'
-             }],
-             'actions': [{
-                 'type': 'set-iam-policy',
-                 'bindings':
-                     [{'members': ['user:yauhen_shaliou@comelfo.com'],
-                       'role': 'roles/storage.objectViewer'},
-                      {'members': ['dkhanas@gmail.com'],
-                       'role': 'roles/storage.objectAdmin'},
-                      ]
-             }]},
-            session_factory=session_factory)
-
-        resources = policy.run()
-        self.assertEqual(len(resources), 1)
-
     def test_update_storage_class(self):
         project_id = 'cloud-custodian'
         bucket_name = 'cloud-custodian.appspot.com'
