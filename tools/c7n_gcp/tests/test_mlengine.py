@@ -18,7 +18,7 @@ from gcp_common import BaseTest, event_data
 class MLModelTest(BaseTest):
 
     def test_models_query(self):
-        project_id = "cloud-custodian"
+        project_id = 'cloud-custodian'
 
         session_factory = self.replay_flight_data(
             'ml-models-query', project_id)
@@ -35,7 +35,7 @@ class MLModelTest(BaseTest):
 
     def test_models_get(self):
         project_id = 'cloud-custodian'
-        name = "test_model"
+        name = 'test_model'
 
         factory = self.replay_flight_data('ml-model-get', project_id=project_id)
         p = self.load_policy({
@@ -52,8 +52,8 @@ class MLModelTest(BaseTest):
         self.assertIn(name, models[0]['name'])
 
     def test_patch(self):
-        project_id = "cloud-custodian"
-        description = "Custom description"
+        project_id = 'cloud-custodian'
+        description = 'Custom description'
 
         factory = self.replay_flight_data('ml-model-update-description', project_id)
 
@@ -78,7 +78,7 @@ class MLModelTest(BaseTest):
         self.assertEqual(resources[0]['description'], description)
 
     def test_delete(self):
-        project_id = "cloud-custodian"
+        project_id = 'cloud-custodian'
         name = 'projects/cloud-custodian/models/test'
         factory = self.replay_flight_data('ml-model-delete', project_id)
 
@@ -128,7 +128,7 @@ class MLJobTest(BaseTest):
 
     def test_jobs_get(self):
         project_id = 'cloud-custodian'
-        name = "test_job"
+        name = 'test_job'
 
         factory = self.replay_flight_data('ml-job-get', project_id=project_id)
         p = self.load_policy({
@@ -145,7 +145,7 @@ class MLJobTest(BaseTest):
         self.assertIn(name, jobs[0]['jobId'])
 
     def test_patch(self):
-        project_id = "cloud-custodian"
+        project_id = 'cloud-custodian'
 
         factory = self.replay_flight_data('ml-job-set-labels', project_id)
 
