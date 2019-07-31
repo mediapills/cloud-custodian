@@ -45,7 +45,7 @@ class MLModel(QueryResourceManager):
 
 @MLModel.action_registry.register('set')
 class MLModelSet(MethodAction):
-    """The action is used for ML projects.models update description.
+    """The action is used for ML projects.models patch description field.
 
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.models/patch
 
