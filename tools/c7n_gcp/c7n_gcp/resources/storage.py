@@ -160,7 +160,6 @@ class BucketActionPatch(MethodAction):
     schema = type_schema(
         'set',
         **{
-            'type': {'enum': ['set'], 'required': ['class']},
             'class': {
                 'type': 'string',
                 "enum": [
@@ -238,7 +237,6 @@ class BucketAccessControlActionPatch(MethodAction):
     schema = type_schema(
         'set',
         **{
-            'type': {'enum': ['set'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )
@@ -349,7 +347,6 @@ class BucketDefaultObjectAccessControlActionPatch(MethodAction):
     schema = type_schema(
         'set',
         **{
-            'type': {'enum': ['set'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )
@@ -461,7 +458,6 @@ class BucketObjectActionPatch(MethodAction):
     schema = type_schema(
         'set',
         **{
-            'type': {'enum': ['set'], 'required': ['content_type']},
             'content_type': {'type': 'string'}
         }
     )
@@ -576,7 +572,6 @@ class BucketObjectAccessControlActionPatch(MethodAction):
     schema = type_schema(
         'set',
         **{
-            'type': {'enum': ['set'], 'required': ['role']},
             'role': {'type': 'string'}
         }
     )
