@@ -1,4 +1,4 @@
-Spanner - Reduce count of instance nodes
+Spanner - Reduce Count of Instance Nodes
 =========================================
 
 This policy reduces the node count to 1 node for a spanner instance and then
