@@ -122,28 +122,153 @@ class SpannerInstanceTest(BaseTest):
         self.assertEqual(instances[0]['nodeCount'], 1)
         self.assertEqual(instances[1]['nodeCount'], 1)
 
-    def test_spanner_instance_set_iam_policy(self):
+    def test_spanner_instance_set_iam_policy_add(self):
+        """
+        The case combines all 3 possible ways for the members to form within a single role:
+        - the members specified in a policy already exist in a resource;
+        - there are existing members in addition to the ones specified in the policy;
+        - a new role is added.
+        """
         project_id = 'custodian-test-project-0'
-        patching_instance_name = 'spanner-instance-0'
-        session_factory = self.replay_flight_data('spanner-instance-set-iam-policy',
-                                                  project_id=project_id)
-        base_policy = {'name': 'spanner-instance-set-iam-policy',
-                       'resource': 'gcp.spanner-instance'}
+        resource_name = 'spanner-instance-0'
+        resource_full_name = 'projects/%s/instances/%s' % (project_id, resource_name)
+        session_factory = self.replay_flight_data(
+            'spanner-instance-set-iam-policy-add', project_id=project_id)
         policy = self.load_policy(
-            dict(base_policy,
-                 actions=[{'type': 'set-iam-policy',
-                           'bindings':
-                               [{'members': ['user:yauhen_shaliou@comelfo.com'],
-                                 'role': 'roles/owner'},
-                                {'members': ['user:dkhanas@gmail.com'],
-                                 'role': 'roles/viewer'},
-                                ]}]
-                 ),
+            {'name': 'spanner-instance-set-iam-policy-add',
+             'resource': 'gcp.spanner-instance',
+             'actions': [{'type': 'set-iam-policy',
+                          'mode': 'add',
+                          'bindings':
+                              [{'members': ['user:yauhen_shaliou@comelfo.com'],
+                                'role': 'roles/owner'},
+                               {'members': ['user:alex.karpitski@gmail.com'],
+                                'role': 'roles/viewer'},
+                               {'members': ['user:mediapills@gmail.com'],
+                                'role': 'roles/editor'}
+                               ]}]},
             session_factory=session_factory)
-        resources = policy.run()
 
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:yauhen_shaliou@comelfo.com'],
+                           'role': 'roles/owner'},
+                          {'members': ['user:dkhanas@gmail.com'],
+                           'role': 'roles/viewer'}])
+
+        resources = policy.run()
         self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]['displayName'], patching_instance_name)
+        self.assertEqual(resources[0]['name'], resource_full_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:mediapills@gmail.com'],
+                           'role': 'roles/editor'},
+                          {'members': ['user:yauhen_shaliou@comelfo.com'],
+                           'role': 'roles/owner'},
+                          {'members': ['user:alex.karpitski@gmail.com',
+                                       'user:dkhanas@gmail.com'],
+                           'role': 'roles/viewer'}])
+
+    def test_spanner_instance_set_iam_policy_remove(self):
+        """
+        The case combines all 3 possible ways for the members to form within a single role:
+        - no existing members are filtered out by a policy;
+        - a part of the existing members is filtered out by the policy;
+        - a role is removed completely.
+        """
+        project_id = 'custodian-test-project-0'
+        resource_name = 'spanner-instance-0'
+        resource_full_name = 'projects/%s/instances/%s' % (project_id, resource_name)
+        session_factory = self.replay_flight_data('spanner-instance-set-iam-policy-remove',
+                                                  project_id=project_id)
+        policy = self.load_policy(
+            {'name': 'spanner-instance-set-iam-policy-remove',
+             'resource': 'gcp.spanner-instance',
+             'actions': [{'type': 'set-iam-policy',
+                          'mode': 'remove',
+                          'bindings':
+                              [{'members': ['user:alex.karpitski@gmail.com',
+                                            'user:pavel_mitrafanau@epam.com'],
+                                'role': 'roles/viewer'},
+                               {'members': ['user:mediapills@gmail.com'],
+                                'role': 'roles/editor'
+                                }]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:mediapills@gmail.com'],
+                           'role': 'roles/editor'},
+                          {'members': ['user:yauhen_shaliou@comelfo.com'],
+                           'role': 'roles/owner'},
+                          {'members': ['user:alex.karpitski@gmail.com',
+                                       'user:dkhanas@gmail.com'],
+                           'role': 'roles/viewer'}])
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], resource_full_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:yauhen_shaliou@comelfo.com'],
+                           'role': 'roles/owner'},
+                          {'members': ['user:dkhanas@gmail.com'],
+                           'role': 'roles/viewer'}])
+
+    def test_spanner_instance_set_iam_policy_remove_all(self):
+        """
+        Among the two possible cases of getting no IAM policies in a resource, the one tested there
+        involves filtering everything out with mentioning all the members in a policy.
+        """
+        project_id = 'custodian-test-project-0'
+        resource_name = 'spanner-instance-0'
+        resource_full_name = 'projects/%s/instances/%s' % (project_id, resource_name)
+        session_factory = self.replay_flight_data('spanner-instance-set-iam-policy-remove-all',
+                                                  project_id=project_id)
+        policy = self.load_policy(
+            {'name': 'spanner-instance-set-iam-policy-remove-all',
+             'resource': 'gcp.spanner-instance',
+             'actions': [{'type': 'set-iam-policy',
+                          'mode': 'remove',
+                          'bindings': [{'members': ['user:mediapills@gmail.com'],
+                                        'role': 'roles/editor'},
+                                       {'members': ['user:yauhen_shaliou@comelfo.com'],
+                                        'role': 'roles/owner'},
+                                       {'members': ['user:alex.karpitski@gmail.com',
+                                                    'user:dkhanas@gmail.com'],
+                                        'role': 'roles/viewer'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:mediapills@gmail.com'],
+                           'role': 'roles/editor'},
+                          {'members': ['user:yauhen_shaliou@comelfo.com'],
+                           'role': 'roles/owner'},
+                          {'members': ['user:alex.karpitski@gmail.com',
+                                       'user:dkhanas@gmail.com'],
+                           'role': 'roles/viewer'}])
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], resource_full_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertFalse('bindings' in actual_bindings)
 
 
 class SpannerDatabaseInstanceTest(BaseTest):
