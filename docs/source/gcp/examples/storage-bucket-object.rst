@@ -19,8 +19,7 @@ In the example below, the policy notifies users if the ``update`` action was per
         filters:
           - type: value
             key: storageClass
-            op: eq
-            value: "ColdLine"
+            value: "STANDARD"
         actions:
           - type: notify
             to:

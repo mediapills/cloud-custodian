@@ -19,7 +19,6 @@ In the example below, the policy notifies users if the ``update`` action was per
         filters:
           - type: value
             key: labels.key
-            op: eq
             value: "archive"
         actions:
           - type: notify
