@@ -1,7 +1,8 @@
 ML Engine - Delete Models
 ===============================
 
-It is a good practice for data science to control model live cycle. Training process can effect on model state and in nowadays dynamic models creation is common practice.
+It is a good practice for data science to control model live cycle. Training process can effect
+on model state and in nowadays dynamic models creation is common practice.
 
 In the example below, after policy execution model will be deleted by name.
 

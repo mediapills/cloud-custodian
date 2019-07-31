@@ -74,7 +74,7 @@ class MLModelActionPatch(MethodAction):
                 value: projects/cloud-custodian/models/test
             actions:
               - type: set
-                description: "Custom description"
+                description: Custom description
     """
 
     schema = type_schema(
@@ -122,12 +122,13 @@ class MLModelActionDelete(MethodAction):
     method_spec = {'op': 'delete'}
 
     def get_resource_params(self, model, resource):
-        return {"name": resource['name']}
+        return {'name': resource['name']}
 
 
 @resources.register('ml-job')
 class MLJob(QueryResourceManager):
     """The action is used for ML projects.jobs list and get actions.
+
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs
 
     Example:
@@ -164,7 +165,8 @@ class MLJob(QueryResourceManager):
 
 @MLJob.action_registry.register('set')
 class MLJobActionPatch(MethodAction):
-    """The action is used for ML projects.jobs set label.
+    """The action is used for ML projects.jobs set labels.
+
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs/patch
 
     Example:
