@@ -15,7 +15,7 @@
       }
     ], 
     "version": 1, 
-    "etag": "BwWLl1PhINo="
+    "etag": "BwWPDzF1omk="
   }, 
   "headers": {
     "status": "200", 
@@ -26,9 +26,9 @@
     "server": "ESF", 
     "-content-encoding": "gzip", 
     "cache-control": "private", 
-    "date": "Tue, 18 Jun 2019 11:22:27 GMT", 
+    "date": "Thu, 01 Aug 2019 14:44:30 GMT", 
     "x-frame-options": "SAMEORIGIN", 
-    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
     "content-type": "application/json; charset=UTF-8"
   }
 }
