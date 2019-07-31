@@ -1,9 +1,9 @@
-ML Engine Jobs - Set Labels 
+ML Engine - Set Labels to Jobs 
 ==============================
 
 Cloud infrastructure for enterprise corporation have a lot of components and one of the tool what can be used to group this components depends on needs is Labels.
 
-In the example below, Custodian will set label "type" value "new" for ML Job after creation.
+In the example below, Custodian sets label "type" value "new" for ML Job after creation.
 
 .. code-block:: yaml
 
