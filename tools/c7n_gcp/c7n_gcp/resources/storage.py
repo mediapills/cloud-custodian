@@ -64,13 +64,10 @@ class BucketSetIamPolicy(MethodAction):
             actions:
               - type: set-iam-policy
                 bindings:
-                - members:
-                  - user:user1@test.com
-                  - user2@test.com
-                  role: roles/owner
-                - members:
-                  - user:user3@gmail.com
-                    role: roles/viewer
+                  - members:
+                    - user:user1@test.com
+                    - user2@test.com
+                    role: roles/owner
     """
     schema = type_schema('setIamPolicy',
                          required=['bindings'],
@@ -163,7 +160,7 @@ class BucketActionPatch(MethodAction):
     schema = type_schema(
         'set',
         **{
-            'type': {'enum': ['set'], 'required': ['storageclass']},
+            'type': {'enum': ['set'], 'required': ['class']},
             'class': {
                 'type': 'string',
                 "enum": [
@@ -360,8 +357,10 @@ class BucketDefaultObjectAccessControlActionPatch(MethodAction):
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
+        key = self.manager.resource_type.get_parent_annotation_key()
+
         return {
-            'bucket': resource['c7n:bucket']['name'],
+            'bucket': resource[key]['name'],
             'entity': resource['entity'],
             'body': {'role': self.data['role']}
         }
@@ -391,8 +390,10 @@ class BucketDefaultObjectAccessControlActionDelete(MethodAction):
     method_spec = {'op': 'delete'}
 
     def get_resource_params(self, model, resource):
+        key = self.manager.resource_type.get_parent_annotation_key()
+
         return {
-            'bucket': resource['c7n:bucket']['name'],
+            'bucket': resource[key]['name'],
             'entity': resource['entity']
         }
 
@@ -485,7 +486,7 @@ class BucketObjectActionDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-        - name: gcp-bucket-object-delete
+          - name: gcp-bucket-object-delete
             resource: gcp.bucket-object
             filters:
               - type: value

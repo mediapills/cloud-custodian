@@ -146,7 +146,7 @@ class BucketTest(BaseTest):
 class BucketAccessControlTest(BaseTest):
 
     def test_bucket_query(self):
-        project_id = 'cloud-custodian'  # 'test-project-232910'
+        project_id = 'cloud-custodian'
         factory = self.replay_flight_data('bucket-access-control-query', project_id)
         p = self.load_policy(
             {'name': 'all-bucket-access-control',
@@ -246,7 +246,7 @@ class BucketAccessControlTest(BaseTest):
 class BucketDefaultObjectAccessControlTest(BaseTest):
 
     def test_bucket_query(self):
-        project_id = 'cloud-custodian'  # 'test-project-232910'
+        project_id = 'cloud-custodian'
         entity = "project-owners-518122731295"
         factory = self.replay_flight_data('bucket-default-object-access-control-query', project_id)
         p = self.load_policy(

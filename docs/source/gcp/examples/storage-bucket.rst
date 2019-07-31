@@ -15,8 +15,8 @@ In the example below, the policy notifies users if the ``update`` action was per
         mode:
           type: gcp-audit
           methods:
-          - 'storage.buckets.update'
-          filters:
+            - 'storage.buckets.update'
+        filters:
           - type: value
             key: labels.key
             op: eq

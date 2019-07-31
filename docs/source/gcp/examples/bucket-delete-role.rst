@@ -1,7 +1,7 @@
-Bucket - Delete role for filtered entity
-========================================
+Bucket - Delete role for filtered entities
+==========================================
 
-The example allows to delete role for filtered entity.
+The example allows to delete role for filtered entities.
 It can be used for few resources like
 
 - bucket-access-control,

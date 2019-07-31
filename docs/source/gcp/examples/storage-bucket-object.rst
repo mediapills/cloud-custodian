@@ -16,11 +16,11 @@ In the example below, the policy notifies users if the ``update`` action was per
           type: gcp-audit
           methods:
             - 'storage.objects.update'
-            filters:
-            - type: value
-              key: storageClass
-              op: eq
-              value: "ColdLine"
+        filters:
+          - type: value
+            key: storageClass
+            op: eq
+            value: "ColdLine"
         actions:
           - type: notify
             to:
