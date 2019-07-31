@@ -1,9 +1,9 @@
 ML Engine - Set Labels to Jobs
-==============================
+===============================
 
-Cloud infrastructure for enterprise corporation have a lot of components and one of the tool what can be used to group this components depends on needs is Labels.
+Using labels is one of best practices to keep enterprise ML pipelines organized. Setting labels can serve as basis for consequential manipulations with resources (deletion, etc).
 
-In the example below, Custodian sets label "type" value "new" for ML Job after creation.
+In the example below, Custodian sets "age" label of "obsolete" value for any ML jobs older than 5 days ago.
 
 .. code-block:: yaml
 
@@ -12,10 +12,12 @@ In the example below, Custodian sets label "type" value "new" for ML Job after c
         resource: gcp.ml-job
         filters:
           - type: value
-            key: jobId
-            value: test_job
+            key: createTime
+            op: greater-than
+            value_type: age
+            value: 5
         actions:
           - type: set
             labels:
-              - key: type
-                value: new
+              - key: age
+                value: obsolete
