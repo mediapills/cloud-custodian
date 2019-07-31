@@ -13,9 +13,9 @@ In the example below, the policy notifies users if the ``update`` action was per
       - name: gcp-storage-update
         resource: gcp.bucket
         mode:
-          type: gcp-audit
-          methods:
-            - 'storage.buckets.update'
+            type: gcp-audit
+            methods:
+                - 'storage.buckets.update'
         filters:
           - type: value
             key: labels.key

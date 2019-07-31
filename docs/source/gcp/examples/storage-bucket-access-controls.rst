@@ -13,9 +13,9 @@ In the example below, the policy notifies if the ``update`` action was performed
       - name: gcp-bucket-access-controls-update
         resource: gcp.bucket-access-control
         mode:
-          type: gcp-audit
-          methods:
-            - 'storage.BucketAccessControls.update'
+            type: gcp-audit
+            methods:
+                - 'storage.BucketAccessControls.update'
         filters:
           - type: value
             key: entity
