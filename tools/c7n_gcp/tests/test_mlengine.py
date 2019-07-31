@@ -51,7 +51,7 @@ class MLModelTest(BaseTest):
         models = exec_mode.run(event, None)
         self.assertIn(name, models[0]['name'])
 
-    def test_patch(self):
+    def test_models_set(self):
         project_id = 'cloud-custodian'
         description = 'Custom description'
 
@@ -144,7 +144,7 @@ class MLJobTest(BaseTest):
         jobs = exec_mode.run(event, None)
         self.assertIn(name, jobs[0]['jobId'])
 
-    def test_patch(self):
+    def test_jobs_set(self):
         project_id = 'cloud-custodian'
 
         factory = self.replay_flight_data('ml-job-set-labels', project_id)

@@ -21,21 +21,7 @@ from c7n.utils import type_schema, local_session
 
 @resources.register('ml-model')
 class MLModel(QueryResourceManager):
-    """The action is used for ML projects.models get and list actions.
-
-    GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.models
-
-    Example:
-
-    .. code-block:: yaml
-
-        policies:
-          - name: ml-model-list
-            resource: gcp.ml-model
-            filters:
-              - type: value
-                key: name
-                value: projects/cloud-custodian/models/test
+    """GCP resource: https://cloud.google.com/ml-engine/reference/rest/v1/projects.models
     """
 
     class resource_type(TypeInfo):
@@ -58,7 +44,7 @@ class MLModel(QueryResourceManager):
 
 
 @MLModel.action_registry.register('set')
-class MLModelActionPatch(MethodAction):
+class MLModelSet(MethodAction):
     """The action is used for ML projects.models update description.
 
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.models/patch
@@ -101,7 +87,7 @@ class MLModelActionPatch(MethodAction):
 
 
 @MLModel.action_registry.register('delete')
-class MLModelActionDelete(MethodAction):
+class MLModelDelete(MethodAction):
     """The action is used for ML projects.models delete model.
 
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.models/delete
@@ -130,21 +116,7 @@ class MLModelActionDelete(MethodAction):
 
 @resources.register('ml-job')
 class MLJob(QueryResourceManager):
-    """The action is used for ML projects.jobs list and get actions.
-
-    GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs
-
-    Example:
-
-    .. code-block:: yaml
-
-        policies:
-          - name: ml-job-set-labels
-            resource: gcp.ml-job
-            filters:
-              - type: value
-                key: jobId
-                value: test_job
+    """GCP resource: https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs
     """
 
     class resource_type(TypeInfo):
@@ -167,7 +139,7 @@ class MLJob(QueryResourceManager):
 
 
 @MLJob.action_registry.register('set')
-class MLJobActionPatch(MethodAction):
+class MLJobSet(MethodAction):
     """The action is used for ML projects.jobs set labels.
 
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs/patch
@@ -184,7 +156,7 @@ class MLJobActionPatch(MethodAction):
                 key: jobId
                 value: test_job
             actions:
-              - type: set-labels
+              - type: set
                 labels:
                   - key: type
                     value: new
