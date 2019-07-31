@@ -22,6 +22,7 @@ from c7n.utils import type_schema, local_session
 @resources.register('ml-model')
 class MLModel(QueryResourceManager):
     """The action is used for ML projects.models get and list actions.
+
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.models
 
     Example:
@@ -59,6 +60,7 @@ class MLModel(QueryResourceManager):
 @MLModel.action_registry.register('set')
 class MLModelActionPatch(MethodAction):
     """The action is used for ML projects.models update description.
+
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.models/patch
 
     Example:
@@ -101,6 +103,7 @@ class MLModelActionPatch(MethodAction):
 @MLModel.action_registry.register('delete')
 class MLModelActionDelete(MethodAction):
     """The action is used for ML projects.models delete model.
+
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.models/delete
 
     Example:
