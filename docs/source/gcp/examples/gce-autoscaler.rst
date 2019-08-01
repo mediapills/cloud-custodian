@@ -14,7 +14,7 @@ guarantying the target won't be less than 80%.
         mode:
             type: gcp-audit
             methods:
-              - 'v1.compute.autoscalers.insert'
+              - v1.compute.autoscalers.insert
         filters:
           - type: value
             key: autoscalingPolicy.cpuUtilization.utilizationTarget
