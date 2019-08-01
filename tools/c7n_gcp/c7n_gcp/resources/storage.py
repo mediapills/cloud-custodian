@@ -44,9 +44,8 @@ class Bucket(QueryResourceManager):
                 'get', {'bucket': bucket_name})
 
 
-
 @Bucket.action_registry.register('delete')
-class BucketActionDelete(MethodAction):
+class BucketDelete(MethodAction):
     """The action is used for Bucket delete.
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/buckets/delete
 
@@ -98,7 +97,7 @@ class BucketActionPatch(MethodAction):
         **{
             'class': {
                 'type': 'string',
-                "enum": [
+                'enum': [
                     "MULTI_REGIONAL", "REGIONAL", "STANDARD",
                     "NEARLINE", "COLDLINE", "DURABLE_REDUCED_AVAILABILITY"
                 ]
@@ -152,6 +151,7 @@ class BucketAccessControl(ChildResourceManager):
 @BucketAccessControl.action_registry.register('set')
 class BucketAccessControlActionPatch(MethodAction):
     """The action is used for BucketAccessControl role update.
+    
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls/patch
 
     Example:
