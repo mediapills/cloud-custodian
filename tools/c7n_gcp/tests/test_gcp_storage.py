@@ -100,8 +100,10 @@ class BucketTest(BaseTest):
             dict(base_policy,
                  filters=[{
                            'type': 'value',
-                           'key': 'id',
-                           'value': bucket_name
+                           'key': 'updated',
+                           'op': 'greater-than',
+                           'value_type': 'age',
+                           'value': 365
                        }],
                  actions=[{'type': 'delete'}]),
             session_factory=session_factory)
@@ -114,7 +116,7 @@ class BucketTest(BaseTest):
         client = policy.resource_manager.get_client()
         result = client.execute_query(
             'list', {'project': project_id})
-        self.assertEqual(len(result['items']), 2)
+        self.assertEqual(len(result['items']), 0)
 
 
 class BucketAccessControlTest(BaseTest):

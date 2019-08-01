@@ -2,6 +2,7 @@ Bucket - Delete filtered bucket
 ===============================
 
 The example allows to delete filtered bucket.
+The following example demonstrates ability of Cloud Custodian to track buckets lifetime and delete buckets (if any) updated more than 365 days ago.
 
 .. code-block:: yaml
 
@@ -10,7 +11,9 @@ The example allows to delete filtered bucket.
         resource: gcp.bucket
         filters:
           - type: value
-            key: id
-            value: bucket_name
+            key: updated
+            op: greater-than
+            value_type: age
+            value: 365
         actions:
           - type: delete
