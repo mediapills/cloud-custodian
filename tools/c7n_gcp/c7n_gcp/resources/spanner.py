@@ -39,9 +39,10 @@ class SpannerInstance(QueryResourceManager):
 @SpannerInstance.action_registry.register('delete')
 class SpannerInstanceDelete(MethodAction):
     """The action is used for spanner instances delete.
+
     GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -66,9 +67,10 @@ class SpannerInstanceDelete(MethodAction):
 @SpannerInstance.action_registry.register('set')
 class SpannerInstancePatch(MethodAction):
     """The action is used for spanner instances nodeCount patch.
+
     GCP action is https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/patch
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -145,11 +147,11 @@ SpannerDatabaseInstance.action_registry.register('set-iam-policy', SetIamPolicy)
 @SpannerDatabaseInstance.action_registry.register('delete')
 class SpannerDatabaseInstanceDropDatabase(MethodAction):
     """The action is used for databases deleting.
-    GCP action is
-    https://cloud.google.com/spanner/docs
+
+    GCP action is https://cloud.google.com/spanner/docs
         /reference/rest/v1/projects.instances.databases/dropDatabase.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
