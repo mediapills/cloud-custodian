@@ -256,7 +256,8 @@ class GceSecurityPolicyAddRule(MethodAction):
             actions:
               - type: add-rule
                 action: deny(403)
-                srcIpRanges: ['66.77.88.0/24']
+                srcIpRanges:
+                  - 66.77.88.0/24
                 priority: 0
     """
     schema = type_schema('add-rule',
