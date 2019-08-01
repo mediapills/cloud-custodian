@@ -198,10 +198,14 @@ class GceAutoscaler(QueryResourceManager):
 
         @staticmethod
         def get(client, resource_info):
+            project, zone, autoscaler = re.match(
+                'projects/(.*?)/zones/(.*?)/autoscalers/(.*)',
+                resource_info['resourceName']).groups()
+
             return client.execute_command(
-                'get', {'project': resource_info['project_id'],
-                        'zone': resource_info['location'],
-                        'autoscaler': resource_info['instance_group_manager_name']})
+                'get', {'project': project,
+                        'zone': zone,
+                        'autoscaler': autoscaler})
 
 
 @GceAutoscaler.action_registry.register('set')
@@ -240,9 +244,9 @@ class GceAutoscalerSet(MethodAction):
               - type: set
                 coolDownPeriodSec: 20
                 cpuUtilization:
-                  utilizationTarget: 0.7
+                    utilizationTarget: 0.7
                 loadBalancingUtilization:
-                  utilizationTarget: 0.7
+                    utilizationTarget: 0.7
                 minNumReplicas: 1
                 maxNumReplicas: 4
     """

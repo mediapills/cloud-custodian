@@ -182,7 +182,7 @@ class GceAutoscalerTest(BaseTest):
         self.assertEqual(resources[0]['name'], resource_name)
 
     def test_autoscaler_get(self):
-        resource_name = 'micro-instance-group-1-to-10'
+        resource_name = 'instance-group-1'
         session_factory = self.replay_flight_data(
             'gce-autoscaler-get')
 
@@ -191,13 +191,14 @@ class GceAutoscalerTest(BaseTest):
              'resource': 'gcp.gce-autoscaler',
              'mode': {
                  'type': 'gcp-audit',
-                 'methods': ['v1.compute.instanceGroupManagers.insert']
+                 'methods': ['v1.compute.autoscalers.insert']
              }},
             session_factory=session_factory)
 
         exec_mode = policy.get_execution_mode()
-        event = event_data('gce-instance-group-insert.json')
+        event = event_data('gce-autoscaler-insert.json')
         resources = exec_mode.run(event, None)
+
         self.assertEqual(resources[0]['name'], resource_name)
 
     def test_autoscaler_set(self):
