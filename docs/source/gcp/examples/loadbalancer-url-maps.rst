@@ -1,7 +1,7 @@
-Load Balancer - URL Maps - Delete / Invalidate Cache
-=====================================================
+Load Balancer - URL Maps - Delete
+==================================
 
-There are examples how to delete and invalidate cache of URL Maps by part of name.
+There is an example how to delete URL Maps by part of name.
 
 .. code-block:: yaml
 
@@ -15,13 +15,3 @@ There are examples how to delete and invalidate cache of URL Maps by part of nam
             value: url-map
         actions:
           - type: delete
-
-      - name: gcp-loadbalancer-url-map-invalidate-cache
-        resource: gcp.loadbalancer-url-map
-        filters:
-          - type: value
-            key: name
-            op: contains
-            value: custodian
-        actions:
-          - type: invalidate-cache
