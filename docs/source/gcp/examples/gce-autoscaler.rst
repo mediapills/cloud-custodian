@@ -7,14 +7,14 @@ guarantying the target won't be less than 80%.
 .. code-block:: yaml
 
     vars:
-        min-utilization-target: &min-utilization-target 0.8
+      min-utilization-target: &min-utilization-target 0.8
     policies:
       - name: gcp-gce-autoscalers-enforced
         resource: gcp.gce-autoscaler
         mode:
-            type: gcp-audit
-            methods:
-              - v1.compute.autoscalers.insert
+          type: gcp-audit
+          methods:
+            - v1.compute.autoscalers.insert
         filters:
           - type: value
             key: autoscalingPolicy.cpuUtilization.utilizationTarget
@@ -23,4 +23,4 @@ guarantying the target won't be less than 80%.
         actions:
           - type: set
             cpuUtilization:
-                utilizationTarget: 0.8
+              utilizationTarget: 0.8
