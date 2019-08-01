@@ -63,6 +63,9 @@ class MLModelSet(MethodAction):
             actions:
               - type: set
                 description: Custom description
+                labels:
+                  - key: type
+                    value: new
     """
 
     schema = type_schema(
@@ -70,6 +73,16 @@ class MLModelSet(MethodAction):
         **{
             'description': {
                 'type': 'string'
+            },
+            'labels': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'key': {'type': 'string'},
+                        'value': {'type': 'string'}
+                    }
+                }
             }
         }
     )
@@ -80,9 +93,12 @@ class MLModelSet(MethodAction):
 
         return {
             'name': resource['name'],
-            'updateMask': 'description',
+            'updateMask': 'description,labels',
             'body': {
-                'description': self.data['description']
+                'description': self.data['description'],
+                'labels': {
+                    k: v for k, v in self.data['labels']
+                }
             }}
 
 
