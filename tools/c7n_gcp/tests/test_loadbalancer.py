@@ -103,38 +103,6 @@ class LoadBalancingUrlMapTest(BaseTest):
         self.assertEqual(len(items), 1)
         self.assertEqual('custodian-load-balancer-0', items[0]['name'])
 
-    def test_loadbalancer_url_map_invalidate_cache(self):
-        project_id = 'custodian-test-project-0'
-        session_factory = self.replay_flight_data('lb-url-map-invalidate-cache',
-                                                  project_id=project_id)
-        base_policy = {'name': 'lb-url-map-invalidate-cache',
-                       'resource': 'gcp.loadbalancer-url-map'}
-
-        policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{'type': 'value',
-                           'key': 'name',
-                           'op': 'contains',
-                           'value': 'custodian'}],
-                 actions=[{'type': 'invalidate-cache'}]),
-            session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(4, len(resources))
-        self.assertEqual('custodian-load-balancer-0', resources[0]['name'])
-
-        files_dir = os.path.join(os.path.dirname(__file__),
-                                 'data', 'flights', 'lb-url-map-invalidate-cache')
-        files_paths = [file_path for file_path in listdir(files_dir)
-                       if file_path.__contains__('invalidateCache')]
-
-        self.assertEqual(4, len(files_paths))
-        for file_path in files_paths:
-            with open(os.path.join(files_dir, file_path), 'rt') as file:
-                response = json.load(file)
-                self.assertEqual("RUNNING", response['body']['status'])
-                self.assertEqual("invalidateCache", response['body']['operationType'])
-                self.assertEqual("200", response['headers']['status'])
-
 
 class LoadBalancingTargetTcpProxyTest(BaseTest):
 
