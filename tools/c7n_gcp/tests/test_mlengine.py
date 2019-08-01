@@ -77,7 +77,7 @@ class MLModelTest(BaseTest):
 
         self.assertEqual(resources[0]['description'], description)
 
-    def test_delete(self):
+    def test_model_delete(self):
         project_id = 'cloud-custodian'
         name = 'projects/cloud-custodian/models/test'
         factory = self.replay_flight_data('ml-model-delete', project_id)
