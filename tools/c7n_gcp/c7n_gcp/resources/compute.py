@@ -210,6 +210,8 @@ class GceInstanceTemplateDelete(MethodAction):
     `Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/instanceTemplates/delete>`_
     an Instance Template. The action does not specify any parameters.
 
+    :Example:
+
     .. code-block:: yaml
 
         policies:
