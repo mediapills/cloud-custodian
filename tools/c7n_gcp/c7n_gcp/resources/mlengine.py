@@ -159,7 +159,7 @@ class MLJob(QueryResourceManager):
 
 @MLJob.action_registry.register('set')
 class MLJobSet(MethodAction):
-    """The action is used for ML projects.jobs update.
+    """The action is used for ML projects.jobs patch.
 
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs/patch
 
