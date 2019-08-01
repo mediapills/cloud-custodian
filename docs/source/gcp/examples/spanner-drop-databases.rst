@@ -1,4 +1,4 @@
-Spanner - Drop databases
+Spanner - Drop Databases
 =========================
 
 This policy drops (deletes) databases that have `dev` in the name and then
