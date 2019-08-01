@@ -7,13 +7,13 @@ In the example below, the policy checks if there are instance templates whose ``
 .. code-block:: yaml
 
     vars:
-        # See https://cloud.google.com/compute/docs/machine-types
-        disallowed-machine-types: &disallowed-machine-types
-          - "f1-micro"
-          - "g1-small"
-          - "n1-highcpu-32"
-          - "n1-highcpu-64"
-          - "n1-highcpu-96"
+      # See https://cloud.google.com/compute/docs/machine-types
+      disallowed-machine-types: &disallowed-machine-types
+        - "f1-micro"
+        - "g1-small"
+        - "n1-highcpu-32"
+        - "n1-highcpu-64"
+        - "n1-highcpu-96"
 
     policies:
       - name: gcp-gce-instance-template-delete-disallowed-machine-types
