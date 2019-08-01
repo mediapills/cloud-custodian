@@ -239,16 +239,8 @@ class GceSecurityPolicyAddRule(MethodAction):
     `Inserts <https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies/addRule>`_
     a rule into a security policy.
 
-    The `action` specifies the action to perform when the client connection triggers the rule. Can
-
     The 'action' specifies the action to perform when the client connection triggers the rule. Can
     currently be either "allow" or "deny()" where valid values for status are 403, 404, 502.
-
-    The `srcIpRanges` specifies CIDR IP address range.
-
-    The `priority` specifies the priority of a rule in the list.
-
-    :Example:
 
     The 'srcIpRanges' specifies CIDR IP address range.
 
