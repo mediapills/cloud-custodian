@@ -16,10 +16,10 @@ In the example below, the policy checks if a newly created instance group uses a
         mode:
             type: gcp-audit
             methods:
-              - "v1.compute.instanceGroupManagers.insert"
+              - v1.compute.instanceGroupManagers.insert
         filters:
           - type: value
-            key: "versions[].instanceTemplate"
+            key: versions[].instanceTemplate
             op: difference
             value: *allowed-templates
         actions:
