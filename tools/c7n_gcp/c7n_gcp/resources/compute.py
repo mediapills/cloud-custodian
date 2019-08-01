@@ -244,9 +244,9 @@ class GceAutoscalerSet(MethodAction):
               - type: set
                 coolDownPeriodSec: 20
                 cpuUtilization:
-                    utilizationTarget: 0.7
+                  utilizationTarget: 0.7
                 loadBalancingUtilization:
-                    utilizationTarget: 0.7
+                  utilizationTarget: 0.7
                 minNumReplicas: 1
                 maxNumReplicas: 4
     """
