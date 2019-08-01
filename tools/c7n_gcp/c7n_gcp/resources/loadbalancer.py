@@ -60,9 +60,10 @@ class LoadBalancingUrlMap(QueryResourceManager):
 @LoadBalancingUrlMap.action_registry.register('delete')
 class LoadBalancingUrlMapDelete(MethodAction):
     """The action is used for Load Balancing URL Maps delete.
+    
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/urlMaps/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -85,40 +86,6 @@ class LoadBalancingUrlMapDelete(MethodAction):
         return {
             'project': project,
             'urlMap': resource['name']}
-
-
-@LoadBalancingUrlMap.action_registry.register('invalidate-cache')
-class LoadBalancingUrlMapInvalidateCache(MethodAction):
-    """The action is used for Load Balancing URL Maps cache invalidating.
-    GCP action is
-    https://cloud.google.com/compute/docs/reference/rest/v1/urlMaps/invalidateCache.
-
-    Example:
-
-    .. code-block:: yaml
-
-        policies:
-        - name: gcp-loadbalancer-url-map-invalidate-cache
-          resource: gcp.loadbalancer-url-map
-          filters:
-          - type: value
-            key: name
-            op: contains
-            value: custodian
-          actions:
-          - type: invalidate-cache
-    """
-    schema = type_schema('invalidateCache', **{'type': {'enum': ['invalidate-cache']}})
-    method_spec = {'op': 'invalidateCache'}
-
-    def get_resource_params(self, model, resource):
-        project = local_session(self.manager.source.query.session_factory).get_default_project()
-        return {
-            'project': project,
-            'urlMap': resource['name'],
-            'body': {
-                'path': '/'
-            }}
 
 
 @resources.register('loadbalancer-target-tcp-proxy')
