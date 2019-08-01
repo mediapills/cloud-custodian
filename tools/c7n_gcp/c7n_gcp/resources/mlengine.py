@@ -90,16 +90,19 @@ class MLModelSet(MethodAction):
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
+        body = {}
+        if 'description' in self.data:
+            body['description'] = self.data['description']
+        if 'labels' in self.data:
+            body['labels'] = {
+                k: v for k, v in self.data['labels']
+            }
 
         return {
             'name': resource['name'],
-            'updateMask': 'description,labels',
-            'body': {
-                'description': self.data['description'],
-                'labels': {
-                    k: v for k, v in self.data['labels']
-                }
-            }}
+            'updateMask': ','.join(body.keys()),
+            'body': body
+        }
 
 
 @MLModel.action_registry.register('delete')
@@ -156,7 +159,7 @@ class MLJob(QueryResourceManager):
 
 @MLJob.action_registry.register('set')
 class MLJobSet(MethodAction):
-    """The action is used for ML projects.jobs set labels.
+    """The action is used for ML projects.jobs update.
 
     GCP action is https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs/patch
 
@@ -202,11 +205,14 @@ class MLJobSet(MethodAction):
             session.get_default_project(),
             resource['jobId'])
 
+        body = {}
+        if 'labels' in self.data:
+            body['labels'] = {
+                k: v for k, v in self.data['labels']
+            }
+
         return {
             'name': name,
-            'updateMask': 'labels',
-            'body': {
-                'labels': {
-                    label['key']: label['value'] for label in self.data['labels']
-                }
-            }}
+            'updateMask': ','.join(body.keys()),
+            'body': body
+        }
