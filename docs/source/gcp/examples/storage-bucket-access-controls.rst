@@ -15,7 +15,7 @@ In the example below, the policy notifies if the ``update`` action was performed
         mode:
             type: gcp-audit
             methods:
-              - 'storage.BucketAccessControls.update'
+              - storage.BucketAccessControls.update
         filters:
           - type: value
             key: entity
