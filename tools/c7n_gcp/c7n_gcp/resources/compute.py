@@ -293,12 +293,12 @@ class InstanceGroupManagerSet(MethodAction):
                       /healthChecks/test-health-check"
                     initialDelaySec: 10
                 updatePolicy:
-                  type: OPPORTUNISTIC
-                  minimalAction: REPLACE
-                  maxSurge:
-                    fixed: 4
-                  maxUnavailable:
-                    fixed: 1
+                    type: OPPORTUNISTIC
+                    minimalAction: REPLACE
+                    maxSurge:
+                        fixed: 4
+                    maxUnavailable:
+                        fixed: 1
     """
     schema = type_schema('set',
                          **{
