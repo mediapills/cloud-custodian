@@ -14,4 +14,4 @@ The example allows to update filtered project roles name.
             value: Custom Role
         actions:
           - type: set
-            name: CustomRole1
+            title: CustomRole1

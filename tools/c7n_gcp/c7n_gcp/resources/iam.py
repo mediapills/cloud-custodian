@@ -82,13 +82,12 @@ class ProjectRoleActionPatch(MethodAction):
                 value: Custom Role
             actions:
               - type: set
-                name: CustomRole1
+                title: CustomRole1
     """
 
     schema = type_schema(
         'set',
         **{
-            'type': {'enum': ['set']},
             'title': {'type': 'string'}
         }
     )
@@ -125,72 +124,11 @@ class ServiceAccount(QueryResourceManager):
                         resource_info['email_id'])})
 
 
-@ServiceAccount.action_registry.register('set-iam-policy')
-class ServiceAccountSetIamPolicy(MethodAction):
-    """Sets IAM policy. It works with bindings only.
-    GCP action is
-    https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/setIamPolicy
-    Example:
-    .. code-block:: yaml
-        policies:
-        - name: gcp-iam-service-account-set-iam-policy
-          resource: gcp.service-account
-          actions:
-          - type: set-iam-policy
-            bindings:
-            - members:
-              - user:user1@test.com
-              - user2@test.com
-              role: roles/owner
-            - members:
-              - user:user3@gmail.com
-              role: roles/viewer
-    """
-    schema = type_schema('setIamPolicy',
-                         required=['bindings'],
-                         **{
-                             'type': {'enum': ['set-iam-policy']},
-                             'bindings': {
-                                 'type': 'array',
-                                 'items': {'role': {'type': 'string'}, 'members': {'type': 'array'}}
-                             }
-                         }
-                         )
-    method_spec = {'op': 'setIamPolicy'}
-
-    MEMBER_TYPES = ['user', 'group', 'domain', 'serviceAccount']
-
-    def get_resource_params(self, model, resource):
-        result = {'resource': resource['name'],
-                  'body': {
-                      'policy': {
-                          'bindings': []
-                      }}
-                  }
-        bindings = result['body']['policy']['bindings']
-
-        if self.data['bindings'] is not None:
-            for binding in self.data['bindings']:
-                if binding['role'] and binding['members']:
-                    members = []
-                    for member in binding['members']:
-                        requires_update = True
-                        for member_type in self.MEMBER_TYPES:
-                            if member.startswith(member_type + ':'):
-                                requires_update = False
-                                break
-                        if requires_update:
-                            member = 'user:' + member
-                        members.append(member)
-                    bindings.append({'role': binding['role'], 'members': members})
-
-        return result
-
-
 @ServiceAccount.action_registry.register('delete')
 class ServiceAccountActionDelete(MethodAction):
     """The action is used for IAM projects.serviceAccounts delete.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/delete
+
     Example:
     .. code-block:: yaml
         policies:
@@ -215,6 +153,7 @@ class ServiceAccountActionDelete(MethodAction):
 class ServiceAccountActionDisable(MethodAction):
     """The action is used for IAM projects.serviceAccounts disable.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/disable
+
     Example:
     .. code-block:: yaml
         policies:
@@ -239,6 +178,7 @@ class ServiceAccountActionDisable(MethodAction):
 class ServiceAccountActionEnable(MethodAction):
     """The action is used for IAM projects.serviceAccounts enable.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/enable
+
     Example:
     .. code-block:: yaml
         policies:
@@ -263,6 +203,7 @@ class ServiceAccountActionEnable(MethodAction):
 class ServiceAccountActionSetDisplayName(MethodAction):
     """The action is used for IAM projects.serviceAccounts set display name.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/patch
+
     Example:
     .. code-block:: yaml
         policies:
@@ -274,13 +215,12 @@ class ServiceAccountActionSetDisplayName(MethodAction):
                 value: projects/{project}/serviceAccounts/{acountid}
             actions:
               - type: set
-              display_name: test-name
+                display_name: test-name
     """
 
     schema = type_schema(
         'set',
         **{
-            'type': {'enum': ['set'], 'required': ['name']},
             'display_name': {'type': 'string'}
         }
     )

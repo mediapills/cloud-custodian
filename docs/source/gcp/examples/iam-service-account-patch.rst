@@ -14,4 +14,4 @@ The example allows to update service account display name.
             value: projects/{project}/serviceAccounts/{acountid}
         actions:
           - type: set-display-name
-          display_name: test-name
+            display_name: test-name

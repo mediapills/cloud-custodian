@@ -116,27 +116,6 @@ class ServiceAccountTest(BaseTest):
              'unique_id': '110936229421407410679'})
         self.assertEqual(resource['displayName'], 'devtest')
 
-    def test_iam_service_account_set_iam_policy(self):
-        project_id = 'cloud-custodian'
-        session_factory = self.replay_flight_data('iam-service-account-set-iam',
-                                                  project_id=project_id)
-        policy = self.load_policy(
-            {'name': 'gcp-iam-service-account-set-iam-policy',
-             'resource': 'gcp.service-account',
-             'actions': [{
-                 'type': 'set-iam-policy',
-                 'bindings':
-                     [{'members': ['user:yauhen_shaliou@comelfo.com'],
-                       'role': 'roles/owner'},
-                      {'members': ['dkhanas@gmail.com'],
-                       'role': 'roles/viewer'},
-                      ]
-             }]},
-            session_factory=session_factory)
-
-        resources = policy.run()
-        self.assertEqual(len(resources), 3)
-
     def test_delete_service_account(self):
         project_id = 'cloud-custodian'
         name = "projects/cloud-custodian/serviceAccounts/" +\
