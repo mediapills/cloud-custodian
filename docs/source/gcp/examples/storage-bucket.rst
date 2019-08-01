@@ -18,13 +18,14 @@ In the example below, the policy notifies users if the ``update`` action was per
                 - 'storage.buckets.update'
         filters:
           - type: value
-            key: labels.key
-            value: "archive"
+            key: labels
+            op: contains
+            value: archive
         actions:
           - type: notify
             to:
               - email@address
             format: json
             transport:
-              type: pubsub
-              topic: projects/cloud-custodian/topics/storage
+                type: pubsub
+                topic: projects/cloud-custodian/topics/storage

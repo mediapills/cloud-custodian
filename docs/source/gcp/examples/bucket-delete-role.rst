@@ -1,7 +1,7 @@
-Bucket - Delete role for filtered entities
-==========================================
+Bucket - Delete filtered role for bucket
+========================================
 
-The example allows to delete role for filtered entities.
+The example allows to filtered role for bucket.
 It can be used for few resources like
 
 - bucket-access-control,
@@ -15,7 +15,10 @@ It can be used for few resources like
         resource: gcp.bucket-access-control
         filters:
           - type: value
-            key: entity
-            value: entity_name
+            key: role
+            value: READER
+          - type: value
+            key: id
+            value: bucket_name
         actions:
           - type: delete

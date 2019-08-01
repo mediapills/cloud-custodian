@@ -201,8 +201,8 @@ class BucketAccessControlActionDelete(MethodAction):
             resource: gcp.bucket-access-control
             filters:
               - type: value
-                key: entity
-                value: entity_name
+                key: role
+                value: READER
             actions:
               - type: delete
     """
