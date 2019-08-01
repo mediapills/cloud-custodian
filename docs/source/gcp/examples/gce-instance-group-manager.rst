@@ -1,5 +1,5 @@
-GCE - Force usage of specific instance templates for newly created instance groups
-==================================================================================
+GCE - Force Usage of Specific Instance Templates
+=======================================================
 Custodian can enforce usage of only allowed instance templates for creation of instance groups.
 
 In the example below, the policy checks if a newly created instance group uses an allowed instance template and deletes the group immediately if it doesn't.
