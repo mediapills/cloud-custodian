@@ -26,5 +26,5 @@ In the example below, the policy notifies users if the ``update`` action was per
               - email@address
             format: json
             transport:
-              type: pubsub
-              topic: projects/cloud-custodian/topics/storage
+                type: pubsub
+                topic: projects/cloud-custodian/topics/storage
