@@ -169,17 +169,17 @@ class ImageTest(BaseTest):
         self.assertEqual(len(resources), 1)
 
 
-class GceInstanceTemplateTest(BaseTest):
+class InstanceTemplateTest(BaseTest):
 
     def test_instance_template_query(self):
         project_id = 'cloud-custodian'
         resource_name = 'custodian-instance-template'
         session_factory = self.replay_flight_data(
-            'gce-instance-template-query', project_id=project_id)
+            'instance-template-query', project_id=project_id)
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-instance-template-dryrun',
-             'resource': 'gcp.gce-instance-template'},
+            {'name': 'gcp-instance-template-dryrun',
+             'resource': 'gcp.instance-template'},
             session_factory=session_factory)
         resources = policy.run()
 
@@ -188,11 +188,11 @@ class GceInstanceTemplateTest(BaseTest):
     def test_instance_template_get(self):
         resource_name = 'custodian-instance-template'
         session_factory = self.replay_flight_data(
-            'gce-instance-template-get')
+            'instance-template-get')
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-instance-template-audit',
-             'resource': 'gcp.gce-instance-template',
+            {'name': 'gcp-instance-template-audit',
+             'resource': 'gcp.instance-template',
              'mode': {
                  'type': 'gcp-audit',
                  'methods': ['beta.compute.instanceTemplates.insert']
@@ -200,7 +200,7 @@ class GceInstanceTemplateTest(BaseTest):
             session_factory=session_factory)
 
         exec_mode = policy.get_execution_mode()
-        event = event_data('gce-instance-template-create.json')
+        event = event_data('instance-template-create.json')
         resources = exec_mode.run(event, None)
         self.assertEqual(resources[0]['name'], resource_name)
 
@@ -209,11 +209,11 @@ class GceInstanceTemplateTest(BaseTest):
         resource_name = 'instance-template-to-delete'
         resource_full_name = 'projects/%s/global/instanceTemplates/%s' % (project_id, resource_name)
         session_factory = self.replay_flight_data(
-            'gce-instance-template-delete', project_id=project_id)
+            'instance-template-delete', project_id=project_id)
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-instance-template-delete',
-             'resource': 'gcp.gce-instance-template',
+            {'name': 'gcp-instance-template-delete',
+             'resource': 'gcp.instance-template',
              'filters': [{
                  'type': 'value',
                  'key': 'name',

@@ -16,8 +16,8 @@ In the example below, the policy checks if there are instance templates whose ``
         - "n1-highcpu-96"
 
     policies:
-      - name: gcp-gce-instance-template-delete-disallowed-machine-types
-        resource: gcp.gce-instance-template
+      - name: gcp-instance-template-delete-disallowed-machine-types
+        resource: gcp.instance-template
         filters:
           - type: value
             key: properties.machineType

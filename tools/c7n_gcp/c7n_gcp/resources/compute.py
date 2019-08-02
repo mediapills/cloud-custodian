@@ -186,8 +186,8 @@ class DeleteSnapshot(MethodAction):
         return {'project': project, 'snapshot': snapshot_id}
 
 
-@resources.register('gce-instance-template')
-class GceInstanceTemplate(QueryResourceManager):
+@resources.register('instance-template')
+class InstanceTemplate(QueryResourceManager):
     """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/instanceTemplates"""
     class resource_type(TypeInfo):
         service = 'compute'
@@ -204,8 +204,8 @@ class GceInstanceTemplate(QueryResourceManager):
                         'instanceTemplate': resource_info['instance_template_name']})
 
 
-@GceInstanceTemplate.action_registry.register('delete')
-class GceInstanceTemplateDelete(MethodAction):
+@InstanceTemplate.action_registry.register('delete')
+class InstanceTemplateDelete(MethodAction):
     """
     `Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/instanceTemplates/delete>`_
     an Instance Template. The action does not specify any parameters.
@@ -215,8 +215,8 @@ class GceInstanceTemplateDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: gcp-gce-instance-template-delete
-            resource: gcp.gce-instance-template
+          - name: gcp-instance-template-delete
+            resource: gcp.instance-template
             filters:
               - type: value
                 key: name
