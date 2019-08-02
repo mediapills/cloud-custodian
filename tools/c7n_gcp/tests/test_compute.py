@@ -166,16 +166,16 @@ class ImageTest(BaseTest):
         self.assertEqual(len(resources), 1)
 
 
-class GceSecurityPolicyTest(BaseTest):
+class SecurityPolicyTest(BaseTest):
     def test_security_policy_query(self):
         project_id = 'cloud-custodian'
         resource_name = 'custodian-policy'
         session_factory = self.replay_flight_data(
-            'gce-security-policy-query', project_id=project_id)
+            'security-policy-query', project_id=project_id)
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-security-policy-dryrun',
-             'resource': 'gcp.gce-security-policy'},
+            {'name': 'gcp-security-policy-dryrun',
+             'resource': 'gcp.security-policy'},
             session_factory=session_factory)
         resources = policy.run()
 
@@ -184,11 +184,11 @@ class GceSecurityPolicyTest(BaseTest):
     def test_security_policy_get(self):
         resource_name = 'custodian-policy'
         session_factory = self.replay_flight_data(
-            'gce-security-policy-get')
+            'security-policy-get')
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-security-policy-audit',
-             'resource': 'gcp.gce-security-policy',
+            {'name': 'gcp-security-policy-audit',
+             'resource': 'gcp.security-policy',
              'mode': {
                  'type': 'gcp-audit',
                  'methods': ['v1.compute.securityPolicies.insert']
@@ -196,17 +196,17 @@ class GceSecurityPolicyTest(BaseTest):
             session_factory=session_factory)
 
         exec_mode = policy.get_execution_mode()
-        event = event_data('gce-security-policy-insert.json')
+        event = event_data('security-policy-insert.json')
         resources = exec_mode.run(event, None)
         self.assertEqual(resources[0]['name'], resource_name)
 
     def test_security_policy_delete(self):
         project_id = 'mitrop-custodian'
-        factory = self.replay_flight_data('gce-security-policy-delete', project_id=project_id)
+        factory = self.replay_flight_data('security-policy-delete', project_id=project_id)
 
         p = self.load_policy(
-            {'name': 'gcp-gce-security-policy-delete',
-             'resource': 'gcp.gce-security-policy',
+            {'name': 'gcp-security-policy-delete',
+             'resource': 'gcp.security-policy',
              'filters': [{'name': 'test-policy'}],
              'actions': ['delete']},
             session_factory=factory)
@@ -226,11 +226,11 @@ class GceSecurityPolicyTest(BaseTest):
 
     def test_security_policy_add_rule(self):
         project_id = 'mitrop-custodian'
-        factory = self.replay_flight_data('gce-security-policy-add-rule', project_id=project_id)
+        factory = self.replay_flight_data('security-policy-add-rule', project_id=project_id)
 
         p = self.load_policy(
-            {'name': 'gcp-gce-security-policy-delete',
-             'resource': 'gcp.gce-security-policy',
+            {'name': 'gcp-security-policy-delete',
+             'resource': 'gcp.security-policy',
              'filters': [{'name': 'test-policy'}],
              'actions': [{
                  'type': 'add-rule',

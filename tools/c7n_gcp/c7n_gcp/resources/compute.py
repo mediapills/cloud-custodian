@@ -186,8 +186,8 @@ class DeleteSnapshot(MethodAction):
         return {'project': project, 'snapshot': snapshot_id}
 
 
-@resources.register('gce-security-policy')
-class GceSecurityPolicy(QueryResourceManager):
+@resources.register('security-policy')
+class SecurityPolicy(QueryResourceManager):
     """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies"""
     class resource_type(TypeInfo):
         service = 'compute'
@@ -202,8 +202,8 @@ class GceSecurityPolicy(QueryResourceManager):
                         'securityPolicy': resource_info['policy_name']})
 
 
-@GceSecurityPolicy.action_registry.register('delete')
-class GceSecurityPolicyDelete(MethodAction):
+@SecurityPolicy.action_registry.register('delete')
+class SecurityPolicyDelete(MethodAction):
     """
     `Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies/delete>`_
     a security policy
@@ -213,9 +213,9 @@ class GceSecurityPolicyDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: gce-security-policy-delete
+          - name: security-policy-delete
             description: Deletes a security policy
-            resource: gcp.gce-security-policy
+            resource: gcp.security-policy
             filters:
               - type: value
                 key: name
@@ -233,8 +233,8 @@ class GceSecurityPolicyDelete(MethodAction):
         return {'project': project, 'securityPolicy': policy}
 
 
-@GceSecurityPolicy.action_registry.register('add-rule')
-class GceSecurityPolicyAddRule(MethodAction):
+@SecurityPolicy.action_registry.register('add-rule')
+class SecurityPolicyAddRule(MethodAction):
     """
     `Inserts <https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies/addRule>`_
     a rule into a security policy.
@@ -251,8 +251,8 @@ class GceSecurityPolicyAddRule(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: gcp-gce-security-policy-add-rule
-            resource: gcp.gce-security-policy
+          - name: gcp-security-policy-add-rule
+            resource: gcp.security-policy
             actions:
               - type: add-rule
                 action: deny(403)
@@ -261,6 +261,7 @@ class GceSecurityPolicyAddRule(MethodAction):
                 priority: 0
     """
     schema = type_schema('add-rule',
+                         required=['action', 'srcIpRanges'],
                          **{
                              'action': {
                                  'type': 'string',
@@ -268,7 +269,8 @@ class GceSecurityPolicyAddRule(MethodAction):
                              },
                              'srcIpRanges': {
                                  'type': 'array',
-                                 'items': {'type': 'string'}
+                                 'items': {'type': 'string'},
+                                 'minItems': 1
                              },
                              'priority': {
                                  'type': 'integer',
@@ -282,17 +284,22 @@ class GceSecurityPolicyAddRule(MethodAction):
     def get_resource_params(self, model, resource):
         project, policy = self.path_param_re.match(resource['selfLink']).groups()
 
+        body = {
+            'action': self.data['action'],
+            'match': {
+                'config': {
+                    'srcIpRanges': self.data['srcIpRanges']
+                },
+                'versionedExpr': 'SRC_IPS_V1'
+            },
+            'priority': self.data['priority']
+        }
+
+        if 'priority' in self.data:
+            body['priority'] = self.data['priority']
+
         result = {'project': project,
                   'securityPolicy': policy,
-                  'body': {
-                      'action': self.data['action'],
-                      'match': {
-                          'config': {
-                              'srcIpRanges': self.data['srcIpRanges']
-                          },
-                          'versionedExpr': 'SRC_IPS_V1'
-                      },
-                      'priority': self.data['priority']
-                  }}
+                  'body': body}
 
         return result
