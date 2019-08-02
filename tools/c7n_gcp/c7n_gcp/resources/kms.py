@@ -16,7 +16,8 @@ import re
 
 from c7n.utils import local_session
 from c7n_gcp.provider import resources
-from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
+from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo, \
+    GcpLocation
 
 
 @resources.register('kms-keyring')
@@ -50,18 +51,12 @@ class KmsKeyRing(QueryResourceManager):
         super_fetch_resources = QueryResourceManager._fetch_resources
         session = local_session(self.session_factory)
         project = session.get_default_project()
-        if query and 'parent' in query:
-            locations = ['projects/{}/locations/{}'.format(project, location)
-                         for location in query['parent']]
-        else:
-            location_resources = session.client(
-                self.resource_type.service,
-                self.resource_type.version,
-                'projects.locations').execute_query(
-                'list', verb_arguments={'name': 'projects/{}'.format(project)})
-            locations = [location['name'] for location in location_resources['locations']]
+        locations = (query['parent'] if query and 'parent' in query
+                     else GcpLocation.get_service_locations('kms'))
+        project_locations = ['projects/{}/locations/{}'.format(project, location)
+                             for location in locations]
         key_rings = []
-        for location in locations:
+        for location in project_locations:
             key_rings.extend(super_fetch_resources(self, {'parent': location}))
         return key_rings
 
