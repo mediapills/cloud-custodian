@@ -280,7 +280,7 @@ class InstanceGroupManagerSet(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: instance-group-manager-delete
+          - name: instance-group-manager-set
             resource: gcp.instance-group-manager
             actions:
               - type: set
