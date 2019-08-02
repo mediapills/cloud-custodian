@@ -38,7 +38,7 @@ class ProjectRoleTest(BaseTest):
         self.assertEqual(len(roles), 1)
         self.assertEqual(roles[0]['name'], 'projects/mythic-tribute-232915/roles/CustomRole1')
 
-    def test_update_title(self):
+    def test_role_set(self):
         project_id = 'cloud-custodian'
         name = "projects/cloud-custodian/roles/CustomRole"
         session_factory = self.replay_flight_data(
@@ -71,7 +71,7 @@ class ProjectRoleTest(BaseTest):
 
         self.assertEqual(result['roles'][0]['title'], 'CustomRole1')
 
-    def test_delete_role(self):
+    def test_role_delete(self):
         project_id = 'cloud-custodian'
         name = "projects/cloud-custodian/roles/CustomRole"
         session_factory = self.replay_flight_data(
@@ -116,7 +116,7 @@ class ServiceAccountTest(BaseTest):
              'unique_id': '110936229421407410679'})
         self.assertEqual(resource['displayName'], 'devtest')
 
-    def test_delete_service_account(self):
+    def test_service_account_delete(self):
         project_id = 'cloud-custodian'
         name = "projects/cloud-custodian/serviceAccounts/" +\
                "qwwww-235@cloud-custodian.iam.gserviceaccount.com"
@@ -148,7 +148,7 @@ class ServiceAccountTest(BaseTest):
 
         self.assertNotIn(name, [resource['name'] for resource in result['accounts']])
 
-    def test_disable_service_account(self):
+    def test_service_account_disable(self):
         project_id = 'cloud-custodian'
         name = "projects/cloud-custodian/serviceAccounts/" +\
                "dddddddd@cloud-custodian.iam.gserviceaccount.com"
@@ -180,7 +180,7 @@ class ServiceAccountTest(BaseTest):
 
         self.assertTrue(result['accounts'][0]['disabled'])
 
-    def test_enable_service_account(self):
+    def test_service_account_enable(self):
         project_id = 'cloud-custodian'
         name = "projects/cloud-custodian/serviceAccounts/" +\
                "dddddddd@cloud-custodian.iam.gserviceaccount.com"
@@ -212,7 +212,7 @@ class ServiceAccountTest(BaseTest):
 
         self.assertNotIn('disabled', result['accounts'][0])
 
-    def test_display_name(self):
+    def test_service_account_set(self):
         project_id = 'cloud-custodian'
         name = "projects/cloud-custodian/serviceAccounts/" +\
                "dddddddd@cloud-custodian.iam.gserviceaccount.com"

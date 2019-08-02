@@ -42,7 +42,7 @@ class ProjectRole(QueryResourceManager):
 
 
 @ProjectRole.action_registry.register('delete')
-class ProjectRoleActionDelete(MethodAction):
+class ProjectRoleDelete(MethodAction):
     """The action is used for IAM projects.roles delete.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/delete
 
@@ -67,7 +67,7 @@ class ProjectRoleActionDelete(MethodAction):
 
 
 @ProjectRole.action_registry.register('set')
-class ProjectRoleActionPatch(MethodAction):
+class ProjectRoleSet(MethodAction):
     """The action is used for IAM projects.roles name patch.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/patch
 
@@ -125,7 +125,7 @@ class ServiceAccount(QueryResourceManager):
 
 
 @ServiceAccount.action_registry.register('delete')
-class ServiceAccountActionDelete(MethodAction):
+class ServiceAccountDelete(MethodAction):
     """The action is used for IAM projects.serviceAccounts delete.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/delete
 
@@ -150,7 +150,7 @@ class ServiceAccountActionDelete(MethodAction):
 
 
 @ServiceAccount.action_registry.register('disable')
-class ServiceAccountActionDisable(MethodAction):
+class ServiceAccountDisable(MethodAction):
     """The action is used for IAM projects.serviceAccounts disable.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/disable
 
@@ -175,7 +175,7 @@ class ServiceAccountActionDisable(MethodAction):
 
 
 @ServiceAccount.action_registry.register('enable')
-class ServiceAccountActionEnable(MethodAction):
+class ServiceAccountEnable(MethodAction):
     """The action is used for IAM projects.serviceAccounts enable.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/enable
 
@@ -200,7 +200,7 @@ class ServiceAccountActionEnable(MethodAction):
 
 
 @ServiceAccount.action_registry.register('set')
-class ServiceAccountActionSetDisplayName(MethodAction):
+class ServiceAccountSet(MethodAction):
     """The action is used for IAM projects.serviceAccounts set display name.
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/patch
 
