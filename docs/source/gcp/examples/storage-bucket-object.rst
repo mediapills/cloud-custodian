@@ -13,9 +13,9 @@ In the example below, the policy notifies users if the ``update`` action was per
       - name: gcp-bucket-object-update
         resource: gcp.bucket-object
         mode:
-            type: gcp-audit
-            methods:
-                - 'storage.objects.update'
+          type: gcp-audit
+          methods:
+            - 'storage.objects.update'
         filters:
           - type: value
             key: storageClass
@@ -26,5 +26,5 @@ In the example below, the policy notifies users if the ``update`` action was per
               - email@address
             format: json
             transport:
-                type: pubsub
-                topic: projects/cloud-custodian/topics/storage
+              type: pubsub
+              topic: projects/cloud-custodian/topics/storage
