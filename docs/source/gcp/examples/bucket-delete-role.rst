@@ -1,5 +1,5 @@
-Bucket - Delete filtered role for bucket
-========================================
+Bucket - Delete filtered role for buckets
+=========================================
 
 The example allows to delete bucket access control based on filtered roles for buckets.
 It can be used for few resources like
