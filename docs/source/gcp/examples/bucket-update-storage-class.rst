@@ -1,7 +1,7 @@
 Bucket - Update storage class for filtered bucket
 =================================================
 
-The example allows to update filtered bucket by name and distribute them multi regionally.
+The example allows to update filtered buckets by name and distribute them multi regionally.
 
 .. code-block:: yaml
 
