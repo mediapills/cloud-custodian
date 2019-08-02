@@ -15,11 +15,11 @@ In the example below, the policy notifies users if the ``update`` action was per
         mode:
           type: gcp-audit
           methods:
-            - 'storage.objects.update'
+            - storage.objects.update
         filters:
           - type: value
             key: storageClass
-            value: "STANDARD"
+            value: STANDARD
         actions:
           - type: notify
             to:
