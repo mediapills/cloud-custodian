@@ -1,7 +1,7 @@
 Spanner - Set IAM Policies
 ===========================
 
-These policies update the IAM policy for spanner instances (`add` bindings) and databases (`remove` bindings), respectively.
+These policies update the IAM policy for spanner instances (`add-bindings`) and databases (`remove-bindings`), respectively.
 
 .. code-block:: yaml
 
@@ -10,8 +10,7 @@ These policies update the IAM policy for spanner instances (`add` bindings) and 
         resource: gcp.spanner-instance
         actions:
           - type: set-iam-policy
-            mode: add
-            bindings:
+            add-bindings:
               - members:
                   - user:user1@test.com
                   - user:user2@test.com
@@ -24,8 +23,7 @@ These policies update the IAM policy for spanner instances (`add` bindings) and 
         resource: gcp.spanner-database-instance
         actions:
           - type: set-iam-policy
-            mode: remove
-            bindings:
+            remove-bindings:
               - members:
                   - user:user1@test.com
                   - user:user2@test.com

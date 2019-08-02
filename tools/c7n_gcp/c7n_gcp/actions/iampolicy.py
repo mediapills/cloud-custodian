@@ -19,15 +19,16 @@ from c7n_gcp.actions import MethodAction
 class SetIamPolicy(MethodAction):
     """ Sets IAM policy. It works with bindings only.
 
-        The action executes in one of the two modes defined by a policy:
-        - add,
-        - remove.
+        The action supports two lists for modifying the existing IAM policy: `add-bindings` and
+        `remove-bindings`. The `add-bindings` records are merged with the existing bindings, hereby
+        no changes are made if all the required bindings are already present in the applicable
+        resource. The `remove-bindings` records are used to filter out the existing bindings,
+        so the action will take no effect if there are no matches. For more information,
+        please refer to the `_add_bindings` and `_remove_bindings` methods respectively.
 
-        The `add` mode merges the existing bindings with the ones in the policy, hereby no changes
-        are made if all the required bindings are already present in the applicable resource. The
-        `remove` mode filters out the existing bindings against the provided ones, so the action
-        will take no effect if there are no matches. For more information, please refer to the
-        `_add_bindings` and `_remove_bindings` methods respectively.
+        Considering a record added both to the `add-bindings` and `remove-bindings` lists, which
+        though is not a recommended thing to do in general, the latter is designed to be a more
+        restrictive one, so the record will be removed from the existing IAM bindings in the end.
 
         There following member types are available to work with:
         - allUsers,
@@ -49,8 +50,7 @@ class SetIamPolicy(MethodAction):
                 resource: gcp.spanner-instance
                 actions:
                   - type: set-iam-policy
-                    mode: add
-                    bindings:
+                    add-bindings:
                       - members:
                           - user:user1@test.com
                           - user:user2@test.com
@@ -58,11 +58,20 @@ class SetIamPolicy(MethodAction):
                       - members:
                           - user:user3@gmail.com
                         role: roles/viewer
+                    remove-bindings:
+                      - members:
+                          - user:user4@test.com
+                        role: roles/owner
+                      - members:
+                          - user:user5@gmail.com
+                          - user:user6@gmail.com
+                        role: roles/viewer
         """
     schema = type_schema('set-iam-policy',
-                         required=['bindings', 'mode'],
                          **{
-                             'bindings': {
+                             'minProperties': 1,
+                             'additionalProperties': False,
+                             'add-bindings': {
                                  'type': 'array',
                                  'minItems': 1,
                                  'items': {'role': {'type': 'string'},
@@ -71,26 +80,35 @@ class SetIamPolicy(MethodAction):
                                                            'type': 'string'},
                                                        'minItems': 1}}
                              },
-                             'mode': {'type': 'string', 'enum': ['add', 'remove']}
+                             'remove-bindings': {
+                                 'type': 'array',
+                                 'minItems': 1,
+                                 'items': {'role': {'type': 'string'},
+                                           'members': {'type': 'array',
+                                                       'items': {
+                                                           'type': 'string'},
+                                                       'minItems': 1}}
+                             },
                          })
     method_spec = {'op': 'setIamPolicy'}
     schema_alias = True
 
     def get_resource_params(self, model, resource):
         """
-        Depending on the `mode` specified in a policy, calls either `_add_bindings` or
-        `_remove_bindings`, then sets the resulting list at the 'bindings' key if there is at least
-        a single record there, or assigns an empty object to the 'policy' key in order to
-        avoid errors produced by the API.
+        Collects `existing_bindings` with the `_get_existing_bindings` method, `add_bindings` and
+        `remove_bindings` from a policy, then calls `_remove_bindings` with the result of
+        `_add_bindings` being applied to the `existing_bindings`, and finally sets the resulting
+        list at the 'bindings' key if there is at least a single record there, or assigns an empty
+        object to the 'policy' key in order to avoid errors produced by the API.
 
         :param model: the parameters that are defined in a resource manager
         :param resource: the resource the action is applied to
         """
         existing_bindings = self._get_existing_bindings(model, resource)
-        new_bindings = self.data['bindings']
-        bindings_to_set = (self._add_bindings(existing_bindings, new_bindings)
-                           if self.data['mode'] == 'add'
-                           else self._remove_bindings(existing_bindings, new_bindings))
+        add_bindings = self.data['add-bindings'] if 'add-bindings' in self.data else []
+        remove_bindings = self.data['remove-bindings'] if 'remove-bindings' in self.data else []
+        bindings_to_set = self._add_bindings(existing_bindings, add_bindings)
+        bindings_to_set = self._remove_bindings(bindings_to_set, remove_bindings)
         return {'resource': resource['name'], 'body': {
             'policy': {'bindings': bindings_to_set} if len(bindings_to_set) > 0 else {}}}
 

@@ -138,8 +138,7 @@ class SpannerInstanceTest(BaseTest):
             {'name': 'spanner-instance-set-iam-policy-add',
              'resource': 'gcp.spanner-instance',
              'actions': [{'type': 'set-iam-policy',
-                          'mode': 'add',
-                          'bindings':
+                          'add-bindings':
                               [{'members': ['user:yauhen_shaliou@comelfo.com'],
                                 'role': 'roles/owner'},
                                {'members': ['user:alex.karpitski@gmail.com'],
@@ -190,8 +189,7 @@ class SpannerInstanceTest(BaseTest):
             {'name': 'spanner-instance-set-iam-policy-remove',
              'resource': 'gcp.spanner-instance',
              'actions': [{'type': 'set-iam-policy',
-                          'mode': 'remove',
-                          'bindings':
+                          'remove-bindings':
                               [{'members': ['user:alex.karpitski@gmail.com',
                                             'user:pavel_mitrafanau@epam.com'],
                                 'role': 'roles/viewer'},
@@ -309,8 +307,7 @@ class SpannerDatabaseInstanceTest(BaseTest):
             {'name': 'spanner-database-instance-set-iam-policy-remove-all',
              'resource': 'gcp.spanner-database-instance',
              'actions': [{'type': 'set-iam-policy',
-                          'mode': 'remove',
-                          'bindings': [{"role": "roles/owner",
+                          'remove-bindings': [{"role": "roles/owner",
                                         "members": ["user:yauhen_shaliou@comelfo.com"]},
                                        {"role": "roles/viewer",
                                         "members": ["user:dkhanas@gmail.com"]}]}]},
