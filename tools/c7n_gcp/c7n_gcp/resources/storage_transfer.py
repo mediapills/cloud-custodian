@@ -41,6 +41,30 @@ class StorageTransferJob(QueryResourceManager):
 
 @StorageTransferJob.action_registry.register('set')
 class StorageTransferJobPatch(MethodAction):
+    """The action is used for Cloud Storage Transfer Service transferJobs.patch.
+
+    https://cloud.google.com/storage-transfer/docs/reference/rest/v1/transferJobs/patch
+
+    Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gke-cloud-storage-transfer-set
+            resource: gcp.st-transfer-job
+            filters:
+              - type: value
+                key: status
+                value: ENABLED
+              - type: value
+                key: creationTime
+                op: greater-than
+                value_type: age
+                value: 365
+            actions:
+              - type: set
+                status: DISABLED
+    """
 
     schema = type_schema('set',
          **{'status': {'type': 'string'},

@@ -26,35 +26,35 @@ class StorageTransferJobTest(BaseTest):
             'resource': 'gcp.st-transfer-job'},
             session_factory=factory)
         resources = p.run()
+
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['name'], 'transferJobs/12533737323236783615')
         self.assertEqual(resources[0]['status'], 'ENABLED')
 
 
 class StorageTransferJobPatchTest(BaseTest):
-    def test_update_title(self):
+    def test_set_status(self):
         project_id = 'cloud-custodian'
 
         session_factory = self.replay_flight_data(
             'storage-transfer-update', project_id=project_id)
 
-        base_policy = {'name': 'storage-transfer-update',
-                       'resource': 'gcp.st-transfer-job'}
-
-        policy = self.load_policy(
-            dict(base_policy,
-                 actions=[{
-                     'type': 'set',
-                     'status': 'DISABLED'
-                 }]),
+        policy = self.load_policy({
+            'name': 'storage-transfer-update',
+            'resource': 'gcp.st-transfer-job',
+            'actions': [{
+                'type': 'set',
+                'status': 'DISABLED'
+            }]},
             session_factory=session_factory)
 
         resources = policy.run()
 
         self.assertEqual(1, len(resources))
 
-        files_dir = os.path.join(os.path.dirname(__file__),
-                                 'data', 'flights', 'storage-transfer-update')
+        files_dir = os.path.join(
+            os.path.dirname(__file__),
+            'data', 'flights', 'storage-transfer-update')
 
         files_paths = [file_path for file_path in os.listdir(files_dir)
                        if file_path.__contains__('2395599000273777125_1')]
