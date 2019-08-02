@@ -17,8 +17,5 @@ It can be used for few resources like
           - type: value
             key: role
             value: READER
-          - type: value
-            key: id
-            value: bucket_name
         actions:
           - type: delete
