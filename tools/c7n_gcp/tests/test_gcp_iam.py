@@ -39,8 +39,8 @@ class ProjectRoleTest(BaseTest):
         self.assertEqual(roles[0]['name'], 'projects/mythic-tribute-232915/roles/CustomRole1')
 
     def test_role_set(self):
-        project_id = 'cloud-custodian'
-        name = "projects/cloud-custodian/roles/CustomRole"
+        project_id = 'new-project-26240'
+        title = 'Custom Role'
         session_factory = self.replay_flight_data(
             'iam-project-role-update-title', project_id=project_id)
 
@@ -48,32 +48,40 @@ class ProjectRoleTest(BaseTest):
                        'resource': 'gcp.project-role',
                        'filters': [{
                            'type': 'value',
-                           'key': 'name',
-                           'value': name
+                           'key': 'title',
+                           'op': 'contains',
+                           'value': title
                        }]}
 
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
                      'type': 'set',
-                     'title': 'CustomRole1'
+                     'includedPermissions': [
+                         {'name': 'appengine.services.delete'},
+                         {'name': 'accessapproval.requests.approve'}
+                     ]
                  }]),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['title'], 'CustomRole')
+        self.assertIn('Custom Role', resources[0]['title'])
 
         if self.recording:
             sleep(1)
 
         client = policy.resource_manager.get_client()
         result = client.execute_query(
-            'list', {'parent': 'projects/cloud-custodian'})
+            'get', {'name': resources[0]['name']}
+        )
 
-        self.assertEqual(result['roles'][0]['title'], 'CustomRole1')
+        self.assertIn(
+            'appengine.services.delete',
+            result['includedPermissions']
+        )
 
     def test_role_delete(self):
-        project_id = 'cloud-custodian'
-        name = "projects/cloud-custodian/roles/CustomRole"
+        project_id = 'new-project-26240'
+        title = 'Custom Role'
         session_factory = self.replay_flight_data(
             'iam-project-role-delete', project_id=project_id)
 
@@ -84,20 +92,22 @@ class ProjectRoleTest(BaseTest):
             dict(base_policy,
                  filters=[{
                            'type': 'value',
-                           'key': 'name',
-                           'value': name
+                           'key': 'title',
+                           'op': 'contains',
+                           'value': title
                        }],
-                 actions=[{'type': 'delete'}]),
+                 actions=[{'type': 'delete'}]
+                 ),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['name'], name)
+        self.assertIn('Custom Role', resources[0]['title'])
 
         if self.recording:
             sleep(1)
 
         client = policy.resource_manager.get_client()
         result = client.execute_query(
-            'list', {'parent': 'projects/cloud-custodian'})
+            'list', {'parent': 'projects/new-project-26240'})
 
         self.assertNotIn('roles', result)
 
@@ -149,9 +159,8 @@ class ServiceAccountTest(BaseTest):
         self.assertNotIn(name, [resource['name'] for resource in result['accounts']])
 
     def test_service_account_disable(self):
-        project_id = 'cloud-custodian'
-        name = "projects/cloud-custodian/serviceAccounts/" +\
-               "dddddddd@cloud-custodian.iam.gserviceaccount.com"
+        project_id = 'new-project-26240'
+        display_name = 'custodian'
 
         session_factory = self.replay_flight_data(
             'iam-project-service-account-disable', project_id=project_id)
@@ -163,27 +172,27 @@ class ServiceAccountTest(BaseTest):
             dict(base_policy,
                  filters=[{
                            'type': 'value',
-                           'key': 'name',
-                           'value': name
+                           'key': 'displayName',
+                           'op': 'contains',
+                           'value': display_name
                        }],
                  actions=[{'type': 'disable'}]),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['name'], name)
+        self.assertEqual(resources[0]['displayName'], display_name)
 
         if self.recording:
             sleep(1)
 
         client = policy.resource_manager.get_client()
         result = client.execute_query(
-            'list', {'name': 'projects/cloud-custodian'})
+            'list', {'name': 'projects/new-project-26240'})
 
         self.assertTrue(result['accounts'][0]['disabled'])
 
     def test_service_account_enable(self):
-        project_id = 'cloud-custodian'
-        name = "projects/cloud-custodian/serviceAccounts/" +\
-               "dddddddd@cloud-custodian.iam.gserviceaccount.com"
+        project_id = 'new-project-26240'
+        display_name = 'custodian'
 
         session_factory = self.replay_flight_data(
             'iam-project-service-account-enable', project_id=project_id)
@@ -195,27 +204,33 @@ class ServiceAccountTest(BaseTest):
             dict(base_policy,
                  filters=[{
                            'type': 'value',
-                           'key': 'name',
-                           'value': name
+                           'key': 'displayName',
+                           'op': 'contains',
+                           'value': display_name
                        }],
                  actions=[{'type': 'enable'}]),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['name'], name)
+        self.assertEqual(resources[0]['displayName'], display_name)
 
         if self.recording:
             sleep(1)
 
         client = policy.resource_manager.get_client()
         result = client.execute_query(
-            'list', {'name': 'projects/cloud-custodian'})
+            'get', {
+                'name':
+                    ('projects/new-project-26240/serviceAccounts/'
+                     'custodian@new-project-26240.iam.gserviceaccount.com')
+            }
+        )
 
-        self.assertNotIn('disabled', result['accounts'][0])
+        self.assertNotIn('disabled', result)
 
     def test_service_account_set(self):
-        project_id = 'cloud-custodian'
-        name = "projects/cloud-custodian/serviceAccounts/" +\
-               "dddddddd@cloud-custodian.iam.gserviceaccount.com"
+        project_id = 'new-project-26240'
+        display_name = 'custodian'
+
         session_factory = self.replay_flight_data(
             'iam-service-account-set', project_id=project_id)
 
@@ -223,28 +238,29 @@ class ServiceAccountTest(BaseTest):
                        'resource': 'gcp.service-account',
                        'filters': [{
                            'type': 'value',
-                           'key': 'name',
-                           'value': name
+                           'key': 'displayName',
+                           'op': 'contains',
+                           'value': display_name
                        }]}
 
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
                      'type': 'set',
-                     'display_name': 'test-name'
+                     'description': 'test-name'
                  }]),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['displayName'], 'name')
+        self.assertEqual(resources[0]['description'], 'name')
 
         if self.recording:
             sleep(1)
 
         client = policy.resource_manager.get_client()
         result = client.execute_query(
-            'list', {'name': 'projects/cloud-custodian'})
+            'list', {'name': 'projects/new-project-26240'})
 
-        self.assertEqual(result['accounts'][0]['displayName'], 'name')
+        self.assertEqual(result['accounts'][0]['description'], 'test-name')
 
 
 class IAMRoleTest(BaseTest):

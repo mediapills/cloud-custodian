@@ -1,17 +1,21 @@
-IAM - Update Project Roles name
-==================================
+IAM - Update Project Roles includedPermissions
+==============================================
 
-The example allows to update filtered project roles name.
+The example allows to set includedPermissions for project roles
+which are contains similar title.
 
 .. code-block:: yaml
 
     policies:
-      - name: gcp-iam-project-role-update-title
+      - name: gcp-iam-project-role-set-permissions
         resource: gcp.project-role
         filters:
           - type: value
             key: title
+            op: contains
             value: Custom Role
         actions:
           - type: set
-            title: CustomRole1
+            includedPermissions:
+              - name: appengine.services.delete
+              - name: 	accessapproval.requests.approve

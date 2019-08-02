@@ -1,8 +1,16 @@
 {
-  "body": {}, 
+  "body": {
+    "includedPermissions": [
+      "accessapproval.requests.approve", 
+      "appengine.services.delete"
+    ], 
+    "name": "projects/new-project-26240/roles/CustomRole327", 
+    "etag": "BwWPIJbqtLo=", 
+    "title": "Custom Role"
+  }, 
   "headers": {
     "status": "200", 
-    "content-length": "3", 
+    "content-length": "218", 
     "x-xss-protection": "0", 
     "x-content-type-options": "nosniff", 
     "transfer-encoding": "chunked", 
@@ -10,7 +18,7 @@
     "server": "ESF", 
     "-content-encoding": "gzip", 
     "cache-control": "private", 
-    "date": "Wed, 10 Jul 2019 13:43:55 GMT", 
+    "date": "Fri, 02 Aug 2019 11:23:37 GMT", 
     "x-frame-options": "SAMEORIGIN", 
     "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
     "content-type": "application/json; charset=UTF-8"

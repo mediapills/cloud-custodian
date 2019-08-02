@@ -1,7 +1,8 @@
-IAM - Update filtered service account display name
+IAM - Update filtered service account description
 ==================================================
 
-The example allows to update service account display name.
+The example allows to update service accounts description
+which are contains similar displayName.
 
 .. code-block:: yaml
 
@@ -10,8 +11,9 @@ The example allows to update service account display name.
         resource: gcp.service-account
         filters:
           - type: value
-            key: name
-            value: projects/{project}/serviceAccounts/{acountid}
+            key: displayName
+            op: contains
+            value: {displayName}
         actions:
-          - type: set-display-name
-            display_name: test-name
+          - type: set
+            description: test-name

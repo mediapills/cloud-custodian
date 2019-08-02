@@ -1,0 +1,32 @@
+{
+  "body": {
+    "roles": [
+      {
+        "etag": "BwWPIJWNtkk=", 
+        "name": "projects/new-project-26240/roles/CustomRole12", 
+        "title": "Custom Role"
+      }, 
+      {
+        "etag": "BwWPIJWVWCI=", 
+        "name": "projects/new-project-26240/roles/CustomRole327", 
+        "title": "Custom Role"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "291", 
+    "x-xss-protection": "0", 
+    "content-location": "https://iam.googleapis.com/v1/projects/new-project-26240/roles?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Fri, 02 Aug 2019 11:23:35 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

@@ -44,16 +44,19 @@ class ProjectRole(QueryResourceManager):
 @ProjectRole.action_registry.register('delete')
 class ProjectRoleDelete(MethodAction):
     """The action is used for IAM projects.roles delete.
+
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/delete
 
     Example:
     .. code-block:: yaml
-         policies:
+
+        policies:
           - name: gcp-iam-project-role
             resource: gcp.project-role
             filters:
               - type: value
                 key: title
+                op: contains
                 value: Custom Role
             actions:
               - type: delete
@@ -68,36 +71,51 @@ class ProjectRoleDelete(MethodAction):
 
 @ProjectRole.action_registry.register('set')
 class ProjectRoleSet(MethodAction):
-    """The action is used for IAM projects.roles name patch.
+    """The action is used for IAM projects.roles set permission.
+
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/patch
 
     Example:
     .. code-block:: yaml
+
         policies:
-          - name: gcp-iam-project-role-update-title
+          - name: gcp-iam-project-role-set-permissions
             resource: gcp.project-role
             filters:
               - type: value
                 key: title
+                op: contains
                 value: Custom Role
             actions:
               - type: set
-                title: CustomRole1
+                includedPermissions:
+                  - name: appengine.services.delete
+                  - name: 	accessapproval.requests.approve
     """
 
     schema = type_schema(
         'set',
         **{
-            'title': {'type': 'string'}
+            'includedPermissions': {
+                'type': 'array',
+                'name': {'type', 'string'}
+            }
         }
     )
 
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
+        permissions = [
+            permission['name'] for permission in
+            self.data['includedPermissions']
+        ]
         return {
             'name': resource['name'],
-            'body': {'title': self.data['title']}
+            'body': {
+                'title': resource['title'],
+                'includedPermissions': permissions
+            }
         }
 
 
@@ -127,17 +145,20 @@ class ServiceAccount(QueryResourceManager):
 @ServiceAccount.action_registry.register('delete')
 class ServiceAccountDelete(MethodAction):
     """The action is used for IAM projects.serviceAccounts delete.
+
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/delete
 
     Example:
     .. code-block:: yaml
+
         policies:
           - name: gcp-iam-service-account-delete
             resource: gcp.service-account
             filters:
               - type: value
-                key: name
-                value: projects/{project}/serviceAccounts/{acountid}
+                key: displayName
+                op: contains
+                value: {displayName}
             actions:
               - type: delete
     """
@@ -152,17 +173,20 @@ class ServiceAccountDelete(MethodAction):
 @ServiceAccount.action_registry.register('disable')
 class ServiceAccountDisable(MethodAction):
     """The action is used for IAM projects.serviceAccounts disable.
+
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/disable
 
     Example:
     .. code-block:: yaml
+
         policies:
           - name: gcp-iam-service-account-disable
             resource: gcp.service-account
             filters:
               - type: value
-                key: name
-                value: projects/{project}/serviceAccounts/{acountid}
+                key: displayName
+                op: contains
+                value: {displayName}
             actions:
               - type: disable
     """
@@ -177,17 +201,20 @@ class ServiceAccountDisable(MethodAction):
 @ServiceAccount.action_registry.register('enable')
 class ServiceAccountEnable(MethodAction):
     """The action is used for IAM projects.serviceAccounts enable.
+
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/enable
 
     Example:
     .. code-block:: yaml
+
         policies:
           - name: gcp-iam-service-account-enable
             resource: gcp.service-account
             filters:
               - type: value
-                key: name
-                value: projects/{project}/serviceAccounts/{acountid}
+                key: displayName
+                op: contains
+                value: {displayName}
             actions:
               - type: enable
     """
@@ -201,27 +228,30 @@ class ServiceAccountEnable(MethodAction):
 
 @ServiceAccount.action_registry.register('set')
 class ServiceAccountSet(MethodAction):
-    """The action is used for IAM projects.serviceAccounts set display name.
+    """The action is used for IAM projects.serviceAccounts set description.
+
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/patch
 
     Example:
     .. code-block:: yaml
+
         policies:
           - name: gcp-iam-service-account-set
             resource: gcp.service-account
             filters:
               - type: value
-                key: name
-                value: projects/{project}/serviceAccounts/{acountid}
+                key: displayName
+                op: contains
+                value: {displayName}
             actions:
               - type: set
-                display_name: test-name
+                description: test-name
     """
 
     schema = type_schema(
         'set',
         **{
-            'display_name': {'type': 'string'}
+            'description': {'type': 'string'}
         }
     )
 
@@ -232,9 +262,9 @@ class ServiceAccountSet(MethodAction):
             'name': resource['name'],
             'body': {
                   "serviceAccount": {
-                    "displayName": self.data['display_name']
+                    "description": self.data['description']
                   },
-                  "updateMask": "displayName"
+                  "updateMask": "description"
                 }
         }
 

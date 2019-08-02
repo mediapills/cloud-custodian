@@ -1,7 +1,8 @@
 IAM - Disable Service Account
-============================
+=============================
 
-The example allows to disable filtered service account.
+The example allows to disable filtered service accounts
+which are contains similar displayName.
 
 .. code-block:: yaml
 
@@ -10,7 +11,7 @@ The example allows to disable filtered service account.
         resource: gcp.service-account
         filters:
           - type: value
-            key: name
-            value: projects/{project}/serviceAccounts/{acountid}
+            key: displayName
+            value: {displayName}
         actions:
           - type: disable

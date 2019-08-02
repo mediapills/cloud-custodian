@@ -1,7 +1,8 @@
 IAM - Enable Service Account
 ============================
 
-The example allows to Enable filtered service account.
+The example allows to enable filtered service accounts
+which are contains similar displayName.
 
 .. code-block:: yaml
 
@@ -10,7 +11,8 @@ The example allows to Enable filtered service account.
         resource: gcp.service-account
         filters:
           - type: value
-            key: name
-            value: projects/{project}/serviceAccounts/{acountid}
+            key: displayName
+            op: contains
+            value: {displayName}
         actions:
           - type: enable

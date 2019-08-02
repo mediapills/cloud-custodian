@@ -1,7 +1,8 @@
 IAM - Delete Service Account
 ============================
 
-The example allows to delete filtered service account.
+The example allows to delete filtered service accounts
+which are contains similar displayName.
 
 .. code-block:: yaml
 
@@ -10,7 +11,8 @@ The example allows to delete filtered service account.
         resource: gcp.service-account
         filters:
           - type: value
-            key: name
-            value: projects/{project}/serviceAccounts/{acountid}
+            key: displayName
+            op: contains
+            value: {displayName}
         actions:
           - type: delete
