@@ -166,16 +166,16 @@ class ImageTest(BaseTest):
         self.assertEqual(len(resources), 1)
 
 
-class GceAutoscalerTest(BaseTest):
+class AutoscalerTest(BaseTest):
 
     def test_autoscaler_query(self):
         project_id = 'cloud-custodian'
         resource_name = 'micro-instance-group-1-to-10'
-        session_factory = self.replay_flight_data('gce-autoscaler-query', project_id=project_id)
+        session_factory = self.replay_flight_data('autoscaler-query', project_id=project_id)
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-autoscaler-dryrun',
-             'resource': 'gcp.gce-autoscaler'},
+            {'name': 'gcp-autoscaler-dryrun',
+             'resource': 'gcp.autoscaler'},
             session_factory=session_factory)
         resources = policy.run()
 
@@ -183,12 +183,11 @@ class GceAutoscalerTest(BaseTest):
 
     def test_autoscaler_get(self):
         resource_name = 'instance-group-1'
-        session_factory = self.replay_flight_data(
-            'gce-autoscaler-get')
+        session_factory = self.replay_flight_data('autoscaler-get')
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-autoscaler-audit',
-             'resource': 'gcp.gce-autoscaler',
+            {'name': 'gcp-autoscaler-audit',
+             'resource': 'gcp.autoscaler',
              'mode': {
                  'type': 'gcp-audit',
                  'methods': ['v1.compute.autoscalers.insert']
@@ -196,18 +195,18 @@ class GceAutoscalerTest(BaseTest):
             session_factory=session_factory)
 
         exec_mode = policy.get_execution_mode()
-        event = event_data('gce-autoscaler-insert.json')
+        event = event_data('autoscaler-insert.json')
         resources = exec_mode.run(event, None)
 
         self.assertEqual(resources[0]['name'], resource_name)
 
     def test_autoscaler_set(self):
         project_id = 'mitrop-custodian'
-        factory = self.replay_flight_data('gce-autoscaler-set', project_id=project_id)
+        factory = self.replay_flight_data('autoscaler-set', project_id=project_id)
 
         p = self.load_policy(
-            {'name': 'gcp-gce-autoscaler-set',
-             'resource': 'gcp.gce-autoscaler',
+            {'name': 'gcp-autoscaler-set',
+             'resource': 'gcp.autoscaler',
              'filters': [{'name': 'instance-group-2'}],
              'actions': [{'type': 'set',
                           'coolDownPeriodSec': 30,

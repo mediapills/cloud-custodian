@@ -186,8 +186,8 @@ class DeleteSnapshot(MethodAction):
         return {'project': project, 'snapshot': snapshot_id}
 
 
-@resources.register('gce-autoscaler')
-class GceAutoscaler(QueryResourceManager):
+@resources.register('autoscaler')
+class Autoscaler(QueryResourceManager):
     """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/autoscalers"""
     class resource_type(TypeInfo):
         service = 'compute'
@@ -208,8 +208,8 @@ class GceAutoscaler(QueryResourceManager):
                         'autoscaler': autoscaler})
 
 
-@GceAutoscaler.action_registry.register('set')
-class GceAutoscalerSet(MethodAction):
+@Autoscaler.action_registry.register('set')
+class AutoscalerSet(MethodAction):
     """
     `Patches <https://cloud.google.com/compute/docs/reference/rest/v1/autoscalers/patch>`_
     configuration parameters for the autoscaling algorithm.
@@ -234,8 +234,8 @@ class GceAutoscalerSet(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: gcp-gce-autoscaler-set
-            resource: gcp.gce-autoscaler
+          - name: gcp-autoscaler-set
+            resource: gcp.autoscaler
             filters:
               - type: value
                 key: name

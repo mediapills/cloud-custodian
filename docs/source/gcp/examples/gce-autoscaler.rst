@@ -9,8 +9,8 @@ guarantying the target won't be less than 80%.
     vars:
       min-utilization-target: &min-utilization-target 0.8
     policies:
-      - name: gcp-gce-autoscalers-enforced
-        resource: gcp.gce-autoscaler
+      - name: gcp-autoscalers-enforced
+        resource: gcp.autoscaler
         mode:
           type: gcp-audit
           methods:
