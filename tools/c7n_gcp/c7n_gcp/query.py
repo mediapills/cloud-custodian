@@ -286,3 +286,51 @@ def extract_error(e):
     except Exception:
         return None
     return ERROR_REASON.search(edata)
+
+
+class GcpLocation(object):
+    """
+    The `_locations` dict is formed by the string keys representing locations taken from
+    `KMS <https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations/list>`_ and
+    `App Engine <https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1
+    /apps.locations/list>`_ and list values containing the string names of the services
+    the locations are available for.
+    """
+    _locations = {'eur4': ['kms'],
+                  'global': ['kms'],
+                  'europe-west4': ['kms'],
+                  'asia-east2': ['appengine', 'kms'],
+                  'asia-east1': ['kms'],
+                  'asia': ['kms'],
+                  'europe-north1': ['kms'],
+                  'us-central1': ['kms'],
+                  'nam4': ['kms'],
+                  'asia-southeast1': ['kms'],
+                  'europe': ['kms'],
+                  'australia-southeast1': ['appengine', 'kms'],
+                  'us-central': ['appengine'],
+                  'asia-south1': ['appengine', 'kms'],
+                  'us-west1': ['kms'],
+                  'us-west2': ['appengine', 'kms'],
+                  'asia-northeast2': ['appengine', 'kms'],
+                  'asia-northeast1': ['appengine', 'kms'],
+                  'europe-west2': ['appengine', 'kms'],
+                  'europe-west3': ['appengine', 'kms'],
+                  'us-east4': ['appengine', 'kms'],
+                  'europe-west1': ['kms'],
+                  'europe-west6': ['appengine', 'kms'],
+                  'us': ['kms'],
+                  'us-east1': ['appengine', 'kms'],
+                  'northamerica-northeast1': ['appengine', 'kms'],
+                  'europe-west': ['appengine'],
+                  'southamerica-east1': ['appengine', 'kms']}
+
+    @classmethod
+    def get_service_locations(cls, service):
+        """
+        Returns a list of the locations that have a given service in associated value lists.
+
+        :param service: a string representing the name of a service locations are queried for
+        """
+        return [location for location in GcpLocation._locations
+                if service in GcpLocation._locations[location]]
