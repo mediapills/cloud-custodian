@@ -278,3 +278,54 @@ def extract_error(e):
     except Exception:
         return None
     return ERROR_REASON.search(edata)
+
+
+class GcpLocation(object):
+    """
+    Consists of locations applicable to
+    `KMS <https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations/list>`_ and
+    `App Engine <https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1
+    /apps.locations/list>`_
+    """
+    kms_locations = ["asia",
+                     "asia-east1",
+                     "asia-east2",
+                     "asia-northeast1",
+                     "asia-northeast2",
+                     "asia-south1",
+                     "asia-southeast1",
+                     "australia-southeast1",
+                     "eur4",
+                     "europe",
+                     "europe-north1",
+                     "europe-west1",
+                     "europe-west2",
+                     "europe-west3",
+                     "europe-west4",
+                     "europe-west6",
+                     "global",
+                     "nam4",
+                     "northamerica-northeast1",
+                     "southamerica-east1",
+                     "us",
+                     "us-central1",
+                     "us-east1",
+                     "us-east4",
+                     "us-west1",
+                     "us-west2"]
+
+    app_locations = ["asia-east2",
+                     "asia-northeast1",
+                     "asia-northeast2",
+                     "asia-south1",
+                     "australia-southeast1",
+                     "europe-west",
+                     "europe-west2",
+                     "europe-west3",
+                     "europe-west6",
+                     "northamerica-northeast1",
+                     "southamerica-east1",
+                     "us-central",
+                     "us-east1",
+                     "us-east4",
+                     "us-west2"]
