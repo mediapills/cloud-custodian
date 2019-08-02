@@ -17,45 +17,18 @@ import re
 import jmespath
 from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
-from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
+from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo,\
+    GcpLocation
 
 from c7n.utils import local_session, type_schema
 
 
-@resources.register('cloudtasks-location')
-class CloudTasksLocation(QueryResourceManager):
-    """GCP resource: https://cloud.google.com/tasks/docs/reference/rest/v2/projects.locations
-    This one is present only as the parent of other resources.
-    """
-    def get_resource_query(self):
-        return {'name': 'projects/%s' % local_session(self.session_factory).get_default_project()}
-
-    class resource_type(TypeInfo):
-        service = 'cloudtasks'
-        version = 'v2'
-        component = 'projects.locations'
-        enum_spec = ('list', 'locations[]', None)
-        scope = None
-        id = 'name'
-
-        @staticmethod
-        def get(client, resource_info):
-            return client.execute_query('get', {'name': resource_info['name']})
-
-
 @resources.register('cloudtasks-queue')
-class CloudTasksQueue(ChildResourceManager):
+class CloudTasksQueue(QueryResourceManager):
     """GCP resource:
     https://cloud.google.com/tasks/docs/reference/rest/v2/projects.locations.queues
     """
-    def _get_child_enum_args(self, parent_instance):
-        return {'parent': parent_instance['name']}
-
-    def _get_parent_resource_info(self, child_instance):
-        return {'name': re.match('(projects/.*?/locations/.*?)/queues/.*',
-                                 child_instance['name']).group(1)}
-
-    class resource_type(ChildTypeInfo):
+    class resource_type(TypeInfo):
         service = 'cloudtasks'
         version = 'v2'
         component = 'projects.locations.queues'
@@ -63,14 +36,30 @@ class CloudTasksQueue(ChildResourceManager):
         scope = None
         get_requires_event = True
         id = 'name'
-        parent_spec = {
-            'resource': 'cloudtasks-location'
-        }
 
         @staticmethod
         def get(client, event):
             return client.execute_query(
                 'get', {'name': jmespath.search('protoPayload.response.name', event)})
+
+    def get_resource_query(self):
+        if 'query' in self.data:
+            for child in self.data.get('query'):
+                if 'location' in child:
+                    location_query = child['location']
+                    return {'parent': location_query if isinstance(
+                        location_query, list) else [location_query]}
+
+    def _fetch_resources(self, query):
+        session = local_session(self.session_factory)
+        project = session.get_default_project()
+        locations = query['parent'] if query and 'parent' in query else GcpLocation.app_locations
+        project_locations = ['projects/{}/locations/{}'.format(project, location)
+                             for location in locations]
+        key_rings = []
+        for location in project_locations:
+            key_rings.extend(QueryResourceManager._fetch_resources(self, {'parent': location}))
+        return key_rings
 
 
 @CloudTasksQueue.action_registry.register('delete')
