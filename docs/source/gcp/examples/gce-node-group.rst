@@ -8,8 +8,8 @@ In the example below, the policy checks if there are Node Groups whose ``size`` 
 .. code-block:: yaml
 
     policies:
-      - name: gcp-gce-node-group-delete-greater-than-2-nodes
-        resource: gcp.gce-node-group
+      - name: gcp-node-group-delete-greater-than-2-nodes
+        resource: gcp.node-group
         filters:
           - type: value
             key: size

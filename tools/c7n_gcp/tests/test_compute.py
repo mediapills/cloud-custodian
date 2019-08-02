@@ -169,16 +169,16 @@ class ImageTest(BaseTest):
         self.assertEqual(len(resources), 1)
 
 
-class GceNodeGroupTest(BaseTest):
+class NodeGroupTest(BaseTest):
 
     def test_node_group_query(self):
         resource_id = 'custodian-sole-tenant'
         project_id = 'cloud-custodian'
         factory = self.replay_flight_data(
-            'gce-node-group-query', project_id=project_id)
+            'node-group-query', project_id=project_id)
         p = self.load_policy(
-            {'name': 'gcp-gce-node-group-dryrun',
-             'resource': 'gcp.gce-node-group'},
+            {'name': 'gcp-node-group-dryrun',
+             'resource': 'gcp.node-group'},
             session_factory=factory)
 
         resources = p.run()
@@ -186,11 +186,11 @@ class GceNodeGroupTest(BaseTest):
 
     def test_node_group_get(self):
         resource_id = 'custodian-sole-tenant'
-        session_factory = self.replay_flight_data('gce-node-group-get')
+        session_factory = self.replay_flight_data('node-group-get')
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-node-group-audit',
-             'resource': 'gcp.gce-node-group',
+            {'name': 'gcp-node-group-audit',
+             'resource': 'gcp.node-group',
              'mode': {
                  'type': 'gcp-audit',
                  'methods': ['v1.compute.nodeGroups.insert']
@@ -198,7 +198,7 @@ class GceNodeGroupTest(BaseTest):
             session_factory=session_factory)
 
         exec_mode = policy.get_execution_mode()
-        event = event_data('gce-node-group-create.json')
+        event = event_data('node-group-create.json')
         resources = exec_mode.run(event, None)
 
         self.assertEqual(resources[0]['name'], resource_id)
@@ -210,11 +210,11 @@ class GceNodeGroupTest(BaseTest):
         resource_full_name = 'projects/%s/zones/%s/nodeGroups/%s'\
                              % (project_id, zone_id, resource_id)
         session_factory = self.replay_flight_data(
-            'gce-node-group-delete', project_id=project_id)
+            'node-group-delete', project_id=project_id)
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-node-group-delete',
-             'resource': 'gcp.gce-node-group',
+            {'name': 'gcp-node-group-delete',
+             'resource': 'gcp.node-group',
              'filters': [{
                  'type': 'value',
                  'key': 'name',
@@ -280,11 +280,11 @@ class GceNodeGroupTest(BaseTest):
         zone_id = 'us-central1-f'
         resource_id = 'custodian-sole-tenant'
         session_factory = self.replay_flight_data(
-            'gce-node-group-%s-%s' % (action_type, flight_id), project_id=project_id)
+            'node-group-%s-%s' % (action_type, flight_id), project_id=project_id)
 
         policy = self.load_policy(
-            {'name': 'gcp-gce-node-group-set-size',
-             'resource': 'gcp.gce-node-group',
+            {'name': 'gcp-node-group-set-size',
+             'resource': 'gcp.node-group',
              'filters': [{
                  'type': 'value',
                  'key': 'size',

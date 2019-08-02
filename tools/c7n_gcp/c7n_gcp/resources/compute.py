@@ -185,8 +185,8 @@ class DeleteSnapshot(MethodAction):
         return {'project': project, 'snapshot': snapshot_id}
 
 
-@resources.register('gce-node-group')
-class GceNodeGroup(QueryResourceManager):
+@resources.register('node-group')
+class NodeGroup(QueryResourceManager):
     """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/nodeGroups
     """
     class resource_type(TypeInfo):
@@ -205,8 +205,8 @@ class GceNodeGroup(QueryResourceManager):
                         'nodeGroup': resource_info['resourceName'].rsplit('/', 1)[-1]})
 
 
-@GceNodeGroup.action_registry.register('delete')
-class GceNodeGroupDelete(MethodAction):
+@NodeGroup.action_registry.register('delete')
+class NodeGroupDelete(MethodAction):
     """
     `Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/nodeGroups/delete>`_
     a Node Group. The action does not specify any parameters.
@@ -216,8 +216,8 @@ class GceNodeGroupDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: gcp-gce-node-group-delete
-            resource: gcp.gce-node-group
+          - name: gcp-node-group-delete
+            resource: gcp.node-group
             filters:
               - type: value
                 key: name
@@ -234,7 +234,7 @@ class GceNodeGroupDelete(MethodAction):
         return {'project': project, 'zone': zone, 'nodeGroup': node_group}
 
 
-class GceNodeGroupChangeSizeAction(MethodAction):
+class NodeGroupChangeSizeAction(MethodAction):
     def _get_project_zone_node_group(self, r):
         return re.match('.*/projects/(.*?)/zones/(.*?)/nodeGroups/(.*)', r['selfLink']).groups()
 
@@ -245,8 +245,8 @@ class GceNodeGroupChangeSizeAction(MethodAction):
         return self.data['target-size']
 
 
-@GceNodeGroup.action_registry.register('increase-size')
-class GceNodeGroupIncreaseSize(GceNodeGroupChangeSizeAction):
+@NodeGroup.action_registry.register('increase-size')
+class NodeGroupIncreaseSize(NodeGroupChangeSizeAction):
     """
     `Adds Nodes
     <https://cloud.google.com/compute/docs/reference/rest/v1/nodeGroups/addNodes>`_
@@ -263,8 +263,8 @@ class GceNodeGroupIncreaseSize(GceNodeGroupChangeSizeAction):
     .. code-block:: yaml
 
         policies:
-          - name: gcp-gce-node-group-increase-size-from-1-to-2
-            resource: gcp.gce-node-group
+          - name: gcp-node-group-increase-size-from-1-to-2
+            resource: gcp.node-group
             filters:
               - type: value
                 key: size
@@ -310,8 +310,8 @@ class GceNodeGroupIncreaseSize(GceNodeGroupChangeSizeAction):
         return target_size - current_size
 
 
-@GceNodeGroup.action_registry.register('decrease-size')
-class GceNodeGroupDecreaseSize(GceNodeGroupChangeSizeAction):
+@NodeGroup.action_registry.register('decrease-size')
+class NodeGroupDecreaseSize(NodeGroupChangeSizeAction):
     """
     `Deletes Nodes
     <https://cloud.google.com/compute/docs/reference/rest/v1/nodeGroups/deleteNodes>`_
@@ -327,8 +327,8 @@ class GceNodeGroupDecreaseSize(GceNodeGroupChangeSizeAction):
     .. code-block:: yaml
 
         policies:
-          - name: gcp-gce-node-group-decrease-size-from-2-to-1
-            resource: gcp.gce-node-group
+          - name: gcp-node-group-decrease-size-from-2-to-1
+            resource: gcp.node-group
             filters:
               - type: value
                 key: size
