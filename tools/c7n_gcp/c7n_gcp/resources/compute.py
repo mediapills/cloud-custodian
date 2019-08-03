@@ -280,7 +280,7 @@ class AutoscalerSet(MethodAction):
                              },
                              'maxNumReplicas': {
                                  'type': 'integer',
-                                 'exclusiveMsinimum': 0
+                                 'exclusiveMinimum': 0
                              },
                              'minNumReplicas': {
                                  'type': 'integer',
