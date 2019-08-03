@@ -19,8 +19,7 @@ from c7n_gcp.actions import MethodAction
 
 @resources.register('bq-datatransfer')
 class BigQueryDataTransfer(QueryResourceManager):
-    """GCP resource:
-    https://cloud.google.com/bigquery/docs/reference/
+    """GCP resource: https://cloud.google.com/bigquery/docs/reference/
     datatransfer/rest/v1/projects.locations.transferConfigs/list
     """
 
