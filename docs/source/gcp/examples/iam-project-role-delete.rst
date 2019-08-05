@@ -1,8 +1,9 @@
 IAM - Delete Project Roles
 ==========================
 
-To enforce security of your organization, Custodian can automatically delete any
-role which contains similar title.
+To enforce security of your organization, Custodian can automatically delete any role which match its filter.
+
+The policy below deletes all roles that contains similar title.
 
 .. code-block:: yaml
 
