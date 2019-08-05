@@ -6,7 +6,7 @@ role which contains similar title.
 
 .. code-block:: yaml
 
-     policies:
+    policies:
       - name: gcp-iam-project-role
         resource: gcp.project-role
         filters:
