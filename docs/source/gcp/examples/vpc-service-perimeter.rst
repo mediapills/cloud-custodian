@@ -1,9 +1,13 @@
 VPC Service Controls - Enforce Configuration of Service Perimeters
 ==================================================================
 
-With VPC Service Controls, you can configure security perimeters around the resources of your Google-managed services via describing a set of GCP resources which can freely import and export data amongst themselves, but not export outside of the perimeter boundary.
+With VPC Service Controls, you can configure security perimeters around the resources of your
+Google-managed services via describing a set of GCP resources which can freely import and export
+data amongst themselves, but not export outside of the perimeter boundary.
 
-The policy below replaces any existing configuration of the target perimeter with two chosen `AccessLevel` sets applicable to BigQuery and Cloud PubSub services in the specified GCP projects within an organization.
+The policy below replaces any existing configuration of the target perimeter with two chosen
+`AccessLevel` sets applicable to BigQuery and Cloud PubSub services in the specified GCP projects
+within an organization.
 
 .. code-block:: yaml
 

@@ -47,10 +47,11 @@ class VpcAccessPolicy(QueryResourceManager):
 @VpcAccessPolicy.action_registry.register('delete')
 class VpcAccessPolicyDelete(MethodAction):
     """The action is used for VPC access policy delete.
+
     GCP action is https://cloud.google.com/access-context-manager/docs
                                     /reference/rest/v1/accessPolicies/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -104,10 +105,11 @@ class VpcAccessLevel(ChildResourceManager):
 @VpcAccessLevel.action_registry.register('delete')
 class VpcAccessLevelDelete(MethodAction):
     """The action is used for VPC access levels delete.
+
     GCP action is https://cloud.google.com/access-context-manager/docs
                             /reference/rest/v1/accessPolicies.accessLevels/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -134,10 +136,11 @@ class VpcAccessLevelDelete(MethodAction):
 @VpcAccessLevel.action_registry.register('set')
 class VpcAccessLevelPatch(MethodAction):
     """The action is used for VPC access levels patch.
+
     GCP action is https://cloud.google.com/access-context-manager/docs
                             /reference/rest/v1/accessPolicies.accessLevels/patch
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -157,9 +160,9 @@ class VpcAccessLevelPatch(MethodAction):
                 basic:
                   conditions:
                     - regions:
-                        - BY
-                        - US
-                        - RU
+                      - BY
+                      - US
+                      - RU
     """
     schema = type_schema('patch',
                          **{'type': {'enum': ['set']},
@@ -235,10 +238,11 @@ class VpcServicePerimeter(ChildResourceManager):
 @VpcServicePerimeter.action_registry.register('delete')
 class VpcServicePerimeterDelete(MethodAction):
     """The action is used for VPC service perimeter delete.
+
     GCP action is https://cloud.google.com/access-context-manager/docs
                             /reference/rest/v1/accessPolicies.servicePerimeters/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -265,6 +269,7 @@ class VpcServicePerimeterDelete(MethodAction):
 @VpcServicePerimeter.action_registry.register('set')
 class VpcServicePerimeterPatch(MethodAction):
     """The action is used for VPC service perimeter patch.
+
     GCP action is https://cloud.google.com/access-context-manager/docs
                             /reference/rest/v1/accessPolicies.servicePerimeters/patch
 
