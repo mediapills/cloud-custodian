@@ -12,9 +12,6 @@ The following policy disables active storage transfers (if any) which were creat
         resource: gcp.st-transfer-job
         filters:
           - type: value
-            key: status
-            value: ENABLED
-          - type: value
             key: creationTime
             op: greater-than
             value_type: age
@@ -22,3 +19,6 @@ The following policy disables active storage transfers (if any) which were creat
         actions:
           - type: set
             status: DISABLED
+          - type: notify
+            to:
+              - email@address

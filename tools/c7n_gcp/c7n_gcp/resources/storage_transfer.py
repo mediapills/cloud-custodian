@@ -41,7 +41,7 @@ class StorageTransferJob(QueryResourceManager):
 
 @StorageTransferJob.action_registry.register('set')
 class StorageTransferJobPatch(MethodAction):
-    """The action is used for Cloud Storage Transfer Service transferJobs.patch.
+    """The GCP action is used for Cloud Storage Transfer Service transferJobs.patch.
 
     https://cloud.google.com/storage-transfer/docs/reference/rest/v1/transferJobs/patch
 
@@ -54,9 +54,6 @@ class StorageTransferJobPatch(MethodAction):
             resource: gcp.st-transfer-job
             filters:
               - type: value
-                key: status
-                value: ENABLED
-              - type: value
                 key: creationTime
                 op: greater-than
                 value_type: age
@@ -64,6 +61,9 @@ class StorageTransferJobPatch(MethodAction):
             actions:
               - type: set
                 status: DISABLED
+              - type: notify
+                to:
+                  - email@address
     """
 
     schema = type_schema('set',

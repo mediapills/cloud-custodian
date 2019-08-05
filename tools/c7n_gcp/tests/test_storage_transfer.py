@@ -33,6 +33,7 @@ class StorageTransferJobTest(BaseTest):
 
 
 class StorageTransferJobPatchTest(BaseTest):
+
     def test_set_status(self):
         project_id = 'cloud-custodian'
 
