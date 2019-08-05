@@ -109,12 +109,11 @@ class ProjectRoleSet(MethodAction):
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
-        permissions = [permission for permission in self.data['includedPermissions']]
         return {
             'name': resource['name'],
             'body': {
                 'title': resource['title'],
-                'includedPermissions': permissions
+                'includedPermissions': self.data['includedPermissions']
             }
         }
 
