@@ -1,7 +1,9 @@
 Storage Transfer - Disable Old Storage Tranfer Jobs
 ===================================================
 
-The example allows to update filtered storage transfers. The following example demonstrates ability of Cloud Custodian to disable active storage transfers by lifetime (if any) created more than 365 days ago.
+It is a good practice to control all active jobs and keep them actual.
+
+The following policy disables active storage transfers (if any) which were created more than 365 days ago.
 
 .. code-block:: yaml
 
