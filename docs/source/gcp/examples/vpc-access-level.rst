@@ -1,9 +1,9 @@
 VPC Service Controls - Update Access Levels
-================================================
+===========================================
 
-An AccessLevel is a label that can be applied to requests to GCP services, along with a list of requirements necessary for the label to be applied. BasicLevel is an AccessLevel using a set of recommended features and it is composed of Conditions which are necessary for an AccessLevel to be granted. The Condition is an AND over its fields. 
+`AccessLevel` is a label that can be applied to requests to GCP services, along with a list of requirements necessary for the label to be applied. `BasicLevel` is an `AccessLevel` that uses a set of recommended features and that is composed of Conditions which are necessary for the `AccessLevel` to be granted. The Condition is an AND over its fields.
 
-The following policy sets new description for all AccessLevels that match the filter and also update their BasicLevel with a chosen set of regions.
+The following policy sets new a description for all `AccessLevel`s that match the filter and also updates their `BasicLevel` with a chosen set of regions.
 
 .. code-block:: yaml
 
@@ -21,8 +21,8 @@ The following policy sets new description for all AccessLevels that match the fi
           - type: set
             description: updated by Custodian
             basic:
-                conditions:
-                  - regions:
+              conditions:
+                - regions:
                     - BY
                     - US
                     - JP
