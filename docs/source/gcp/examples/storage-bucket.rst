@@ -1,7 +1,10 @@
 Storage - Audit Sensitive Buckets for Changes
 =============================================
 
-Buckets are the basic containers that hold data in Cloud Storage, everything must be contained in a bucket. Custodian can audit metadata of buckets including their ACLs and report any suspicious activity - e.g., if 'update' or 'patch' operations were performed either via GCP Concole, API or shell.
+Buckets are the basic containers that hold data in Cloud Storage, everything must be contained in
+a bucket. Custodian can audit metadata of buckets including their ACLs and report any suspicious
+activity - e.g., if 'update' or 'patch' operations were performed either via GCP Concole, API or
+shell.
 
 In the example below, the policy `delete` action was performed on buckets with 'archive' label.
 

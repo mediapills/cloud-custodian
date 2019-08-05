@@ -47,9 +47,10 @@ class Bucket(QueryResourceManager):
 @Bucket.action_registry.register('delete')
 class BucketDelete(MethodAction):
     """The action is used for Bucket delete.
+
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/buckets/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -75,7 +76,8 @@ class BucketDelete(MethodAction):
 
 @Bucket.action_registry.register('set')
 class BucketSet(MethodAction):
-    """The action is used for Bucket storage-class update.
+    """The action is used for Bucket storage-class patch.
+
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/buckets/patch
 
     Example:
@@ -156,7 +158,7 @@ class BucketAccessControlSet(MethodAction):
     
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls/patch
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -192,9 +194,10 @@ class BucketAccessControlSet(MethodAction):
 @BucketAccessControl.action_registry.register('delete')
 class BucketAccessControlDelete(MethodAction):
     """The action is used for Bucket delete.
+
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -264,9 +267,11 @@ class BucketDefaultObjectAccessControl(ChildResourceManager):
 @BucketDefaultObjectAccessControl.action_registry.register('set')
 class BucketDefaultObjectAccessControlSet(MethodAction):
     """The action is used for BucketDefaultObjectAccessControl role update.
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls/patch
 
-    Example:
+    GCP action is https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls
+    /patch
+
+    :Example:
 
     .. code-block:: yaml
 
@@ -304,7 +309,9 @@ class BucketDefaultObjectAccessControlSet(MethodAction):
 @BucketDefaultObjectAccessControl.action_registry.register('delete')
 class BucketDefaultObjectAccessControlDelete(MethodAction):
     """The action is used for BucketDefaultObjectAccessControlDelete delete.
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls/delete
+
+    GCP action is https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls
+    /delete
 
     Example:
 
@@ -374,7 +381,8 @@ class BucketObject(ChildResourceManager):
 
 @BucketObject.action_registry.register('set')
 class BucketObjectSet(MethodAction):
-    """The action is used for BucketObject cache control update.
+    """The action is used for BucketObject cache control patch.
+
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/objects/patch
 
     Example:
@@ -415,9 +423,10 @@ class BucketObjectSet(MethodAction):
 @BucketObject.action_registry.register('delete')
 class BucketObjectDelete(MethodAction):
     """The action is used for BucketObject delete.
+
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/objects/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -492,10 +501,11 @@ class BucketObjectAccessControl(ChildResourceManager):
 
 @BucketObjectAccessControl.action_registry.register('set')
 class BucketObjectAccessControlSet(MethodAction):
-    """The action is used for BucketObjectAccessControl role update.
+    """The action is used for BucketObjectAccessControl role patch.
+
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls/patch
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -532,9 +542,10 @@ class BucketObjectAccessControlSet(MethodAction):
 @BucketObjectAccessControl.action_registry.register('delete')
 class BucketObjectAccessControlDelete(MethodAction):
     """The action is used for BucketObjectAccessControl delete.
+
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
