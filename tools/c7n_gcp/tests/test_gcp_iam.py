@@ -58,8 +58,8 @@ class ProjectRoleTest(BaseTest):
                  actions=[{
                      'type': 'set',
                      'includedPermissions': [
-                         {'item': 'appengine.services.delete'},
-                         {'item': 'accessapproval.requests.approve'}
+                         'appengine.services.delete',
+                         'accessapproval.requests.approve'
                      ]
                  }]),
             session_factory=session_factory)

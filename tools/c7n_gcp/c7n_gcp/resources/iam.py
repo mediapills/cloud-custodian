@@ -91,16 +91,17 @@ class ProjectRoleSet(MethodAction):
             actions:
               - type: set
                 includedPermissions:
-                  - item: appengine.services.delete
-                  - item: accessapproval.requests.approve
+                  - appengine.services.delete
+                  - accessapproval.requests.approve
     """
 
     schema = type_schema(
         'set',
+        required=['includedPermissions'],
         **{
             'includedPermissions': {
                 'type': 'array',
-                'item': {'type', 'string'}
+                'items': {'type', 'string'}
             }
         }
     )
@@ -108,10 +109,7 @@ class ProjectRoleSet(MethodAction):
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
-        permissions = [
-            permission['item'] for permission in
-            self.data['includedPermissions']
-        ]
+        permissions = [permission for permission in self.data['includedPermissions']]
         return {
             'name': resource['name'],
             'body': {
