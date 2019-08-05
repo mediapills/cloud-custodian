@@ -1,8 +1,8 @@
 IAM - Update filtered service account description or displayName
 ================================================================
 
-The example allows to update service accounts description
-which contain similar displayName.
+The example allows to update service accounts descriptions
+and display names that contain similar displayName.
 
 .. code-block:: yaml
 
