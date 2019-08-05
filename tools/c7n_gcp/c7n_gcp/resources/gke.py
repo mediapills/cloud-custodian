@@ -275,8 +275,9 @@ class KubernetesClusterNodePoolSetAutoscaling(MethodAction):
 
     schema = type_schema(
         'set-autoscaling',
+        required=['enabled'],
         **{
-            'autoscaling': {
+            'enabled': {
                 'type': 'string'
             },
             'minNodeCount': {
@@ -300,14 +301,13 @@ class KubernetesClusterNodePoolSetAutoscaling(MethodAction):
             resource[key]['name'],
             resource['name'])
 
-        if self.data['autoscaling']:
-            params = {
-                "enabled": "true",
-                "minNodeCount": self.data['minNodeCount'],
-                "maxNodeCount": self.data['maxNodeCount']
-            }
-        else:
-            params = {"enabled": "false"}
+        params = {"enabled": "true" if self.data['enabled'] else "false"}
+
+        if self.data['enabled']:
+            if self.data['minNodeCount']:
+                params["minNodeCount"] = self.data['minNodeCount']
+            if self.data['maxNodeCount']:
+                params["maxNodeCount"] = self.data['maxNodeCount']
 
         return {
             'name': name,
@@ -317,7 +317,7 @@ class KubernetesClusterNodePoolSetAutoscaling(MethodAction):
 
 
 @KubernetesClusterNodePool.action_registry.register('set-size')
-class KubernetesClusterNodePoolSetActionSetSize(MethodAction):
+class KubernetesClusterNodePoolSetSetSize(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools size setup.
 
     GCP action is
@@ -370,7 +370,7 @@ class KubernetesClusterNodePoolSetActionSetSize(MethodAction):
 
 
 @KubernetesClusterNodePool.action_registry.register('set-management')
-class KubernetesClusterNodePoolSetActionManagement(MethodAction):
+class KubernetesClusterNodePoolSetManagement(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools management setup.
 
     GCP action is

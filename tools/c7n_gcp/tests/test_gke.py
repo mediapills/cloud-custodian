@@ -184,7 +184,7 @@ class KubernetesClusterNodePoolTest(BaseTest):
             }],
             'actions': [{
                 'type': 'set-autoscaling',
-                'autoscaling': 'True',
+                'enabled': 'True',
                 'minNodeCount': '1',
                 'maxNodeCount': '3'
             }],
