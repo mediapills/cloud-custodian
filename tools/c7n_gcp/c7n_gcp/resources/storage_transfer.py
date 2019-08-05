@@ -39,8 +39,9 @@ class StorageTransferJob(QueryResourceManager):
 
 @StorageTransferJob.action_registry.register('set')
 class StorageTransferJobPatch(MethodAction):
-    """The GCP action is used for Cloud Storage Transfer Service transferJobs.patch.
+    """The action is used for Cloud Storage Transfer Service transferJobs patch.
 
+    GCP actions is
     https://cloud.google.com/storage-transfer/docs/reference/rest/v1/transferJobs/patch
 
     Example:
