@@ -1,0 +1,118 @@
+{
+  "body": {
+    "kind": "storage#bucket", 
+    "name": "new-project-26240.appspot.com", 
+    "timeCreated": "2019-06-04T10:15:26.457Z", 
+    "locationType": "multi-region", 
+    "labels": {
+      "archive": "archive"
+    }, 
+    "updated": "2019-08-05T09:55:14.700Z", 
+    "projectNumber": "501876662786", 
+    "defaultObjectAcl": [
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "owners"
+        }, 
+        "role": "OWNER", 
+        "etag": "CDE=", 
+        "entity": "project-owners-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "editors"
+        }, 
+        "role": "OWNER", 
+        "etag": "CDE=", 
+        "entity": "project-editors-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "viewers"
+        }, 
+        "role": "READER", 
+        "etag": "CDE=", 
+        "entity": "project-viewers-501876662786"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "etag": "CDE=", 
+        "role": "OWNER", 
+        "email": "dkhanas@gmail.com", 
+        "entity": "user-dkhanas@gmail.com"
+      }
+    ], 
+    "metageneration": "49", 
+    "location": "US", 
+    "iamConfiguration": {
+      "uniformBucketLevelAccess": {
+        "enabled": false
+      }, 
+      "bucketPolicyOnly": {
+        "enabled": false
+      }
+    }, 
+    "owner": {
+      "entity": "project-owners-501876662786"
+    }, 
+    "etag": "CDE=", 
+    "acl": [
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "new-project-26240.appspot.com", 
+        "entity": "project-owners-501876662786", 
+        "etag": "CDE=", 
+        "role": "OWNER", 
+        "projectTeam": {
+          "projectNumber": "501876662786", 
+          "team": "owners"
+        }, 
+        "id": "new-project-26240.appspot.com/project-owners-501876662786", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/project-owners-501876662786"
+      }, 
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "new-project-26240.appspot.com", 
+        "entity": "user-dmytro_khanas@epam.com", 
+        "email": "dmytro_khanas@epam.com", 
+        "etag": "CDE=", 
+        "role": "OWNER", 
+        "id": "new-project-26240.appspot.com/user-dmytro_khanas@epam.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-dmytro_khanas@epam.com"
+      }, 
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "new-project-26240.appspot.com", 
+        "entity": "user-dkhanas@gmail.com", 
+        "email": "dkhanas@gmail.com", 
+        "etag": "CDE=", 
+        "role": "OWNER", 
+        "id": "new-project-26240.appspot.com/user-dkhanas@gmail.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/acl/user-dkhanas@gmail.com"
+      }
+    ], 
+    "id": "new-project-26240.appspot.com", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com", 
+    "storageClass": "MULTI_REGIONAL"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "2778", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CDE=", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Mon, 05 Aug 2019 09:55:14 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UqF0tPT3hFmutGKf6uJ9DALMqyDkVD4HuqNRYpFuOWgkiH_7CyqIF7ARhv6RJlDtyIOQM8yjf73eKcDwITEBYjuCYpdOw"
+  }
+}

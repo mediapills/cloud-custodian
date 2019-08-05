@@ -3,51 +3,15 @@
     "items": [
       {
         "kind": "storage#bucket", 
-        "name": "cloud-custodian.appspot.com", 
+        "name": "new-project-26240.appspot.com", 
         "timeCreated": "2019-06-04T10:15:26.457Z", 
         "locationType": "multi-region", 
-        "updated": "2019-07-09T09:11:45.278Z", 
+        "labels": {
+          "archive": "archive"
+        }, 
+        "updated": "2019-08-05T09:55:14.700Z", 
         "projectNumber": "501876662786", 
-        "defaultObjectAcl": [
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "owners"
-            }, 
-            "role": "OWNER", 
-            "etag": "CA0=", 
-            "entity": "project-owners-501876662786"
-          }, 
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "editors"
-            }, 
-            "role": "OWNER", 
-            "etag": "CA0=", 
-            "entity": "project-editors-501876662786"
-          }, 
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "viewers"
-            }, 
-            "role": "READER", 
-            "etag": "CA0=", 
-            "entity": "project-viewers-501876662786"
-          }, 
-          {
-            "kind": "storage#objectAccessControl", 
-            "etag": "CA0=", 
-            "role": "OWNER", 
-            "email": "dkhanas@gmail.com", 
-            "entity": "user-dkhanas@gmail.com"
-          }
-        ], 
-        "metageneration": "13", 
+        "metageneration": "49", 
         "location": "US", 
         "iamConfiguration": {
           "uniformBucketLevelAccess": {
@@ -57,54 +21,20 @@
             "enabled": false
           }
         }, 
-        "owner": {
-          "entity": "project-owners-501876662786"
-        }, 
-        "etag": "CA0=", 
-        "id": "cloud-custodian.appspot.com", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/cloud-custodian.appspot.com", 
+        "etag": "CDE=", 
+        "id": "new-project-26240.appspot.com", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com", 
         "storageClass": "MULTI_REGIONAL"
       }, 
       {
         "kind": "storage#bucket", 
-        "name": "qwerty123567", 
-        "timeCreated": "2019-06-18T08:45:55.149Z", 
+        "defaultEventBasedHold": false, 
+        "name": "qwerty1234567", 
+        "timeCreated": "2019-08-01T12:35:20.643Z", 
         "locationType": "multi-region", 
-        "updated": "2019-07-09T09:02:32.381Z", 
+        "updated": "2019-08-05T09:55:15.209Z", 
         "projectNumber": "501876662786", 
-        "defaultObjectAcl": [
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "owners"
-            }, 
-            "role": "OWNER", 
-            "etag": "CAI=", 
-            "entity": "project-owners-501876662786"
-          }, 
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "editors"
-            }, 
-            "role": "OWNER", 
-            "etag": "CAI=", 
-            "entity": "project-editors-501876662786"
-          }, 
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "viewers"
-            }, 
-            "role": "READER", 
-            "etag": "CAI=", 
-            "entity": "project-viewers-501876662786"
-          }
-        ], 
-        "metageneration": "2", 
+        "metageneration": "4", 
         "location": "US", 
         "iamConfiguration": {
           "uniformBucketLevelAccess": {
@@ -114,96 +44,24 @@
             "enabled": false
           }
         }, 
-        "owner": {
-          "entity": "project-owners-501876662786"
-        }, 
-        "etag": "CAI=", 
-        "id": "qwerty123567", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/qwerty123567", 
+        "etag": "CAQ=", 
+        "id": "qwerty1234567", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/qwerty1234567", 
         "storageClass": "MULTI_REGIONAL"
-      }, 
-      {
-        "kind": "storage#bucket", 
-        "name": "staging.cloud-custodian.appspot.com", 
-        "timeCreated": "2019-06-04T10:15:26.363Z", 
-        "locationType": "multi-region", 
-        "updated": "2019-07-09T09:02:33.258Z", 
-        "projectNumber": "501876662786", 
-        "defaultObjectAcl": [
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "owners"
-            }, 
-            "role": "OWNER", 
-            "etag": "CAY=", 
-            "entity": "project-owners-501876662786"
-          }, 
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "editors"
-            }, 
-            "role": "OWNER", 
-            "etag": "CAY=", 
-            "entity": "project-editors-501876662786"
-          }, 
-          {
-            "kind": "storage#objectAccessControl", 
-            "projectTeam": {
-              "projectNumber": "501876662786", 
-              "team": "viewers"
-            }, 
-            "role": "READER", 
-            "etag": "CAY=", 
-            "entity": "project-viewers-501876662786"
-          }
-        ], 
-        "metageneration": "6", 
-        "location": "US", 
-        "iamConfiguration": {
-          "uniformBucketLevelAccess": {
-            "enabled": false
-          }, 
-          "bucketPolicyOnly": {
-            "enabled": false
-          }
-        }, 
-        "owner": {
-          "entity": "project-owners-501876662786"
-        }, 
-        "etag": "CAY=", 
-        "lifecycle": {
-          "rule": [
-            {
-              "action": {
-                "type": "Delete"
-              }, 
-              "condition": {
-                "age": 15
-              }
-            }
-          ]
-        }, 
-        "id": "staging.cloud-custodian.appspot.com", 
-        "selfLink": "https://www.googleapis.com/storage/v1/b/staging.cloud-custodian.appspot.com", 
-        "storageClass": "STANDARD"
       }
     ], 
     "kind": "storage#buckets"
   }, 
   "headers": {
     "status": "200", 
-    "content-length": "4637", 
-    "content-location": "https://www.googleapis.com/storage/v1/b?project=cloud-custodian&alt=json&projection=full", 
+    "content-length": "1322", 
+    "content-location": "https://www.googleapis.com/storage/v1/b?project=new-project-26240&alt=json", 
     "cache-control": "private, max-age=0, must-revalidate, no-transform", 
-    "expires": "Tue, 09 Jul 2019 09:11:47 GMT", 
+    "expires": "Mon, 05 Aug 2019 09:55:16 GMT", 
     "vary": "Origin, X-Origin", 
     "server": "UploadServer", 
-    "x-guploader-uploadid": "AEnB2UoM3ZaeLQQG1DU7g2LmnWo1U9XUsVvHVEPteoS0ja2UP3nUMvscVW_HsNznkBuSxkKX3A6IVW2ySoIEMaonbwFGVq3DAg", 
-    "date": "Tue, 09 Jul 2019 09:11:47 GMT", 
+    "x-guploader-uploadid": "AEnB2UqthTINMeoGhZYwqr7qAxHAuJz3WLtwF1kgWb6ihp_u25IH9c8glP4Kkjxz7tOSILpaarWAr_ds0_LIZ-bGJpw6X7Sw8Q", 
+    "date": "Mon, 05 Aug 2019 09:55:16 GMT", 
     "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
     "content-type": "application/json; charset=UTF-8"
   }

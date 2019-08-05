@@ -1,7 +1,7 @@
 Bucket - Delete filtered object
 ===============================
 
-The example allows to delete filtered object.
+The example allows to delete objects older than 31 days.
 
 .. code-block:: yaml
 
@@ -10,7 +10,9 @@ The example allows to delete filtered object.
         resource: gcp.bucket-object
         filters:
           - type: value
-            key: name
-            value: object_name
+            key: timeCreated
+            op: greater-than
+            value_type: age
+            value: 31
         actions:
           - type: delete

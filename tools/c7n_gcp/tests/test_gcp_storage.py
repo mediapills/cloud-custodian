@@ -54,8 +54,7 @@ class BucketTest(BaseTest):
         self.assertEqual(bucket[0]['location'], "US")
 
     def test_update_storage_class(self):
-        project_id = 'cloud-custodian'
-        bucket_name = 'cloud-custodian.appspot.com'
+        project_id = 'new-project-26240'
         session_factory = self.replay_flight_data(
             'bucket-update-storage-class', project_id=project_id)
 
@@ -64,8 +63,8 @@ class BucketTest(BaseTest):
             'resource': 'gcp.bucket',
             'filters': [{
                'type': 'value',
-               'key': 'id',
-               'value': bucket_name
+               'key': 'location',
+               'value': 'US'
             }]}
 
         policy = self.load_policy(
@@ -76,7 +75,7 @@ class BucketTest(BaseTest):
                  }]),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['storageClass'], 'MULTI_REGIONAL')
+        self.assertEqual(resources[0]['storageClass'], 'DURABLE_REDUCED_AVAILABILITY')
 
         if self.recording:
             sleep(1)
@@ -348,29 +347,30 @@ class BucketObjectTest(BaseTest):
         self.assertEqual(instance[0]['bucket'], bucket_name)
         self.assertEqual(instance[0]['name'], name)
 
-    def test_update_content_type(self):
+    def test_set_cache_control(self):
         project_id = 'new-project-26240'
-        name = 'text.txt'
         session_factory = self.replay_flight_data(
-            'bucket-object-update-content-type', project_id=project_id)
+            'bucket-object-update-cache-control', project_id=project_id)
 
         base_policy = {'name': 'gcp-bucket-object-update-content-type',
                        'resource': 'gcp.bucket-object',
                        'filters': [{
                            'type': 'value',
-                           'key': 'name',
-                           'value': name
+                           'key': 'timeCreated',
+                           'op': 'greater-than',
+                           'value_type': 'age',
+                           'value': 31
                        }]}
 
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
                      'type': 'set',
-                     'content_type': 'image/svg+xml'
+                     'cache_control': 'max-age=3600'
                  }]),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['contentType'], 'text/plain')
+        self.assertEqual(resources[0]['cacheControl'], 'public')
 
         if self.recording:
             sleep(1)
@@ -379,7 +379,7 @@ class BucketObjectTest(BaseTest):
         result = client.execute_query(
             'list', {'bucket': 'new-project-26240.appspot.com'})
 
-        self.assertEqual(result['items'][0]['contentType'], 'image/svg+xml')
+        self.assertEqual(result['items'][0]['cacheControl'], 'max-age=3600')
 
     def test_delete_bucket_object(self):
         project_id = 'new-project-26240'
@@ -394,8 +394,10 @@ class BucketObjectTest(BaseTest):
             dict(base_policy,
                  filters=[{
                            'type': 'value',
-                           'key': 'name',
-                           'value': name
+                           'key': 'timeCreated',
+                           'op': 'greater-than',
+                           'value_type': 'age',
+                           'value': 31
                        }],
                  actions=[{'type': 'delete'}]),
             session_factory=session_factory)

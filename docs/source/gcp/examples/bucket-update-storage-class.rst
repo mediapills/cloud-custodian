@@ -1,7 +1,7 @@
-Bucket - Update storage class for filtered bucket
-=================================================
+Bucket - Update storage class by location
+=========================================
 
-The example allows to update filtered buckets by name and distribute them multi regionally.
+The example allows to update filtered buckets by location and distribute them multi regionally.
 
 .. code-block:: yaml
 
@@ -10,8 +10,8 @@ The example allows to update filtered buckets by name and distribute them multi 
         resource: gcp.bucket
         filters:
           - type: value
-            key: id
-            value: bucket_name
+            key: location
+            value: US
         actions:
           - type: set
             class: MULTI_REGIONAL

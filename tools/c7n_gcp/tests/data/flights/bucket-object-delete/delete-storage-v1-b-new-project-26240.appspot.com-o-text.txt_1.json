@@ -8,9 +8,9 @@
     "server": "UploadServer", 
     "pragma": "no-cache", 
     "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
-    "date": "Tue, 09 Jul 2019 11:22:30 GMT", 
+    "date": "Mon, 05 Aug 2019 09:00:03 GMT", 
     "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
     "content-type": "application/json", 
-    "x-guploader-uploadid": "AEnB2Uqbv5zflvECwkrO-gr8BDVxAFKmi19eqA8TkeeAzrD9DmII6M0V8fPSHCD9bIOQsgWIMHRf_zksSEcs9bUWU7zVLSUHYA"
+    "x-guploader-uploadid": "AEnB2UqFiL1hqAumIM_fuPG8mJv3itHnbXhYc-Ah2PFRyD8A0LMkH-moADfeW2DVl1IV8tf7d_BQPJWkfqqDVTowA-nd5Y6L8w"
   }
 }

@@ -5,13 +5,13 @@
   "headers": {
     "status": "200", 
     "content-length": "31", 
-    "content-location": "https://www.googleapis.com/storage/v1/b/staging.new-project-26240.appspot.com/o?alt=json", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/qwerty1234567/o?alt=json", 
     "cache-control": "private, max-age=0, must-revalidate, no-transform", 
-    "expires": "Tue, 09 Jul 2019 11:18:28 GMT", 
+    "expires": "Mon, 05 Aug 2019 10:24:08 GMT", 
     "vary": "Origin, X-Origin", 
     "server": "UploadServer", 
-    "x-guploader-uploadid": "AEnB2Uomi1r5yepi2mlPCaqlr6YnnktKtLJOuB-KoR0etxTXAaQELDZ1UhYcUQxj9qEmoJyCBYaX7Qx4AP-UkvXri17rBzLfnw", 
-    "date": "Tue, 09 Jul 2019 11:18:28 GMT", 
+    "x-guploader-uploadid": "AEnB2UoAR7-UVwwwluSIM5HKDxm5qN8Q_B3l3WFypRfPRIGiIs36fprGvvnkR0tkO_jh5h9QslIipI9cOcDQtpofo1x977eapg", 
+    "date": "Mon, 05 Aug 2019 10:24:08 GMT", 
     "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
     "content-type": "application/json; charset=UTF-8"
   }

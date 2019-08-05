@@ -1,0 +1,36 @@
+{
+  "body": {
+    "kind": "storage#object", 
+    "contentType": "text/plain", 
+    "name": "text.txt", 
+    "timeCreated": "2019-01-01T10:03:53.335Z",
+    "generation": "1564999433335616", 
+    "md5Hash": "hHiYm2qKPq3FKvee92Bmng==", 
+    "bucket": "new-project-26240.appspot.com", 
+    "updated": "2019-08-05T10:24:08.376Z", 
+    "crc32c": "G3PlmA==", 
+    "metageneration": "10", 
+    "mediaLink": "https://www.googleapis.com/download/storage/v1/b/new-project-26240.appspot.com/o/text.txt?generation=1564999433335616&alt=media", 
+    "storageClass": "MULTI_REGIONAL", 
+    "timeStorageClassUpdated": "2019-01-01T10:03:53.335Z",
+    "cacheControl": "max-age=3600", 
+    "etag": "CMDmsJq96+MCEAo=", 
+    "id": "new-project-26240.appspot.com/text.txt/1564999433335616", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/new-project-26240.appspot.com/o/text.txt", 
+    "size": "3170"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "810", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CMDmsJq96+MCEAo=", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Mon, 05 Aug 2019 10:24:08 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UqTz2aheeX_nfos5CDu3RWQ6AOL2KieUgxEIlCa3rzeqKCIEQZSMgi7oCaI1QeZU9Omfwdc7bgwPUtstdms-6cEAupR-Q"
+  }
+}
