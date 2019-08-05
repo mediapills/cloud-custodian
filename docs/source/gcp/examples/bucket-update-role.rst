@@ -10,13 +10,18 @@ It can be used for few resources like
 
 .. code-block:: yaml
 
+    vars:
+      entities-to-update: &entities-to-update
+        - entity-name-1
+        - entity-name-2
     policies:
       - name: gcp-bucket-access-control-update-role
         resource: gcp.bucket-access-control
         filters:
           - type: value
             key: entity
-            value: entity_name
+            op: in
+            value: *entities-to-update
         actions:
           - type: set
             role: OWNER

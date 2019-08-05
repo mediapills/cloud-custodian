@@ -53,7 +53,7 @@ class BucketTest(BaseTest):
         self.assertEqual(bucket[0]['storageClass'], 'STANDARD')
         self.assertEqual(bucket[0]['location'], 'US')
 
-    def test_update_storage_class(self):
+    def test_bucket_set(self):
         project_id = 'new-project-26240'
         session_factory = self.replay_flight_data(
             'bucket-update-storage-class', project_id=project_id)
@@ -86,25 +86,23 @@ class BucketTest(BaseTest):
 
         self.assertEqual(result['items'][0]['storageClass'], 'MULTI_REGIONAL')
 
-    def test_delete_bucket(self):
+    def test_bucket_delete(self):
         project_id = 'new-project-26240'
         bucket_name = 'qwerty123567'
         session_factory = self.replay_flight_data(
             'bucket-delete', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bucket-delete',
-                       'resource': 'gcp.bucket'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'updated',
-                           'op': 'greater-than',
-                           'value_type': 'age',
-                           'value': 365
-                       }],
-                 actions=[{'type': 'delete'}]),
+            {'name': 'gcp-bucket-delete',
+             'resource': 'gcp.bucket',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'updated',
+                 'op': 'greater-than',
+                 'value_type': 'age',
+                 'value': 365
+             }],
+             'actions': [{'type': 'delete'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['id'], bucket_name)
@@ -120,7 +118,7 @@ class BucketTest(BaseTest):
 
 class BucketAccessControlTest(BaseTest):
 
-    def test_bucket_query(self):
+    def test_bucket_access_control_query(self):
         project_id = 'cloud-custodian'
         factory = self.replay_flight_data('bucket-access-control-query', project_id)
         p = self.load_policy(
@@ -131,7 +129,7 @@ class BucketAccessControlTest(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['bucket'], 'staging.cloud-custodian.appspot.com')
 
-    def test_bucket_get(self):
+    def test_bucket_access_control_get(self):
         project_id = 'cloud-custodian'
         bucket_name = 'bucketstorage-1'
 
@@ -143,15 +141,15 @@ class BucketAccessControlTest(BaseTest):
             'resource': 'gcp.bucket-access-control',
             'mode': {
                 'type': 'gcp-audit',
-                'methods': ['storage.buckets.update']}
-            }, session_factory=factory)
+                'methods': ['storage.buckets.update']}},
+            session_factory=factory)
 
         exec_mode = p.get_execution_mode()
         event = event_data('cs-bucket-update.json')
         instance = exec_mode.run(event, None)
         self.assertEqual(instance[0]['bucket'], bucket_name)
 
-    def test_update_role(self):
+    def test_bucket_access_control_set(self):
         project_id = 'cloud-custodian'
         entity = 'user-yauhen_shaliou@comelfo.com'
         bucket_name = 'cloud-custodian.appspot.com'
@@ -159,20 +157,18 @@ class BucketAccessControlTest(BaseTest):
         session_factory = self.replay_flight_data(
             'bucket-access-control-update-role', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bucket-bucket-access-control-update-role',
-                       'resource': 'gcp.bucket-access-control',
-                       'filters': [{
-                           'type': 'value',
-                           'key': 'entity',
-                           'value': entity
-                       }]}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 actions=[{
-                     'type': 'set',
-                     'role': 'OWNER'
-                 }]),
+            {'name': 'gcp-bucket-bucket-access-control-update-role',
+             'resource': 'gcp.bucket-access-control',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'entity',
+                 'value': entity
+             }],
+             'actions': [{
+                 'type': 'set',
+                 'role': 'OWNER'
+             }]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['role'], 'READER')
@@ -185,7 +181,7 @@ class BucketAccessControlTest(BaseTest):
             'list', {'bucket': bucket_name})
         self.assertEqual(result['items'][0]['role'], 'OWNER')
 
-    def test_delete_access(self):
+    def test_bucket_access_control_delete(self):
         project_id = 'new-project-26240'
         entity = 'user-yauhen_shaliou@comelfo.com'
         bucket_name = 'new-project-26240.appspot.com'
@@ -193,17 +189,15 @@ class BucketAccessControlTest(BaseTest):
         session_factory = self.replay_flight_data(
             'bucket-access-control-delete', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bucket-access-control-delete',
-                       'resource': 'gcp.bucket-access-control'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'entity',
-                           'value': entity
-                       }],
-                 actions=[{'type': 'delete'}]),
+            {'name': 'gcp-bucket-access-control-delete',
+             'resource': 'gcp.bucket-access-control',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'entity',
+                 'value': entity
+             }],
+             'actions': [{'type': 'delete'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['entity'], entity)
@@ -220,7 +214,7 @@ class BucketAccessControlTest(BaseTest):
 
 class BucketDefaultObjectAccessControlTest(BaseTest):
 
-    def test_bucket_query(self):
+    def test_default_object_access_control_query(self):
         project_id = 'cloud-custodian'
         entity = 'project-owners-518122731295'
         factory = self.replay_flight_data('bucket-default-object-access-control-query', project_id)
@@ -232,7 +226,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['entity'], entity)
 
-    def test_bucket_get(self):
+    def test_default_object_access_control_get(self):
         project_id = 'new-project-26240'
         bucket_name = 'new-project-26240.appspot.com'
 
@@ -251,7 +245,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
         instance = exec_mode.run(event, None)
         self.assertEqual(instance[0]['bucket_name'], bucket_name)
 
-    def test_update_role(self):
+    def test_default_object_access_control_set(self):
         project_id = 'new-project-26240'
         entity = 'user-yauhen_shaliou@comelfo.com'
         bucket_name = 'new-project-26240.appspot.com'
@@ -266,7 +260,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
                 'key': 'entity',
                 'value': entity
             }],
-            'actions':[{
+            'actions': [{
                 'type': 'set',
                 'role': 'OWNER'
             }]},
@@ -282,24 +276,22 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
             'list', {'bucket': bucket_name})
         self.assertEqual(result['items'][0]['role'], 'OWNER')
 
-    def test_delete_access(self):
+    def test_default_object_access_control_delete(self):
         project_id = 'new-project-26240'
         entity = 'user-yauhen_shaliou@comelfo.com'
         bucket_name = 'new-project-26240.appspot.com'
         session_factory = self.replay_flight_data(
             'bucket-default-object-access-control-delete', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bucket-default-access-control-delete',
-                       'resource': 'gcp.bucket-default-object-access-control'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'entity',
-                           'value': entity
-                       }],
-                 actions=[{'type': 'delete'}]),
+            {'name': 'gcp-bucket-default-access-control-delete',
+             'resource': 'gcp.bucket-default-object-access-control',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'entity',
+                 'value': entity
+             }],
+             'actions': [{'type': 'delete'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['entity'], entity)
@@ -316,7 +308,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
 
 class BucketObjectTest(BaseTest):
 
-    def test_bucket_query(self):
+    def test_bucket_object_query(self):
         project_id = 'cloud-custodian'
         factory = self.replay_flight_data('bucket-object-query', project_id)
         p = self.load_policy(
@@ -327,7 +319,7 @@ class BucketObjectTest(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['name'], 'commit-example.txt')
 
-    def test_bucket_get(self):
+    def test_bucket_object_get(self):
         project_id = 'new-project-26240'
         bucket_name = 'new-project-26240.appspot.com'
         name = '1.py'
@@ -347,27 +339,25 @@ class BucketObjectTest(BaseTest):
         self.assertEqual(instance[0]['bucket'], bucket_name)
         self.assertEqual(instance[0]['name'], name)
 
-    def test_set_cache_control(self):
+    def test_bucket_object_set(self):
         project_id = 'new-project-26240'
         session_factory = self.replay_flight_data(
             'bucket-object-update-cache-control', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bucket-object-update-content-type',
-                       'resource': 'gcp.bucket-object',
-                       'filters': [{
-                           'type': 'value',
-                           'key': 'timeCreated',
-                           'op': 'greater-than',
-                           'value_type': 'age',
-                           'value': 31
-                       }]}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 actions=[{
-                     'type': 'set',
-                     'cache_control': 'max-age=3600'
-                 }]),
+            {'name': 'gcp-bucket-object-update-content-type',
+             'resource': 'gcp.bucket-object',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'timeCreated',
+                 'op': 'greater-than',
+                 'value_type': 'age',
+                 'value': 31
+             }],
+             'actions': [{
+                 'type': 'set',
+                 'cache_control': 'max-age=3600'
+             }]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['cacheControl'], 'public')
@@ -381,25 +371,23 @@ class BucketObjectTest(BaseTest):
 
         self.assertEqual(result['items'][0]['cacheControl'], 'max-age=3600')
 
-    def test_delete_bucket_object(self):
+    def test_bucket_object_delete(self):
         project_id = 'new-project-26240'
         name = 'text.txt'
         session_factory = self.replay_flight_data(
             'bucket-object-delete', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bucket-object-delete',
-                       'resource': 'gcp.bucket-object'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'timeCreated',
-                           'op': 'greater-than',
-                           'value_type': 'age',
-                           'value': 31
-                       }],
-                 actions=[{'type': 'delete'}]),
+            {'name': 'gcp-bucket-object-delete',
+             'resource': 'gcp.bucket-object',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'timeCreated',
+                 'op': 'greater-than',
+                 'value_type': 'age',
+                 'value': 31
+             }],
+             'actions': [{'type': 'delete'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['name'], name)
@@ -416,7 +404,7 @@ class BucketObjectTest(BaseTest):
 
 class BucketObjectAccessControlTest(BaseTest):
 
-    def test_bucket_query(self):
+    def test_object_access_control_query(self):
         project_id = 'cloud-custodian'
         factory = self.replay_flight_data('bucket-object-access-control-query', project_id)
         p = self.load_policy(
@@ -427,7 +415,7 @@ class BucketObjectAccessControlTest(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['object'], 'commit-example.txt')
 
-    def test_bucket_get(self):
+    def test_object_access_control_get(self):
         project_id = 'new-project-26240'
         bucket_name = 'new-project-26240.appspot.com'
         name = '1.py'
@@ -447,7 +435,7 @@ class BucketObjectAccessControlTest(BaseTest):
         self.assertEqual(instance[0]['bucket'], bucket_name)
         self.assertEqual(instance[0]['object'], name)
 
-    def test_update_role(self):
+    def test_object_access_control_set(self):
         project_id = 'cloud-custodian'
         entity = 'user-yauhen_shaliou@comelfo.com'
         object_name = 'text.txt'
@@ -455,20 +443,18 @@ class BucketObjectAccessControlTest(BaseTest):
         session_factory = self.replay_flight_data(
             'bucket-object-access-control-update-role', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bucket-object-access-control-update-role',
-                       'resource': 'gcp.bucket-object-access-control',
-                       'filters': [{
-                           'type': 'value',
-                           'key': 'entity',
-                           'value': entity
-                       }]}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 actions=[{
-                     'type': 'set',
-                     'role': 'OWNER'
-                 }]),
+            {'name': 'gcp-bucket-object-access-control-update-role',
+             'resource': 'gcp.bucket-object-access-control',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'entity',
+                 'value': entity
+             }],
+             'actions': [{
+                 'type': 'set',
+                 'role': 'OWNER'
+             }]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['role'], 'READER')
@@ -482,7 +468,7 @@ class BucketObjectAccessControlTest(BaseTest):
                      'object': object_name})
         self.assertEqual(result['items'][0]['role'], 'OWNER')
 
-    def test_delete_access(self):
+    def test_object_access_control_delete(self):
         project_id = 'new-project-26240'
         entity = 'user-yauhen_shaliou@comelfo.com'
         object_name = 'text.txt'
@@ -491,17 +477,15 @@ class BucketObjectAccessControlTest(BaseTest):
         session_factory = self.replay_flight_data(
             'bucket-object-access-control-delete', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bucket-object-access-control-delete',
-                       'resource': 'gcp.bucket-object-access-control'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'entity',
-                           'value': entity
-                       }],
-                 actions=[{'type': 'delete'}]),
+            {'name': 'gcp-bucket-object-access-control-delete',
+             'resource': 'gcp.bucket-object-access-control',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'entity',
+                 'value': entity
+             }],
+             'actions': [{'type': 'delete'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['entity'], entity)

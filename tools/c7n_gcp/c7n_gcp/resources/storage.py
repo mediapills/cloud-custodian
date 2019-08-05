@@ -46,9 +46,8 @@ class Bucket(QueryResourceManager):
 
 @Bucket.action_registry.register('delete')
 class BucketDelete(MethodAction):
-    """The action is used for Bucket delete.
-
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/buckets/delete
+    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/buckets/delete>`_ a Bucket.
+    The action does not specify additional parameters.
 
     :Example:
 
@@ -142,7 +141,8 @@ class BucketAccessControl(ChildResourceManager):
 
         @staticmethod
         def get(client, event):
-            entity = jmespath.search('protoPayload.serviceData.policyDelta.bindingDeltas[0].member', event)
+            entity = jmespath.search('protoPayload.serviceData.policyDelta.bindingDeltas[0].member',
+                                     event)
             if ':' in entity:
                 entity = '-'.join(entity.split(':'))
             return client.execute_command(
@@ -155,7 +155,7 @@ class BucketAccessControl(ChildResourceManager):
 @BucketAccessControl.action_registry.register('set')
 class BucketAccessControlSet(MethodAction):
     """The action is used for BucketAccessControl role update.
-    
+
     GCP action is https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls/patch
 
     :Example:
@@ -193,9 +193,8 @@ class BucketAccessControlSet(MethodAction):
 
 @BucketAccessControl.action_registry.register('delete')
 class BucketAccessControlDelete(MethodAction):
-    """The action is used for Bucket delete.
-
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls/delete
+    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls/delete>`_
+    a Bucket Access Control. The action does not specify additional parameters.
 
     :Example:
 
@@ -308,10 +307,9 @@ class BucketDefaultObjectAccessControlSet(MethodAction):
 
 @BucketDefaultObjectAccessControl.action_registry.register('delete')
 class BucketDefaultObjectAccessControlDelete(MethodAction):
-    """The action is used for BucketDefaultObjectAccessControlDelete delete.
-
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls
-    /delete
+    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls
+    /delete>`_ a Bucket Default Object Access Control.
+    The action does not specify additional parameters.
 
     Example:
 
@@ -422,9 +420,8 @@ class BucketObjectSet(MethodAction):
 
 @BucketObject.action_registry.register('delete')
 class BucketObjectDelete(MethodAction):
-    """The action is used for BucketObject delete.
-
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/objects/delete
+    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/objects/delete>`_
+    a Bucket Object. The action does not specify additional parameters.
 
     :Example:
 
@@ -541,9 +538,8 @@ class BucketObjectAccessControlSet(MethodAction):
 
 @BucketObjectAccessControl.action_registry.register('delete')
 class BucketObjectAccessControlDelete(MethodAction):
-    """The action is used for BucketObjectAccessControl delete.
-
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls/delete
+    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls/delete>`_
+    a Bucket Object Access Control. The action does not specify additional parameters.
 
     :Example:
 
