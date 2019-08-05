@@ -91,8 +91,8 @@ class ProjectRoleSet(MethodAction):
             actions:
               - type: set
                 includedPermissions:
-                  - name: appengine.services.delete
-                  - name: accessapproval.requests.approve
+                  - item: appengine.services.delete
+                  - item: accessapproval.requests.approve
     """
 
     schema = type_schema(
@@ -100,7 +100,7 @@ class ProjectRoleSet(MethodAction):
         **{
             'includedPermissions': {
                 'type': 'array',
-                'name': {'type', 'string'}
+                'item': {'type', 'string'}
             }
         }
     )
@@ -109,7 +109,7 @@ class ProjectRoleSet(MethodAction):
 
     def get_resource_params(self, model, resource):
         permissions = [
-            permission['name'] for permission in
+            permission['item'] for permission in
             self.data['includedPermissions']
         ]
         return {
@@ -252,25 +252,27 @@ class ServiceAccountSet(MethodAction):
             actions:
               - type: set
                 description: test-name
+                displayName: test-name1
     """
 
     schema = type_schema(
         'set',
         **{
-            'description': {'type': 'string'}
+            'description': {'type': 'string'},
+            'displayName': {'type': 'string'}
         }
     )
 
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
+        fields = ['description', 'displayName']
+        body = {key: self.data[key] for key in fields if key in self.data}
         return {
             'name': resource['name'],
             'body': {
-                  "serviceAccount": {
-                      "description": self.data['description']
-                  },
-                  "updateMask": "description"
+                  'serviceAccount': body,
+                  'updateMask': ','.join(body.keys())
                 }
         }
 

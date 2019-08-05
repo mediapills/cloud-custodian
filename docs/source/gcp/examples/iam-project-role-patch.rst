@@ -17,5 +17,5 @@ which contain similar title.
         actions:
           - type: set
             includedPermissions:
-              - name: appengine.services.delete
-              - name: accessapproval.requests.approve
+              - item: appengine.services.delete
+              - item: accessapproval.requests.approve

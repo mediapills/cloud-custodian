@@ -1,5 +1,5 @@
-IAM - Update filtered service account description
-==================================================
+IAM - Update filtered service account description or displayName
+================================================================
 
 The example allows to update service accounts description
 which contain similar displayName.
@@ -17,3 +17,4 @@ which contain similar displayName.
         actions:
           - type: set
             description: test-name
+            displayName: test-name1

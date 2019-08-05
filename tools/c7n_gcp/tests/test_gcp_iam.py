@@ -58,8 +58,8 @@ class ProjectRoleTest(BaseTest):
                  actions=[{
                      'type': 'set',
                      'includedPermissions': [
-                         {'name': 'appengine.services.delete'},
-                         {'name': 'accessapproval.requests.approve'}
+                         {'item': 'appengine.services.delete'},
+                         {'item': 'accessapproval.requests.approve'}
                      ]
                  }]),
             session_factory=session_factory)
@@ -125,8 +125,8 @@ class ServiceAccountTest(BaseTest):
 
     def test_service_account_delete(self):
         project_id = 'cloud-custodian'
-        name = "projects/cloud-custodian/serviceAccounts/" +\
-               "qwwww-235@cloud-custodian.iam.gserviceaccount.com"
+        name = ('projects/cloud-custodian/serviceAccounts/'
+                'qwwww-235@cloud-custodian.iam.gserviceaccount.com')
 
         session_factory = self.replay_flight_data(
             'iam-project-service-account-delete', project_id=project_id)
