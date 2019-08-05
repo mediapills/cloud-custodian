@@ -2,7 +2,7 @@ IAM - Delete Service Account
 ============================
 
 The example allows to delete filtered service accounts
-which are contains similar displayName.
+which contain similar displayName.
 
 .. code-block:: yaml
 

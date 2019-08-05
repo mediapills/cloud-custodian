@@ -2,7 +2,7 @@ IAM - Enable Service Account
 ============================
 
 The example allows to enable filtered service accounts
-which are contains similar displayName.
+which contain similar displayName.
 
 .. code-block:: yaml
 

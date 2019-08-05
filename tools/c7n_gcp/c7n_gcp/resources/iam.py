@@ -47,7 +47,8 @@ class ProjectRoleDelete(MethodAction):
 
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/delete
 
-    Example:
+    :Example:
+
     .. code-block:: yaml
 
         policies:
@@ -75,7 +76,8 @@ class ProjectRoleSet(MethodAction):
 
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/patch
 
-    Example:
+    :Example:
+
     .. code-block:: yaml
 
         policies:
@@ -90,7 +92,7 @@ class ProjectRoleSet(MethodAction):
               - type: set
                 includedPermissions:
                   - name: appengine.services.delete
-                  - name: 	accessapproval.requests.approve
+                  - name: accessapproval.requests.approve
     """
 
     schema = type_schema(
@@ -148,7 +150,8 @@ class ServiceAccountDelete(MethodAction):
 
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/delete
 
-    Example:
+    :Example:
+
     .. code-block:: yaml
 
         policies:
@@ -176,7 +179,8 @@ class ServiceAccountDisable(MethodAction):
 
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/disable
 
-    Example:
+    :Example:
+
     .. code-block:: yaml
 
         policies:
@@ -204,7 +208,8 @@ class ServiceAccountEnable(MethodAction):
 
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/enable
 
-    Example:
+    :Example:
+
     .. code-block:: yaml
 
         policies:
@@ -232,7 +237,8 @@ class ServiceAccountSet(MethodAction):
 
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/patch
 
-    Example:
+    :Example:
+
     .. code-block:: yaml
 
         policies:
@@ -262,7 +268,7 @@ class ServiceAccountSet(MethodAction):
             'name': resource['name'],
             'body': {
                   "serviceAccount": {
-                    "description": self.data['description']
+                      "description": self.data['description']
                   },
                   "updateMask": "description"
                 }

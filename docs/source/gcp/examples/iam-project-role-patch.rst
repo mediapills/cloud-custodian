@@ -2,7 +2,7 @@ IAM - Update Project Roles includedPermissions
 ==============================================
 
 The example allows to set includedPermissions for project roles
-which are contains similar title.
+which contain similar title.
 
 .. code-block:: yaml
 
@@ -18,4 +18,4 @@ which are contains similar title.
           - type: set
             includedPermissions:
               - name: appengine.services.delete
-              - name: 	accessapproval.requests.approve
+              - name: accessapproval.requests.approve

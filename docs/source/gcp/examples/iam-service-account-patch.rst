@@ -2,7 +2,7 @@ IAM - Update filtered service account description
 ==================================================
 
 The example allows to update service accounts description
-which are contains similar displayName.
+which contain similar displayName.
 
 .. code-block:: yaml
 

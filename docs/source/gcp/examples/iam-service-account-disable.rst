@@ -2,7 +2,7 @@ IAM - Disable Service Account
 =============================
 
 The example allows to disable filtered service accounts
-which are contains similar displayName.
+which contain similar displayName.
 
 .. code-block:: yaml
 

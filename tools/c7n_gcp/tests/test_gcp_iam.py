@@ -74,10 +74,7 @@ class ProjectRoleTest(BaseTest):
             'get', {'name': resources[0]['name']}
         )
 
-        self.assertIn(
-            'appengine.services.delete',
-            result['includedPermissions']
-        )
+        self.assertIn('appengine.services.delete', result['includedPermissions'])
 
     def test_role_delete(self):
         project_id = 'new-project-26240'
