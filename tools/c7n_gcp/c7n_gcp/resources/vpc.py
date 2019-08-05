@@ -91,21 +91,14 @@ class VpcAccessLevel(ChildResourceManager):
                 ('name', 'parent')
             ],
             'parent_get_params': [
-                ('parent', 'parent')]
+                ('parent', 'parent')],
+            'use_child_query': True
         }
 
     def get_resource_query(self):
-        return
-
-    def get_parent_resource_query(self):
-        result_query = [{'organization_id': None}]
-        if 'query' in self.data:
-            query = self.data.get('query')
-            if query is not None:
-                for element in query:
-                    if element.__contains__('organization_id'):
-                        result_query[0]['organization_id'] = element['organization_id']
-        return result_query
+        """Does nothing as self does not need query values unlike its parent
+        which receives them with the use_child_query flag."""
+        pass
 
 
 @VpcAccessLevel.action_registry.register('delete')
@@ -229,21 +222,14 @@ class VpcServicePerimeter(ChildResourceManager):
                 ('name', 'parent')
             ],
             'parent_get_params': [
-                ('parent', 'parent')]
+                ('parent', 'parent')],
+            'use_child_query': True
         }
 
     def get_resource_query(self):
-        return
-
-    def get_parent_resource_query(self):
-        result_query = [{'organization_id': None}]
-        if 'query' in self.data:
-            query = self.data.get('query')
-            if query is not None:
-                for element in query:
-                    if element.__contains__('organization_id'):
-                        result_query[0]['organization_id'] = element['organization_id']
-        return result_query
+        """Does nothing as self does not need query values unlike its parent
+        which receives them with the use_child_query flag."""
+        pass
 
 
 @VpcServicePerimeter.action_registry.register('delete')
