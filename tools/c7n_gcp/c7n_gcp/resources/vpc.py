@@ -155,11 +155,11 @@ class VpcAccessLevelPatch(MethodAction):
               - type: set
                 description: new description
                 basic:
-                    conditions:
-                      - regions:
-                          - BY
-                          - US
-                          - RU
+                  conditions:
+                    - regions:
+                        - BY
+                        - US
+                        - RU
     """
     schema = type_schema('patch',
                          **{'type': {'enum': ['set']},
@@ -286,15 +286,15 @@ class VpcServicePerimeterPatch(MethodAction):
               - type: set
                 description: new description
                 status:
-                    resources:
-                      - projects/359546646409
-                      - projects/2030697917
-                    accessLevels:
-                      - accessPolicies/1016634752304/accessLevels/custodian_viewer
-                      - accessPolicies/1016634752304/accessLevels/custodian_viewer_2
-                    restrictedServices:
-                      - bigquery.googleapis.com
-                      - pubsub.googleapis.com
+                  resources:
+                    - projects/359546646409
+                    - projects/2030697917
+                  accessLevels:
+                    - accessPolicies/1016634752304/accessLevels/custodian_viewer
+                    - accessPolicies/1016634752304/accessLevels/custodian_viewer_2
+                  restrictedServices:
+                    - bigquery.googleapis.com
+                    - pubsub.googleapis.com
     """
     schema = type_schema('patch',
                          **{'type': {'enum': ['set']},
