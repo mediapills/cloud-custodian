@@ -28,12 +28,12 @@ class BucketTest(BaseTest):
 
         resources = p.run()
         self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]['id'], "staging.cloud-custodian.appspot.com")
-        self.assertEqual(resources[0]['storageClass'], "STANDARD")
+        self.assertEqual(resources[0]['id'], 'staging.cloud-custodian.appspot.com')
+        self.assertEqual(resources[0]['storageClass'], 'STANDARD')
 
     def test_bucket_get(self):
         project_id = 'cloud-custodian'
-        bucket_name = "bucketstorage-1"
+        bucket_name = 'bucketstorage-1'
         factory = self.replay_flight_data(
             'bucket-get-resource', project_id)
         p = self.load_policy({
@@ -49,9 +49,9 @@ class BucketTest(BaseTest):
         event = event_data('cs-bucket-create.json')
         bucket = exec_mode.run(event, None)
         self.assertEqual(bucket[0]['name'], bucket_name)
-        self.assertEqual(bucket[0]['id'], "bucketstorage-1")
-        self.assertEqual(bucket[0]['storageClass'], "STANDARD")
-        self.assertEqual(bucket[0]['location'], "US")
+        self.assertEqual(bucket[0]['id'], 'bucketstorage-1')
+        self.assertEqual(bucket[0]['storageClass'], 'STANDARD')
+        self.assertEqual(bucket[0]['location'], 'US')
 
     def test_update_storage_class(self):
         project_id = 'new-project-26240'
@@ -88,7 +88,7 @@ class BucketTest(BaseTest):
 
     def test_delete_bucket(self):
         project_id = 'new-project-26240'
-        bucket_name = "qwerty123567"
+        bucket_name = 'qwerty123567'
         session_factory = self.replay_flight_data(
             'bucket-delete', project_id=project_id)
 
@@ -222,7 +222,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
 
     def test_bucket_query(self):
         project_id = 'cloud-custodian'
-        entity = "project-owners-518122731295"
+        entity = 'project-owners-518122731295'
         factory = self.replay_flight_data('bucket-default-object-access-control-query', project_id)
         p = self.load_policy(
             {'name': 'all-bucket-default-object-access-control',
@@ -234,7 +234,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
 
     def test_bucket_get(self):
         project_id = 'new-project-26240'
-        bucket_name = "new-project-26240.appspot.com"
+        bucket_name = 'new-project-26240.appspot.com'
 
         factory = self.replay_flight_data(
             'bucket-access-control-get', project_id)
@@ -325,11 +325,11 @@ class BucketObjectTest(BaseTest):
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]['name'], "commit-example.txt")
+        self.assertEqual(resources[0]['name'], 'commit-example.txt')
 
     def test_bucket_get(self):
         project_id = 'new-project-26240'
-        bucket_name = "new-project-26240.appspot.com"
+        bucket_name = 'new-project-26240.appspot.com'
         name = '1.py'
         factory = self.replay_flight_data(
             'bucket-object-get', project_id)
@@ -425,11 +425,11 @@ class BucketObjectAccessControlTest(BaseTest):
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]['object'], "commit-example.txt")
+        self.assertEqual(resources[0]['object'], 'commit-example.txt')
 
     def test_bucket_get(self):
         project_id = 'new-project-26240'
-        bucket_name = "new-project-26240.appspot.com"
+        bucket_name = 'new-project-26240.appspot.com'
         name = '1.py'
         factory = self.replay_flight_data(
             'bucket-object-access-control-get', project_id)
