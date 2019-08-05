@@ -1,8 +1,7 @@
 IAM - Update Project Roles includedPermissions
 ==============================================
 
-The example allows to set includedPermissions for project roles
-which contain similar title.
+The policy below sets includedPermissions for project roles which contain similar title.
 
 .. code-block:: yaml
 
