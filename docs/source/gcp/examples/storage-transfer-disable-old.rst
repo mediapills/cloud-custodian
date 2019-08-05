@@ -22,3 +22,7 @@ The following policy disables active storage transfers (if any) which were creat
           - type: notify
             to:
               - email@address
+            format: json
+            transport:
+              type: pubsub
+              topic: projects/cloud-custodian/topics/storage-transfer

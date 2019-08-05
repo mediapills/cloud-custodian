@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import json
-
-
 from c7n.utils import type_schema, local_session
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
@@ -64,6 +62,10 @@ class StorageTransferJobPatch(MethodAction):
               - type: notify
                 to:
                   - email@address
+                format: json
+                transport:
+                  type: pubsub
+                  topic: projects/cloud-custodian/topics/storage-transfer
     """
 
     schema = type_schema('set',
