@@ -47,13 +47,14 @@ class KubernetesCluster(QueryResourceManager):
 
 
 @KubernetesCluster.action_registry.register('delete')
-class KubernetesClusterActionDelete(MethodAction):
+class KubernetesClusterDelete(MethodAction):
     """The action is used for GKE projects.locations.clusters delete.
+
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
     /delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -83,13 +84,14 @@ class KubernetesClusterActionDelete(MethodAction):
 
 
 @KubernetesCluster.action_registry.register('set-resource-labels')
-class KubernetesClusterActionSetResourceLabels(MethodAction):
-    """The action is used for GKE projects.locations.clusters setResourceLabels.
+class KubernetesClusterSetResourceLabels(MethodAction):
+    """The action is used for GKE projects.locations.clusters set resource labels.
+
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
     /setResourceLabels
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -103,8 +105,8 @@ class KubernetesClusterActionSetResourceLabels(MethodAction):
             actions:
               - type: set-resource-labels
                 labels:
-                    - key: nodes
-                      value: minimal
+                  - key: nodes
+                    value: minimal
     """
 
     schema = type_schema(
@@ -142,13 +144,14 @@ class KubernetesClusterActionSetResourceLabels(MethodAction):
 
 
 @KubernetesCluster.action_registry.register('update')
-class KubernetesClusterActionUpdate(MethodAction):
-    """The action is used for GKE projects.locations.clusters update node version.
+class KubernetesClusterUpdate(MethodAction):
+    """The action is used for GKE projects.locations.clusters update.
+
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
     /update
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -161,7 +164,7 @@ class KubernetesClusterActionUpdate(MethodAction):
                 value: 1.12.8-gke.10
             actions:
               - type: update
-                nodeversion: "1.13.6-gke.13"
+                nodeversion: 1.13.6-gke.13
     """
 
     schema = type_schema(
@@ -245,13 +248,14 @@ class KubernetesClusterNodePool(ChildResourceManager):
 
 
 @KubernetesClusterNodePool.action_registry.register('set-autoscaling')
-class KubernetesClusterNodePoolSetActionAutoscaling(MethodAction):
+class KubernetesClusterNodePoolSetAutoscaling(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools autoscaling setup.
+
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.zones.clusters.nodePools
     /autoscaling
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -315,11 +319,12 @@ class KubernetesClusterNodePoolSetActionAutoscaling(MethodAction):
 @KubernetesClusterNodePool.action_registry.register('set-size')
 class KubernetesClusterNodePoolSetActionSetSize(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools size setup.
+
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
     /projects.zones.clusters.nodePools/setSize
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -367,11 +372,12 @@ class KubernetesClusterNodePoolSetActionSetSize(MethodAction):
 @KubernetesClusterNodePool.action_registry.register('set-management')
 class KubernetesClusterNodePoolSetActionManagement(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools management setup.
+
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
     /projects.zones.clusters.nodePools/setManagement
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
