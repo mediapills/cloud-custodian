@@ -54,28 +54,30 @@ class BucketTest(BaseTest):
         self.assertEqual(bucket[0]['location'], 'US')
 
     def test_bucket_set(self):
-        project_id = 'new-project-26240'
+        project_id = 'cloud-custodian-190204'
         session_factory = self.replay_flight_data(
             'bucket-update-storage-class', project_id=project_id)
 
-        base_policy = {
+        policy = self.load_policy({
             'name': 'gcp-bucket-update-storage-class',
             'resource': 'gcp.bucket',
             'filters': [{
-               'type': 'value',
-               'key': 'location',
-               'value': 'US'
-            }]}
-
-        policy = self.load_policy(
-            dict(base_policy,
-                 actions=[{
-                     'type': 'set',
-                     'class': 'MULTI_REGIONAL'
-                 }]),
+                'type': 'value',
+                'key': 'location',
+                'op': 'regex',
+                'value': 'US.*'
+            }],
+            'actions': [{
+                'type': 'set',
+                'class': 'NEARLINE',
+                'retention-policy-seconds': 0,
+                'versioning': True
+            }]},
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['storageClass'], 'DURABLE_REDUCED_AVAILABILITY')
+        self.assertEqual(resources[0]['storageClass'], 'REGIONAL')
+        self.assertEqual(resources[0]['retentionPolicy']['retentionPeriod'], '3155760000')
+        self.assertFalse('versioning' not in resources[0])
 
         if self.recording:
             sleep(1)
@@ -84,7 +86,51 @@ class BucketTest(BaseTest):
         result = client.execute_query(
             'list', {'project': project_id})
 
-        self.assertEqual(result['items'][0]['storageClass'], 'MULTI_REGIONAL')
+        self.assertEqual(result['items'][0]['storageClass'], 'NEARLINE')
+        self.assertFalse('retentionPolicy' in result['items'])
+        self.assertEqual(result['items'][0]['versioning']['enabled'], True)
+
+    def test_validate_retention_and_versioning_coexistence(self):
+        policy = self.load_policy({
+            'name': 'gcp-bucket-update-storage-class',
+            'resource': 'gcp.bucket',
+            'actions': [{'type': 'set'}]})
+        test_method = (policy.resource_manager.actions[0].
+                       _validate_retention_and_versioning_coexistence)
+        expected_error_message = ('Retention policies and Object Versioning are '
+                                  'mutually exclusive features in Cloud Storage.')
+
+        # preventing a wrong configuration from being set regardless of the processed resource
+        resource = {}
+        params = {'body': {
+            'retentionPolicy': {'retentionPeriod': 86400},
+            'versioning': {'enabled': True}
+        }}
+        self._call_method_expect_exception(test_method, resource, params, expected_error_message)
+
+        # versioning is set enabled in the action while active retentionPolicy remains unchanged
+        resource = {'versioning': {'enabled': False},
+                    'retentionPolicy': {
+                        'effectiveTime': '2019-08-06T07:38:15.729Z',
+                        'retentionPeriod': '3155760000'}}
+        params = {'body': {
+            'versioning': {'enabled': True}
+        }}
+        self._call_method_expect_exception(test_method, resource, params, expected_error_message)
+
+        # retentionPolicy is set enabled in the action while active versioning remains unchanged
+        resource = {'versioning': {'enabled': True}}
+        params = {'body': {
+            'retentionPolicy': {'retentionPeriod': 86400}
+        }}
+        self._call_method_expect_exception(test_method, resource, params, expected_error_message)
+
+    def _call_method_expect_exception(self, test_method, resource, params, expected_error_message):
+        try:
+            test_method(resource, params['body'])
+            self.fail('No expected_error_message has been raised.')
+        except ValueError as e:
+            self.assertEqual(str(e), expected_error_message)
 
     def test_bucket_delete(self):
         project_id = 'new-project-26240'

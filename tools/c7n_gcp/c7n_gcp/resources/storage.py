@@ -75,9 +75,27 @@ class BucketDelete(MethodAction):
 
 @Bucket.action_registry.register('set')
 class BucketSet(MethodAction):
-    """The action is used for Bucket storage-class patch.
+    """`Patches <https://cloud.google.com/storage/docs/json_api/v1/buckets/patch>`_ a Bucket.
 
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/buckets/patch
+    The action accepts the following parameters: `class`, `retention-policy-seconds`, and
+    `versioning`, at least one of which is required to be set.
+
+    The `class` parameter accepts one of the following strings the usage of which is clarified
+    `in Cloud Storage documentation <https://cloud.google.com/storage/docs/storage-classes>`_:
+    - MULTI_REGIONAL
+    - REGIONAL
+    - STANDARD
+    - NEARLINE
+    - COLDLINE
+    - DURABLE_REDUCED_AVAILABILITY
+
+    The `retention-policy-seconds` parameter is an integer defining the minimum age an object
+    in the bucket must reach before it can be deleted or overwritten.
+
+    The `versioning` parameter is a boolean which, if set as `true`, enables `bucket versioning
+    <https://cloud.google.com/storage/docs/object-versioning>`_. Note that the setting could not
+    coexist with `retention-policy-seconds`, else the `retention_and_versioning_mutually_exclusive`
+    exception is thrown (https://cloud.google.com/storage/docs/bucket-lock#retention-policy).
 
     Example:
 
@@ -89,32 +107,75 @@ class BucketSet(MethodAction):
             filters:
               - type: value
                 key: location
-                value: US
+                op: regex
+                value: US.*
             actions:
               - type: set
                 class: MULTI_REGIONAL
+                retention-policy-seconds: 86400
+                versioning: False
     """
 
     schema = type_schema(
         'set',
         **{
+            'minProperties': 1,
+            'additionalProperties': False,
             'class': {
                 'type': 'string',
                 'enum': [
-                    "MULTI_REGIONAL", "REGIONAL", "STANDARD",
-                    "NEARLINE", "COLDLINE", "DURABLE_REDUCED_AVAILABILITY"
+                    'MULTI_REGIONAL', 'REGIONAL', 'STANDARD',
+                    'NEARLINE', 'COLDLINE', 'DURABLE_REDUCED_AVAILABILITY'
                 ]
+            },
+            'retention-policy-seconds': {
+                'type': 'integer',
+                'maximum': 3155760000
+            },
+            'versioning': {
+                'type': 'boolean'
             }
         }
     )
-
     method_spec = {'op': 'patch'}
+    retention_and_versioning_error = ('Retention policies and Object Versioning are '
+                                      'mutually exclusive features in Cloud Storage.')
 
     def get_resource_params(self, model, resource):
-        return {
-            'bucket': resource['id'],
-            'body': {'storageClass': self.data['class']}
-        }
+        """
+        :param resource: the resource being processed by the action
+        :raises ValueError: see _validate_retention_and_versioning_coexistence
+        """
+        params = {'bucket': resource['id'], 'body': {}}
+        body = params['body']
+        if 'class' in self.data:
+            body['storageClass'] = self.data['class']
+        if 'retention-policy-seconds' in self.data:
+            seconds = self.data['retention-policy-seconds']
+            body['retentionPolicy'] = ({'retentionPeriod': seconds} if seconds > 0
+                                       else {'isLocked': True})
+        if 'versioning' in self.data:
+            body['versioning'] = {'enabled': self.data['versioning']}
+        self._validate_retention_and_versioning_coexistence(resource, body)
+        return params
+
+    def _validate_retention_and_versioning_coexistence(self, resource, params_body):
+        """
+        Retrieves the final configuration of `retentionPolicy` and `versioning` from the provided
+        params and raises an error if both are enabled.
+
+        :param resource: the same as in get_resource_params
+        :param params_body: params['body'] where params is a dict returned by get_resource_params
+        :raises ValueError: if the merger of the existing and the new configuration makes
+                            has both `retentionPolicy` and `versioning` enabled
+        """
+        retention_enabled = ('isLocked' not in params_body['retentionPolicy']
+                             if 'retentionPolicy' in params_body
+                             else 'retentionPolicy' in resource)
+        versioning = (params_body['versioning']['enabled'] if 'versioning' in params_body
+                      else ('versioning' in resource and resource['versioning']['enabled']))
+        if retention_enabled and versioning:
+            raise ValueError(self.retention_and_versioning_error)
 
 
 @resources.register('bucket-access-control')

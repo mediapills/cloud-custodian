@@ -1,0 +1,118 @@
+{
+  "body": {
+    "kind": "storage#bucket", 
+    "defaultEventBasedHold": false, 
+    "name": "custodian-bucket", 
+    "timeCreated": "2019-08-05T15:01:42.667Z", 
+    "locationType": "region", 
+    "updated": "2019-08-06T07:37:35.832Z", 
+    "versioning": {
+      "enabled": true
+    }, 
+    "projectNumber": "62100636004", 
+    "defaultObjectAcl": [
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "62100636004", 
+          "team": "owners"
+        }, 
+        "role": "OWNER", 
+        "etag": "CAk=", 
+        "entity": "project-owners-62100636004"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "62100636004", 
+          "team": "editors"
+        }, 
+        "role": "OWNER", 
+        "etag": "CAk=", 
+        "entity": "project-editors-62100636004"
+      }, 
+      {
+        "kind": "storage#objectAccessControl", 
+        "projectTeam": {
+          "projectNumber": "62100636004", 
+          "team": "viewers"
+        }, 
+        "role": "READER", 
+        "etag": "CAk=", 
+        "entity": "project-viewers-62100636004"
+      }
+    ], 
+    "metageneration": "9", 
+    "location": "US-CENTRAL1", 
+    "iamConfiguration": {
+      "uniformBucketLevelAccess": {
+        "enabled": false
+      }, 
+      "bucketPolicyOnly": {
+        "enabled": false
+      }
+    }, 
+    "owner": {
+      "entity": "project-owners-62100636004"
+    }, 
+    "etag": "CAk=", 
+    "acl": [
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "custodian-bucket", 
+        "entity": "project-owners-62100636004", 
+        "etag": "CAk=", 
+        "role": "OWNER", 
+        "projectTeam": {
+          "projectNumber": "62100636004", 
+          "team": "owners"
+        }, 
+        "id": "custodian-bucket/project-owners-62100636004", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/custodian-bucket/acl/project-owners-62100636004"
+      }, 
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "custodian-bucket", 
+        "entity": "project-editors-62100636004", 
+        "etag": "CAk=", 
+        "role": "OWNER", 
+        "projectTeam": {
+          "projectNumber": "62100636004", 
+          "team": "editors"
+        }, 
+        "id": "custodian-bucket/project-editors-62100636004", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/custodian-bucket/acl/project-editors-62100636004"
+      }, 
+      {
+        "kind": "storage#bucketAccessControl", 
+        "bucket": "custodian-bucket", 
+        "entity": "project-viewers-62100636004", 
+        "etag": "CAk=", 
+        "role": "READER", 
+        "projectTeam": {
+          "projectNumber": "62100636004", 
+          "team": "viewers"
+        }, 
+        "id": "custodian-bucket/project-viewers-62100636004", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/custodian-bucket/acl/project-viewers-62100636004"
+      }
+    ], 
+    "id": "custodian-bucket", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/custodian-bucket", 
+    "storageClass": "NEARLINE"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "2590", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAk=", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Tue, 06 Aug 2019 07:37:35 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UqMzWXmysnRIiDbnarTq1wpt16ufPQpAq6LBdFhdv3W7_OdPgjaT1L6SLuU3LwqJbQw_FBsEVhHu3gvioaYYwZPRNK6tw"
+  }
+}
