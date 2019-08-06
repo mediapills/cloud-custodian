@@ -1,7 +1,9 @@
-IAM - Delete Service Account
-============================
+IAM - Delete Service Accounts
+==============================
 
-The example allows to delete filtered service accounts which contain similar displayName.
+It's always a good idea to control conventions across service accounts in your organization.
+
+This sample policy deletes all service accounts where email do not match an established pattern.
 
 .. code-block:: yaml
 
@@ -10,8 +12,8 @@ The example allows to delete filtered service accounts which contain similar dis
         resource: gcp.service-account
         filters:
           - type: value
-            key: displayName
-            op: contains
-            value: {displayName}
+            key: email
+            op: regex
+            value: ^special[a-zA-Z0-9_]+@cloudcustodian\.io$
         actions:
           - type: delete
