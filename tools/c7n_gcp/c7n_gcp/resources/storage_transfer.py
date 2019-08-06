@@ -18,10 +18,10 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 from c7n_gcp.actions import MethodAction
 
 
-@resources.register('st-transfer-job')
-class StorageTransferJob(QueryResourceManager):
+@resources.register('storagetransfer-transfer-job')
+class StorageTransferTransferJob(QueryResourceManager):
     """GCP resource:
-    https://cloud.google.com/storage-transfer/docs/reference/rest/v1/transferJobs/list
+    https://cloud.google.com/storage-transfer/docs/reference/rest/v1/transferJobs
     """
 
     class resource_type(TypeInfo):
@@ -33,12 +33,13 @@ class StorageTransferJob(QueryResourceManager):
         id = 'name'
 
     def get_resource_query(self):
-        return {'filter': json.dumps({
-            "project_id": local_session(self.session_factory).get_default_project()})}
+        return {'filter': {
+            "project_id": local_session(self.session_factory).get_default_project()
+        }}
 
 
-@StorageTransferJob.action_registry.register('set')
-class StorageTransferJobPatch(MethodAction):
+@StorageTransferTransferJob.action_registry.register('set')
+class StorageTransferTransferJobSet(MethodAction):
     """The action is used for Cloud Storage Transfer Service transferJobs patch.
 
     GCP actions is
@@ -49,8 +50,8 @@ class StorageTransferJobPatch(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: gke-cloud-storage-transfer-set
-            resource: gcp.st-transfer-job
+          - name: storage-transfer-transfer-job-set
+            resource: gcp.storagetransfer-transfer-job
             filters:
               - type: value
                 key: creationTime
@@ -72,7 +73,7 @@ class StorageTransferJobPatch(MethodAction):
     schema = type_schema('set',
          **{'status': {'type': 'string'},
             'name': {'type': 'string'},
-            'description': {'type': 'integer'},
+            'description': {'type': 'string'},
             })
 
     method_spec = {'op': 'patch'}

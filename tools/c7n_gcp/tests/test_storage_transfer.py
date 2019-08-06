@@ -20,10 +20,10 @@ from gcp_common import BaseTest
 class StorageTransferJobTest(BaseTest):
 
     def test_query(self):
-        factory = self.replay_flight_data('st-transfer-job-query')
+        factory = self.replay_flight_data('storagetransfer-transfer-job-query')
         p = self.load_policy({
-            'name': 'st-transfer-job',
-            'resource': 'gcp.st-transfer-job'},
+            'name': 'storagetransfer-transfer-job',
+            'resource': 'gcp.storagetransfer-transfer-job'},
             session_factory=factory)
         resources = p.run()
 
@@ -32,17 +32,17 @@ class StorageTransferJobTest(BaseTest):
         self.assertEqual(resources[0]['status'], 'ENABLED')
 
 
-class StorageTransferJobPatchTest(BaseTest):
+class StorageTransferJobSetTest(BaseTest):
 
     def test_set_status(self):
         project_id = 'cloud-custodian'
 
         session_factory = self.replay_flight_data(
-            'storage-transfer-update', project_id=project_id)
+            'storagetransfer-transfer-job-update', project_id=project_id)
 
         policy = self.load_policy({
-            'name': 'storage-transfer-update',
-            'resource': 'gcp.st-transfer-job',
+            'name': 'storagetransfer-transfer-job-update',
+            'resource': 'gcp.storagetransfer-transfer-job',
             'actions': [{
                 'type': 'set',
                 'status': 'DISABLED'
@@ -55,7 +55,7 @@ class StorageTransferJobPatchTest(BaseTest):
 
         files_dir = os.path.join(
             os.path.dirname(__file__),
-            'data', 'flights', 'storage-transfer-update')
+            'data', 'flights', 'storagetransfer-transfer-job-update')
 
         files_paths = [file_path for file_path in os.listdir(files_dir)
                        if file_path.__contains__('2395599000273777125_1')]
