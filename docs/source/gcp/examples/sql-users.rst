@@ -1,14 +1,17 @@
 Cloud SQL - Check Users
 =======================
 
-One of security best practices is to control list of your users with extended permissions (e.g. 'postresql', 'root', etc). In the example below, Custodian lists existing users which are not included into an approved set.
+One of security best practices is to control list of your users with extended permissions
+(e.g. 'postresql', 'root', etc). In the example below, Custodian lists existing users which
+are not included into an approved set.
 
 .. code-block:: yaml
 
     policies:
       - name: sql-user
         description: |
-            check basic work of Cloud SQL filter on users: lists instance superusers which are not included into a standard user set
+          check basic work of Cloud SQL filter on users:
+          lists instance superusers which are not included into a standard user set
         resource: gcp.sql-user
         filters:
           - type: value
@@ -21,5 +24,5 @@ One of security best practices is to control list of your users with extended pe
              - email@address
             format: txt
             transport:
-                type: pubsub
-                topic: projects/my-project/topics/my-topic
+              type: pubsub
+              topic: projects/my-project/topics/my-topic

@@ -106,16 +106,16 @@ class SqlInstanceSet(SqlInstanceAction):
             actions:
               - type: set
                 backup-configuration:
-                    start-time:
-                        hours: 23
-                        minutes: 59
-                    enabled: true
-                    binary-log-enabled: true
+                  start-time:
+                    hours: 23
+                    minutes: 59
+                  enabled: true
+                  binary-log-enabled: true
                 maintenance-window:
-                    restart-time:
-                        day-of-week: 7
-                        hour-of-day: 23
-                    update-track: canary
+                  restart-time:
+                    day-of-week: 7
+                    hour-of-day: 23
+                  update-track: canary
     """
     schema = type_schema('set',
                          **{

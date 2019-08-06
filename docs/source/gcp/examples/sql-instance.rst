@@ -1,14 +1,15 @@
-Cloud SQL - Check Regions of Instances and Their State
-======================================================
+Cloud SQL - Check Regions of Instances and Their States
+=======================================================
 
-Execution of the following policy returns instances which are not in an approved set of regions AND not in runnable state. You may use more complex logic to combine any condition you need.
+Execution of the following policy returns instances which are not in an approved set of regions
+AND not in a runnable state. You may use more complex logic to combine any conditions you need.
 
 .. code-block:: yaml
 
     policies:
       - name: sql-instance
         description: |
-            check basic work of Cloud SQL filter on instances: returns instances which are not in an approved set of regions AND not in runnable state
+          check basic work of Cloud SQL filter on instances: returns instances which are not in an approved set of regions AND not in runnable state
         resource: gcp.sql-instance
         filters:
           - type: value
@@ -25,5 +26,5 @@ Execution of the following policy returns instances which are not in an approved
               - email@address
             format: txt
             transport:
-                type: pubsub
-                topic: projects/my-project/topics/my-topic
+              type: pubsub
+              topic: projects/my-project/topics/my-topic
