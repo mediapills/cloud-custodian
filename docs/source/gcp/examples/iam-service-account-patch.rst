@@ -17,4 +17,4 @@ The policy below updates descriptions of the filtered service accounts with new 
             value: [sample1@email, sample2@email, sample3@email]
         actions:
           - type: set
-            description: checked by by Custodian
+            description: checked by Custodian
