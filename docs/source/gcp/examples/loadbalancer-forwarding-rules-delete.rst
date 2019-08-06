@@ -12,7 +12,7 @@ that use portRange different from 443-443.
         filters:
           - type: value
             key: portRange
-            op: ni,
+            op: ni
             value: [443-443]
         actions:
           - type: delete
@@ -22,7 +22,7 @@ that use portRange different from 443-443.
         filters:
           - type: value
             key: portRange
-            op: ni,
+            op: ni
             value: [443-443]
         actions:
           - type: delete

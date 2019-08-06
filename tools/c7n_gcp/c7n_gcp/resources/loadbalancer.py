@@ -379,7 +379,7 @@ class LoadBalancingForwardingRuleDelete(MethodAction):
     """The action is used for Load Balancing Forwarding rules delete.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/forwardingRules/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -389,7 +389,7 @@ class LoadBalancingForwardingRuleDelete(MethodAction):
             filters:
               - type: value
                 key: portRange
-                op: ni,
+                op: ni
                 value: [443-443]
             actions:
               - type: delete
@@ -427,10 +427,11 @@ class LoadBalancingGlobalForwardingRule(QueryResourceManager):
 @LoadBalancingGlobalForwardingRule.action_registry.register('delete')
 class LoadBalancingGlobalForwardingRuleDelete(MethodAction):
     """The action is used for Load Balancing Global Forwarding rules delete.
+
     GCP action is
     https://cloud.google.com/compute/docs/reference/rest/v1/globalForwardingRules/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -440,7 +441,7 @@ class LoadBalancingGlobalForwardingRuleDelete(MethodAction):
             filters:
               - type: value
                 key: portRange
-                op: ni,
+                op: ni
                 value: [443-443]
             actions:
               - type: delete
