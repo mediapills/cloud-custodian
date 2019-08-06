@@ -60,20 +60,24 @@ class DataSet(QueryResourceManager):
 
 
 @DataSet.action_registry.register('delete')
-class DataSetActionDelete(MethodAction):
+class DataSetDelete(MethodAction):
     """The action is used for bigquery datasets delete.
+
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete
-    Example:
+
+    :Example:
+
     .. code-block:: yaml
+
           policies:
             - name: gcp-big-dataset-delete
-            resource: gcp.bq-dataset
-            filters:
-              - type: value
-                key: id
-                value: project_id:dataset_id
-            actions:
-              - type: delete
+              resource: gcp.bq-dataset
+              filters:
+                - type: value
+                  key: id
+                  value: project_id:dataset_id
+              actions:
+                - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
@@ -91,11 +95,15 @@ class DataSetActionDelete(MethodAction):
 
 
 @DataSet.action_registry.register('set-table-expiration')
-class DataSetActionPatch(MethodAction):
-    """The action is used for bigquery datasets defaultTableExpirationMs patch.
+class DataSetSet(MethodAction):
+    """The action is used for bigquery datasets patch.
+
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/patch
-    Example:
+
+    :Example:
+
     .. code-block:: yaml
+
         policies:
           - name: gcp-big-dataset-update-table-expiration
             resource: gcp.bq-dataset
@@ -157,11 +165,15 @@ class BigQueryJob(QueryResourceManager):
 
 
 @BigQueryJob.action_registry.register('cancel')
-class BigQueryJobStop(MethodAction):
+class BigQueryJobCancel(MethodAction):
     """The action is used for bigquery jobs cancel.
+
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/cancel
-    Example:
+
+    :Example:
+
     .. code-block:: yaml
+
         policies:
           - name: gcp-big-jobs-cancel
             resource: gcp.bq-job
