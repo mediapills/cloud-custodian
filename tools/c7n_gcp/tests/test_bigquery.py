@@ -75,7 +75,7 @@ class BigQueryDataSetTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'set-table-expiration',
+                     'type': 'set',
                      'tableExpirationMs': 7200000
                  }]),
             session_factory=session_factory)

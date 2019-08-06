@@ -94,7 +94,7 @@ class DataSetDelete(MethodAction):
         }
 
 
-@DataSet.action_registry.register('set-table-expiration')
+@DataSet.action_registry.register('set')
 class DataSetSet(MethodAction):
     """The action is used for bigquery datasets patch.
 
@@ -112,14 +112,13 @@ class DataSetSet(MethodAction):
                 key: id
                 value: project_id:dataset_id
             actions:
-              - type: set-table-expiration
+              - type: set
                 tableExpirationMs: 7200000
     """
 
     schema = type_schema(
-        'set-table-expiration',
+        'set',
         **{
-            'type': {'enum': ['set-table-expiration']},
             'tableExpirationMs': {
                 'type': 'number',
                 'minimum': 3600000
