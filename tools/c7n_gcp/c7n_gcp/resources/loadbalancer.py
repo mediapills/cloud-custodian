@@ -269,9 +269,10 @@ class LoadBalancingBackendService(QueryResourceManager):
 @LoadBalancingBackendService.action_registry.register('delete')
 class LoadBalancingBackendServiceDelete(MethodAction):
     """The action is used for Load Balancing Backend service delete.
+
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -298,10 +299,11 @@ class LoadBalancingBackendServiceDelete(MethodAction):
 @LoadBalancingBackendService.action_registry.register('set-security-policy')
 class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
     """The action is used for set up security policy for Load Balancing Backend service.
+
     GCP action is
     https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/setSecurityPolicy.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -318,9 +320,8 @@ class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
                 security-policy: security-policy-1
     """
 
-    schema = type_schema('setSecurityPolicy', required=['securityPolicy'],
-                         **{'type': {'enum': ['set-security-policy']},
-                            'securityPolicy': {'type': 'string'}})
+    schema = type_schema('set-security-policy', required=['securityPolicy'],
+                         **{'securityPolicy': {'type': 'string'}})
     method_spec = {'op': 'setSecurityPolicy'}
 
     policy_template = '/projects/{}/global/securityPolicies/{}'
@@ -340,9 +341,10 @@ class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
 @LoadBalancingBackendService.action_registry.register('set')
 class LoadBalancingBackendServicePatch(MethodAction):
     """The action is used for Load Balancing Backend service delete.
+
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/patch.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
