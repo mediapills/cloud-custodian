@@ -1,8 +1,9 @@
-IAM - Update filtered service account description or displayName
-================================================================
+IAM - Update Service Account Descriptions
+=============================================
 
-The example allows to update service accounts descriptions
-and display names that contain similar displayName.
+Custodian can perform a mass update on all service accounts that match its filter.
+
+The policy below updates descriptions of the filtered service accounts with new value.
 
 .. code-block:: yaml
 
@@ -11,10 +12,9 @@ and display names that contain similar displayName.
         resource: gcp.service-account
         filters:
           - type: value
-            key: displayName
+            key: email
             op: contains
-            value: {displayName}
+            value: [sample1@email, sample2@email, sample3@email]
         actions:
           - type: set
-            description: test-name
-            displayName: test-name1
+            description: checked by by Custodian
