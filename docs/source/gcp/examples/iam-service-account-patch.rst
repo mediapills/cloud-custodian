@@ -8,12 +8,12 @@ The policy below updates descriptions of the filtered service accounts with new 
 .. code-block:: yaml
 
     policies:
-      - name: gcp-iam-service-account-set-display-name
+      - name: gcp-iam-service-account-set
         resource: gcp.service-account
         filters:
           - type: value
             key: email
-            op: contains
+            op: in
             value: [sample1@email, sample2@email, sample3@email]
         actions:
           - type: set

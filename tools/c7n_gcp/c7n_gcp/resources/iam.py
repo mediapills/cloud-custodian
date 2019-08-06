@@ -87,7 +87,7 @@ class ProjectRoleSet(MethodAction):
               - type: value
                 key: title
                 op: contains
-                value: Custom Role
+                value: executor
             actions:
               - type: set
                 includedPermissions:
@@ -101,7 +101,7 @@ class ProjectRoleSet(MethodAction):
         **{
             'includedPermissions': {
                 'type': 'array',
-                'items': {'type', 'string'}
+                'items': {'type': 'string'}
             }
         }
     )
@@ -156,9 +156,9 @@ class ServiceAccountDelete(MethodAction):
             resource: gcp.service-account
             filters:
               - type: value
-                key: displayName
-                op: contains
-                value: {displayName}
+                key: email
+                op: regex
+                value: ^special[a-zA-Z0-9_]+@cloudcustodian\.io$
             actions:
               - type: delete
     """
@@ -186,8 +186,8 @@ class ServiceAccountDisable(MethodAction):
             filters:
               - type: value
                 key: displayName
-                op: contains
-                value: {displayName}
+                op: in
+                value: [accounting, privacy, confidential]
             actions:
               - type: disable
     """
@@ -215,8 +215,8 @@ class ServiceAccountEnable(MethodAction):
             filters:
               - type: value
                 key: displayName
-                op: contains
-                value: {displayName}
+                op: in
+                value: [accounting, privacy, confidential]
             actions:
               - type: enable
     """
@@ -243,13 +243,13 @@ class ServiceAccountSet(MethodAction):
             resource: gcp.service-account
             filters:
               - type: value
-                key: displayName
-                op: contains
-                value: {displayName}
+                key: email
+                op: in
+                value: [sample1@email, sample2@email, sample3@email]
             actions:
               - type: set
-                description: test-name
-                displayName: test-name1
+                description: checked by by Custodian
+                displayName: checked by by Custodian
     """
 
     schema = type_schema(
