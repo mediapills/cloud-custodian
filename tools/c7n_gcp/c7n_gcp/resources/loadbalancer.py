@@ -230,9 +230,10 @@ class LoadBalancingHttpsHealthCheck(QueryResourceManager):
 @LoadBalancingHttpsHealthCheck.action_registry.register('delete')
 class LoadBalancingHttpsHealthCheckDelete(MethodAction):
     """The action is used for Load Balancing HTTPs Health Checks delete.
+
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpsHealthChecks/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -260,9 +261,10 @@ class LoadBalancingHttpsHealthCheckDelete(MethodAction):
 @LoadBalancingHttpsHealthCheck.action_registry.register('set')
 class LoadBalancingHttpsHealthCheckPatch(MethodAction):
     """The action is used for Load Balancing HTTPs Health Checks patch.
+
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpsHealthChecks/patch.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -331,9 +333,10 @@ class LoadBalancingHttpHealthCheck(QueryResourceManager):
 @LoadBalancingHttpHealthCheck.action_registry.register('delete')
 class LoadBalancingHttpHealthCheckDelete(MethodAction):
     """The action is used for Load Balancing HTTP Health Checks delete.
+
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpHealthChecks/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -361,9 +364,10 @@ class LoadBalancingHttpHealthCheckDelete(MethodAction):
 @LoadBalancingHttpHealthCheck.action_registry.register('set')
 class LoadBalancingHttpHealthCheckPatch(MethodAction):
     """The action is used for Load Balancing HTTP Health Checks patch.
+
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/httpHealthChecks/patch.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -434,7 +438,7 @@ class LoadBalancingHealthCheckDelete(MethodAction):
     """The action is used for Load Balancing Health Checks delete.
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -462,9 +466,10 @@ class LoadBalancingHealthCheckDelete(MethodAction):
 @LoadBalancingHealthCheck.action_registry.register('set')
 class LoadBalancingHealthCheckPatch(MethodAction):
     """The action is used for Load Balancing Health Checks patch.
+
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks/patch.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -479,9 +484,9 @@ class LoadBalancingHealthCheckPatch(MethodAction):
             actions:
               - type: set
                 httpHealthCheck:
-                    host: cloudcustodian.com
-                    requestPath: /test
-                    port: 8080
+                  host: cloudcustodian.com
+                  requestPath: /test
+                  port: 8080
                 healthyThreshold: 2
                 checkIntervalSec: 10
                 timeoutSec: 9
