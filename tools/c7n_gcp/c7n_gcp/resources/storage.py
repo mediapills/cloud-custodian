@@ -570,9 +570,11 @@ class BucketObjectAccessControl(ChildResourceManager):
 
 @BucketObjectAccessControl.action_registry.register('set')
 class BucketObjectAccessControlSet(MethodAction):
-    """The action is used for BucketObjectAccessControl role patch.
+    """`Patches <https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls/patch>`_
+    a Bucket Object Access Control.
 
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls/patch
+    The required `role` setting accepts one of the two strings - OWNER, READER - and defines
+    the access permission for the entity being processed.
 
     :Example:
 
@@ -592,8 +594,14 @@ class BucketObjectAccessControlSet(MethodAction):
 
     schema = type_schema(
         'set',
+        required=['role'],
         **{
-            'role': {'type': 'string'}
+            'role': {
+                'type': 'string',
+                'enum': [
+                    'OWNER', 'READER'
+                ]
+            }
         }
     )
 
