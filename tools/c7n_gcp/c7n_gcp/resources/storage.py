@@ -451,9 +451,10 @@ class BucketObject(ChildResourceManager):
 
 @BucketObject.action_registry.register('set')
 class BucketObjectSet(MethodAction):
-    """The action is used for BucketObject cache control patch.
+    """`Patches <https://cloud.google.com/storage/docs/json_api/v1/objects/patch>`_ a Bucket Object.
 
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/objects/patch
+    The required `cache-control` option accepts a string representing `Cache-Control
+    <https://tools.ietf.org/html/rfc7234#section-5.2>`_.
 
     Example:
 
@@ -472,14 +473,13 @@ class BucketObjectSet(MethodAction):
               - type: set
                 cache_control: max-age=3600
     """
-
     schema = type_schema(
         'set',
+        required=['cache_control'],
         **{
             'cache_control': {'type': 'string'}
         }
     )
-
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
