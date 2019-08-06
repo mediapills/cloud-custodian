@@ -248,8 +248,8 @@ class ServiceAccountSet(MethodAction):
                 value: [sample1@email, sample2@email, sample3@email]
             actions:
               - type: set
-                description: checked by by Custodian
-                displayName: checked by by Custodian
+                description: checked by Custodian
+                displayName: checked by Custodian
     """
 
     schema = type_schema(
