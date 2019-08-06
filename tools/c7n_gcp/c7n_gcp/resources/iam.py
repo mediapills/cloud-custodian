@@ -72,7 +72,7 @@ class ProjectRoleDelete(MethodAction):
 
 @ProjectRole.action_registry.register('set')
 class ProjectRoleSet(MethodAction):
-    """The action is used for IAM projects.roles set permission.
+    """The action is used for IAM projects.roles patch permissions.
 
     GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/patch
 
