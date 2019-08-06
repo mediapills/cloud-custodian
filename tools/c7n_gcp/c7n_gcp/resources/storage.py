@@ -332,10 +332,11 @@ class BucketDefaultObjectAccessControl(ChildResourceManager):
 
 @BucketDefaultObjectAccessControl.action_registry.register('set')
 class BucketDefaultObjectAccessControlSet(MethodAction):
-    """The action is used for BucketDefaultObjectAccessControl role update.
+    """`Patches <https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls
+    /patch>`_ a Bucket Default Object Access Control.
 
-    GCP action is https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls
-    /patch
+    The required `role` setting accepts one of the two strings - OWNER, READER - and defines
+    the access permission for the entity being processed.
 
     :Example:
 
@@ -352,14 +353,18 @@ class BucketDefaultObjectAccessControlSet(MethodAction):
               - type: set
                 role: OWNER
     """
-
     schema = type_schema(
         'set',
+        required=['role'],
         **{
-            'role': {'type': 'string'}
+            'role': {
+                'type': 'string',
+                'enum': [
+                    'OWNER', 'READER'
+                ]
+            }
         }
     )
-
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
