@@ -1,7 +1,7 @@
-IAM - Update Project Roles includedPermissions
+IAM - Update Project Roles Permissions
 ==============================================
 
-The policy below sets includedPermissions for project roles which contain similar title.
+The policy below updates a set of permissions for all project roles that contain a specified word in its title.
 
 .. code-block:: yaml
 
@@ -12,7 +12,7 @@ The policy below sets includedPermissions for project roles which contain simila
           - type: value
             key: title
             op: contains
-            value: Custom Role
+            value: executor
         actions:
           - type: set
             includedPermissions:
