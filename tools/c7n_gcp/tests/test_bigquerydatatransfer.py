@@ -16,28 +16,31 @@ import json
 from gcp_common import BaseTest
 
 
-class BigQueryDataTransferTest(BaseTest):
+class BigQueryDataTransferConfigTest(BaseTest):
 
     def test_query(self):
         project_id = 'cloud-custodian'
-        factory = self.replay_flight_data('bq-datatransfer-get', project_id=project_id)
+        factory = self.replay_flight_data(
+            'bq-datatransfer-transfer-config-get', project_id=project_id)
+
         p = self.load_policy({
-            'name': 'bq-datatransfer-get',
-            'resource': 'gcp.bq-datatransfer'},
+            'name': 'bq-datatransfer-transfer-config-get',
+            'resource': 'gcp.bq-datatransfer-transfer-config'},
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['state'], 'SUCCEEDED')
         self.assertEqual(resources[0]['dataSourceId'], 'google_cloud_storage')
 
-    def test_cluster_delete(self):
+    def test_delete(self):
         project_id = 'cloud-custodian'
 
-        factory = self.replay_flight_data('bq-datatransfer-delete', project_id=project_id)
+        factory = self.replay_flight_data(
+            'bq-datatransfer-transfer-config-delete', project_id=project_id)
 
         p = self.load_policy(
-            {'name': 'bq-datatransfer-delete',
-             'resource': 'gcp.bq-datatransfer',
+            {'name': 'bq-datatransfer-transfer-config-delete',
+             'resource': 'gcp.bq-datatransfer-transfer-config',
              'filters': [{
                  'type': 'value',
                  'key': 'state',
@@ -52,7 +55,7 @@ class BigQueryDataTransferTest(BaseTest):
         self.assertEqual(len(resources), 1)
 
         files_dir = os.path.join(os.path.dirname(__file__),
-                                 'data', 'flights', 'bq-datatransfer-delete')
+                                 'data', 'flights', 'bq-datatransfer-transfer-config-delete')
 
         files_paths = [file_path for file_path in os.listdir(files_dir)
                        if file_path.__contains__('delete')]

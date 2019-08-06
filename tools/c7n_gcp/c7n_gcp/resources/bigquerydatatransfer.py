@@ -17,10 +17,10 @@ from c7n.utils import type_schema
 from c7n_gcp.actions import MethodAction
 
 
-@resources.register('bq-datatransfer')
-class BigQueryDataTransfer(QueryResourceManager):
+@resources.register('bq-datatransfer-transfer-config')
+class BigQueryDataTransferConfig(QueryResourceManager):
     """GCP resource: https://cloud.google.com/bigquery/docs/reference/
-    datatransfer/rest/v1/projects.locations.transferConfigs/list
+    datatransfer/rest/v1/projects.locations.transferConfigs
     """
 
     class resource_type(TypeInfo):
@@ -34,19 +34,19 @@ class BigQueryDataTransfer(QueryResourceManager):
         id = 'id'
 
 
-@BigQueryDataTransfer.action_registry.register('delete')
-class BigQueryDataTransferDelete(MethodAction):
+@BigQueryDataTransferConfig.action_registry.register('delete')
+class BigQueryDataTransferConfigDelete(MethodAction):
     """The action is used for BigQueryData projects.locations.transferConfigs delete.
     GCP action is
     https://cloud.google.com/bigquery/docs/reference/datatransfer/rest/v1/projects.locations.transferConfigs/delete
-    
+
     Example:
 
     .. code-block:: yaml
 
         policies:
-          - name: gke-bq-datatransfer-delete-failed
-            resource: gcp.gke-cluster
+          - name: bq-datatransfer-transfer-config-delete-failed
+            resource: gcp.bq-datatransfer-transfer-config
             filters:
               - type: value
                 key: state
@@ -54,7 +54,6 @@ class BigQueryDataTransferDelete(MethodAction):
             actions:
               - type: delete
     """
-    pass
 
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
