@@ -1,13 +1,20 @@
 Pub/Sub - Detect and Delete Obsolete Snapshots
 ==============================================
 
-In Cloud Pub/Sub, the snapshot feature allows users to capture the message acknowledgment state of a subscription to a topic. Once a snapshot is created, it retains all messages that were unacknowledged in the source subscription (at the time of the snapshot's creation). Custodian can check if any of Pub/Sub snapshots refer to deleted topics (GCP uses special ``_deleted-topic_`` name for them).
+In Cloud Pub/Sub, the snapshot feature allows users to capture the message acknowledgment state of
+a subscription to a topic. Once a snapshot is created, it retains all messages that were
+unacknowledged in the source subscription (at the time of the snapshot's creation). Custodian can
+check if any of Pub/Sub snapshots refer to deleted topics (GCP uses special ``_deleted-topic_``
+name for them).
 
-All pubsub snapshots are deleted in a week or less of their creation. For some use cases it maybe useful to delete them earlier.
+All pubsub snapshots are deleted in a week or less of their creation. For some use cases it maybe
+useful to delete them earlier.
 
-Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
+Note that the ``notify`` action requires a Pub/Sub topic to be configured. To configure Cloud
+Pub/Sub messaging please take a look at the :ref:`gcp_genericgcpactions` page.
 
-In the example below, the policy deletes existing snapshots whose topics have been deleted and notifies users.
+In the example below, the policy deletes existing snapshots whose topics have been deleted and
+notifies users.
 
 .. code-block:: yaml
 
@@ -25,5 +32,5 @@ In the example below, the policy deletes existing snapshots whose topics have be
               - email@address
             format: txt
             transport:
-                type: pubsub
-                topic: projects/my-gcp-project/topics/my-topic
+              type: pubsub
+              topic: projects/my-gcp-project/topics/my-topic

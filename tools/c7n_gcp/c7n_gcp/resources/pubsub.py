@@ -141,11 +141,11 @@ class PubSubSubscriptionSet(MethodAction):
             actions:
               - type: set
                 expiration-policy-ttl:
-                    days: 2
+                  days: 2
                 message-retention-duration:
-                    days: 1
-                    hours: 2
-                    minutes: 3
+                  days: 1
+                  hours: 2
+                  minutes: 3
     """
     schema = type_schema('set',
                          **{
