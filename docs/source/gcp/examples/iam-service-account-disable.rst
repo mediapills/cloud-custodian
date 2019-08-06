@@ -1,8 +1,9 @@
 IAM - Disable Service Account
 =============================
 
-The example allows to disable filtered service accounts
-which contain similar displayName.
+It's a best security practice to avoid usage of real purpose of service accounts in their names. 
+
+This policy disables all service accounts that contains blacklisted words.
 
 .. code-block:: yaml
 
@@ -12,6 +13,7 @@ which contain similar displayName.
         filters:
           - type: value
             key: displayName
-            value: {displayName}
+            op: contains
+            value: [accounting, privacy, confidential]
         actions:
           - type: disable
