@@ -61,21 +61,24 @@ class DataSet(QueryResourceManager):
 
 
 @DataSet.action_registry.register('delete')
-class DataSetActionDelete(MethodAction):
+class DataSetDelete(MethodAction):
     """The action is used for bigquery datasets delete.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets.
+
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete
-    Example:
+
+    :Example:
+
     .. code-block:: yaml
+
           policies:
             - name: gcp-big-dataset-delete
-            resource: gcp.bq-dataset
-            filters:
-              - type: value
-                key: id
-                value: project_id:dataset_id
-            actions:
-              - type: delete
+              resource: gcp.bq-dataset
+              filters:
+                - type: value
+                  key: id
+                  value: project_id:dataset_id
+              actions:
+                - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
@@ -92,13 +95,16 @@ class DataSetActionDelete(MethodAction):
         }
 
 
-@DataSet.action_registry.register('update-table-expiration')
-class DataSetActionPatch(MethodAction):
-    """The action is used for bigquery datasets defaultTableExpirationMs patch.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets.
+@DataSet.action_registry.register('set')
+class DataSetSet(MethodAction):
+    """The action is used for bigquery datasets patch.
+
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/patch
-    Example:
+
+    :Example:
+
     .. code-block:: yaml
+
         policies:
           - name: gcp-big-dataset-update-table-expiration
             resource: gcp.bq-dataset
@@ -107,14 +113,13 @@ class DataSetActionPatch(MethodAction):
                 key: id
                 value: project_id:dataset_id
             actions:
-              - type: update-table-expiration
+              - type: set
                 tableExpirationMs: 7200000
     """
 
     schema = type_schema(
-        'update-table-expiration',
+        'set',
         **{
-            'type': {'enum': ['update-table-expiration']},
             'tableExpirationMs': {
                 'type': 'number',
                 'minimum': 3600000
@@ -161,12 +166,15 @@ class BigQueryJob(QueryResourceManager):
 
 
 @BigQueryJob.action_registry.register('cancel')
-class BigQueryJobStop(MethodAction):
+class BigQueryJobCancel(MethodAction):
     """The action is used for bigquery jobs cancel.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs.
+
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/cancel
-    Example:
+
+    :Example:
+
     .. code-block:: yaml
+
         policies:
           - name: gcp-big-jobs-cancel
             resource: gcp.bq-job
@@ -232,19 +240,22 @@ class BigQueryTable(ChildResourceManager):
 @BigQueryTable.action_registry.register('delete')
 class BigQueryTableActionDelete(MethodAction):
     """The action is used for bigquery table delete.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables.
+
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/delete
-    Example:
+
+    :Example:
+
     .. code-block:: yaml
+
           policies:
             - name: gcp-big-table-delete
-            resource: gcp.bq-table
-            filters:
-              - type: value
-                key: id
-                value: project_id:dataset_id.table_id
-            actions:
-              - type: delete
+              resource: gcp.bq-table
+              filters:
+                - type: value
+                  key: id
+                  value: project_id:dataset_id.table_id
+              actions:
+                - type: delete
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
@@ -253,13 +264,16 @@ class BigQueryTableActionDelete(MethodAction):
         return resource['tableReference']
 
 
-@BigQueryTable.action_registry.register('update-table-label')
+@BigQueryTable.action_registry.register('set')
 class BigQueryTableActionPatch(MethodAction):
     """The action is used for bigquery table labels patch.
-    GCP resource is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables.
+
     GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/patch
-    Example:
+
+    :Example:
+
     .. code-block:: yaml
+
         policies:
           - name: gcp-bq-table-delete
             resource: gcp.bq-table
@@ -270,16 +284,15 @@ class BigQueryTableActionPatch(MethodAction):
             actions:
               - type: update-table-label
                 labels:
-                    - key: example
-                      value: example
-                    - key: example1
-                      value: example1
+                  - key: example
+                    value: example
+                  - key: example1
+                    value: example1
     """
 
     schema = type_schema(
-        'update-table-label',
+        'set',
         **{
-            'type': {'enum': ['update-table-label']},
             'labels': {
                 'type': 'array',
                 'items': {
