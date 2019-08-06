@@ -1,7 +1,7 @@
 IAM - Delete Project Roles
 ==========================
 
-To enforce security of your organization, Custodian can automatically delete any role which match its filter.
+To enforce security of your projects, Custodian can automatically delete any role which match its filter.
 
 The policy below deletes all roles with deprecated or beta status.
 
@@ -12,8 +12,8 @@ The policy below deletes all roles with deprecated or beta status.
         resource: gcp.project-role
         filters:
           - type: value
-            key: stage
-            op: in
-            value: [BETA, DEPRECATED]
+            key: email
+            op: regex
+            value: ^projects\/.+\/roles\/.+$
         actions:
           - type: delete
