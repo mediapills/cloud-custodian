@@ -1,7 +1,7 @@
 BigQuery Data Transfer - Delete Failed Transfer Configs
 ========================================================
 
-Custodian can check and delete all BigQuery Transfer Configs which failed during execution for some reason (for example, during a scheduled data transfer some of data sources were out to date).
+Custodian can check and delete all BigQuery Transfer Configs which failed during execution for some reason.
 
 The policy below checks if data transfer status is FAILED and delete all such transfer configs.
 
