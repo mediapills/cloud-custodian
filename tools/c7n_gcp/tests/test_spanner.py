@@ -307,19 +307,19 @@ class SpannerDatabaseInstanceTest(BaseTest):
             {'name': 'spanner-database-instance-set-iam-policy-remove-all',
              'resource': 'gcp.spanner-database-instance',
              'actions': [{'type': 'set-iam-policy',
-                          'remove-bindings': [{"role": "roles/owner",
-                                        "members": ["user:yauhen_shaliou@comelfo.com"]},
-                                       {"role": "roles/viewer",
-                                        "members": ["user:dkhanas@gmail.com"]}]}]},
+                          'remove-bindings': [{'role': 'roles/owner',
+                                        'members': ['user:yauhen_shaliou@comelfo.com']},
+                                       {'role': 'roles/viewer',
+                                        'members': ['user:dkhanas@gmail.com']}]}]},
             session_factory=session_factory)
 
         client = policy.resource_manager.get_client()
         actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
         self.assertEqual(actual_bindings['bindings'],
-                         [{"role": "roles/owner",
-                           "members": ["user:yauhen_shaliou@comelfo.com"]},
-                          {"role": "roles/viewer",
-                           "members": ["user:dkhanas@gmail.com"]}])
+                         [{'role': 'roles/owner',
+                           'members': ['user:yauhen_shaliou@comelfo.com']},
+                          {'role': 'roles/viewer',
+                           'members': ['user:dkhanas@gmail.com']}])
 
         resources = policy.run()
         self.assertEqual(len(resources), 1)
@@ -330,3 +330,21 @@ class SpannerDatabaseInstanceTest(BaseTest):
 
         actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
         self.assertFalse('bindings' in actual_bindings)
+
+    def test_set_iam_policy_remove_bindings_star(self):
+        policy = self.load_policy(
+            {'name': 'spanner-database-instance-set-iam-policy-remove-with-star',
+             'resource': 'gcp.spanner-database-instance',
+             'actions': [{'type': 'set-iam-policy'}]})
+        test_method = policy.resource_manager.actions[0]._remove_bindings
+
+        existing_bindings = [{'role': 'roles/owner',
+                              'members': ['user:yauhen_shaliou@comelfo.com']},
+                             {'role': 'roles/viewer',
+                              'members': ['user:dkhanas@gmail.com']}]
+        bindings_to_remove = [{'role': 'roles/owner',
+                               'members': '*'}]
+        expected_bindings = [{'role': 'roles/viewer',
+                              'members': ['user:dkhanas@gmail.com']}]
+
+        self.assertEqual(test_method(existing_bindings, bindings_to_remove), expected_bindings)

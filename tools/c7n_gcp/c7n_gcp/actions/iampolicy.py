@@ -84,11 +84,11 @@ class SetIamPolicy(MethodAction):
                                  'type': 'array',
                                  'minItems': 1,
                                  'items': {'role': {'type': 'string'},
-                                           'members': {'type': 'array',
-                                                       'items': {
-                                                           'type': 'string'},
-                                                       'minItems': 1}}
-                             },
+                                           'members': {'oneOf': [
+                                               {'type': 'array',
+                                                'items': {'type': 'string'},
+                                                'minItems': 1},
+                                               {'enum': ['*']}]}}},
                          })
     method_spec = {'op': 'setIamPolicy'}
     schema_alias = True
@@ -187,6 +187,9 @@ class SetIamPolicy(MethodAction):
         As can be observed, it is possible to have an empty list returned either if
         `existing_bindings` is already empty or `bindings_to_remove` filters everything out.
 
+        In addition, a star wildcard could be used as the `members` key value (members: '*')
+        in order to remove all members from a role.
+
         For additional information on how the method works, please refer to the tests
         (e.g. test_spanner).
 
@@ -199,7 +202,8 @@ class SetIamPolicy(MethodAction):
         roles_to_existing_bindings = self._get_roles_to_bindings_dict(existing_bindings)
         roles_to_bindings_to_remove = self._get_roles_to_bindings_dict(bindings_to_remove)
         for role in roles_to_bindings_to_remove:
-            if role in roles_to_existing_bindings:
+            if (role in roles_to_existing_bindings and
+                    roles_to_bindings_to_remove[role]['members'] != '*'):
                 updated_members = dict(roles_to_existing_bindings[role])
                 members_to_remove = roles_to_bindings_to_remove[role]
                 updated_members['members'] = list(filter(
