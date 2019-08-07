@@ -62,4 +62,4 @@ class BigQueryDataTransferConfigDelete(MethodAction):
     def get_resource_params(self, model, resource):
         name = resource["name"].split('/')
         del name[2:4]
-        return {"name": '/'.join(name)}
+        return {'name': '/'.join(name)}
