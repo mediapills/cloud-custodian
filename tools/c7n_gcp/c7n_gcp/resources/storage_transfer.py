@@ -40,7 +40,7 @@ class StorageTransferTransferJob(QueryResourceManager):
 
 @StorageTransferTransferJob.action_registry.register('set')
 class StorageTransferTransferJobSet(MethodAction):
-    """The action is used for Cloud Storage Transfer Service transferJobs patch.
+    """The action is used for Storage Transfer service transferJobs patch.
 
     GCP actions is
     https://cloud.google.com/storage-transfer/docs/reference/rest/v1/transferJobs/patch
@@ -50,7 +50,7 @@ class StorageTransferTransferJobSet(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: storage-transfer-transfer-job-set
+          - name: storage-transfer-transfer-job-set-and-notify
             resource: gcp.storagetransfer-transfer-job
             filters:
               - type: value
@@ -81,13 +81,13 @@ class StorageTransferTransferJobSet(MethodAction):
     def get_resource_params(self, model, resource):
         project = local_session(self.manager.source.query.session_factory).get_default_project()
         body = {
-            "transferJob": {},
-            "projectId": project
+            'transferJob': {},
+            'projectId': project
         }
 
-        for field in ["status", "name", "description"]:
+        for field in ['status', 'name', 'description']:
             if field in self.data:
-                body["transferJob"][field] = self.data[field]
+                body['transferJob'][field] = self.data[field]
 
         return {
             'jobName': resource['name'],
