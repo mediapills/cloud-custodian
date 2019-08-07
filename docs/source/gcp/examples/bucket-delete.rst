@@ -1,8 +1,8 @@
-Bucket - Delete filtered bucket
-===============================
+Bucket - Delete filtered buckets
+================================
 
-The example allows to delete filtered bucket.
-The following example demonstrates ability of Cloud Custodian to track buckets lifetime and 
+The example allows to delete filtered buckets.
+The following example demonstrates ability of Cloud Custodian to 
 delete the buckets (if any) updated more than 365 days ago.
 
 .. code-block:: yaml
