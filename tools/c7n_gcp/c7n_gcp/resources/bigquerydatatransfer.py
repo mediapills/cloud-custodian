@@ -37,10 +37,11 @@ class BigQueryDataTransferConfig(QueryResourceManager):
 @BigQueryDataTransferConfig.action_registry.register('delete')
 class BigQueryDataTransferConfigDelete(MethodAction):
     """The action is used for BigQueryData projects.locations.transferConfigs delete.
+    
     GCP action is
     https://cloud.google.com/bigquery/docs/reference/datatransfer/rest/v1/projects.locations.transferConfigs/delete
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
