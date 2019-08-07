@@ -1,16 +1,20 @@
 BigQuery - Update filtered Dataset
 ==================================
 
-The example allows to delete filtered dataset.
+The example allows set tableExpirationMs and labels for them.
 
 .. code-block:: yaml
 
-      policies:
-        - name: gcp-big-dataset-delete
+    policies:
+      - name: gcp-big-dataset-set
         resource: gcp.bq-dataset
         filters:
           - type: value
-            key: id
-            value: project_id:dataset_id
+            key: location
+            value: US
         actions:
-          - type: delete
+          - type: set
+            tableExpirationMs: 7200000
+            labels:
+              - key: updated
+                value: tableexparation

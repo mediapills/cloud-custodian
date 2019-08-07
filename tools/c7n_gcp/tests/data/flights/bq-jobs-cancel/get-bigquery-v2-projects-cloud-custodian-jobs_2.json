@@ -1,0 +1,23 @@
+{
+  "body": {
+    "kind": "bigquery#jobList", 
+    "etag": "RAF7Hu0Ug6I36icKRl6KHw=="
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "16292", 
+    "x-xss-protection": "0", 
+    "content-location": "https://www.googleapis.com/bigquery/v2/projects/cloud-custodian/jobs?alt=json&allUsers=true",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "etag": "RAF7Hu0Ug6I36icKRl6KHw==", 
+    "cache-control": "private", 
+    "date": "Wed, 26 Jun 2019 12:50:03 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "-content-encoding": "gzip"
+  }
+}

@@ -33,8 +33,7 @@ class BigQueryDataSetTest(BaseTest):
         self.assertEqual(dataset['labels'], {'env': 'dev'})
 
     def test_delete_dataset(self):
-        project_id = 'cloud-custodian'
-        dataset_id = '{}:dataset'.format(project_id)
+        project_id = 'new-project-26240'
         session_factory = self.replay_flight_data(
             'bq-dataset-delete', project_id=project_id)
 
@@ -44,39 +43,47 @@ class BigQueryDataSetTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  filters=[{'type': 'value',
-                           'key': 'id',
-                           'value': dataset_id}],
+                           'key': 'tag:updated',
+                           'value': 'tableexparation'
+                           }],
                  actions=[{'type': 'delete'}]),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['id'], dataset_id)
+        self.assertIn('updated', resources[0]['labels'])
 
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 0)
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {
+                'projectId': resources[0]['datasetReference']['projectId'],
+            }
+        )
+        self.assertNotIn('datasets', result)
 
-    def test_update_dates_expiration_time(self):
+    def test_set_dataset(self):
         project_id = 'new-project-26240'
-        dataset_id = '{}:dataset'.format(project_id)
+        dataset_id = 'new-project-26240:dataset'
         session_factory = self.replay_flight_data(
-            'bq-dataset-update-table-expiration', project_id=project_id)
+            'bq-dataset-set', project_id=project_id)
 
-        base_policy = {'name': 'gcp-bq-dataset-update-table-expiration',
+        base_policy = {'name': 'gcp-bq-dataset-set',
                        'resource': 'gcp.bq-dataset',
                        'filters': [{
                            'type': 'value',
-                           'key': 'id',
-                           'value': dataset_id
+                           'key': 'location',
+                           'value': 'US'
                        }]}
 
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'update-table-expiration',
-                     'tableExpirationMs': 7200000
+                     'type': 'set',
+                     'tableExpirationMs': 7200000,
+                     'labels': [
+                         {'key': 'updated', 'value': 'tableexparation'},
+                     ]
                  }]),
             session_factory=session_factory)
         resources = policy.run()
@@ -85,10 +92,17 @@ class BigQueryDataSetTest(BaseTest):
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(resources[0]['id'], dataset_id)
-        self.assertEqual(resources[0]['defaultTableExpirationMs'], '7200000')
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'get', {
+                'projectId': resources[0]['datasetReference']['projectId'],
+                'datasetId': resources[0]['datasetReference']['datasetId']
+            }
+        )
+
+        self.assertEqual(result['id'], dataset_id)
+        self.assertEqual(result['defaultTableExpirationMs'], '7200000')
+        self.assertIn('updated', result['labels'])
 
 
 class BigQueryJobTest(BaseTest):
@@ -125,11 +139,10 @@ class BigQueryJobTest(BaseTest):
         self.assertEqual(job[0]['jobReference']['jobId'], job_id)
         self.assertEqual(job[0]['jobReference']['location'], location)
         self.assertEqual(job[0]['jobReference']['projectId'], project_id)
-        self.assertEqual(job[0]['id'], "{}:{}.{}".format(project_id, location, job_id))
+        self.assertEqual(job[0]['id'], '{}:{}.{}'.format(project_id, location, job_id))
 
     def test_cancel_job(self):
         project_id = 'cloud-custodian'
-        job_id = 'bquxjob_3cfe36ad_16b939b13fa'
         session_factory = self.replay_flight_data(
             'bq-jobs-cancel', project_id=project_id)
 
@@ -139,12 +152,25 @@ class BigQueryJobTest(BaseTest):
         policy = self.load_policy(
             dict(base_policy,
                  filters=[{'type': 'value',
-                           'key': 'jobReference.jobId',
-                           'value': job_id}],
-                 actions=[{'type': 'cancel'}]),
+                           'key': 'state',
+                           'value': 'DONE'}],
+                 actions=[{'type': 'cancel'}]
+                 ),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['jobReference']['jobId'], job_id)
+        self.assertEqual(resources[0]['state'], 'DONE')
+
+        if self.recording:
+            sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {
+                'projectId': project_id,
+            }
+        )
+
+        self.assertNotIn('jobs', result)
 
 
 class BigQueryProjectTest(BaseTest):
@@ -191,37 +217,43 @@ class BigQueryTableTest(BaseTest):
         self.assertIn('tableReference', job[0].keys())
 
     def test_delete_table(self):
-        project_id = 'cloud-custodian'
-        table_id = 'test'
-        dataset_id = '{}:dataset.{}'.format(project_id, table_id)
+        project_id = 'new-project-26240'
         session_factory = self.replay_flight_data(
             'bq-table-delete', project_id=project_id)
 
         base_policy = {'name': 'gcp-big-table-delete',
-                       'resource': 'gcp.bq-table'}
+                       'resource': 'gcp.bq-table',
+                       'filters': [{
+                           'type': 'value',
+                           'key': 'creationTime',
+                           'value_type': 'age',
+                           'op': 'greater-than',
+                           'value': 1
+                       }]
+                       }
 
         policy = self.load_policy(
             dict(base_policy,
-                 filters=[{'type': 'value',
-                           'key': 'id',
-                           'value': dataset_id}],
-                 actions=[{'type': 'delete'}]),
+                 actions=[{'type': 'delete'}]
+                 ),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['id'], dataset_id)
+        self.assertEqual(resources[0]['type'], 'TABLE')
 
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(len(resources), 0)
+        client = policy.resource_manager.get_client()
+        result = client.execute_query('list', {
+            'projectId': resources[0]['tableReference']['projectId'],
+            'datasetId': resources[0]['tableReference']['datasetId']
+        })
+
+        self.assertNotIn('tables', result)
 
     def test_update_table_label(self):
-        project_id = 'cloud-custodian'
-        table_id = 'test'
-        label = 'example'
-        dataset_id = '{}:dataset.{}'.format(project_id, table_id)
+        project_id = 'new-project-26240'
+        label = 'expiration'
         session_factory = self.replay_flight_data(
             'bq-table-update-table-label', project_id=project_id)
 
@@ -229,27 +261,30 @@ class BigQueryTableTest(BaseTest):
                        'resource': 'gcp.bq-table',
                        'filters': [{
                            'type': 'value',
-                           'key': 'id',
-                           'value': dataset_id
+                           'key': 'expirationTime',
+                           'value_type': 'expiration',
+                           'op': 'less-than',
+                           'value': 7
                        }]}
 
         policy = self.load_policy(
             dict(base_policy,
                  actions=[{
-                     'type': 'update-table-label',
+                     'type': 'set',
                      'labels': [
-                         {'key': label, 'value': label},
-                         {'key': 'example1', 'value': 'example1'},
+                         {'key': label, 'value': 'less_than_seven_days'},
                      ]
-                 }]),
+                 }]
+                 ),
             session_factory=session_factory)
         resources = policy.run()
-        self.assertEqual(resources[0]['id'], dataset_id)
+        self.assertEqual(resources[0]['type'], 'TABLE')
 
         if self.recording:
             sleep(1)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(resources[0]['id'], dataset_id)
-        self.assertIn(label, resources[0]['labels'])
+        client = policy.resource_manager.get_client()
+        result = client.execute_query('get', resources[0]['tableReference'])
+
+        self.assertIn(label, result['labels'])
+        self.assertIn('expirationTime', result)

@@ -7,9 +7,9 @@
     "x-content-type-options": "nosniff", 
     "vary": "Origin, X-Origin, Referer", 
     "server": "ESF", 
-    "date": "Tue, 25 Jun 2019 14:19:48 GMT", 
+    "date": "Wed, 07 Aug 2019 14:16:01 GMT", 
     "x-frame-options": "SAMEORIGIN", 
-    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,44,43,39\"", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
     "content-type": "application/json; charset=UTF-8"
   }
 }

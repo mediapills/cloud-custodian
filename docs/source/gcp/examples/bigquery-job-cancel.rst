@@ -1,7 +1,7 @@
-BigQuery - Stop job filtered job
-================================
+BigQuery - Cancel all finished jobs
+===================================
 
-The example allows to delete filtered job.
+The example allows to cancel all finished jobs.
 
 .. code-block:: yaml
 
@@ -10,7 +10,7 @@ The example allows to delete filtered job.
         resource: gcp.bq-job
         filters:
           - type: value
-            key: jobReference.jobId
-            value: jobId
+            key: state
+            value: DONE
         actions:
           - type: cancel

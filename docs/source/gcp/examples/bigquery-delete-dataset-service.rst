@@ -1,16 +1,16 @@
-BigQuery - Delete filtered Dataset table expiration
-===================================================
+BigQuery - Delete filtered Datasets
+===================================
 
-The example allows to delete filtered dataset.
+The example allows to delete filtered datasets with set labels.
 
 .. code-block:: yaml
 
     policies:
-        - name: gcp-big-dataset-delete
-          resource: gcp.bq-dataset
-          filters:
-              - type: value
-                key: id
-                value: project_id:dataset_id
-          actions:
-              - type: delete
+      - name: gcp-big-dataset-delete
+        resource: gcp.bq-dataset
+        filters:
+          - type: value
+            key: tag:updated
+            value: tableexparation
+        actions:
+          - type: delete
