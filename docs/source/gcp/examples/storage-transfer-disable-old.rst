@@ -1,7 +1,7 @@
 Storage Transfer - Disable Old Storage Tranfer Jobs
 ===================================================
 
-It is a good practice to control all active jobs and keep them up-to-date.
+It is a good practice to control all active jobs and remove obsolete ones.
 
 The following policy disable active storage transfers (if any) which were created more than 365 days ago and notify end user about this.
 
