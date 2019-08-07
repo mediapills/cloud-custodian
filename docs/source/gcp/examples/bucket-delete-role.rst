@@ -11,7 +11,7 @@ It can be used for few resources like
 .. code-block:: yaml
 
     policies:
-      - name: gcp-bucket-access-control-delete-role
+      - name: gcp-bucket-access-control-delete
         resource: gcp.bucket-access-control
         filters:
           - type: value
