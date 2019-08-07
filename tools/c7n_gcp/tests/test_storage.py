@@ -46,7 +46,7 @@ class BucketTest(BaseTest):
         }, session_factory=factory)
 
         exec_mode = p.get_execution_mode()
-        event = event_data('cs-bucket-create.json')
+        event = event_data('bucket-create.json')
         bucket = exec_mode.run(event, None)
         self.assertEqual(bucket[0]['name'], bucket_name)
         self.assertEqual(bucket[0]['id'], 'bucketstorage-1')
@@ -191,7 +191,7 @@ class BucketAccessControlTest(BaseTest):
             session_factory=factory)
 
         exec_mode = p.get_execution_mode()
-        event = event_data('cs-bucket-update.json')
+        event = event_data('bucket-update.json')
         instance = exec_mode.run(event, None)
         self.assertEqual(instance[0]['bucket'], bucket_name)
 
@@ -287,7 +287,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
                               },
                              session_factory=factory)
         exec_mode = p.get_execution_mode()
-        event = event_data('cs-bucket-access-update.json')
+        event = event_data('bucket-access-update.json')
         instance = exec_mode.run(event, None)
         self.assertEqual(instance[0]['bucket_name'], bucket_name)
 
@@ -380,7 +380,7 @@ class BucketObjectTest(BaseTest):
                               },
                              session_factory=factory)
         exec_mode = p.get_execution_mode()
-        event = event_data('cs-bucket-object-access-update.json')
+        event = event_data('bucket-object-access-update.json')
         instance = exec_mode.run(event, None)
         self.assertEqual(instance[0]['bucket'], bucket_name)
         self.assertEqual(instance[0]['name'], name)
@@ -476,7 +476,7 @@ class BucketObjectAccessControlTest(BaseTest):
                               },
                              session_factory=factory)
         exec_mode = p.get_execution_mode()
-        event = event_data('cs-bucket-object-access-update.json')
+        event = event_data('bucket-object-access-update.json')
         instance = exec_mode.run(event, None)
         self.assertEqual(instance[0]['bucket'], bucket_name)
         self.assertEqual(instance[0]['object'], name)

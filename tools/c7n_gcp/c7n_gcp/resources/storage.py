@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import jmespath
+
 from c7n.utils import type_schema
 
 from c7n_gcp.actions import MethodAction
@@ -30,24 +31,16 @@ class Bucket(QueryResourceManager):
         component = 'buckets'
         scope = 'project'
         enum_spec = ('list', 'items[]', {'projection': 'full'})
-        id = 'name'
-        get_requires_event = True
 
         @staticmethod
-        def get(client, event):
-            if 'resource' in event:
-                bucket_name = jmespath.search('resource.labels.bucket_name', event)
-            else:
-                bucket_name = jmespath.search('bucket_name', event)
-
+        def get(client, resource_info):
             return client.execute_command(
-                'get', {'bucket': bucket_name})
+                'get', {'bucket': resource_info['bucket_name']})
 
 
 @Bucket.action_registry.register('delete')
 class BucketDelete(MethodAction):
-    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/buckets/delete>`_ a Bucket.
-    The action does not specify additional parameters.
+    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/buckets/delete>`_ a bucket.
 
     :Example:
 
@@ -75,7 +68,7 @@ class BucketDelete(MethodAction):
 
 @Bucket.action_registry.register('set')
 class BucketSet(MethodAction):
-    """`Patches <https://cloud.google.com/storage/docs/json_api/v1/buckets/patch>`_ a Bucket.
+    """`Patches <https://cloud.google.com/storage/docs/json_api/v1/buckets/patch>`_ a bucket.
 
     The action accepts the following parameters: `class`, `retention-policy-seconds`, and
     `versioning`, at least one of which is required to be set.
@@ -95,7 +88,7 @@ class BucketSet(MethodAction):
     The `versioning` parameter is a boolean which, if set as `true`, enables `bucket versioning
     <https://cloud.google.com/storage/docs/object-versioning>`_. Note that the setting could not
     coexist with `retention-policy-seconds`, else the `retention_and_versioning_mutually_exclusive`
-    exception is thrown (https://cloud.google.com/storage/docs/bucket-lock#retention-policy).
+    exception is `thrown <https://cloud.google.com/storage/docs/bucket-lock#retention-policy>`_.
 
     Example:
 
