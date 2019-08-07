@@ -1,5 +1,5 @@
 IAM - Update Project Roles Permissions
-==============================================
+======================================
 
 The policy below updates a set of permissions for all project roles that contain a specified word in its title.
 
