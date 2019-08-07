@@ -40,7 +40,7 @@ class Bucket(QueryResourceManager):
 
 @Bucket.action_registry.register('delete')
 class BucketDelete(MethodAction):
-    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/buckets/delete>`_ a bucket.
+    """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/buckets/delete>`_ a Bucket.
 
     :Example:
 
@@ -68,7 +68,7 @@ class BucketDelete(MethodAction):
 
 @Bucket.action_registry.register('set')
 class BucketSet(MethodAction):
-    """`Patches <https://cloud.google.com/storage/docs/json_api/v1/buckets/patch>`_ a bucket.
+    """`Patches <https://cloud.google.com/storage/docs/json_api/v1/buckets/patch>`_ a Bucket.
 
     The action accepts the following parameters: `class`, `retention-policy-seconds`, and
     `versioning`, at least one of which is required to be set.
@@ -229,6 +229,7 @@ class BucketAccessControlSet(MethodAction):
               - type: set
                 role: OWNER
     """
+
     schema = type_schema(
         'set',
         required=['role'],
@@ -254,7 +255,7 @@ class BucketAccessControlSet(MethodAction):
 @BucketAccessControl.action_registry.register('delete')
 class BucketAccessControlDelete(MethodAction):
     """`Deletes <https://cloud.google.com/storage/docs/json_api/v1/bucketAccessControls/delete>`_
-    a Bucket Access Control. The action does not specify additional parameters.
+    a BucketAccessControl.
 
     :Example:
 
