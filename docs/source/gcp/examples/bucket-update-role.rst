@@ -15,8 +15,11 @@ This operation can be done for several GCP resources:
 
     vars:
       entities-to-update: &entities-to-update
-        - entity-name-1
-        - entity-name-2
+        - user-userId
+        - group-groupId
+        - project-team-projectId
+        - domain-domain
+        - allUsers
     policies:
       - name: gcp-bucket-access-control-update-role
         resource: gcp.bucket-access-control
