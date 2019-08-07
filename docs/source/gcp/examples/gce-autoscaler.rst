@@ -2,7 +2,7 @@ Compute Engine - Enforce minimal CPU utilization target for autoscalers
 =======================================================================
 
 In the example below, the policy checks the CPU utilization target of newly added autoscalers and modifies it when needed
-guarantying the target won't be less than 80%.
+guaranteeing the target won't be less than 80%.
 
 .. code-block:: yaml
 
