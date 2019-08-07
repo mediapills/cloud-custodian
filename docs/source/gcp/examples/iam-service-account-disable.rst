@@ -3,7 +3,7 @@ IAM - Disable Service Account
 
 It's a security best practice to avoid usage of real purpose of service accounts in their names. 
 
-This policy disables all service accounts that contains blacklisted words.
+This policy disables all service accounts that contain blacklisted words.
 
 .. code-block:: yaml
 
