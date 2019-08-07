@@ -3,7 +3,7 @@ IAM - Delete Project Roles
 
 To enforce security of your projects, Custodian can automatically delete any role which match its filter.
 
-The policy below deletes all roles with deprecated or beta status.
+The policy below deletes all roles containing 'logging.viewer' in their names.
 
 .. code-block:: yaml
 
@@ -14,6 +14,6 @@ The policy below deletes all roles with deprecated or beta status.
           - type: value
             key: name
             op: regex
-            value: ^projects\/.+\/roles\/.+$
+            value: ^[a-zA-Z0-9\/]+\/logging.viewer$
         actions:
           - type: delete
