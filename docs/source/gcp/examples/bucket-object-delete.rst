@@ -1,7 +1,7 @@
 Storage - Delete Obsolete Objects
 =======================================
 
-This sample policy deletes all objects older than 31 days.
+This sample policy deletes all objects older than 31 days in the buckets whose name matches the regular expression.
 
 .. code-block:: yaml
 
@@ -9,6 +9,10 @@ This sample policy deletes all objects older than 31 days.
       - name: gcp-bucket-object-delete
         resource: gcp.bucket-object
         filters:
+          - type: value  
+            key: bucket
+            op: regexp
+            value: ^archive[a-zA-Z0-9]+$
           - type: value
             key: timeCreated
             op: greater-than
