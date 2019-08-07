@@ -1,8 +1,11 @@
-Bucket - Update role for filtered entity
-========================================
+Storage - Enforce Role for Chosen Permission Holders
+====================================================
 
-The example allows to update role for filtered entity.
-It can be used for few resources like
+The BucketAccessControls resource represents the Access Control Lists (ACLs) for buckets within Google Cloud Storage. ACLs let you specify who has access to your data and to what extent. Refer to GCP documentation for more details.
+
+The policy below updates all BucketAccessControls of the listed IAM entities (permission holders - user, group, domain, etc) and assigns them 'reader' role. 
+
+This operation can be done for several GCP resources:
 
 - bucket-access-control,
 - bucket-default-object-access-control,
@@ -24,4 +27,4 @@ It can be used for few resources like
             value: *entities-to-update
         actions:
           - type: set
-            role: OWNER
+            role: READER
