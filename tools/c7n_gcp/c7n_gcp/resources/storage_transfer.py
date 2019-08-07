@@ -34,7 +34,7 @@ class StorageTransferTransferJob(QueryResourceManager):
 
     def get_resource_query(self):
         return {'filter': {
-            "project_id": local_session(self.session_factory).get_default_project()
+            'project_id': local_session(self.session_factory).get_default_project()
         }}
 
 
