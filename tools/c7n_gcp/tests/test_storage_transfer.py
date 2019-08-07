@@ -31,9 +31,6 @@ class StorageTransferTransferJobTest(BaseTest):
         self.assertEqual(resources[0]['name'], 'transferJobs/12533737323236783615')
         self.assertEqual(resources[0]['status'], 'ENABLED')
 
-
-class StorageTransferTransferJobSetTest(BaseTest):
-
     def test_transfer_job_set_status(self):
         project_id = 'cloud-custodian'
 
@@ -65,4 +62,4 @@ class StorageTransferTransferJobSetTest(BaseTest):
         for file_path in files_paths:
             with open(os.path.join(files_dir, file_path), 'rt') as file:
                 response = json.load(file)
-                self.assertEqual("DISABLED", response['body']['status'])
+                self.assertEqual('DISABLED', response['body']['status'])
