@@ -1,9 +1,7 @@
-Bucket - Delete filtered buckets
+Storage - Delete Obsolete Buckets
 ================================
 
-The example allows to delete filtered buckets.
-The following example demonstrates ability of Cloud Custodian to 
-delete the buckets (if any) updated more than 365 days ago.
+This sample policy deletes buckets that are updated more than 365 days ago.
 
 .. code-block:: yaml
 
