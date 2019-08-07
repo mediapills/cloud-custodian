@@ -43,9 +43,8 @@ class ProjectRole(QueryResourceManager):
 
 @ProjectRole.action_registry.register('delete')
 class ProjectRoleDelete(MethodAction):
-    """The action is used for IAM projects.roles delete.
-
-    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/delete
+    """`Deletes <https://cloud.google.com/iam/reference/rest/v1/projects.roles/delete>`_
+    IAM projects.roles. The action does not specify additional parameters.
 
     :Example:
 
@@ -62,7 +61,6 @@ class ProjectRoleDelete(MethodAction):
             actions:
               - type: delete
     """
-
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
@@ -72,9 +70,12 @@ class ProjectRoleDelete(MethodAction):
 
 @ProjectRole.action_registry.register('set')
 class ProjectRoleSet(MethodAction):
-    """The action is used for IAM projects.roles patch permissions.
+    """`Patches <https://cloud.google.com/iam/reference/rest/v1/projects.roles/patch>`_
+    IAM projects.roles.
 
-    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.roles/patch
+    The required `includedPermissions` parameter accepts an array of strings that represent `IAM
+    Permissions <https://cloud.google.com/iam/docs/permissions-reference>`_. The new permissions
+    overwrite the existing ones.
 
     :Example:
 
@@ -94,7 +95,6 @@ class ProjectRoleSet(MethodAction):
                   - appengine.services.delete
                   - accessapproval.requests.approve
     """
-
     schema = type_schema(
         'set',
         required=['includedPermissions'],
@@ -105,7 +105,6 @@ class ProjectRoleSet(MethodAction):
             }
         }
     )
-
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
@@ -143,9 +142,11 @@ class ServiceAccount(QueryResourceManager):
 
 @ServiceAccount.action_registry.register('delete')
 class ServiceAccountDelete(MethodAction):
-    """The action is used for IAM projects.serviceAccounts delete.
+    """`Deletes <https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/delete>`_
+    IAM projects.serviceAccounts. The action does not specify additional parameters.
 
-    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/delete
+    Note that a dot is not escaped in the example below only in order to comply with PEP 8, feel
+    free to use a backward slash in actual YAML policies.
 
     :Example:
 
@@ -158,11 +159,10 @@ class ServiceAccountDelete(MethodAction):
               - type: value
                 key: email
                 op: regex
-                value: ^special[a-zA-Z0-9_]+@cloudcustodian\.io$
+                value: ^special[a-zA-Z0-9_]+@cloudcustodian.io$
             actions:
               - type: delete
     """
-
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
@@ -172,9 +172,8 @@ class ServiceAccountDelete(MethodAction):
 
 @ServiceAccount.action_registry.register('disable')
 class ServiceAccountDisable(MethodAction):
-    """The action is used for IAM projects.serviceAccounts disable.
-
-    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/disable
+    """`Disables <https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/disable>`_
+    IAM projects.serviceAccounts. The action does not specify additional parameters.
 
     :Example:
 
@@ -191,7 +190,6 @@ class ServiceAccountDisable(MethodAction):
             actions:
               - type: disable
     """
-
     schema = type_schema('disable')
     method_spec = {'op': 'disable'}
 
@@ -201,9 +199,8 @@ class ServiceAccountDisable(MethodAction):
 
 @ServiceAccount.action_registry.register('enable')
 class ServiceAccountEnable(MethodAction):
-    """The action is used for IAM projects.serviceAccounts enable.
-
-    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/enable
+    """`Enables <https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/enable>`_
+    IAM projects.serviceAccounts. The action does not specify additional parameters.
 
     :Example:
 
@@ -220,7 +217,6 @@ class ServiceAccountEnable(MethodAction):
             actions:
               - type: enable
     """
-
     schema = type_schema('enable')
     method_spec = {'op': 'enable'}
 
@@ -230,9 +226,13 @@ class ServiceAccountEnable(MethodAction):
 
 @ServiceAccount.action_registry.register('set')
 class ServiceAccountSet(MethodAction):
-    """The action is used for IAM projects.serviceAccounts set description.
+    """`Patches <https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/patch>`_
+    IAM projects.serviceAccounts.
 
-    GCP action is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/patch
+    The available string parameters are `description` and `displayName`, at least one of which
+    is mandatory to be set in a policy. The `description` parameter is a user-specified opaque
+    description of the service account that must be less than or equal to 256 UTF-8 bytes.
+    `displayName` is a user-specified name for the service account not bigger than 100 UTF-8 bytes.
 
     :Example:
 
@@ -251,15 +251,15 @@ class ServiceAccountSet(MethodAction):
                 description: checked by Custodian
                 displayName: checked by Custodian
     """
-
     schema = type_schema(
         'set',
         **{
+            'minProperties': 1,
+            'additionalProperties': False,
             'description': {'type': 'string'},
             'displayName': {'type': 'string'}
         }
     )
-
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
@@ -268,9 +268,9 @@ class ServiceAccountSet(MethodAction):
         return {
             'name': resource['name'],
             'body': {
-                  'serviceAccount': body,
-                  'updateMask': ','.join(body.keys())
-                }
+                'serviceAccount': body,
+                'updateMask': ','.join(body.keys())
+            }
         }
 
 

@@ -13,14 +13,12 @@
 # limitations under the License.
 from time import sleep
 
-from google.auth.exceptions import RefreshError
-
 from gcp_common import BaseTest, event_data
 
 
 class ProjectRoleTest(BaseTest):
 
-    def test_get(self):
+    def test_role_get(self):
         factory = self.replay_flight_data('iam-project-role')
 
         p = self.load_policy({
@@ -44,24 +42,22 @@ class ProjectRoleTest(BaseTest):
         session_factory = self.replay_flight_data(
             'iam-project-role-update-title', project_id=project_id)
 
-        base_policy = {'name': 'gcp-iam-project-role-update-title',
-                       'resource': 'gcp.project-role',
-                       'filters': [{
-                           'type': 'value',
-                           'key': 'title',
-                           'op': 'contains',
-                           'value': title
-                       }]}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 actions=[{
-                     'type': 'set',
-                     'includedPermissions': [
-                         'appengine.services.delete',
-                         'accessapproval.requests.approve'
-                     ]
-                 }]),
+            {'name': 'gcp-iam-project-role-update-title',
+             'resource': 'gcp.project-role',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'title',
+                 'op': 'contains',
+                 'value': title
+             }],
+             'actions': [{
+                 'type': 'set',
+                 'includedPermissions': [
+                     'appengine.services.delete',
+                     'accessapproval.requests.approve'
+                 ]
+             }]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertIn('Custom Role', resources[0]['title'])
@@ -82,19 +78,16 @@ class ProjectRoleTest(BaseTest):
         session_factory = self.replay_flight_data(
             'iam-project-role-delete', project_id=project_id)
 
-        base_policy = {'name': 'gcp-iam-project-role-delete',
-                       'resource': 'gcp.project-role'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'title',
-                           'op': 'contains',
-                           'value': title
-                       }],
-                 actions=[{'type': 'delete'}]
-                 ),
+            {'name': 'gcp-iam-project-role-delete',
+             'resource': 'gcp.project-role',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'title',
+                 'op': 'contains',
+                 'value': title
+             }],
+             'actions': [{'type': 'delete'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertIn('Custom Role', resources[0]['title'])
@@ -111,16 +104,18 @@ class ProjectRoleTest(BaseTest):
 
 class ServiceAccountTest(BaseTest):
 
-    def test_get(self):
+    def test_service_account_get(self):
         factory = self.replay_flight_data('iam-service-account')
         p = self.load_policy({
             'name': 'sa-get',
             'resource': 'gcp.service-account'},
             session_factory=factory)
+
         resource = p.resource_manager.get_resource(
             {'project_id': 'custodian-1291',
              'email_id': 'devtest@custodian-1291.iam.gserviceaccount.com',
              'unique_id': '110936229421407410679'})
+
         self.assertEqual(resource['displayName'], 'devtest')
 
     def test_service_account_delete(self):
@@ -131,17 +126,15 @@ class ServiceAccountTest(BaseTest):
         session_factory = self.replay_flight_data(
             'iam-project-service-account-delete', project_id=project_id)
 
-        base_policy = {'name': 'gcp-iam-project-service-account-delete',
-                       'resource': 'gcp.service-account'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'name',
-                           'value': name
-                       }],
-                 actions=[{'type': 'delete'}]),
+            {'name': 'gcp-iam-project-service-account-delete',
+             'resource': 'gcp.service-account',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'name',
+                 'value': name
+             }],
+             'actions': [{'type': 'delete'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['name'], name)
@@ -162,18 +155,16 @@ class ServiceAccountTest(BaseTest):
         session_factory = self.replay_flight_data(
             'iam-project-service-account-disable', project_id=project_id)
 
-        base_policy = {'name': 'gcp-iam-project-service-account-disable',
-                       'resource': 'gcp.service-account'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'displayName',
-                           'op': 'contains',
-                           'value': display_name
-                       }],
-                 actions=[{'type': 'disable'}]),
+            {'name': 'gcp-iam-project-service-account-disable',
+             'resource': 'gcp.service-account',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'displayName',
+                 'op': 'contains',
+                 'value': display_name
+             }],
+             'actions': [{'type': 'disable'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['displayName'], display_name)
@@ -194,18 +185,16 @@ class ServiceAccountTest(BaseTest):
         session_factory = self.replay_flight_data(
             'iam-project-service-account-enable', project_id=project_id)
 
-        base_policy = {'name': 'gcp-iam-project-service-account-enable',
-                       'resource': 'gcp.service-account'}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{
-                           'type': 'value',
-                           'key': 'displayName',
-                           'op': 'contains',
-                           'value': display_name
-                       }],
-                 actions=[{'type': 'enable'}]),
+            {'name': 'gcp-iam-project-service-account-enable',
+             'resource': 'gcp.service-account',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'displayName',
+                 'op': 'contains',
+                 'value': display_name
+             }],
+             'actions': [{'type': 'enable'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['displayName'], display_name)
@@ -231,21 +220,19 @@ class ServiceAccountTest(BaseTest):
         session_factory = self.replay_flight_data(
             'iam-service-account-set', project_id=project_id)
 
-        base_policy = {'name': 'iam-service-account-set',
-                       'resource': 'gcp.service-account',
-                       'filters': [{
-                           'type': 'value',
-                           'key': 'displayName',
-                           'op': 'contains',
-                           'value': display_name
-                       }]}
-
         policy = self.load_policy(
-            dict(base_policy,
-                 actions=[{
-                     'type': 'set',
-                     'description': 'test-name'
-                 }]),
+            {'name': 'iam-service-account-set',
+             'resource': 'gcp.service-account',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'displayName',
+                 'op': 'contains',
+                 'value': display_name
+             }],
+             'actions': [{
+                 'type': 'set',
+                 'description': 'test-name'
+             }]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['description'], 'name')
@@ -268,14 +255,13 @@ class IAMRoleTest(BaseTest):
         session_factory = self.replay_flight_data(
             'ami-role-query', project_id)
 
-        policy = self.load_policy(
-            {
-                'name': 'ami-role-query',
-                'resource': 'gcp.iam-role'
-            },
-            session_factory=session_factory)
+        policy = self.load_policy({
+            'name': 'ami-role-query',
+            'resource': 'gcp.iam-role'
+        }, session_factory=session_factory)
 
         resources = policy.run()
+
         self.assertEqual(len(resources), 2)
 
     def test_iam_role_get(self):
@@ -285,15 +271,11 @@ class IAMRoleTest(BaseTest):
         session_factory = self.replay_flight_data(
             'ami-role-query-get', project_id)
 
-        policy = self.load_policy(
-            {
-                'name': 'ami-role-query-get',
-                'resource': 'gcp.iam-role'
-            },
-            session_factory=session_factory)
+        policy = self.load_policy({
+            'name': 'ami-role-query-get',
+            'resource': 'gcp.iam-role'
+        }, session_factory=session_factory)
 
-        resource = policy.resource_manager.get_resource({
-            "name": name,
-        })
+        resource = policy.resource_manager.get_resource({"name": name})
 
         self.assertEqual(resource['name'], 'roles/{}'.format(name))
