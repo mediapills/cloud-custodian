@@ -1,7 +1,7 @@
 IAM - Delete Service Accounts
 =============================
 
-It's always a good idea to control conventions across service accounts in your organization.
+It can be a good idea to control conventions across service accounts in an organization.
 
 This sample policy deletes all service accounts where email does not match an established pattern.
 
