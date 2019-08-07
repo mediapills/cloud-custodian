@@ -17,7 +17,7 @@ import time
 from gcp_common import BaseTest, event_data
 
 
-class KubernetesClusterTest(BaseTest):
+class GKEClusterTest(BaseTest):
 
     def test_cluster_query(self):
         project_id = "cloud-custodian"
@@ -80,7 +80,7 @@ class KubernetesClusterTest(BaseTest):
 
         self.assertEqual(resources[0]['resourceLabels'], {'nodes': 'minimal'})
 
-    def test_cluster_update_node_version(self):
+    def test_cluster_update(self):
         project_id = 'cloud-custodian'
         factory = self.replay_flight_data('gke-cluster-update-node-version', project_id=project_id)
 
@@ -110,7 +110,7 @@ class KubernetesClusterTest(BaseTest):
         factory = self.replay_flight_data('gke-cluster-delete', project_id=project_id)
 
         p = self.load_policy(
-            {'name': 'set-cluster-node-version',
+            {'name': 'gke-cluster-delete',
              'resource': 'gcp.gke-cluster',
              'actions': [{
                  'type': 'delete'
@@ -258,7 +258,7 @@ class KubernetesClusterNodePoolTest(BaseTest):
                 'resource': 'gcp.gke-nodepool',
                 'actions': [{
                     'type': 'set-management',
-                    'upgrade': 'true',
+                    'auto-upgrade': 'true',
                 }],
             }, session_factory=factory)
 

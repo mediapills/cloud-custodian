@@ -21,7 +21,7 @@ from c7n_gcp.actions import MethodAction
 
 
 @resources.register('gke-cluster')
-class KubernetesCluster(QueryResourceManager):
+class GKECluster(QueryResourceManager):
     """GCP resource:
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.zones.clusters
     """
@@ -46,8 +46,8 @@ class KubernetesCluster(QueryResourceManager):
                         resource_info['cluster_name'])})
 
 
-@KubernetesCluster.action_registry.register('delete')
-class KubernetesClusterDelete(MethodAction):
+@GKECluster.action_registry.register('delete')
+class GKEClusterDelete(MethodAction):
     """The action is used for GKE projects.locations.clusters delete.
 
     GCP action is
@@ -59,7 +59,7 @@ class KubernetesClusterDelete(MethodAction):
     .. code-block:: yaml
 
         policies:
-          - name: gke-cluster-delete-biggest
+          - name: gke-cluster-delete-large
             resource: gcp.gke-cluster
             filters:
               - type: value
@@ -83,8 +83,8 @@ class KubernetesClusterDelete(MethodAction):
         return {"name": name}
 
 
-@KubernetesCluster.action_registry.register('set-resource-labels')
-class KubernetesClusterSetResourceLabels(MethodAction):
+@GKECluster.action_registry.register('set-resource-labels')
+class GKEClusterSetResourceLabels(MethodAction):
     """The action is used for GKE projects.locations.clusters set resource labels.
 
     GCP action is
@@ -111,6 +111,7 @@ class KubernetesClusterSetResourceLabels(MethodAction):
 
     schema = type_schema(
         'set-resource-labels',
+        required=['labels'],
         **{
             'labels': {
                 'type': 'array',
@@ -143,8 +144,8 @@ class KubernetesClusterSetResourceLabels(MethodAction):
             }}
 
 
-@KubernetesCluster.action_registry.register('update')
-class KubernetesClusterUpdate(MethodAction):
+@GKECluster.action_registry.register('update')
+class GKEClusterUpdate(MethodAction):
     """The action is used for GKE projects.locations.clusters update.
 
     GCP action is
@@ -172,6 +173,9 @@ class KubernetesClusterUpdate(MethodAction):
         **{
             'nodeversion': {
                 'type': 'string'
+            },
+            "monitoring-service": {
+                'type': 'string'
             }
         }
     )
@@ -185,17 +189,23 @@ class KubernetesClusterUpdate(MethodAction):
             resource['locations'][0],
             resource['name'])
 
+        params = {}
+
+        if 'nodeversion' in self.data:
+            params["desiredMasterVersion"] = self.data['nodeversion']
+
+        if 'monitoring-service' in self.data:
+            params["desiredMonitoringService"] = self.data['monitoring-service']
+
         return {
             'name': name,
             'body': {
-                'update': {
-                    "desiredMasterVersion": self.data['nodeversion']
-                }
+                'update': params
             }}
 
 
 @resources.register('gke-nodepool')
-class KubernetesClusterNodePool(ChildResourceManager):
+class GKEClusterNodePool(ChildResourceManager):
     """GCP resource:
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
     /projects.zones.clusters.nodePools
@@ -247,8 +257,8 @@ class KubernetesClusterNodePool(ChildResourceManager):
             )
 
 
-@KubernetesClusterNodePool.action_registry.register('set-autoscaling')
-class KubernetesClusterNodePoolSetAutoscaling(MethodAction):
+@GKEClusterNodePool.action_registry.register('set-autoscaling')
+class GKEClusterNodePoolSetAutoscaling(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools autoscaling setup.
 
     GCP action is
@@ -316,8 +326,8 @@ class KubernetesClusterNodePoolSetAutoscaling(MethodAction):
             }}
 
 
-@KubernetesClusterNodePool.action_registry.register('set-size')
-class KubernetesClusterNodePoolSetSetSize(MethodAction):
+@GKEClusterNodePool.action_registry.register('set-size')
+class GKEClusterNodePoolSetSetSize(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools size setup.
 
     GCP action is
@@ -337,12 +347,13 @@ class KubernetesClusterNodePoolSetSetSize(MethodAction):
                 value: 4
                 op: greater-than
             actions:
-              - type: set
+              - type: set-size
                 node-count: 3
     """
 
     schema = type_schema(
         'set-size',
+        required=['node-count'],
         **{
             'node-count': {
                 'type': 'string'
@@ -369,8 +380,8 @@ class KubernetesClusterNodePoolSetSetSize(MethodAction):
             }}
 
 
-@KubernetesClusterNodePool.action_registry.register('set-management')
-class KubernetesClusterNodePoolSetManagement(MethodAction):
+@GKEClusterNodePool.action_registry.register('set-management')
+class GKEClusterNodePoolSetManagement(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools management setup.
 
     GCP action is
@@ -386,13 +397,14 @@ class KubernetesClusterNodePoolSetManagement(MethodAction):
             resource: gcp.gke-nodepool
             actions:
               - type: set-management
-                autoUpgrade: true
+                auto-upgrade: true
     """
 
     schema = type_schema(
         'set-management',
+        required=['auto-upgrade'],
         **{
-            'upgrade': {
+            'auto-upgrade': {
                 'type': 'string'
             }
         }
@@ -414,6 +426,6 @@ class KubernetesClusterNodePoolSetManagement(MethodAction):
             'name': name,
             'body': {
                 "management": {
-                    "autoUpgrade": self.data['upgrade']
+                    "autoUpgrade": self.data['auto-upgrade']
                 }
             }}
