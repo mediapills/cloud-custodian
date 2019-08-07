@@ -1,5 +1,5 @@
-Bucket - Delete filtered object
-===============================
+Bucket - Delete filtered bucket objects
+=======================================
 
 The example allows to delete objects older than 31 days.
 
