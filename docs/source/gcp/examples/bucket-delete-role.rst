@@ -1,7 +1,7 @@
-Bucket - Delete filtered role for buckets
-=========================================
+Bucket - Delete bucket access controls
+======================================
 
-The example allows to delete bucket access control based on filtered roles for buckets.
+The example allows to delete bucket access control based on filtered role for buckets.
 It can be used for few resources like
 
 - bucket-access-control,
