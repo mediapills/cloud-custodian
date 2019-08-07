@@ -1,4 +1,4 @@
-Bucket - Delete Obsolete Objects
+Storage - Delete Obsolete Objects
 =======================================
 
 This sample policy deletes all objects older than 31 days.
