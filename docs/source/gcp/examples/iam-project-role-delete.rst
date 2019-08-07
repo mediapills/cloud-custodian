@@ -1,7 +1,7 @@
 IAM - Delete Project Roles
 ==========================
 
-To enforce security of your projects, Custodian can automatically delete any role which match its filter.
+To enforce security of your projects, Custodian can automatically delete any role that matches its filter.
 
 The policy below deletes all roles containing 'logging.viewer' in their names.
 
