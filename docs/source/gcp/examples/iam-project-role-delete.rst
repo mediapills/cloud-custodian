@@ -12,7 +12,7 @@ The policy below deletes all roles with deprecated or beta status.
         resource: gcp.project-role
         filters:
           - type: value
-            key: email
+            key: name
             op: regex
             value: ^projects\/.+\/roles\/.+$
         actions:
