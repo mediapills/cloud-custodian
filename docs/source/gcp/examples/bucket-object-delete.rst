@@ -1,7 +1,7 @@
-Bucket - Delete filtered bucket objects
+Bucket - Delete Obsolete Objects
 =======================================
 
-The example allows to delete objects older than 31 days.
+This sample policy deletes all objects older than 31 days.
 
 .. code-block:: yaml
 
