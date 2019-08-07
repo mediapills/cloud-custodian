@@ -18,7 +18,7 @@ from gcp_common import BaseTest
 
 class BigQueryDataTransferConfigTest(BaseTest):
 
-    def test_query(self):
+    def test_transfer_config_query(self):
         project_id = 'cloud-custodian'
         factory = self.replay_flight_data(
             'bq-datatransfer-transfer-config-get', project_id=project_id)
@@ -32,7 +32,7 @@ class BigQueryDataTransferConfigTest(BaseTest):
         self.assertEqual(resources[0]['state'], 'SUCCEEDED')
         self.assertEqual(resources[0]['dataSourceId'], 'google_cloud_storage')
 
-    def test_delete(self):
+    def test_transfer_config_delete(self):
         project_id = 'cloud-custodian'
 
         factory = self.replay_flight_data(
