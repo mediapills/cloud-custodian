@@ -60,9 +60,10 @@ class BigQueryDataTransferConfigDelete(MethodAction):
     method_spec = {'op': 'delete'}
 
     def get_resource_params(self, model, resource):
-        """A value of 'name' field has format
+        """A value of 'name' field in a resource has format
         'projects/{projectId}/locations/{locationId}/transferConfigs/{configId}'.
-        As a result it returns 'projects/{projectId}/transferConfigs/{configId}'.
+        As a result it should return a name in format
+        'projects/{projectId}/transferConfigs/{configId}'.
         """
         resource_name = resource['name'].split('/')
         name = 'projects/{}/transferConfigs/{}'.format(resource_name[1], resource_name[-1])
