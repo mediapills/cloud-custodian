@@ -1,5 +1,5 @@
 IAM - Delete Service Accounts
-==============================
+=============================
 
 It's always a good idea to control conventions across service accounts in your organization.
 
