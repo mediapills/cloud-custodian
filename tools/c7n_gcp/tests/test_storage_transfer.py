@@ -17,7 +17,7 @@ import json
 from gcp_common import BaseTest
 
 
-class StorageTransferJobTest(BaseTest):
+class StorageTransferTransferJobTest(BaseTest):
 
     def test_query(self):
         factory = self.replay_flight_data('storagetransfer-transfer-job-query')
@@ -32,9 +32,9 @@ class StorageTransferJobTest(BaseTest):
         self.assertEqual(resources[0]['status'], 'ENABLED')
 
 
-class StorageTransferJobSetTest(BaseTest):
+class StorageTransferTransferJobSetTest(BaseTest):
 
-    def test_set_status(self):
+    def test_transfer_job_set_status(self):
         project_id = 'cloud-custodian'
 
         session_factory = self.replay_flight_data(
