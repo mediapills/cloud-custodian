@@ -1,12 +1,12 @@
-Bucket - Update cache control for filtered objects
-==================================================
+Bucket - Update cache controls for filtered objects
+===================================================
 
-The example allows to update cache control for objects which older than one year.
+The example allows to update cache controls for objects which are older than one year.
 
 .. code-block:: yaml
 
     policies:
-      - name: gcp-bucket-object-update-content-type
+      - name: gcp-bucket-object-set-cache-controls
         resource: gcp.bucket-object
         filters:
           - type: value
