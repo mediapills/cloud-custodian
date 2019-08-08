@@ -139,7 +139,7 @@ class GKEClusterSetResourceLabels(MethodAction):
             'name': name,
             'body': {
                 'resourceLabels': {
-                    k: v for k, v in self.data['labels']
+                    label['key']: label['value'] for label in self.data['labels']
                 }
             }}
 
@@ -262,8 +262,8 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools autoscaling setup.
 
     GCP action is
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.zones.clusters.nodePools
-    /autoscaling
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters.nodePools/
+    setAutoscaling
 
     :Example:
 
