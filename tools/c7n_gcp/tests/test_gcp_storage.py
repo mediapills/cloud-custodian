@@ -366,30 +366,10 @@ class BucketObjectTest(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['name'], 'commit-example.txt')
 
-    def test_bucket_object_get(self):
-        project_id = 'new-project-26240'
-        bucket_name = 'new-project-26240.appspot.com'
-        name = '1.py'
-        factory = self.replay_flight_data(
-            'bucket-object-get', project_id)
-
-        p = self.load_policy({'name': 'bucket-object-get',
-                              'resource': 'gcp.bucket-object',
-                              'mode': {
-                                  'type': 'gcp-audit',
-                                  'methods': ['storage.buckets.update']}
-                              },
-                             session_factory=factory)
-        exec_mode = p.get_execution_mode()
-        event = event_data('bucket-object-access-update.json')
-        instance = exec_mode.run(event, None)
-        self.assertEqual(instance[0]['bucket'], bucket_name)
-        self.assertEqual(instance[0]['name'], name)
-
     def test_bucket_object_set(self):
         project_id = 'new-project-26240'
         session_factory = self.replay_flight_data(
-            'bucket-object-update-cache-control', project_id=project_id)
+            'bucket-object-set', project_id=project_id)
 
         policy = self.load_policy(
             {'name': 'gcp-bucket-object-update-content-type',
@@ -461,26 +441,6 @@ class BucketObjectAccessControlTest(BaseTest):
         resources = p.run()
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['object'], 'commit-example.txt')
-
-    def test_object_access_control_get(self):
-        project_id = 'new-project-26240'
-        bucket_name = 'new-project-26240.appspot.com'
-        name = '1.py'
-        factory = self.replay_flight_data(
-            'bucket-object-access-control-get', project_id)
-
-        p = self.load_policy({'name': 'bucket-object-access-control-get',
-                              'resource': 'gcp.bucket-object-access-control',
-                              'mode': {
-                                  'type': 'gcp-audit',
-                                  'methods': ['storage.buckets.update']}
-                              },
-                             session_factory=factory)
-        exec_mode = p.get_execution_mode()
-        event = event_data('bucket-object-access-update.json')
-        instance = exec_mode.run(event, None)
-        self.assertEqual(instance[0]['bucket'], bucket_name)
-        self.assertEqual(instance[0]['object'], name)
 
     def test_object_access_control_set(self):
         project_id = 'cloud-custodian'

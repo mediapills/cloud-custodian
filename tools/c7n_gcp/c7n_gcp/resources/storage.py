@@ -423,31 +423,12 @@ class BucketObject(ChildResourceManager):
         enum_spec = ('list', 'items[]', None)
         id = 'name'
         scope = 'global'
-        get_requires_event = True
         parent_spec = {
             'resource': 'bucket',
             'child_enum_params': [
                 ('name', 'bucket'),
-            ],
-            'parent_get_params': [
-                ('bucket', 'bucket_name'),
             ]
         }
-
-        @staticmethod
-        def get(client, event):
-            if 'protoPayload' in event:
-                bucket_name = jmespath.search('resource.labels.bucket_name', event)
-                object_name = jmespath.search('protoPayload.resourceName', event).split('/')[-1]
-            else:
-                bucket_name = event['bucket_name']
-                object_name = event['name']
-
-            return client.execute_command(
-                'get', {
-                    'bucket': bucket_name,
-                    'object': object_name
-                })
 
 
 @BucketObject.action_registry.register('set')
@@ -477,10 +458,7 @@ class BucketObjectSet(MethodAction):
     schema = type_schema(
         'set',
         required=['cache_control'],
-        **{
-            'cache_control': {'type': 'string'}
-        }
-    )
+        **{'cache_control': {'type': 'string'}})
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
@@ -533,38 +511,13 @@ class BucketObjectAccessControl(ChildResourceManager):
         enum_spec = ('list', 'items[]', None)
         id = 'name'
         scope = 'global'
-        get_requires_event = True
         parent_spec = {
             'resource': 'bucket-object',
             'child_enum_params': [
                 ('bucket', 'bucket'),
                 ('name', 'object'),
-            ],
-            'parent_get_params': [
-                ('bucket', 'bucket_name'),
-                ('object', 'name'),
-                ('entity', 'entity'),
             ]
         }
-
-        @staticmethod
-        def get(client, event):
-            entity = jmespath.search(
-                'protoPayload.serviceData.policyDelta.bindingDeltas[0].member',
-                event
-            )
-            bucket_name = jmespath.search('resource.labels.bucket_name', event)
-            object_name = jmespath.search('protoPayload.resourceName', event).split('/')[-1]
-
-            if ':' in entity:
-                entity = '-'.join(entity.split(':'))
-
-            return client.execute_command(
-                'get', {
-                    'bucket': bucket_name,
-                    'object': object_name,
-                    'entity': entity
-                })
 
 
 @BucketObjectAccessControl.action_registry.register('set')
