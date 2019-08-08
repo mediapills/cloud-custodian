@@ -1,7 +1,9 @@
 GKE - Label Clusters Depending on Their Properties
 ===================================================
 
-You may want to organize your existing GKE clusters with labels as a pre-requisite to use other scripts and policies and/or in order to create a better traceability of clusters in GCP console.
+There can be a requirement to organize existing GKE clusters with labels as a pre-requisite to 
+use other scripts and policies and/or in order to create a better traceability of clusters in 
+GCP console.
 
 In the example below, the policy marks clusters of 3 nodes with "nodes:minimal" label.
 
