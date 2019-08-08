@@ -19,7 +19,9 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, 
 
 @resources.register('vpc-access-policy')
 class VpcAccessPolicy(QueryResourceManager):
-
+    """GCP resource:
+    https://cloud.google.com/access-context-manager/docs/reference/rest/v1/accessPolicies
+    """
     class resource_type(TypeInfo):
         service = 'accesscontextmanager'
         version = 'v1'
