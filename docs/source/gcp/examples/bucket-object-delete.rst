@@ -1,5 +1,5 @@
 Storage - Delete Obsolete Objects
-=======================================
+=================================
 
 This sample policy deletes all objects older than 31 days in the buckets whose name matches the regular expression.
 
