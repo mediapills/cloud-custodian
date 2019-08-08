@@ -279,8 +279,8 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
             actions:
               - type: set-autoscaling
                 enabled: true
-                minNodeCount: 3
-                maxNodeCount: 3
+                min-node-count: 3
+                max-node-count: 3
     """
 
     schema = type_schema(
@@ -288,13 +288,13 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
         required=['enabled'],
         **{
             'enabled': {
-                'type': 'string'
+                'type': 'boolean'
             },
-            'minNodeCount': {
-                'type': 'string'
+            'min-node-count': {
+                'type': 'integer'
             },
-            'maxNodeCount': {
-                'type': 'string'
+            'max-node-count': {
+                'type': 'integer'
             }
         }
     )
@@ -314,10 +314,10 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
         params = {'enabled': 'true' if 'enabled' in self.data else 'false'}
 
         if 'enabled' in self.data:
-            if 'minNodeCount' in self.data:
-                params['minNodeCount'] = self.data['minNodeCount']
-            if 'maxNodeCount' in self.data:
-                params['maxNodeCount'] = self.data['maxNodeCount']
+            if 'min-node-count' in self.data:
+                params['minNodeCount'] = self.data['min-node-count']
+            if 'max-node-count' in self.data:
+                params['maxNodeCount'] = self.data['max-node-count']
 
         return {
             'name': name,
@@ -356,7 +356,7 @@ class GKEClusterNodePoolSetSetSize(MethodAction):
         required=['node-count'],
         **{
             'node-count': {
-                'type': 'string'
+                'type': 'integer'
             }
         }
     )
@@ -405,7 +405,7 @@ class GKEClusterNodePoolSetManagement(MethodAction):
         required=['auto-upgrade'],
         **{
             'auto-upgrade': {
-                'type': 'string'
+                'type': 'boolean'
             }
         }
     )

@@ -16,10 +16,10 @@ upgraded automatically and have the same initial size, as well as autoscaling co
         resource: gcp.gke-cluster-nodepool
         actions:
           - type: set-management
-            auto-upgrade: 'true'
+            auto-upgrade: true
           - type: set-size
-            node-count: '5'
+            node-count: 5
           - type: set-autoscaling
-            enabled: 'true'
-            minNodeCount: '3'
-            maxNodeCount: '10'
+            enabled: true
+            min-node-count: 3
+            max-node-count: 10

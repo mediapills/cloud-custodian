@@ -184,9 +184,9 @@ class KubernetesClusterNodePoolTest(BaseTest):
             }],
             'actions': [{
                 'type': 'set-autoscaling',
-                'enabled': 'True',
-                'minNodeCount': '1',
-                'maxNodeCount': '3'
+                'enabled': True,
+                'min-node-count': 1,
+                'max-node-count': 3
             }],
         }, session_factory=factory)
 
@@ -225,7 +225,7 @@ class KubernetesClusterNodePoolTest(BaseTest):
                 }],
                 'actions': [{
                     'type': 'set-size',
-                    'node-count': '3',
+                    'node-count': 3,
                 }],
             }, session_factory=factory)
 
@@ -258,7 +258,7 @@ class KubernetesClusterNodePoolTest(BaseTest):
                 'resource': 'gcp.gke-cluster-nodepool',
                 'actions': [{
                     'type': 'set-management',
-                    'auto-upgrade': 'true',
+                    'auto-upgrade': True,
                 }],
             }, session_factory=factory)
 
