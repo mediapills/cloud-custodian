@@ -1,5 +1,5 @@
 GKE - Label Clusters Depending on Their Properties
-===================================================
+==================================================
 
 There can be a requirement to organize existing GKE clusters with labels as a pre-requisite to 
 use other scripts and policies and/or in order to create a better traceability of clusters in 

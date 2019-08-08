@@ -12,14 +12,14 @@ upgraded automatically and have the same initial size, as well as autoscaling co
 .. code-block:: yaml
 
     policies:
-      - name: gke-cluster-nodepool-set-auto-upgrade
+      - name: gke-cluster-nodepool-enforce-standard-configuration
         resource: gcp.gke-cluster-nodepool
         actions:
-          - type: set-auto-upgrade
-            autoUpgrade: true
+          - type: set-management
+            auto-upgrade: 'true'
           - type: set-size
-            size: 5
-          - type: set
-            enabled: true
-            minNodeCount: 3
-            maxNodeCount: 10
+            node-count: '5'
+          - type: set-autoscaling
+            enabled: 'true'
+            minNodeCount: '3'
+            maxNodeCount: '10'
