@@ -52,28 +52,26 @@ class GKEClusterTest(BaseTest):
 
         self.assertEqual(clusters[0]['name'], name)
 
-    def test_gke_cluster_set_label(self):
+    def test_gke_cluster_set_resource_labels(self):
         project_id = "cloud-custodian"
 
         factory = self.replay_flight_data('gke-cluster-set-label', project_id)
 
-        base_policy = {'name': 'gke-cluster-set-label',
-                       'resource': 'gcp.gke-cluster',
-                       'filters': [{
-                           'type': 'value',
-                           'key': 'currentNodeCount',
-                           'value': 3
-                       }]}
-
         p = self.load_policy(
-            dict(base_policy,
-                 actions=[{
-                     'type': 'set-resource-labels',
-                     'labels': [{
-                         'key': 'nodes',
-                         'value': 'minimal'
-                     }]
-                 }]),
+            {'name': 'gke-cluster-set-label',
+             'resource': 'gcp.gke-cluster',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'currentNodeCount',
+                 'value': 3
+             }],
+             'actions': [{
+                 'type': 'set-resource-labels',
+                 'labels': [{
+                     'key': 'nodes',
+                     'value': 'minimal'
+                 }]
+             }]},
             session_factory=factory)
 
         resources = p.run()
@@ -153,14 +151,12 @@ class KubernetesClusterNodePoolTest(BaseTest):
         factory = self.replay_flight_data('gke-cluster-nodepool-get', project_id)
 
         p = self.load_policy(
-            {
-                'name': 'one-gke-cluster-nodepool',
-                'resource': 'gcp.gke-cluster-nodepool',
-                'mode': {
-                    'type': 'gcp-audit',
-                    'methods': ['io.k8s.core.v1.pods.create']
-                }
-            }, session_factory=factory)
+            {'name': 'one-gke-cluster-nodepool',
+             'resource': 'gcp.gke-cluster-nodepool',
+             'mode': {
+                 'type': 'gcp-audit',
+                 'methods': ['io.k8s.core.v1.pods.create']}},
+            session_factory=factory)
 
         exec_mode = p.get_execution_mode()
         event = event_data('k8s_create_pool.json')
@@ -174,21 +170,20 @@ class KubernetesClusterNodePoolTest(BaseTest):
 
         factory = self.replay_flight_data('gke-cluster-nodepool-set-autoscaling', project_id)
 
-        p = self.load_policy({
-            'name': 'gke-cluster-nodepool-set-autoscaling',
-            'resource': 'gcp.gke-cluster-nodepool',
-            'filters': [{
-                'type': 'value',
-                'key': 'initialNodeCount',
-                'value': 3
-            }],
-            'actions': [{
-                'type': 'set-autoscaling',
-                'enabled': True,
-                'min-node-count': 1,
-                'max-node-count': 3
-            }],
-        }, session_factory=factory)
+        p = self.load_policy(
+            {'name': 'gke-cluster-nodepool-set-autoscaling',
+             'resource': 'gcp.gke-cluster-nodepool',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'initialNodeCount',
+                 'value': 3
+             }],
+             'actions': [{
+                 'type': 'set-autoscaling',
+                 'enabled': True,
+                 'min-node-count': 1,
+                 'max-node-count': 3
+             }]}, session_factory=factory)
 
         resources = p.run()
 
@@ -214,20 +209,19 @@ class KubernetesClusterNodePoolTest(BaseTest):
         factory = self.replay_flight_data('gke-cluster-nodepool-set-size', project_id)
 
         p = self.load_policy(
-            {
-                'name': 'gke-cluster-nodepool-set-size',
-                'resource': 'gcp.gke-cluster-nodepool',
-                'filters': [{
-                    'type': 'value',
-                    'key': 'initialNodeCount',
-                    'value': 2,
-                    'op': 'greater-than'
-                }],
-                'actions': [{
-                    'type': 'set-size',
-                    'node-count': 3,
-                }],
-            }, session_factory=factory)
+            {'name': 'gke-cluster-nodepool-set-size',
+             'resource': 'gcp.gke-cluster-nodepool',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'initialNodeCount',
+                 'value': 2,
+                 'op': 'greater-than'
+             }],
+             'actions': [{
+                 'type': 'set-size',
+                 'node-count': 3,
+             }]},
+            session_factory=factory)
 
         resources = p.run()
 
@@ -246,21 +240,20 @@ class KubernetesClusterNodePoolTest(BaseTest):
                 response = json.load(file)
                 self.assertEqual('SET_NODE_POOL_SIZE', response['body']['operationType'])
 
-    def test_gke_cluster_node_pools_set_auto_upgrade(self):
+    def test_gke_cluster_node_pools_set_management(self):
 
         project_id = "cloud-custodian"
 
         factory = self.replay_flight_data('gke-cluster-nodepool-set-auto-upgrade', project_id)
 
         p = self.load_policy(
-            {
-                'name': 'gke-cluster-nodepool-set-auto-upgrade',
-                'resource': 'gcp.gke-cluster-nodepool',
-                'actions': [{
-                    'type': 'set-management',
-                    'auto-upgrade': True,
-                }],
-            }, session_factory=factory)
+            {'name': 'gke-cluster-nodepool-set-auto-upgrade',
+             'resource': 'gcp.gke-cluster-nodepool',
+             'actions': [{
+                 'type': 'set-management',
+                 'auto-upgrade': True,
+             }]},
+            session_factory=factory)
 
         resources = p.run()
 

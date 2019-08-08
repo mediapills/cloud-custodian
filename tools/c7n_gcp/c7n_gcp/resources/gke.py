@@ -262,8 +262,8 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools autoscaling setup.
 
     GCP action is
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters.nodePools/
-    setAutoscaling
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
+    /projects.locations.clusters.nodePools/setAutoscaling
 
     :Example:
 
@@ -327,7 +327,7 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
 
 
 @GKEClusterNodePool.action_registry.register('set-size')
-class GKEClusterNodePoolSetSetSize(MethodAction):
+class GKEClusterNodePoolSetSize(MethodAction):
     """The action is used for GKE projects.zones.clusters.nodePools size setup.
 
     GCP action is
