@@ -153,7 +153,7 @@ class VpcAccessLevelSet(MethodAction):
               - type: value
                 key: title
                 op: contains
-                value: custodian_admin
+                value: admin
             actions:
               - type: set
                 description: new description
