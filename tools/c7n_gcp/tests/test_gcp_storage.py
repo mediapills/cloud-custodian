@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 from time import sleep
 
 from gcp_common import BaseTest, event_data
@@ -35,7 +36,7 @@ class BucketTest(BaseTest):
         project_id = 'cloud-custodian'
         bucket_name = 'bucketstorage-1'
         factory = self.replay_flight_data(
-            'bucket-get-resource', project_id)
+            'bucket-get', project_id)
         p = self.load_policy({
             'name': 'bucket',
             'resource': 'gcp.bucket',
@@ -56,7 +57,7 @@ class BucketTest(BaseTest):
     def test_bucket_set(self):
         project_id = 'cloud-custodian-190204'
         session_factory = self.replay_flight_data(
-            'bucket-update-storage-class', project_id=project_id)
+            'bucket-set', project_id=project_id)
 
         policy = self.load_policy({
             'name': 'gcp-bucket-update-storage-class',
@@ -201,7 +202,7 @@ class BucketAccessControlTest(BaseTest):
         bucket_name = 'cloud-custodian.appspot.com'
 
         session_factory = self.replay_flight_data(
-            'bucket-access-control-update-role', project_id=project_id)
+            'bucket-access-control-set', project_id=project_id)
 
         policy = self.load_policy(
             {'name': 'gcp-bucket-bucket-access-control-update-role',
@@ -277,7 +278,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
         entity = 'user-pavel_mitrafanau@epam.com'
 
         factory = self.replay_flight_data(
-            'bucket-default-access-control-get', project_id)
+            'bucket-default-object-access-control-get', project_id)
 
         p = self.load_policy({'name': 'bucket-default-object-access-control-get',
                               'resource': 'gcp.bucket-default-object-access-control',
@@ -287,7 +288,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
                               },
                              session_factory=factory)
         exec_mode = p.get_execution_mode()
-        event = event_data('bucket-default-access-control-update.json')
+        event = event_data('bucket-default-object-access-control-update.json')
         instance = exec_mode.run(event, None)
         self.assertEqual(instance[0]['entity'], entity)
 
@@ -296,7 +297,7 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
         entity = 'user-yauhen_shaliou@comelfo.com'
         bucket_name = 'new-project-26240.appspot.com'
         session_factory = self.replay_flight_data(
-            'bucket-default-access-control-update-role', project_id=project_id)
+            'bucket-default-object-access-control-set', project_id=project_id)
 
         policy = self.load_policy({
             'name': 'gcp-bucket-default-access-control-update-role',
