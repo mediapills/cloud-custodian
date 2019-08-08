@@ -1,11 +1,14 @@
 GKE - Delete Clusters
 ======================
 
-Data governance strategy of an organization may allow only certain regions to be used for running GKE clusters and corresponding resources.
+Data governance strategy of an organization may allow only certain regions to be used for running 
+GKE clusters and corresponding resources.
 
-The following policy automatically deletes all GKE clusters that are not located in the white list of regions.
+The following policy automatically deletes all GKE clusters that are not located in the white 
+list of regions.
 
-Please note that when you delete an existing GKE cluster, most of its resources are deleted as well. Refer to GCP documentation for more details.
+Please note that when you delete an existing GKE cluster, most of its resources are deleted 
+as well. Refer to GCP documentation for more details.
 
 .. code-block:: yaml
 
