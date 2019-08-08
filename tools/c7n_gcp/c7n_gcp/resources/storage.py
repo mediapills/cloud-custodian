@@ -59,7 +59,6 @@ class BucketDelete(MethodAction):
             actions:
               - type: delete
     """
-
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
@@ -109,7 +108,6 @@ class BucketSet(MethodAction):
                 retention-policy-seconds: 86400
                 versioning: False
     """
-
     schema = type_schema(
         'set',
         **{
@@ -230,7 +228,6 @@ class BucketAccessControlSet(MethodAction):
               - type: set
                 role: OWNER
     """
-
     schema = type_schema(
         'set',
         required=['role'],
@@ -272,7 +269,6 @@ class BucketAccessControlDelete(MethodAction):
             actions:
               - type: delete
     """
-
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
@@ -287,7 +283,6 @@ class BucketAccessControlDelete(MethodAction):
 class BucketDefaultObjectAccessControl(ChildResourceManager):
     """GCP resource: https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls
     """
-
     def get_resource(self, event):
         child_instance = super(ChildResourceManager, self).get_resource(event)
 
@@ -405,7 +400,6 @@ class BucketDefaultObjectAccessControlDelete(MethodAction):
             actions:
               - type: delete
     """
-
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
@@ -422,7 +416,6 @@ class BucketDefaultObjectAccessControlDelete(MethodAction):
 class BucketObject(ChildResourceManager):
     """GCP resource: https://cloud.google.com/storage/docs/json_api/v1/objects
     """
-
     class resource_type(ChildTypeInfo):
         service = 'storage'
         version = 'v1'
@@ -519,7 +512,6 @@ class BucketObjectDelete(MethodAction):
             actions:
               - type: delete
     """
-
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
@@ -534,7 +526,6 @@ class BucketObjectDelete(MethodAction):
 class BucketObjectAccessControl(ChildResourceManager):
     """GCP resource: https://cloud.google.com/storage/docs/json_api/v1/objectAccessControls
     """
-
     class resource_type(ChildTypeInfo):
         service = 'storage'
         version = 'v1'
@@ -599,7 +590,6 @@ class BucketObjectAccessControlSet(MethodAction):
               - type: set
                 role: OWNER
     """
-
     schema = type_schema(
         'set',
         required=['role'],
@@ -610,9 +600,7 @@ class BucketObjectAccessControlSet(MethodAction):
                     'OWNER', 'READER'
                 ]
             }
-        }
-    )
-
+        })
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
@@ -643,7 +631,6 @@ class BucketObjectAccessControlDelete(MethodAction):
             actions:
               - type: delete
     """
-
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
