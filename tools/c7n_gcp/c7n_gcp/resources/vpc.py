@@ -134,7 +134,7 @@ class VpcAccessLevelDelete(MethodAction):
 
 
 @VpcAccessLevel.action_registry.register('set')
-class VpcAccessLevelPatch(MethodAction):
+class VpcAccessLevelSet(MethodAction):
     """The action is used for VPC access levels patch.
 
     GCP action is https://cloud.google.com/access-context-manager/docs
@@ -267,7 +267,7 @@ class VpcServicePerimeterDelete(MethodAction):
 
 
 @VpcServicePerimeter.action_registry.register('set')
-class VpcServicePerimeterPatch(MethodAction):
+class VpcServicePerimeterSet(MethodAction):
     """The action is used for VPC service perimeter patch.
 
     GCP action is https://cloud.google.com/access-context-manager/docs
