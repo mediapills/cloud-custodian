@@ -1,5 +1,5 @@
 Storage - Delete Inappropriate Permissions
-===========================================
+==========================================
 
 The BucketAccessControls resource represents the Access Control Lists (ACLs) for buckets within Google Cloud Storage. ACLs let you specify who has access to your data and to what extent. Refer to GCP documentation for more details.
 
