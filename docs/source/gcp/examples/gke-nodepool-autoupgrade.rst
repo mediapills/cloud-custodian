@@ -9,7 +9,7 @@ Node pools are a set of nodes (i.e. VM's), with a common configuration and speci
 
     policies:
       - name: gke-cluster-nodepool-set-auto-upgrade
-        resource: gcp.gke-nodepool
+        resource: gcp.gke-cluster-nodepool
         actions:
           - type: set-auto-upgrade
             autoUpgrade: true

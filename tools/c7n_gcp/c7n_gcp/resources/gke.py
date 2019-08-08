@@ -33,8 +33,8 @@ class GKECluster(QueryResourceManager):
         enum_spec = ('list', 'clusters[]', None)
         scope = 'project'
         scope_key = 'parent'
-        scope_template = "projects/{}/locations/-"
-        id = "name"
+        scope_template = 'projects/{}/locations/-'
+        id = 'name'
 
         @staticmethod
         def get(client, resource_info):
@@ -80,7 +80,7 @@ class GKEClusterDelete(MethodAction):
             resource['locations'][0],
             resource['name'])
 
-        return {"name": name}
+        return {'name': name}
 
 
 @GKECluster.action_registry.register('set-resource-labels')
@@ -174,7 +174,7 @@ class GKEClusterUpdate(MethodAction):
             'nodeversion': {
                 'type': 'string'
             },
-            "monitoring-service": {
+            'monitoring-service': {
                 'type': 'string'
             }
         }
@@ -192,10 +192,10 @@ class GKEClusterUpdate(MethodAction):
         params = {}
 
         if 'nodeversion' in self.data:
-            params["desiredMasterVersion"] = self.data['nodeversion']
+            params['desiredMasterVersion'] = self.data['nodeversion']
 
         if 'monitoring-service' in self.data:
-            params["desiredMonitoringService"] = self.data['monitoring-service']
+            params['desiredMonitoringService'] = self.data['monitoring-service']
 
         return {
             'name': name,
@@ -204,7 +204,7 @@ class GKEClusterUpdate(MethodAction):
             }}
 
 
-@resources.register('gke-nodepool')
+@resources.register('gke-cluster-nodepool')
 class GKEClusterNodePool(ChildResourceManager):
     """GCP resource:
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
@@ -244,7 +244,7 @@ class GKEClusterNodePool(ChildResourceManager):
         def get(client, resource_info):
             cluster_name = resource_info['cluster_name']
             name = re.match(
-                r".*{}-(.*)-[^-]+-[^-]?".format(cluster_name),
+                r'.*{}-(.*)-[^-]+-[^-]?'.format(cluster_name),
                 resource_info['resourceName']).group(1)
 
             return client.execute_command(
@@ -271,7 +271,7 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
 
         policies:
           - name: gke-cluster-nodepool-set-autoscaling
-            resource: gcp.gke-nodepool
+            resource: gcp.gke-cluster-nodepool
             filters:
               - type: value
                 key: initialNodeCount
@@ -311,18 +311,18 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
             resource[key]['name'],
             resource['name'])
 
-        params = {"enabled": "true" if self.data['enabled'] else "false"}
+        params = {'enabled': 'true' if 'enabled' in self.data else 'false'}
 
-        if self.data['enabled']:
-            if self.data['minNodeCount']:
-                params["minNodeCount"] = self.data['minNodeCount']
-            if self.data['maxNodeCount']:
-                params["maxNodeCount"] = self.data['maxNodeCount']
+        if 'enabled' in self.data:
+            if 'minNodeCount' in self.data:
+                params['minNodeCount'] = self.data['minNodeCount']
+            if 'maxNodeCount' in self.data:
+                params['maxNodeCount'] = self.data['maxNodeCount']
 
         return {
             'name': name,
             'body': {
-                "autoscaling": params
+                'autoscaling': params
             }}
 
 
@@ -340,7 +340,7 @@ class GKEClusterNodePoolSetSetSize(MethodAction):
 
         policies:
           - name: gke-cluster-nodepool-set-size
-            resource: gcp.gke-nodepool
+            resource: gcp.gke-cluster-nodepool
             filters:
               - type: value
                 key: initialNodeCount
@@ -376,7 +376,7 @@ class GKEClusterNodePoolSetSetSize(MethodAction):
         return {
             'name': name,
             'body': {
-                "nodeCount": self.data['node-count']
+                'nodeCount': self.data['node-count']
             }}
 
 
@@ -394,7 +394,7 @@ class GKEClusterNodePoolSetManagement(MethodAction):
 
         policies:
           - name: gke-cluster-nodepool-set-auto-upgrade
-            resource: gcp.gke-nodepool
+            resource: gcp.gke-cluster-nodepool
             actions:
               - type: set-management
                 auto-upgrade: true
@@ -425,7 +425,7 @@ class GKEClusterNodePoolSetManagement(MethodAction):
         return {
             'name': name,
             'body': {
-                "management": {
-                    "autoUpgrade": self.data['auto-upgrade']
+                'management': {
+                    'autoUpgrade': self.data['auto-upgrade']
                 }
             }}
