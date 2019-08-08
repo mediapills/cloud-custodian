@@ -3,11 +3,11 @@
     "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
     "status": {},
     "authenticationInfo": {
-      "principalEmail": "dkhanas@gmail.com"
+      "principalEmail": "nomatter@nowhere.com"
     },
     "requestMetadata": {
-      "callerIp": "77.123.172.24",
-      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36,gzip(gfe)",
+      "callerIp": "1.1.1.1",
+      "callerSuppliedUserAgent": "Firefox",
       "requestAttributes": {},
       "destinationAttributes": {}
     },
@@ -15,25 +15,25 @@
     "methodName": "storage.buckets.update",
     "authorizationInfo": [
       {
-        "resource": "projects/_/buckets/new-project-26240.appspot.com",
+        "resource": "projects/_/buckets/test-bucket-qweqweqweqwe-e",
         "permission": "storage.buckets.update",
         "granted": true,
         "resourceAttributes": {}
       },
       {
-        "resource": "projects/_/buckets/new-project-26240.appspot.com",
+        "resource": "projects/_/buckets/test-bucket-qweqweqweqwe-e",
         "permission": "storage.buckets.setIamPolicy",
         "granted": true,
         "resourceAttributes": {}
       },
       {
-        "resource": "projects/_/buckets/new-project-26240.appspot.com",
+        "resource": "projects/_/buckets/test-bucket-qweqweqweqwe-e",
         "permission": "storage.buckets.getIamPolicy",
         "granted": true,
         "resourceAttributes": {}
       }
     ],
-    "resourceName": "projects/_/buckets/new-project-26240.appspot.com",
+    "resourceName": "projects/_/buckets/test-bucket-qweqweqweqwe-e",
     "serviceData": {
       "@type": "type.googleapis.com/google.iam.v1.logging.AuditData",
       "policyDelta": {}
@@ -44,14 +44,14 @@
           {
             "role": "roles/storage.legacyObjectOwner",
             "members": [
-              "projectOwner:new-project-26240",
-              "projectEditor:new-project-26240",
-              "user:dkhanas@gmail.com"
+              "projectOwner:mitrop-custodian",
+              "projectEditor:mitrop-custodian",
+              "user:pavel_mitrafanau@epam.com"
             ]
           },
           {
             "members": [
-              "projectViewer:new-project-26240"
+              "projectViewer:mitrop-custodian"
             ],
             "role": "roles/storage.legacyObjectReader"
           }
@@ -65,17 +65,17 @@
       ]
     }
   },
-  "insertId": "v2tz4ce3z7xa",
+  "insertId": "-hr3ahld3g6u",
   "resource": {
     "type": "gcs_bucket",
     "labels": {
-      "project_id": "new-project-26240",
+      "project_id": "mitrop-custodian",
       "location": "us",
-      "bucket_name": "new-project-26240.appspot.com"
+      "bucket_name": "test-bucket-qweqweqweqwe-e"
     }
   },
-  "timestamp": "2019-07-03T15:55:11.673Z",
+  "timestamp": "2019-08-07T21:47:26.511Z",
   "severity": "NOTICE",
-  "logName": "projects/new-project-26240/logs/cloudaudit.googleapis.com%2Factivity",
-  "receiveTimestamp": "2019-07-03T15:55:12.838008824Z"
+  "logName": "projects/mitrop-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-08-07T21:47:27.082811138Z"
 }

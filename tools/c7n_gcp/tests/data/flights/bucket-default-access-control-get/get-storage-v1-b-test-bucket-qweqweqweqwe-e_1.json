@@ -1,0 +1,39 @@
+{
+  "body": {
+    "kind": "storage#bucket", 
+    "defaultEventBasedHold": false, 
+    "name": "test-bucket-qweqweqweqwe-e", 
+    "timeCreated": "2019-08-07T13:17:49.656Z", 
+    "locationType": "multi-region", 
+    "updated": "2019-08-07T21:47:26.975Z", 
+    "projectNumber": "468975819404", 
+    "metageneration": "6", 
+    "location": "US", 
+    "iamConfiguration": {
+      "uniformBucketLevelAccess": {
+        "enabled": false
+      }, 
+      "bucketPolicyOnly": {
+        "enabled": false
+      }
+    }, 
+    "etag": "CAY=", 
+    "id": "test-bucket-qweqweqweqwe-e", 
+    "selfLink": "https://www.googleapis.com/storage/v1/b/test-bucket-qweqweqweqwe-e", 
+    "storageClass": "MULTI_REGIONAL"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "600", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/test-bucket-qweqweqweqwe-e?alt=json", 
+    "expires": "Thu, 08 Aug 2019 07:15:58 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAY=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Thu, 08 Aug 2019 07:15:58 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UqcdXu_aZGdvsi0oGk3oGE1xlrdCOxdwEv4rs1I6ww7JSJTVwQH-AYj9jv-JqAobCxNydXQOuZNgi2T-aAK0qagr1PaDQ"
+  }
+}

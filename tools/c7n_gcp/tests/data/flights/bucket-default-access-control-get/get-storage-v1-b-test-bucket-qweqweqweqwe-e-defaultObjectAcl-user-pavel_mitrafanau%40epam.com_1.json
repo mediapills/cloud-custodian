@@ -1,0 +1,23 @@
+{
+  "body": {
+    "kind": "storage#objectAccessControl", 
+    "etag": "CAY=", 
+    "role": "OWNER", 
+    "email": "pavel_mitrafanau@epam.com", 
+    "entity": "user-pavel_mitrafanau@epam.com"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "162", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/test-bucket-qweqweqweqwe-e/defaultObjectAcl/user-pavel_mitrafanau%40epam.com?alt=json", 
+    "expires": "Thu, 08 Aug 2019 07:15:57 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAY=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Thu, 08 Aug 2019 07:15:57 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UpXnhCs7EABgPo8nlzpyqqBawoQ91UawNqZR_5OLONDTlGIVDn6xXClF3_AKD8OmMFRmP0Fiv3mxd6fR5QNMx4cNTodCA"
+  }
+}

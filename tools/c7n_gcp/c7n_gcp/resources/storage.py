@@ -31,6 +31,7 @@ class Bucket(QueryResourceManager):
         component = 'buckets'
         scope = 'project'
         enum_spec = ('list', 'items[]', {'projection': 'full'})
+        id = 'name'
 
         @staticmethod
         def get(client, resource_info):
@@ -287,6 +288,19 @@ class BucketDefaultObjectAccessControl(ChildResourceManager):
     """GCP resource: https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls
     """
 
+    def get_resource(self, event):
+        child_instance = super(ChildResourceManager, self).get_resource(event)
+
+        parent_resource = self.resource_type.parent_spec['resource']
+        parent_instance = self.get_resource_manager(parent_resource).get_resource(
+            {'bucket_name': jmespath.search('resource.labels.bucket_name', event)}
+        )
+
+        annotation_key = self.resource_type.get_parent_annotation_key()
+        child_instance[annotation_key] = parent_instance
+
+        return child_instance
+
     class resource_type(ChildTypeInfo):
         service = 'storage'
         version = 'v1'
@@ -311,17 +325,17 @@ class BucketDefaultObjectAccessControl(ChildResourceManager):
                 'protoPayload.request.defaultObjectAcl.bindings[0].members[-1]',
                 event
             )
+
             bucket_name = jmespath.search('resource.labels.bucket_name', event)
+
             if ':' in entity:
                 entity = '-'.join(entity.split(':'))
 
-            info = client.execute_command(
+            return client.execute_command(
                 'get', {
                     'bucket': bucket_name,
                     'entity': entity
                 })
-            info['bucket_name'] = bucket_name
-            return info
 
 
 @BucketDefaultObjectAccessControl.action_registry.register('set')

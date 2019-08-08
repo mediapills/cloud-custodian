@@ -3,11 +3,11 @@
     "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
     "status": {},
     "authenticationInfo": {
-      "principalEmail": "dkhanas@gmail.com"
+      "principalEmail": "nomatter@nocompany.com"
     },
     "requestMetadata": {
-      "callerIp": "188.163.232.130",
-      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36,gzip(gfe)",
+      "callerIp": "1.1.1.1",
+      "callerSuppliedUserAgent": "Firefox",
       "requestAttributes": {},
       "destinationAttributes": {}
     },
@@ -51,14 +51,14 @@
         "bindings": [
           {
             "members": [
-              "projectOwner:cloud-custodian",
-              "projectEditor:cloud-custodian"
+              "projectOwner:mitrop-custodian",
+              "projectEditor:mitrop-custodian"
             ],
             "role": "roles/storage.legacyObjectOwner"
           },
           {
             "members": [
-              "projectViewer:cloud-custodian"
+              "projectViewer:mitrop-custodian"
             ],
             "role": "roles/storage.legacyObjectReader"
           }
@@ -72,17 +72,17 @@
       ]
     }
   },
-  "insertId": "g3or0hebw28g",
+  "insertId": "-13fn1pe7q0qm",
   "resource": {
     "type": "gcs_bucket",
     "labels": {
       "location": "us",
       "bucket_name": "bucketstorage-1",
-      "project_id": "cloud-custodian"
+      "project_id": "mitrop-custodian"
     }
   },
-  "timestamp": "2019-05-15T11:02:00.102Z",
+  "timestamp": "2019-08-07T21:19:02.553Z",
   "severity": "NOTICE",
-  "logName": "projects/cloud-custodian/logs/cloudaudit.googleapis.com%2Factivity",
-  "receiveTimestamp": "2019-05-15T11:02:01.506459939Z"
+  "logName": "projects/mitrop-custodian/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2019-08-07T21:19:03.347835595Z"
 }

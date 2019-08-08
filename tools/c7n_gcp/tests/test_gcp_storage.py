@@ -191,7 +191,7 @@ class BucketAccessControlTest(BaseTest):
             session_factory=factory)
 
         exec_mode = p.get_execution_mode()
-        event = event_data('bucket-update.json')
+        event = event_data('bucket-access-control-update.json')
         instance = exec_mode.run(event, None)
         self.assertEqual(instance[0]['bucket'], bucket_name)
 
@@ -273,11 +273,11 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
         self.assertEqual(resources[0]['entity'], entity)
 
     def test_default_object_access_control_get(self):
-        project_id = 'new-project-26240'
-        bucket_name = 'new-project-26240.appspot.com'
+        project_id = 'mitrop-custodian'
+        entity = 'user-pavel_mitrafanau@epam.com'
 
         factory = self.replay_flight_data(
-            'bucket-access-control-get', project_id)
+            'bucket-default-access-control-get', project_id)
 
         p = self.load_policy({'name': 'bucket-default-object-access-control-get',
                               'resource': 'gcp.bucket-default-object-access-control',
@@ -287,9 +287,9 @@ class BucketDefaultObjectAccessControlTest(BaseTest):
                               },
                              session_factory=factory)
         exec_mode = p.get_execution_mode()
-        event = event_data('bucket-access-update.json')
+        event = event_data('bucket-default-access-control-update.json')
         instance = exec_mode.run(event, None)
-        self.assertEqual(instance[0]['bucket_name'], bucket_name)
+        self.assertEqual(instance[0]['entity'], entity)
 
     def test_default_object_access_control_set(self):
         project_id = 'new-project-26240'
