@@ -121,8 +121,8 @@ class VpcAccessLevelDelete(MethodAction):
             filters:
               - type: value
                 key: title
-                op: eq
-                value: custodian_admin_2
+                op: contains
+                value: dev
             actions:
               - type: delete
     """
@@ -152,7 +152,7 @@ class VpcAccessLevelSet(MethodAction):
             filters:
               - type: value
                 key: title
-                op: eq
+                op: contains
                 value: custodian_admin
             actions:
               - type: set
