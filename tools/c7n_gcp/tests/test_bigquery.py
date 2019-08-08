@@ -32,7 +32,7 @@ class BigQueryDataSetTest(BaseTest):
         self.assertTrue('access' in dataset)
         self.assertEqual(dataset['labels'], {'env': 'dev'})
 
-    def test_delete_dataset(self):
+    def test_dataset_delete(self):
         project_id = 'new-project-26240'
         session_factory = self.replay_flight_data(
             'bq-dataset-delete', project_id=project_id)
@@ -62,7 +62,7 @@ class BigQueryDataSetTest(BaseTest):
         )
         self.assertNotIn('datasets', result)
 
-    def test_set_dataset(self):
+    def test_dataset_set(self):
         project_id = 'new-project-26240'
         dataset_id = 'new-project-26240:dataset'
         session_factory = self.replay_flight_data(
@@ -141,7 +141,7 @@ class BigQueryJobTest(BaseTest):
         self.assertEqual(job[0]['jobReference']['projectId'], project_id)
         self.assertEqual(job[0]['id'], '{}:{}.{}'.format(project_id, location, job_id))
 
-    def test_cancel_job(self):
+    def test_job_cancel(self):
         project_id = 'cloud-custodian'
         session_factory = self.replay_flight_data(
             'bq-jobs-cancel', project_id=project_id)
@@ -216,7 +216,7 @@ class BigQueryTableTest(BaseTest):
         job = exec_mode.run(event, None)
         self.assertIn('tableReference', job[0].keys())
 
-    def test_delete_table(self):
+    def test_table_delete(self):
         project_id = 'new-project-26240'
         session_factory = self.replay_flight_data(
             'bq-table-delete', project_id=project_id)
@@ -251,7 +251,7 @@ class BigQueryTableTest(BaseTest):
 
         self.assertNotIn('tables', result)
 
-    def test_update_table_label(self):
+    def test_table_update_label(self):
         project_id = 'new-project-26240'
         label = 'expiration'
         session_factory = self.replay_flight_data(
