@@ -11,7 +11,7 @@ This sample policy deletes all objects older than 31 days in the buckets whose n
         filters:
           - type: value  
             key: bucket
-            op: regexp
+            op: regex
             value: ^archive[a-zA-Z0-9]+$
           - type: value
             key: timeCreated
