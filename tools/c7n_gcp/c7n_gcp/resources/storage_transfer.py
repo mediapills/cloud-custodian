@@ -11,11 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import json
-from c7n.utils import type_schema, local_session
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
-from c7n_gcp.actions import MethodAction
+
+from c7n.utils import type_schema, local_session
 
 
 @resources.register('storagetransfer-transfer-job')
@@ -72,7 +72,6 @@ class StorageTransferTransferJobSet(MethodAction):
 
     schema = type_schema('set',
          **{'status': {'type': 'string'},
-            'name': {'type': 'string'},
             'description': {'type': 'string'},
             })
 
@@ -85,7 +84,7 @@ class StorageTransferTransferJobSet(MethodAction):
             'projectId': project
         }
 
-        for field in ['status', 'name', 'description']:
+        for field in ['status', 'description']:
             if field in self.data:
                 body['transferJob'][field] = self.data[field]
 
