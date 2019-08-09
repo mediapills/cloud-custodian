@@ -11,10 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from c7n_gcp.query import QueryResourceManager, TypeInfo
-from c7n_gcp.provider import resources
-from c7n.utils import type_schema
+
+import re
+
 from c7n_gcp.actions import MethodAction
+from c7n_gcp.provider import resources
+from c7n_gcp.query import QueryResourceManager, TypeInfo
+
+from c7n.utils import type_schema
 
 
 @resources.register('bq-datatransfer-transfer-config')
@@ -60,11 +64,6 @@ class BigQueryDataTransferConfigDelete(MethodAction):
     method_spec = {'op': 'delete'}
 
     def get_resource_params(self, model, resource):
-        """A value of 'name' field in a resource has format
-        'projects/{projectId}/locations/{locationId}/transferConfigs/{configId}'.
-        As a result it should return a name in format
-        'projects/{projectId}/transferConfigs/{configId}'.
-        """
-        resource_name = resource['name'].split('/')
-        name = 'projects/{}/transferConfigs/{}'.format(resource_name[1], resource_name[-1])
-        return {'name': name}
+        project, transfer_config = re.match('.*projects/(.+?)/locations/.+?/transferConfigs/(.+)',
+                                            resource['name']).groups()
+        return {'name': 'projects/{}/transferConfigs/{}'.format(project, transfer_config)}
