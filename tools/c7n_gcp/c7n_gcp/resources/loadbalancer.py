@@ -11,6 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+import re
+
 from c7n.utils import type_schema, local_session
 from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
@@ -435,3 +438,129 @@ class LoadBalancingGlobalAddress(QueryResourceManager):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
                 'address': resource_info['resourceName'].rsplit('/', 1)[-1]})
+
+
+@resources.register('loadbalancer-security-policy')
+class LoadBalancingSecurityPolicy(QueryResourceManager):
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies"""
+    class resource_type(TypeInfo):
+        service = 'compute'
+        version = 'v1'
+        component = 'securityPolicies'
+        id = 'name'
+
+        @staticmethod
+        def get(client, resource_info):
+            return client.execute_command(
+                'get', {'project': resource_info['project_id'],
+                        'securityPolicy': resource_info['policy_name']})
+
+
+@LoadBalancingSecurityPolicy.action_registry.register('delete')
+class LoadBalancingSecurityPolicyDelete(MethodAction):
+    """
+    `Deletes <https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies/delete>`_
+    a security policy
+
+    :Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: security-policy-delete
+            description: Deletes a security policy
+            resource: gcp.loadbalancer-security-policy
+            filters:
+              - type: value
+                key: name
+                value: test-policy
+            actions:
+              - delete
+    """
+
+    schema = type_schema('delete')
+    method_spec = {'op': 'delete'}
+    path_param_re = re.compile('.*?/projects/(.*?)/global/securityPolicies/(.*)')
+
+    def get_resource_params(self, m, r):
+        project, policy = self.path_param_re.match(r['selfLink']).groups()
+        return {'project': project, 'securityPolicy': policy}
+
+
+@LoadBalancingSecurityPolicy.action_registry.register('add')
+class LoadBalancingSecurityPolicyAddRule(MethodAction):
+    """
+    `Inserts <https://cloud.google.com/compute/docs/reference/rest/v1/securityPolicies/addRule>`_
+    a rule into a security policy.
+
+    The 'action' specifies the action to perform when the client connection triggers the rule. Can
+    currently be either "allow" or "deny()" where valid values for status are 403, 404, 502.
+
+    The 'srcIpRanges' specifies CIDR IP address range.
+
+    The 'priority' specifies the priority of a rule in the list.
+
+    :Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-security-policy-add-rule
+            resource: gcp.loadbalancer-security-policy
+            actions:
+              - type: add
+                rule:
+                    action: deny(403)
+                    srcIpRanges:
+                      - 66.77.88.0/24
+                    priority: 0
+    """
+    schema = type_schema('add',
+                         required=['rule'],
+                         **{
+                             'rule': {
+                                 'type': 'object',
+                                 'required': ['action', 'srcIpRanges'],
+                                 'properties': {
+                                     'action': {
+                                         'type': 'string',
+                                         'enum': ['allow', 'deny(403)', 'deny(404)', 'deny(502)']
+                                     },
+                                     'srcIpRanges': {
+                                         'type': 'array',
+                                         'items': {'type': 'string'},
+                                         'minItems': 1
+                                     },
+                                     'priority': {
+                                         'type': 'integer',
+                                         'minimum': 0,
+                                         'maximum': 2147483647
+                                     }
+                                 }
+                             }
+                         })
+    method_spec = {'op': 'addRule'}
+    path_param_re = re.compile('.*?/projects/(.*?)/global/securityPolicies/(.*)')
+
+    def get_resource_params(self, model, resource):
+        project, policy = self.path_param_re.match(resource['selfLink']).groups()
+        rule = self.data['rule']
+
+        body = {
+            'action': rule['action'],
+            'match': {
+                'config': {
+                    'srcIpRanges': rule['srcIpRanges']
+                },
+                'versionedExpr': 'SRC_IPS_V1'
+            }
+        }
+
+        if 'priority' in rule:
+            body['priority'] = rule['priority']
+
+        result = {'project': project,
+                  'securityPolicy': policy,
+                  'body': body}
+
+        return result

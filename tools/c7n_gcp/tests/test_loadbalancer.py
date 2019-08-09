@@ -672,3 +672,101 @@ class LoadBalancingGlobalAddressTest(BaseTest):
         self.assertEqual(len(instances), 1)
         self.assertEqual(instances[0]['kind'], 'compute#address')
         self.assertEqual(instances[0]['name'], 'custodian-global-address-0')
+
+
+class LoadBalancingSecurityPolicyTest(BaseTest):
+    def test_loadbalancer_security_policy_query(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'custodian-policy'
+        session_factory = self.replay_flight_data(
+            'loadbalancer-security-policy-query', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-security-policy-dryrun',
+             'resource': 'gcp.loadbalancer-security-policy'},
+            session_factory=session_factory)
+        resources = policy.run()
+
+        self.assertEqual(resources[0]['name'], resource_name)
+
+    def test_loadbalancer_security_policy_get(self):
+        resource_name = 'custodian-policy'
+        session_factory = self.replay_flight_data(
+            'loadbalancer-security-policy-get')
+
+        policy = self.load_policy(
+            {'name': 'gcp-security-policy-audit',
+             'resource': 'gcp.loadbalancer-security-policy',
+             'mode': {
+                 'type': 'gcp-audit',
+                 'methods': ['v1.compute.securityPolicies.insert']
+             }},
+            session_factory=session_factory)
+
+        exec_mode = policy.get_execution_mode()
+        event = event_data('security-policy-insert.json')
+        resources = exec_mode.run(event, None)
+        self.assertEqual(resources[0]['name'], resource_name)
+
+    def test_loadbalancer_security_policy_delete(self):
+        project_id = 'mitrop-custodian'
+        factory = self.replay_flight_data('loadbalancer-security-policy-delete',
+                                          project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'gcp-security-policy-delete',
+             'resource': 'gcp.loadbalancer-security-policy',
+             'filters': [{'name': 'test-policy'}],
+             'actions': ['delete']},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+        if self.recording:
+            sleep(5)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id,
+                     'filter': 'name = test-policy'})
+
+        self.assertEqual(result.get('items', []), [])
+
+    def test_loadbalancer_security_policy_add_rule(self):
+        project_id = 'mitrop-custodian'
+        factory = self.replay_flight_data('loadbalancer-security-policy-add-rule',
+                                          project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'gcp-security-policy-delete',
+             'resource': 'gcp.loadbalancer-security-policy',
+             'filters': [{'name': 'test-policy'}],
+             'actions': [{
+                 'type': 'add',
+                 'rule': {
+                     'action': 'deny(403)',
+                     'srcIpRanges': ['66.77.88.0/24'],
+                     'priority': 0
+                 }
+             }]},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+        if self.recording:
+            sleep(5)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id,
+                     'filter': 'name = test-policy'})
+
+        self.assertEqual(len(result['items'][0]['rules']), 2)
+
+        result_rule = result['items'][0]['rules'][0]
+
+        self.assertEqual(result_rule['action'], 'deny(403)')
+        self.assertEqual(result_rule['match']['config']['srcIpRanges'], ['66.77.88.0/24'])
+        self.assertEqual(result_rule['priority'], 0)
