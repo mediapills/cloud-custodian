@@ -23,7 +23,7 @@ from c7n_gcp.actions import MethodAction
 @resources.register('gke-cluster')
 class GKECluster(QueryResourceManager):
     """GCP resource:
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.zones.clusters
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
     """
 
     class resource_type(TypeInfo):
@@ -259,11 +259,11 @@ class GKEClusterNodePool(ChildResourceManager):
 
 @GKEClusterNodePool.action_registry.register('set-autoscaling')
 class GKEClusterNodePoolSetAutoscaling(MethodAction):
-    """The action is used for GKE projects.zones.clusters.nodePools autoscaling setup.
+    """The action is used for GKE projects.locations.clusters.nodePools autoscaling setup.
 
     GCP action is
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.locations.clusters.nodePools/setAutoscaling
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/
+    projects.locations.clusters.nodePools/setAutoscaling
 
     :Example:
 
@@ -328,11 +328,11 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
 
 @GKEClusterNodePool.action_registry.register('set-size')
 class GKEClusterNodePoolSetSize(MethodAction):
-    """The action is used for GKE projects.zones.clusters.nodePools size setup.
+    """The action is used for GKE projects.locations.clusters.nodePools size setup.
 
     GCP action is
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.zones.clusters.nodePools/setSize
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/
+    projects.locations.clusters.nodePools/setSize
 
     :Example:
 
@@ -382,11 +382,11 @@ class GKEClusterNodePoolSetSize(MethodAction):
 
 @GKEClusterNodePool.action_registry.register('set-management')
 class GKEClusterNodePoolSetManagement(MethodAction):
-    """The action is used for GKE projects.zones.clusters.nodePools management setup.
+    """The action is used for GKE projects.locations.clusters.nodePools management setup.
 
     GCP action is
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.zones.clusters.nodePools/setManagement
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/
+    projects.locations.clusters.nodePools/setManagement
 
     :Example:
 
