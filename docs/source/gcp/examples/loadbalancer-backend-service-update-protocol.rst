@@ -1,7 +1,7 @@
-Load Balancer - Update protocols in Backend Services
+Load Balancer - Update Protocols in Backend Services
 =====================================================
 
-The example allows to replace protocols in the backend service.
+This sample policy replaces protocols in the backend service.
 
 .. code-block:: yaml
 
