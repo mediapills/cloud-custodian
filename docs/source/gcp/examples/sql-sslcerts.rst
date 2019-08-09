@@ -1,8 +1,8 @@
 Cloud SQL - Notify on Certificates Which Are About to Expire
 ============================================================
 
-In the example below, Cusodian tracks SSL certificates which are in use by Cloud SQL instances
-and notify about the ones which are going to be expired in 60 days or less.
+In the example below, Custodian tracks SSL certificates which are in use by Cloud SQL instances
+and notifies about the ones which are going to be expired in 60 days or less.
 
 .. code-block:: yaml
 

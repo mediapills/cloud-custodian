@@ -1,8 +1,8 @@
 Cloud SQL - Check Regions of Instances and Their States
 =======================================================
 
-Execution of the following policy returns instances which are not in an approved set of regions
-AND not in a runnable state. You may use more complex logic to combine any conditions you need.
+Execution of the following policy deletes instances which are not in an approved set of regions
+AND not in the runnable state. You may use more complex logic to combine any conditions you need.
 
 .. code-block:: yaml
 
@@ -21,6 +21,7 @@ AND not in a runnable state. You may use more complex logic to combine any condi
             op: not-equal
             value: RUNNABLE
         actions:
+          - type: delete
           - type: notify
             to:
               - email@address
