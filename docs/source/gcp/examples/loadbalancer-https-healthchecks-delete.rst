@@ -1,7 +1,7 @@
-Load Balancer - Delete HTTP/HTTPs health checks
+Load Balancer - Delete HTTP/HTTPs Health Checks
 ================================================
 
-The policies allow to delete HTTP and HTTPs health checks for feature environments.
+Two policies below delete HTTP and HTTPs health checks for VMs that contain '-dev-'in their host names.
 
 .. code-block:: yaml
 
