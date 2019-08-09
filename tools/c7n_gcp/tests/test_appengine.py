@@ -13,16 +13,16 @@
 # limitations under the License.
 
 import re
-
-from gcp_common import BaseTest
 from time import sleep
 
 from googleapiclient.errors import HttpError
 
+from gcp_common import BaseTest
+
 
 class AppEngineAppTest(BaseTest):
 
-    def test_app_query(self):
+    def test_app_engine_query(self):
         project_id = 'cloud-custodian'
         app_name = 'apps/{}'.format(project_id)
         session_factory = self.replay_flight_data(
@@ -36,7 +36,7 @@ class AppEngineAppTest(BaseTest):
         resources = policy.run()
         self.assertEqual(resources[0]['name'], app_name)
 
-    def test_app_get(self):
+    def test_app_engine_get(self):
         project_id = 'cloud-custodian'
         app_name = 'apps/' + project_id
         session_factory = self.replay_flight_data(
@@ -51,7 +51,7 @@ class AppEngineAppTest(BaseTest):
             {'resourceName': app_name})
         self.assertEqual(resource['name'], app_name)
 
-    def test_app_start(self):
+    def test_app_engine_start(self):
         project_id = 'cloud-custodian'
         app_name = 'apps/' + project_id
         session_factory = self.replay_flight_data(
@@ -60,7 +60,7 @@ class AppEngineAppTest(BaseTest):
         policy = self.load_policy(
             {'name': 'gcp-app-engine-start',
              'resource': 'gcp.app-engine',
-             'actions': [{'type': 'start'}]},
+             'actions': [{'type': 'set', 'serving-status': True}]},
             session_factory=session_factory)
 
         resources = policy.run()
@@ -74,7 +74,7 @@ class AppEngineAppTest(BaseTest):
         result = client.execute_query('get', {'appsId': app_short_name})
         self.assertEqual(result['servingStatus'], 'SERVING')
 
-    def test_app_stop(self):
+    def test_app_engine_stop(self):
         project_id = 'cloud-custodian'
         app_name = 'apps/' + project_id
         session_factory = self.replay_flight_data(
@@ -83,7 +83,7 @@ class AppEngineAppTest(BaseTest):
         policy = self.load_policy(
             {'name': 'gcp-app-engine-stop',
              'resource': 'gcp.app-engine',
-             'actions': [{'type': 'stop'}]},
+             'actions': [{'type': 'set', 'serving-status': False}]},
             session_factory=session_factory)
 
         resources = policy.run()
@@ -97,7 +97,7 @@ class AppEngineAppTest(BaseTest):
         result = client.execute_query('get', {'appsId': app_short_name})
         self.assertEqual(result['servingStatus'], 'USER_DISABLED')
 
-    def test_app_set(self):
+    def test_app_engine_set(self):
         project_id = 'cloud-custodian'
         app_name = 'apps/' + project_id
         session_factory = self.replay_flight_data(

@@ -2,11 +2,11 @@
   "body": {
     "defaultHostname": "cloud-custodian.appspot.com",
     "name": "apps/cloud-custodian",
-    "gcrDomain": "eu.gcr.io", 
+    "gcrDomain": "us.gcr.io", 
     "codeBucket": "staging.cloud-custodian.appspot.com",
     "defaultBucket": "cloud-custodian.appspot.com",
     "servingStatus": "SERVING", 
-    "locationId": "europe-west3", 
+    "locationId": "us-central", 
     "featureSettings": {
       "splitHealthChecks": true
     }, 
@@ -15,7 +15,7 @@
   }, 
   "headers": {
     "status": "200", 
-    "content-length": "433", 
+    "content-length": "441", 
     "x-xss-protection": "0", 
     "content-location": "https://appengine.googleapis.com/v1/apps/cloud-custodian?alt=json",
     "x-content-type-options": "nosniff", 
@@ -24,7 +24,7 @@
     "server": "ESF", 
     "-content-encoding": "gzip", 
     "cache-control": "private", 
-    "date": "Fri, 12 Jul 2019 14:54:37 GMT", 
+    "date": "Fri, 09 Aug 2019 15:04:55 GMT", 
     "x-frame-options": "SAMEORIGIN", 
     "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
     "content-type": "application/json; charset=UTF-8"

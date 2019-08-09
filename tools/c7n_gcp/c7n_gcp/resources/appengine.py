@@ -43,70 +43,14 @@ class AppEngineApp(QueryResourceManager):
         return {'appsId': local_session(self.session_factory).get_default_project()}
 
 
-class AppEnginePatchServingStatusAction(MethodAction):
-    """
-    `Patches <https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps/patch>`_
-    the 'Serving' setting. Is supposed to be extended to call `_get_resource_params`
-    from the original `get_resource_params` method with the `serving` flag provided
-    which sets 'servingStatus' either to 'SERVING' or 'USER_DISABLED'.
-
-    Apart from that, `schema` is also expected to be specified in subclasses.
-    """
-    method_spec = {'op': 'patch'}
-
-    def _get_resource_params(self, r, serving):
-        serving_status = 'SERVING' if serving else 'USER_DISABLED'
-        return {'appsId': r['id'],
-                'body': {'servingStatus': serving_status},
-                'updateMask': 'serving_status'}
-
-
-@AppEngineApp.action_registry.register('start')
-class AppEngineStart(AppEnginePatchServingStatusAction):
-    """
-    Starts App Engine by extending `AppEnginePatchServingStatusAction`
-
-    .. code-block:: yaml
-
-        policies:
-          - name: gcp-app-engine-start
-            resource: gcp.app-engine
-            actions:
-              - type: start
-    """
-    schema = type_schema('start')
-
-    def get_resource_params(self, m, r):
-        return AppEnginePatchServingStatusAction._get_resource_params(self, r, True)
-
-
-@AppEngineApp.action_registry.register('stop')
-class AppEngineStop(AppEnginePatchServingStatusAction):
-    """
-    Stops App Engine by extending `AppEnginePatchServingStatusAction`
-
-    .. code-block:: yaml
-
-        policies:
-          - name: gcp-app-engine-stop
-            resource: gcp.app-engine
-            actions:
-              - type: stop
-    """
-    schema = type_schema('stop')
-
-    def get_resource_params(self, m, r):
-        return AppEnginePatchServingStatusAction._get_resource_params(self, r, False)
-
-
 @AppEngineApp.action_registry.register('set')
-class AppEnginePatchSettings(MethodAction):
+class AppEngineSet(MethodAction):
     """
     `Patches <https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps/patch>`_
-    the 'Split health checks' and 'Use Container-Optimized OS' settings.
+    App settings.
 
-    If a setting is disabled, the key is removed from the resource rather than
-    being marked as `false`.
+    If 'Split health checks' or 'Use Container-Optimized OS' is disabled, the key is removed from
+    the resource rather than being marked as `false`.
 
     The 'split-health-check' flag controls if split health checks ('readinessCheck'
     and 'livenessCheck' at an app.yaml level) should be used instead of the legacy
@@ -118,6 +62,11 @@ class AppEnginePatchSettings(MethodAction):
     <https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.operations/list>`_
     will fail although the policy will show no errors.
 
+    The 'serving-status' flag sets 'servingStatus' either to 'SERVING' or 'USER_DISABLED'.
+
+    In case any additional settings are needed to be included, please note how the 'updateMask'
+    property is formed.
+
     .. code-block:: yaml
 
         policies:
@@ -127,25 +76,47 @@ class AppEnginePatchSettings(MethodAction):
               - type: set
                 split-health-checks: true
                 use-container-optimized-os: true
+                serving-status: true
     """
     schema = type_schema('set',
                          **{
                              'additionalProperties': False,
+                             'minProperties': 1,
                              'split-health-checks': {'type': 'boolean'},
-                             'use-container-optimized-os': {'type': 'boolean'}
+                             'use-container-optimized-os': {'type': 'boolean'},
+                             'serving-status': {'type': 'boolean'}
                          })
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, m, r):
-        params = {'appsId': r['id'],
-                  'body': {'featureSettings': {}},
-                  'updateMask': 'featureSettings'}
-        feature_settings = params['body']['featureSettings']
+        params = {'appsId': r['id'], 'body': {}}
+        body = params['body']
+        if 'split-health-checks' in self.data or 'use-container-optimized-os' in self.data:
+            body['featureSettings'] = {}
         if 'split-health-checks' in self.data:
-            feature_settings['splitHealthChecks'] = self.data['split-health-checks']
+            body['featureSettings']['splitHealthChecks'] = self.data['split-health-checks']
+            self.extend_update_mask(params, 'feature_settings.split_health_checks')
         if 'use-container-optimized-os' in self.data:
-            feature_settings['useContainerOptimizedOs'] = self.data['use-container-optimized-os']
+            body['featureSettings']['useContainerOptimizedOs'] = self.data[
+                'use-container-optimized-os']
+            self.extend_update_mask(params, 'feature_settings.use_container_optimized_os')
+        if 'serving-status' in self.data:
+            body['servingStatus'] = ('SERVING' if self.data['serving-status']
+                                     else 'USER_DISABLED')
+            self.extend_update_mask(params, 'serving_status')
         return params
+
+    def extend_update_mask(self, params, field_to_extend_with):
+        """
+        If the 'updateMask' key exists in `params`, concatenates the existing value at to the
+        provided `field_to_extend_with` and updates the value at the key, otherwise simply writes
+        `field_to_extend_with`.
+
+        :param params: a dictionary to update 'updateMask' in
+        :param field_to_extend_with: a value to concatenate or use as is
+        """
+        params['updateMask'] = (params['updateMask'] + ',' + field_to_extend_with
+                                if 'updateMask' in params else field_to_extend_with)
 
 
 @resources.register('app-engine-certificate')
