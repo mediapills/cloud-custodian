@@ -24,7 +24,7 @@ These policies update the IAM policy for spanner instances (`add-bindings`) and 
         actions:
           - type: set-iam-policy
             remove-bindings:
-              - members: \*
+              - members: '*'
                 role: roles/owner
               - members:
                   - user:user3@gmail.com
