@@ -13,7 +13,7 @@ This policy disables all service accounts that contain blacklisted words.
         filters:
           - type: value
             key: displayName
-            op: in
+            op: not-in
             value: [accounting, privacy, confidential]
         actions:
           - type: disable

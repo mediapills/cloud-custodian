@@ -22,6 +22,7 @@ from c7n_gcp.query import QueryResourceManager, TypeInfo
 class ProjectRole(QueryResourceManager):
     """ GCP resource is https://cloud.google.com/iam/reference/rest/v1/projects.roles
     """
+
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
@@ -121,6 +122,7 @@ class ProjectRoleSet(MethodAction):
 class ServiceAccount(QueryResourceManager):
     """ GCP resource is https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts
     """
+
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
@@ -145,9 +147,6 @@ class ServiceAccountDelete(MethodAction):
     """`Deletes <https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/delete>`_
     IAM projects.serviceAccounts. The action does not specify additional parameters.
 
-    Note that a dot is not escaped in the example below only in order to comply with PEP 8, feel
-    free to use a backward slash in actual YAML policies.
-
     :Example:
 
     .. code-block:: yaml
@@ -159,10 +158,11 @@ class ServiceAccountDelete(MethodAction):
               - type: value
                 key: email
                 op: regex
-                value: ^special[a-zA-Z0-9_]+@cloudcustodian.io$
+                value: ^special[a-zA-Z0-9_]+@cloudcustodian\.io$ # noqa: W605
             actions:
               - type: delete
     """
+
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
 
@@ -185,7 +185,7 @@ class ServiceAccountDisable(MethodAction):
             filters:
               - type: value
                 key: displayName
-                op: in
+                op: not-in
                 value: [accounting, privacy, confidential]
             actions:
               - type: disable
@@ -278,6 +278,7 @@ class ServiceAccountSet(MethodAction):
 class Role(QueryResourceManager):
     """ GCP resource is https://cloud.google.com/iam/reference/rest/v1/roles
     """
+
     class resource_type(TypeInfo):
         service = 'iam'
         version = 'v1'
