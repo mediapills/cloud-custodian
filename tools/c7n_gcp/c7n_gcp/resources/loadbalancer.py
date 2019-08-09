@@ -320,15 +320,15 @@ class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
                 security-policy: security-policy-1
     """
 
-    schema = type_schema('set-security-policy', required=['securityPolicy'],
-                         **{'securityPolicy': {'type': 'string'}})
+    schema = type_schema('set-security-policy', required=['security-policy'],
+                         **{'security-policy': {'type': 'string'}})
     method_spec = {'op': 'setSecurityPolicy'}
 
     policy_template = '/projects/{}/global/securityPolicies/{}'
 
     def get_resource_params(self, model, resource):
         project = local_session(self.manager.source.query.session_factory).get_default_project()
-        security_policy = self.policy_template.format(project, self.data['securityPolicy'])
+        security_policy = self.policy_template.format(project, self.data['security-policy'])
         return {
             'project': project,
             'backendService': resource['name'],

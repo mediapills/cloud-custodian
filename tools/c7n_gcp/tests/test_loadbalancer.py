@@ -408,20 +408,19 @@ class LoadBalancingBackendServiceTest(BaseTest):
 
     def test_loadbalancer_backend_service_set_security_policy(self):
         project_id = 'custodian-test-project-0'
+        location = 'global'
         session_factory = self.replay_flight_data('lb-backend-service-set-security-policy',
                                                   project_id=project_id)
-        base_policy = {'name': 'lb-backend-service-set-security-policy',
-                       'resource': 'gcp.loadbalancer-backend-service'}
 
         policy = self.load_policy(
-            dict(base_policy,
-                 filters=[{'type': 'value',
-                           'key': 'securityPolicy',
-                           'op': 'contains',
-                           'value': 'security-policy-0'}],
-                 actions=[{'type': 'set-security-policy',
-                           'securityPolicy': 'security-policy-1'}]
-                 ),
+            {'name': 'lb-backend-service-set-security-policy',
+             'resource': 'gcp.loadbalancer-backend-service',
+             'filters': [{'type': 'value',
+                          'key': 'securityPolicy',
+                          'op': 'contains',
+                          'value': 'security-policy-0'}],
+             'actions': [{'type': 'set-security-policy',
+                          'security-policy': 'security-policy-1'}]},
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(1, len(resources))
@@ -431,11 +430,12 @@ class LoadBalancingBackendServiceTest(BaseTest):
         if self.recording:
             sleep(3)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(1, len(resources))
-        self.assertEqual('custodian-backend-service-0', resources[0]['name'])
-        self.assertIn('security-policy-1', resources[0]['securityPolicy'])
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'aggregatedList', {'project': project_id})['items'][location]['backendServices']
+        self.assertEqual(1, len(result))
+        self.assertEqual('custodian-backend-service-0', result[0]['name'])
+        self.assertIn('security-policy-1', result[0]['securityPolicy'])
 
     def test_loadbalancer_backend_service_update_protocol(self):
         project_id = 'custodian-test-project-0'
