@@ -1,7 +1,7 @@
 Load Balancer - Update HTTP/HTTPs health checks
 ================================================
 
-The policies allow to update HTTP and HTTPs health checks for different environments.
+The policies below updates HTTP and HTTPs health checks for VMs of production environment.
 
 .. code-block:: yaml
 
@@ -12,11 +12,11 @@ The policies allow to update HTTP and HTTPs health checks for different environm
           - type: value
             key: host
             op: contains
-            value: -dev
+            value: -prod-
         actions:
           - type: set
             healthyThreshold: 2,
-            host: cloudcustodian.com
+            host: cloudcustodian.io
             requestPath: /test
             port: 8080
             checkIntervalSec: 10
@@ -28,11 +28,11 @@ The policies allow to update HTTP and HTTPs health checks for different environm
           - type: value
             key: host
             op: contains
-            value: -qa
+            value: -prod-
         actions:
           - type: set
             healthyThreshold: 1,
-            host: cloudcustodian.com
+            host: cloudcustodian.io
             requestPath: /test
             port: 8081
             checkIntervalSec: 5
