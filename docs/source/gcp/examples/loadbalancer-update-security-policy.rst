@@ -1,7 +1,7 @@
 Load Balancer - Set Security Policy
 ====================================
 
-The example allows to update security policy for appropriate backend services.
+This sample policy updates security policy for backend services that match its filter.
 
 .. code-block:: yaml
 
