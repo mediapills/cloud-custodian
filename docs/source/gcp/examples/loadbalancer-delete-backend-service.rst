@@ -1,7 +1,7 @@
 Load Balancer - Delete Backend Services without Backend
 =======================================================
 
-The example allows to delete backend services that don't have backends.
+This sample policy deletes backend services that don't have backends.
 
 .. code-block:: yaml
 
