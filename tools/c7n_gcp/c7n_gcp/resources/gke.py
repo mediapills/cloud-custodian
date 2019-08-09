@@ -23,7 +23,7 @@ from c7n_gcp.actions import MethodAction
 @resources.register('gke-cluster')
 class GKECluster(QueryResourceManager):
     """GCP resource:
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.zones.clusters
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters
     """
 
     class resource_type(TypeInfo):
@@ -174,7 +174,13 @@ class GKEClusterUpdate(MethodAction):
             'nodeversion': {
                 'type': 'string'
             },
-            'monitoring-service': {
+            'monitoring': {
+                'type': 'string'
+            },
+            'logging': {
+                'type': 'string'
+            },
+            'image-type': {
                 'type': 'string'
             }
         }
@@ -194,8 +200,14 @@ class GKEClusterUpdate(MethodAction):
         if 'nodeversion' in self.data:
             params['desiredMasterVersion'] = self.data['nodeversion']
 
-        if 'monitoring-service' in self.data:
-            params['desiredMonitoringService'] = self.data['monitoring-service']
+        if 'monitoring' in self.data:
+            params['desiredMonitoringService'] = self.data['monitoring']
+
+        if 'logging' in self.data:
+            params['desiredLoggingService'] = self.data['logging']
+
+        if 'image-type' in self.data:
+            params['desiredImageType'] = self.data['image-type']
 
         return {
             'name': name,
@@ -208,7 +220,7 @@ class GKEClusterUpdate(MethodAction):
 class GKEClusterNodePool(ChildResourceManager):
     """GCP resource:
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.zones.clusters.nodePools
+    /projects.locations.clusters.nodePools
     """
 
     def _get_parent_resource_info(self, child_instance):
@@ -259,7 +271,7 @@ class GKEClusterNodePool(ChildResourceManager):
 
 @GKEClusterNodePool.action_registry.register('set-autoscaling')
 class GKEClusterNodePoolSetAutoscaling(MethodAction):
-    """The action is used for GKE projects.zones.clusters.nodePools autoscaling setup.
+    """The action is used for GKE projects.locations.clusters.nodePools autoscaling setup.
 
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
@@ -328,11 +340,11 @@ class GKEClusterNodePoolSetAutoscaling(MethodAction):
 
 @GKEClusterNodePool.action_registry.register('set-size')
 class GKEClusterNodePoolSetSize(MethodAction):
-    """The action is used for GKE projects.zones.clusters.nodePools size setup.
+    """The action is used for GKE projects.locations.clusters.nodePools size setup.
 
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.zones.clusters.nodePools/setSize
+    /projects.locations.clusters.nodePools/setSize
 
     :Example:
 
@@ -382,11 +394,11 @@ class GKEClusterNodePoolSetSize(MethodAction):
 
 @GKEClusterNodePool.action_registry.register('set-management')
 class GKEClusterNodePoolSetManagement(MethodAction):
-    """The action is used for GKE projects.zones.clusters.nodePools management setup.
+    """The action is used for GKE projects.locations.clusters.nodePools management setup.
 
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.zones.clusters.nodePools/setManagement
+    /projects.locations.clusters.nodePools/setManagement
 
     :Example:
 
