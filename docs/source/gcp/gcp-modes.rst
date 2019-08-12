@@ -18,7 +18,7 @@ Custodian can run in numerous modes depending with the default being pull mode.
 - gcp-audit:
     Runs in GCP Functions triggered by Audit logs. This allows
     you to apply your policies as soon as events occur. Audit logs creates an event for every
-    api call that occurs in your aws account. See `GCP Audit Logs <https://cloud.google.com/logging/docs/audit/>`_
+    api call that occurs in your GCP account. See `GCP Audit Logs <https://cloud.google.com/logging/docs/audit/>`_
     for more details.
 
   .. c7n-schema:: mode.gcp-audit
