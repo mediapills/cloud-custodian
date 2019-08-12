@@ -67,10 +67,9 @@ class GKEClusterTest(BaseTest):
              }],
              'actions': [{
                  'type': 'set-resource-labels',
-                 'labels': [{
-                     'key': 'nodes',
-                     'value': 'minimal'
-                 }]
+                 'labels': {
+                     'nodes': 'minimal'
+                 }
              }]},
             session_factory=factory)
 
@@ -145,8 +144,8 @@ class KubernetesClusterNodePoolTest(BaseTest):
 
     def test_gke_cluster_node_pools_get(self):
 
-        project_id = 'cloud-custodian'
-        name = 'pool-1'
+        project_id = 'second-impact-244209'
+        name = 'default-pool'
 
         factory = self.replay_flight_data('gke-cluster-nodepool-get', project_id)
 

@@ -105,8 +105,7 @@ class GKEClusterSetResourceLabels(MethodAction):
             actions:
               - type: set-resource-labels
                 labels:
-                  - key: nodes
-                    value: minimal
+                  nodes: minimal
     """
 
     schema = type_schema(
@@ -114,14 +113,7 @@ class GKEClusterSetResourceLabels(MethodAction):
         required=['labels'],
         **{
             'labels': {
-                'type': 'array',
-                'items': {
-                    'type': 'object',
-                    'properties': {
-                        'key': {'type': 'string'},
-                        'value': {'type': 'string'}
-                    }
-                }
+                'type': 'object'
             }
         }
     )
@@ -138,9 +130,7 @@ class GKEClusterSetResourceLabels(MethodAction):
         return {
             'name': name,
             'body': {
-                'resourceLabels': {
-                    label['key']: label['value'] for label in self.data['labels']
-                }
+                'resourceLabels': self.data['labels']
             }}
 
 
@@ -208,7 +198,7 @@ class GKEClusterUpdate(MethodAction):
 class GKEClusterNodePool(ChildResourceManager):
     """GCP resource:
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.zones.clusters.nodePools
+    /projects.locations.clusters.nodePools
     """
 
     def _get_parent_resource_info(self, child_instance):

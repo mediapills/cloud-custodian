@@ -19,5 +19,4 @@ In the example below, the policy marks clusters of 3 nodes with "nodes:minimal" 
         actions:
           - type: set-resource-labels
             labels:
-              - key: nodes
-                value: minimal
+              nodes: minimal
