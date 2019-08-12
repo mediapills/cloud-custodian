@@ -1,0 +1,210 @@
+{
+  "body": {
+    "bindings": [
+      {
+        "role": "projects/cloud-custodian-190204/roles/CustomRole", 
+        "members": [
+          "serviceAccount:custodian-four@cloud-custodian-190204.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/automl.admin", 
+        "members": [
+          "user:alex.karpitski@gmail.com"
+        ]
+      }, 
+      {
+        "role": "roles/automl.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@gcp-sa-automl.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/bigquerydatatransfer.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@gcp-sa-bigquerydatatransfer.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/billing.projectManager", 
+        "members": [
+          "serviceAccount:cloud-custodian-190204@appspot.gserviceaccount.com", 
+          "serviceAccount:custodian-five@cloud-custodian-190204.iam.gserviceaccount.com", 
+          "serviceAccount:custodian-four@cloud-custodian-190204.iam.gserviceaccount.com", 
+          "serviceAccount:custodian@cloud-custodian-190204.iam.gserviceaccount.com", 
+          "user:alex.karpitski@gmail.com"
+        ]
+      }, 
+      {
+        "role": "roles/cloudbuild.builds.builder", 
+        "members": [
+          "serviceAccount:62100636004@cloudbuild.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/cloudbuild.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@gcp-sa-cloudbuild.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/cloudfunctions.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@gcf-admin-robot.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/cloudiot.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@gcp-sa-cloudiot.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/cloudtasks.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@gcp-sa-cloudtasks.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/composer.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@cloudcomposer-accounts.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/compute.admin", 
+        "members": [
+          "serviceAccount:custodian-six@cloud-custodian-190204.iam.gserviceaccount.com", 
+          "serviceAccount:terraform@cloud-custodian-190204.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/compute.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@compute-system.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/container.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@container-engine-robot.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/dataflow.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@dataflow-service-producer-prod.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/editor", 
+        "members": [
+          "serviceAccount:62100636004-compute@developer.gserviceaccount.com", 
+          "serviceAccount:62100636004@cloudservices.gserviceaccount.com", 
+          "serviceAccount:service-62100636004@containerregistry.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/firebaserules.system", 
+        "members": [
+          "serviceAccount:service-62100636004@firebase-rules.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/logging.admin", 
+        "members": [
+          "serviceAccount:custodian-four@cloud-custodian-190204.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/managedidentities.admin", 
+        "members": [
+          "serviceAccount:custodian-five@cloud-custodian-190204.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/managedidentities.domainAdmin", 
+        "members": [
+          "serviceAccount:custodian-five@cloud-custodian-190204.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/ml.admin", 
+        "members": [
+          "serviceAccount:custom-vision@appspot.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/owner", 
+        "members": [
+          "serviceAccount:cloud-custodian-190204@appspot.gserviceaccount.com", 
+          "serviceAccount:custodian-five@cloud-custodian-190204.iam.gserviceaccount.com", 
+          "serviceAccount:custodian@cloud-custodian-190204.iam.gserviceaccount.com", 
+          "user:alex.karpitski@gmail.com"
+        ]
+      }, 
+      {
+        "role": "roles/pubsub.publisher", 
+        "members": [
+          "serviceAccount:eshaliov-custodian-1@custodian-test-project-0.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/servicenetworking.serviceAgent", 
+        "members": [
+          "serviceAccount:service-62100636004@service-networking.iam.gserviceaccount.com"
+        ]
+      }, 
+      {
+        "role": "roles/serviceusage.serviceUsageAdmin", 
+        "members": [
+          "serviceAccount:cloud-custodian-190204@appspot.gserviceaccount.com", 
+          "serviceAccount:custodian-five@cloud-custodian-190204.iam.gserviceaccount.com", 
+          "serviceAccount:custodian@cloud-custodian-190204.iam.gserviceaccount.com", 
+          "serviceAccount:custom-vision@appspot.gserviceaccount.com", 
+          "user:alex.karpitski@gmail.com"
+        ]
+      }, 
+      {
+        "role": "roles/storage.admin", 
+        "members": [
+          "serviceAccount:custom-vision@appspot.gserviceaccount.com"
+        ]
+      }
+    ], 
+    "version": 1, 
+    "etag": "BwWORMW7ghE=", 
+    "auditConfigs": [
+      {
+        "auditLogConfigs": [
+          {
+            "logType": "ADMIN_READ"
+          }, 
+          {
+            "logType": "DATA_READ"
+          }, 
+          {
+            "logType": "DATA_WRITE"
+          }
+        ], 
+        "service": "cloudtasks.googleapis.com"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "5720", 
+    "x-xss-protection": "0", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "server-timing": "gfet4t7; dur=239", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 12 Aug 2019 13:23:32 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

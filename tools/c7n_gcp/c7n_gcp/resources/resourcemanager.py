@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from c7n_gcp.actions import SetIamPolicy
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
@@ -58,3 +59,12 @@ class Project(QueryResourceManager):
         scope = 'global'
         enum_spec = ('list', 'projects', None)
         id = "projectId"
+
+
+@Project.action_registry.register('set-iam-policy')
+class ProjectSetIamPolicy(SetIamPolicy):
+
+    def _verb_arguments(self, resource):
+        verb_arguments = SetIamPolicy._verb_arguments(self, resource)
+        verb_arguments['body'] = {}
+        return verb_arguments
