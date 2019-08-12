@@ -75,7 +75,7 @@ class PubSubTopicTest(BaseTest):
                 'get', {'topic': resource_name})
             self.fail('found deleted resource: %s' % result)
         except HttpError as e:
-            self.assertTrue("Resource not found" in str(e))
+            self.assertIn("Resource not found", str(e))
 
 
 class PubSubSubscriptionTest(BaseTest):
@@ -141,7 +141,7 @@ class PubSubSubscriptionTest(BaseTest):
                 'get', {'subscription': resource_name})
             self.fail('found deleted resource: %s' % result)
         except HttpError as e:
-            self.assertTrue("Resource not found" in str(e))
+            self.assertIn("Resource not found", str(e))
 
     def test_pubsub_subscription_set(self):
         project_id = 'cloud-custodian'
@@ -220,4 +220,4 @@ class PubSubSnapshotTest(BaseTest):
 
         client = policy.resource_manager.get_client()
         resources = client.execute_query('list', {'project': 'projects/%s' % project_id})
-        self.assertTrue('snapshots' not in resources, True)
+        self.assertNotIn('snapshots', resources)

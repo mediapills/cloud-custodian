@@ -57,7 +57,8 @@ class PubSubTopicDelete(MethodAction):
             filters:
               - type: value
                 key: name
-                value: projects/cloud-custodian/topics/topic-to-delete
+                op: regex
+                value: projects/cloud-custodian/topics/custodian-auto-audit-.*
             actions:
               - type: delete
     """
@@ -93,6 +94,11 @@ class PubSubSubscriptionDelete(MethodAction):
     `_ a Pub/Sub Subscription. The action does not specify any parameters.
 
     .. code-block:: yaml
+        vars:
+          subscriptions-to-keep: &subscriptions-to-keep
+            - projects/cloud-custodian/subscriptions/subscription-to-keep-1
+            - projects/cloud-custodian/subscriptions/subscription-to-keep-2
+            - projects/cloud-custodian/subscriptions/subscription-to-keep-3
 
         policies:
           - name: gcp-pubsub-subscription-delete
@@ -100,7 +106,8 @@ class PubSubSubscriptionDelete(MethodAction):
             filters:
               - type: value
                 key: name
-                value: projects/cloud-custodian/subscriptions/subscription-to-delete
+                op: not-in
+                value: *subscriptions-to-keep
             actions:
               - type: delete
     """
@@ -130,6 +137,10 @@ class PubSubSubscriptionSet(MethodAction):
     represented by 'retention_duration_cannot_exceed_ttl_message' is raised (which mirrors the API).
 
     .. code-block:: yaml
+        vars:
+          subscriptions-to-update: &subscriptions-to-update
+            - projects/cloud-custodian/subscriptions/subscription-to-update-1
+            - projects/cloud-custodian/subscriptions/subscription-to-update-2
 
         policies:
           - name: gcp-pubsub-subscription-set
@@ -137,7 +148,8 @@ class PubSubSubscriptionSet(MethodAction):
             filters:
               - type: value
                 key: name
-                value: projects/cloud-custodian/subscriptions/subscription-to-update
+                op: in
+                value: *subscriptions-to-update
             actions:
               - type: set
                 expiration-policy-ttl:
@@ -224,8 +236,8 @@ class PubSubSubscriptionSet(MethodAction):
             return int(timedelta(days=days).total_seconds()) if days > 0 else 0
         else:
             expiration_policy = r['expirationPolicy']
-            return int(re.match('(.+)s', expiration_policy['ttl'])
-                       .group(1)) if 'ttl' in expiration_policy else 0
+            return int(re.sub('\\D+', '',
+                              expiration_policy['ttl'])) if 'ttl' in expiration_policy else 0
 
     def _get_message_retention_duration_seconds(self, r):
         """
@@ -249,7 +261,7 @@ class PubSubSubscriptionSet(MethodAction):
                 raise ValueError(self.retention_duration_out_of_bounds_message % duration_seconds)
             return duration_seconds
         else:
-            return int(re.match('(.+)s', r['messageRetentionDuration']).group(1))
+            return int(re.sub('\\D+', '', r['messageRetentionDuration']))
 
 
 @resources.register('pubsub-snapshot')
