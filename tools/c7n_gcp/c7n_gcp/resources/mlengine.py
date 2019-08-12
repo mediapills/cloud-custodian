@@ -15,7 +15,7 @@ import jmespath
 
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
-from c7n_gcp.actions import MethodAction
+from c7n_gcp.actions import MethodAction, SetIamPolicy
 from c7n.utils import type_schema, local_session
 
 
@@ -124,6 +124,9 @@ class MLModelDelete(MethodAction):
 
     def get_resource_params(self, model, resource):
         return {'name': resource['name']}
+
+
+MLModel.action_registry.register('set-iam-policy', SetIamPolicy)
 
 
 @resources.register('ml-job')
