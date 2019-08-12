@@ -247,6 +247,47 @@ class ServiceAccountTest(BaseTest):
 
         self.assertEqual(result['accounts'][0]['description'], 'test-name')
 
+    def test_service_account_set_iam_policy(self):
+        project_id = 'cloud-custodian'
+        name = ('projects/cloud-custodian/serviceAccounts'
+                '/acc@cloud-custodian.iam.gserviceaccount.com')
+        session_factory = self.replay_flight_data('iam-project-service-account-set-iam-policy',
+                                                  project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-service-account-set-iam-policy',
+             'resource': 'gcp.service-account',
+             'filters': [{
+                 'type': 'value',
+                 'key': 'name',
+                 'value': name
+             }],
+             'actions': [{'type': 'set-iam-policy',
+                          'add-bindings':
+                              [{'members': ['user:alex.karpitski@gmail.com'],
+                                'role': 'projects/cloud-custodian/roles/CustomRole'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': [
+                             'serviceAccount:acc@cloud-custodian.iam.gserviceaccount.com'],
+                           'role': 'projects/cloud-custodian/roles/CustomRole'}])
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], name)
+
+        if self.recording:
+            sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['serviceAccount:acc@cloud-custodian.iam.gserviceaccount.com',
+                                       'user:alex.karpitski@gmail.com'],
+                           'role': 'projects/cloud-custodian/roles/CustomRole'}])
+
 
 class IAMRoleTest(BaseTest):
 
