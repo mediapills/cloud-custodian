@@ -19,5 +19,4 @@ In the example below, Custodian sets "age" label of "obsolete" value for any ML 
         actions:
           - type: set
             labels:
-              - key: age
-                value: obsolete
+              age: obsolete

@@ -64,8 +64,7 @@ class MLModelSet(MethodAction):
               - type: set
                 description: Custom description
                 labels:
-                  - key: type
-                    value: new
+                  type: new
     """
 
     schema = type_schema(
@@ -75,14 +74,7 @@ class MLModelSet(MethodAction):
                 'type': 'string'
             },
             'labels': {
-                'type': 'array',
-                'items': {
-                    'type': 'object',
-                    'properties': {
-                        'key': {'type': 'string'},
-                        'value': {'type': 'string'}
-                    }
-                }
+                'type': 'object'
             }
         }
     )
@@ -94,9 +86,7 @@ class MLModelSet(MethodAction):
         if 'description' in self.data:
             body['description'] = self.data['description']
         if 'labels' in self.data:
-            body['labels'] = {
-                k: v for k, v in self.data['labels']
-            }
+            body['labels'] = self.data['labels']
 
         return {
             'name': resource['name'],
@@ -177,22 +167,14 @@ class MLJobSet(MethodAction):
             actions:
               - type: set
                 labels:
-                  - key: type
-                    value: new
+                  type: new
     """
 
     schema = type_schema(
         'set',
         **{
             'labels': {
-                'type': 'array',
-                'items': {
-                    'type': 'object',
-                    'properties': {
-                        'key': {'type': 'string'},
-                        'value': {'type': 'string'}
-                    }
-                }
+                'type': 'object'
             }
         }
     )
@@ -207,9 +189,7 @@ class MLJobSet(MethodAction):
 
         body = {}
         if 'labels' in self.data:
-            body['labels'] = {
-                k: v for k, v in self.data['labels']
-            }
+            body['labels'] = self.data['labels']
 
         return {
             'name': name,

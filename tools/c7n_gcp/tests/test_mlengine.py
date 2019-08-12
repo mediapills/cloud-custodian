@@ -161,10 +161,9 @@ class MLJobTest(BaseTest):
             dict(base_policy,
                  actions=[{
                      'type': 'set',
-                     'labels': [{
-                         'key': 'version',
-                         'value': 'current'
-                     }]
+                     'labels': {
+                         'version': 'current'
+                     }
                  }]),
             session_factory=factory)
 
