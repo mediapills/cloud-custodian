@@ -1,7 +1,9 @@
-Cloud Billing Accounts - Set IAM Policies
+Billing Accounts - Set IAM Policies
 =========================================
 
-The policy updates the IAM policy for Billing Accounts.
+Custodian can ensure that your billing accounts have an approved and controlled set of permissions.
+
+This sample policy updates the IAM policy for the specified billing account.
 
 .. code-block:: yaml
 
