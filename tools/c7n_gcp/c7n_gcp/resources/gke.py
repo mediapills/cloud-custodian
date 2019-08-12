@@ -164,7 +164,13 @@ class GKEClusterUpdate(MethodAction):
             'nodeversion': {
                 'type': 'string'
             },
-            'monitoring-service': {
+            'monitoring': {
+                'type': 'string'
+            },
+            'logging': {
+                'type': 'string'
+            },
+            'image-type': {
                 'type': 'string'
             }
         }
@@ -184,8 +190,14 @@ class GKEClusterUpdate(MethodAction):
         if 'nodeversion' in self.data:
             params['desiredMasterVersion'] = self.data['nodeversion']
 
-        if 'monitoring-service' in self.data:
-            params['desiredMonitoringService'] = self.data['monitoring-service']
+        if 'monitoring' in self.data:
+            params['desiredMonitoringService'] = self.data['monitoring']
+
+        if 'logging' in self.data:
+            params['desiredLoggingService'] = self.data['logging']
+
+        if 'image-type' in self.data:
+            params['desiredImageType'] = self.data['image-type']
 
         return {
             'name': name,
@@ -321,8 +333,8 @@ class GKEClusterNodePoolSetSize(MethodAction):
     """The action is used for GKE projects.locations.clusters.nodePools size setup.
 
     GCP action is
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/
-    projects.locations.clusters.nodePools/setSize
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
+    /projects.zones.clusters.nodePools/setSize
 
     :Example:
 
@@ -375,8 +387,8 @@ class GKEClusterNodePoolSetManagement(MethodAction):
     """The action is used for GKE projects.locations.clusters.nodePools management setup.
 
     GCP action is
-    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/
-    projects.locations.clusters.nodePools/setManagement
+    https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
+    /projects.zones.clusters.nodePools/setManagement
 
     :Example:
 
