@@ -137,6 +137,7 @@ class PubSubSubscriptionSet(MethodAction):
     represented by 'retention_duration_cannot_exceed_ttl_message' is raised (which mirrors the API).
 
     .. code-block:: yaml
+    
         vars:
           subscriptions-to-update: &subscriptions-to-update
             - projects/cloud-custodian/subscriptions/subscription-to-update-1
