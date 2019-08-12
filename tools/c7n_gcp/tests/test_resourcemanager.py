@@ -13,6 +13,8 @@
 # limitations under the License.
 import logging
 
+import time
+
 from gcp_common import BaseTest
 from mock import mock
 
@@ -89,3 +91,51 @@ class FolderTest(BaseTest):
         resources = policy.run()
         self.assertEqual(resources[0]['name'], resource_name)
         self.assertEqual(resources[0]['parent'], parent)
+
+
+class ProjectTest(BaseTest):
+
+    def test_project_set_iam_policy(self):
+        resource_full_name = 'cloud-custodian'
+        get_iam_policy_params = {'resource': resource_full_name, 'body': {}}
+        session_factory = self.replay_flight_data(
+            'project-set-iam-policy')
+
+        policy = self.load_policy(
+            {'name': 'gcp-project-set-iam-policy',
+             'resource': 'gcp.project',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_full_name}],
+             'actions': [{'type': 'set-iam-policy',
+                          'add-bindings':
+                              [{'members': ['user:mediapills@gmail.com'],
+                                'role': 'roles/automl.admin'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:alex.karpitski@gmail.com'],
+                           'role': 'roles/automl.admin'},
+                          {'members': ['user:alex.karpitski@gmail.com'],
+                           'role': 'roles/billing.projectManager'},
+                          {'members': ['user:alex.karpitski@gmail.com'],
+                           'role': 'roles/owner'}])
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], resource_full_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:alex.karpitski@gmail.com',
+                                       'user:mediapills@gmail.com'],
+                           'role': 'roles/automl.admin'},
+                          {'members': ['user:alex.karpitski@gmail.com'],
+                           'role': 'roles/billing.projectManager'},
+                          {'members': ['user:alex.karpitski@gmail.com'],
+                           'role': 'roles/owner'}])
