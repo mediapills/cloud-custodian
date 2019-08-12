@@ -1,0 +1,42 @@
+{
+  "body": {
+    "totalSize": 1, 
+    "cryptoKeys": [
+      {
+        "name": "projects/cloud-custodian-190204/locations/global/keyRings/new-key-ring/cryptoKeys/new-key", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/global/keyRings/new-key-ring/cryptoKeys/new-key/cryptoKeyVersions/1", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE", 
+          "state": "DISABLED", 
+          "generateTime": "2019-07-24T09:52:09.088508398Z", 
+          "createTime": "2019-07-24T09:52:09.088508398Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-07-24T09:52:09.088508398Z", 
+        "nextRotationTime": "2019-10-21T21:00:00Z"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "854", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudkms.googleapis.com/v1/projects/cloud-custodian-190204/locations/global/keyRings/new-key-ring/cryptoKeys?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 12 Aug 2019 13:47:49 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

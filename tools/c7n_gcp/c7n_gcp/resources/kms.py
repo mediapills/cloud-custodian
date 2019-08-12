@@ -16,6 +16,7 @@ import re
 
 from c7n.utils import local_session
 from c7n_gcp.provider import resources
+from c7n_gcp.actions import SetIamPolicy
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo, \
     GcpLocation
 
@@ -100,6 +101,9 @@ class KmsCryptoKey(ChildResourceManager):
                         resource_info['key_ring_id'],
                         resource_info['crypto_key_id'])
             return client.execute_command('get', {'name': name})
+
+
+KmsCryptoKey.action_registry.register('set-iam-policy', SetIamPolicy)
 
 
 @resources.register('kms-cryptokey-version')

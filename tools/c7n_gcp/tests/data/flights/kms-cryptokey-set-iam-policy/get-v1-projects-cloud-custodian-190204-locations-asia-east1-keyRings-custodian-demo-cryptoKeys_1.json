@@ -1,0 +1,61 @@
+{
+  "body": {
+    "totalSize": 2, 
+    "cryptoKeys": [
+      {
+        "name": "projects/cloud-custodian-190204/locations/asia-east1/keyRings/custodian-demo/cryptoKeys/demo-crypto-key", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/asia-east1/keyRings/custodian-demo/cryptoKeys/demo-crypto-key/cryptoKeyVersions/2", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE", 
+          "state": "ENABLED", 
+          "generateTime": "2019-05-21T14:43:40.063399812Z", 
+          "createTime": "2019-05-21T14:43:40.063399812Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-05-21T14:12:46.586707266Z", 
+        "nextRotationTime": "2019-08-18T21:00:00Z"
+      }, 
+      {
+        "name": "projects/cloud-custodian-190204/locations/asia-east1/keyRings/custodian-demo/cryptoKeys/demo-crypto-key-2", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/asia-east1/keyRings/custodian-demo/cryptoKeys/demo-crypto-key-2/cryptoKeyVersions/2", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE", 
+          "state": "ENABLED", 
+          "generateTime": "2019-05-21T14:45:09.564996628Z", 
+          "createTime": "2019-05-21T14:45:09.564996628Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-05-21T14:14:38.694828543Z", 
+        "nextRotationTime": "2019-08-18T21:00:00Z"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "1723", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudkms.googleapis.com/v1/projects/cloud-custodian-190204/locations/asia-east1/keyRings/custodian-demo/cryptoKeys?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 12 Aug 2019 13:47:51 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

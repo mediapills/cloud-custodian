@@ -1,0 +1,116 @@
+{
+  "body": {
+    "totalSize": 5, 
+    "cryptoKeys": [
+      {
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/cloud-custodian", 
+        "createTime": "2019-04-22T14:38:20.559717266Z", 
+        "primary": {
+          "protectionLevel": "SOFTWARE", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "state": "DESTROYED", 
+          "destroyEventTime": "2019-07-25T12:15:37.123575Z", 
+          "generateTime": "2019-04-22T14:38:20.559717266Z", 
+          "createTime": "2019-04-22T14:38:20.559717266Z", 
+          "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/cloud-custodian/cryptoKeyVersions/1"
+        }
+      }, 
+      {
+        "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/cloud-custodian-3", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/cloud-custodian-3/cryptoKeyVersions/2", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE", 
+          "state": "ENABLED", 
+          "generateTime": "2019-07-21T21:00:00.101162095Z", 
+          "createTime": "2019-07-21T21:00:00.101162095Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-04-23T10:47:47.792067677Z", 
+        "nextRotationTime": "2019-10-19T21:00:00.101162Z"
+      }, 
+      {
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/cloud-custodian2", 
+        "createTime": "2019-04-23T10:45:51.396225943Z", 
+        "primary": {
+          "protectionLevel": "SOFTWARE", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "state": "DESTROYED", 
+          "destroyEventTime": "2019-04-24T10:47:22.243784Z", 
+          "generateTime": "2019-04-23T10:45:51.396225943Z", 
+          "createTime": "2019-04-23T10:45:51.396225943Z", 
+          "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/cloud-custodian2/cryptoKeyVersions/1"
+        }
+      }, 
+      {
+        "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/new-key-hsm-secure", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/new-key-hsm-secure/cryptoKeyVersions/1", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "HSM", 
+          "state": "ENABLED", 
+          "generateTime": "2019-07-24T12:14:28.552000340Z", 
+          "createTime": "2019-07-24T12:14:28.552000340Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "HSM"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-07-24T12:14:28.552000340Z", 
+        "nextRotationTime": "2019-10-21T21:00:00Z"
+      }, 
+      {
+        "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/new-key-sw-not-secure", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/new-key-sw-not-secure/cryptoKeyVersions/1", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE", 
+          "state": "ENABLED", 
+          "generateTime": "2019-07-24T12:14:03.386110549Z", 
+          "createTime": "2019-07-24T12:14:03.386110549Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-07-24T12:14:03.386110549Z", 
+        "nextRotationTime": "2019-10-21T21:00:00Z"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "4224", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudkms.googleapis.com/v1/projects/cloud-custodian-190204/locations/us-central1/keyRings/cloud-custodian/cryptoKeys?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 12 Aug 2019 13:47:57 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

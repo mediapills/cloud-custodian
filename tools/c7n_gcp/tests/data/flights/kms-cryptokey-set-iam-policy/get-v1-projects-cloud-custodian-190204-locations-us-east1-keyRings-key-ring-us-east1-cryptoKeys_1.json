@@ -1,0 +1,100 @@
+{
+  "body": {
+    "totalSize": 4, 
+    "cryptoKeys": [
+      {
+        "name": "projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys/key-hw", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys/key-hw/cryptoKeyVersions/1", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "HSM", 
+          "state": "ENABLED", 
+          "generateTime": "2019-07-24T10:10:05.328149196Z", 
+          "createTime": "2019-07-24T10:10:05.328149196Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "HSM"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-07-24T10:10:05.328149196Z", 
+        "nextRotationTime": "2019-10-21T21:00:00Z"
+      }, 
+      {
+        "name": "projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys/key-hw-2", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys/key-hw-2/cryptoKeyVersions/1", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "HSM", 
+          "state": "ENABLED", 
+          "generateTime": "2019-07-24T10:14:40.651746215Z", 
+          "createTime": "2019-07-24T10:14:40.651746215Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "HSM"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-07-24T10:14:40.651746215Z", 
+        "nextRotationTime": "2019-10-21T21:00:00Z"
+      }, 
+      {
+        "name": "projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys/key-sw", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "protectionLevel": "SOFTWARE", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "state": "DESTROYED", 
+          "destroyEventTime": "2019-07-25T10:10:28.720768Z", 
+          "generateTime": "2019-07-24T10:09:38.744374243Z", 
+          "createTime": "2019-07-24T10:09:38.744374243Z", 
+          "name": "projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys/key-sw/cryptoKeyVersions/1"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-07-24T10:09:38.744374243Z", 
+        "nextRotationTime": "2019-10-21T21:00:00Z"
+      }, 
+      {
+        "name": "projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys/key-sw-2", 
+        "rotationPeriod": "7776000s", 
+        "primary": {
+          "name": "projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys/key-sw-2/cryptoKeyVersions/1", 
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE", 
+          "state": "ENABLED", 
+          "generateTime": "2019-07-24T10:15:08.584200132Z", 
+          "createTime": "2019-07-24T10:15:08.584200132Z"
+        }, 
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION", 
+          "protectionLevel": "SOFTWARE"
+        }, 
+        "purpose": "ENCRYPT_DECRYPT", 
+        "createTime": "2019-07-24T10:15:08.584200132Z", 
+        "nextRotationTime": "2019-10-21T21:00:00Z"
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "3380", 
+    "x-xss-protection": "0", 
+    "content-location": "https://cloudkms.googleapis.com/v1/projects/cloud-custodian-190204/locations/us-east1/keyRings/key-ring-us-east1/cryptoKeys?alt=json", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 12 Aug 2019 13:47:59 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

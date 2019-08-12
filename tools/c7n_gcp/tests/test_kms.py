@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
 from gcp_common import BaseTest, event_data
 
 
@@ -154,6 +156,40 @@ class KmsCryptoKeyTest(BaseTest):
 
         self.assertEqual(resources[0]['name'], resource_name)
         self.assertEqual(resources[0][parent_annotation_key]['name'], parent_resource_name)
+
+    def test_kms_cryptokey_set_iam_policy(self):
+        project_id = 'cloud-custodian-190204'
+        resource_full_name = 'projects/{}/locations/us-central1/keyRings/cloud-custodian/cryptoKeys/cloud-custodian'.format(project_id)
+        session_factory = self.replay_flight_data(
+            'kms-cryptokey-set-iam-policy', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp.kms-cryptokey-set-iam-policy',
+             'resource': 'gcp.kms-cryptokey',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_full_name}],
+             'actions': [{'type': 'set-iam-policy',
+                          'add-bindings':
+                              [{'members': ['user:alex.karpitski@gmail.com'],
+                                'role': 'roles/viewer'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertNotIn('bindings', actual_bindings)
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], resource_full_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:alex.karpitski@gmail.com'],
+                           'role': 'roles/viewer'}])
 
 
 class KmsCryptoKeyVersionTest(BaseTest):
