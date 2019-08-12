@@ -213,3 +213,41 @@ class MLJobTest(BaseTest):
         resources = p.run()
 
         self.assertEqual(resources[0]['labels'], {'version': 'current'})
+
+    def test_jobs_set_iam_policy(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'test_job'
+        resource_full_name = 'projects/{}/jobs/{}'.format(project_id, resource_name)
+        session_factory = self.replay_flight_data(
+            'ml-job-set-iam-policy', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-ml-job',
+             'resource': 'gcp.ml-job',
+             'filters': [{'type': 'value',
+                          'key': 'jobId',
+                          'value': resource_name}],
+             'actions': [{'type': 'set-iam-policy',
+                          'add-bindings':
+                              [{'members': ['user:alex.karpitski@gmail.com'],
+                                'role': 'roles/ml.jobOwner'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:c7n.test@gmail.com'],
+                           'role': 'roles/ml.jobOwner'}])
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['jobId'], resource_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:alex.karpitski@gmail.com',
+                                       'user:c7n.test@gmail.com'],
+                           'role': 'roles/ml.jobOwner'}])

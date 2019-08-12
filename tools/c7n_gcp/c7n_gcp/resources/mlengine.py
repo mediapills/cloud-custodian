@@ -205,3 +205,14 @@ class MLJobSet(MethodAction):
             'updateMask': ','.join(body.keys()),
             'body': body
         }
+
+
+@MLJob.action_registry.register('set-iam-policy')
+class MLJobSetIamPolicy(SetIamPolicy):
+
+    def _verb_arguments(self, resource):
+        """
+        Overrides the parent method to refer to MLJob resources correctly.
+        """
+        project_id = local_session(self.manager.session_factory).get_default_project()
+        return {'resource': 'projects/{}/jobs/{}'.format(project_id, resource['jobId'])}

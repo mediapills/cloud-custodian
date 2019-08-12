@@ -1,0 +1,30 @@
+{
+  "body": {
+    "bindings": [
+      {
+        "role": "roles/ml.jobOwner", 
+        "members": [
+          "user:c7n.test@gmail.com"
+        ]
+      }
+    ], 
+    "version": 1, 
+    "etag": "BwWMnPmyPAY="
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "174", 
+    "x-xss-protection": "0", 
+    "content-location": "https://ml.googleapis.com/v1/projects/cloud-custodian/jobs/test_job:getIamPolicy?alt=json",
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "vary": "Origin, X-Origin, Referer", 
+    "server": "ESF", 
+    "-content-encoding": "gzip", 
+    "cache-control": "private", 
+    "date": "Mon, 12 Aug 2019 15:06:25 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
