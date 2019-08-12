@@ -212,7 +212,7 @@ class ServiceAccountEnable(MethodAction):
             filters:
               - type: value
                 key: displayName
-                op: in
+                op: not-in
                 value: [accounting, privacy, confidential]
             actions:
               - type: enable
