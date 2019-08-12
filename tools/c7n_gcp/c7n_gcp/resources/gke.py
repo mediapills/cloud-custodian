@@ -334,7 +334,7 @@ class GKEClusterNodePoolSetSize(MethodAction):
 
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.zones.clusters.nodePools/setSize
+    /projects.locations.clusters.nodePools/setSize
 
     :Example:
 
@@ -388,7 +388,7 @@ class GKEClusterNodePoolSetManagement(MethodAction):
 
     GCP action is
     https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1
-    /projects.zones.clusters.nodePools/setManagement
+    /projects.locations.clusters.nodePools/setManagement
 
     :Example:
 
