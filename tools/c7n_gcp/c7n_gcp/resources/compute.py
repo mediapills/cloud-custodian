@@ -16,7 +16,7 @@ import re
 
 from c7n.utils import type_schema
 
-from c7n_gcp.actions import MethodAction
+from c7n_gcp.actions import MethodAction, SetIamPolicy
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
@@ -281,3 +281,15 @@ class NodeTemplateDelete(MethodAction):
         project, region, node_template = re.match(
             '.*/projects/(.*?)/regions/(.*?)/nodeTemplates/(.*)', r['selfLink']).groups()
         return {'project': project, 'region': region, 'nodeTemplate': node_template}
+
+
+@NodeTemplate.action_registry.register('set-iam-policy')
+class NodeTemplateSetIamPolicy(SetIamPolicy):
+
+    def _verb_arguments(self, resource):
+        """
+        Overrides the base implementation to process Node Template resources correctly.
+        """
+        project, region, resource = re.match('.*/projects/(.+?)/regions/(.+?)/nodeTemplates/(.+)',
+                                             resource['selfLink']).groups()
+        return {'project': project, 'region': region, 'resource': resource}
