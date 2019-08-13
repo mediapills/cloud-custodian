@@ -128,7 +128,7 @@ class DataSetSet(MethodAction):
               - type: set
                 defaultTableExpirationMs: 7200000
                 labels:
-                    updated: tableexparation
+                  updated: tableexpiration
     """
     schema = type_schema(
         'set',
@@ -332,7 +332,7 @@ class BigQueryTableSet(MethodAction):
               - type: set
                 expirationTime: 3600000
                 labels:
-                    expiration: less_than_seven_days
+                  expiration: less_than_seven_days
     """
     schema = type_schema(
         'set',
