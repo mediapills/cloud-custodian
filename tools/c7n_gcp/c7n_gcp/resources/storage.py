@@ -16,7 +16,7 @@ import jmespath
 
 from c7n.utils import type_schema
 
-from c7n_gcp.actions import MethodAction
+from c7n_gcp.actions import MethodAction, SetIamPolicy
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
 
@@ -168,6 +168,33 @@ class BucketSet(MethodAction):
                       else ('versioning' in resource and resource['versioning']['enabled']))
         if retention_enabled and versioning:
             raise ValueError(self.retention_and_versioning_error)
+
+
+@Bucket.action_registry.register('set-iam-policy')
+class BucketSetIamPolicy(SetIamPolicy):
+
+    no_bindings_provided_error = 'A policy to update must be provided.'
+
+    def _verb_arguments(self, resource):
+        """
+        Overrides the base implementation to process Bucket resources correctly.
+        """
+        return {'bucket': resource['name']}
+
+    def get_resource_params(self, model, resource):
+        """
+        Remaps the bindings returned by the base method implementation from the policy key
+        directly to request body in order to comply with the API.
+
+        :raises ValueError: if there are no bindings returned by the base method implementation
+        """
+        params = SetIamPolicy.get_resource_params(self, model, resource)
+        body = params['body']
+        if 'bindings' not in body['policy']:
+            raise ValueError(self.no_bindings_provided_error)
+        body['bindings'] = body['policy']['bindings']
+        del(body['policy'])
+        return params
 
 
 @resources.register('bucket-access-control')

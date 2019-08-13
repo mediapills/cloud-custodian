@@ -1,0 +1,50 @@
+{
+  "body": {
+    "resourceId": "projects/_/buckets/custodian-bucket", 
+    "kind": "storage#policy", 
+    "etag": "CAI=", 
+    "bindings": [
+      {
+        "role": "roles/storage.legacyBucketOwner", 
+        "members": [
+          "projectEditor:cloud-custodian",
+          "projectOwner:cloud-custodian",
+          "user:alex.karpitski@gmail.com"
+        ]
+      }, 
+      {
+        "role": "roles/storage.legacyBucketReader", 
+        "members": [
+          "projectViewer:cloud-custodian"
+        ]
+      }, 
+      {
+        "role": "roles/storage.legacyObjectOwner", 
+        "members": [
+          "projectEditor:cloud-custodian",
+          "projectOwner:cloud-custodian"
+        ]
+      }, 
+      {
+        "role": "roles/storage.legacyObjectReader", 
+        "members": [
+          "projectViewer:cloud-custodian"
+        ]
+      }
+    ]
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "720", 
+    "content-location": "https://www.googleapis.com/storage/v1/b/custodian-bucket/iam?alt=json", 
+    "expires": "Tue, 13 Aug 2019 09:38:01 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "etag": "CAI=", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "date": "Tue, 13 Aug 2019 09:38:01 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8", 
+    "x-guploader-uploadid": "AEnB2UqpSnIwNA8Ed0aFS3RYTmp2iruG5DJbpW8Md1rKIkebKTRrWHVRiJCYq1gxDbbV8KlFhlL13dP75Uj14yK4l_mmsyBgsA"
+  }
+}

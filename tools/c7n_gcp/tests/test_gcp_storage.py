@@ -162,6 +162,59 @@ class BucketTest(BaseTest):
             'list', {'project': project_id})
         self.assertEqual(len(result['items']), 0)
 
+    def test_bucket_set_iam_policy(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'custodian-bucket'
+        session_factory = self.replay_flight_data(
+            'bucket-set-iam-policy', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-bucket-set-iam-policy',
+             'resource': 'gcp.bucket',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_name}],
+             'actions': [{'type': 'set-iam-policy',
+                          'add-bindings':
+                              [{'members': ['user:alex.karpitski@gmail.com'],
+                                'role': 'roles/storage.legacyBucketOwner'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', {'bucket': resource_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['projectEditor:cloud-custodian',
+                                       'projectOwner:cloud-custodian'],
+                           'role': 'roles/storage.legacyBucketOwner'},
+                          {'members': ['projectViewer:cloud-custodian'],
+                           'role': 'roles/storage.legacyBucketReader'},
+                          {'members': ['projectEditor:cloud-custodian',
+                                       'projectOwner:cloud-custodian'],
+                           'role': 'roles/storage.legacyObjectOwner'},
+                          {'members': ['projectViewer:cloud-custodian'],
+                           'role': 'roles/storage.legacyObjectReader'}])
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], resource_name)
+
+        if self.recording:
+            sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', {'bucket': resource_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['projectEditor:cloud-custodian',
+                                       'projectOwner:cloud-custodian',
+                                       'user:alex.karpitski@gmail.com'],
+                           'role': 'roles/storage.legacyBucketOwner'},
+                          {'members': ['projectViewer:cloud-custodian'],
+                           'role': 'roles/storage.legacyBucketReader'},
+                          {'members': ['projectEditor:cloud-custodian',
+                                       'projectOwner:cloud-custodian'],
+                           'role': 'roles/storage.legacyObjectOwner'},
+                          {'members': ['projectViewer:cloud-custodian'],
+                           'role': 'roles/storage.legacyObjectReader'}])
+
 
 class BucketAccessControlTest(BaseTest):
 

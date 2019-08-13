@@ -1,0 +1,45 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "storage#bucket", 
+        "defaultEventBasedHold": false, 
+        "name": "custodian-bucket", 
+        "timeCreated": "2019-08-13T08:56:08.818Z", 
+        "locationType": "region", 
+        "updated": "2019-08-13T08:56:08.818Z", 
+        "projectNumber": "62100636004", 
+        "metageneration": "1", 
+        "location": "EUROPE-NORTH1", 
+        "iamConfiguration": {
+          "uniformBucketLevelAccess": {
+            "enabled": true, 
+            "lockedTime": "2019-11-11T08:56:08.818Z"
+          }, 
+          "bucketPolicyOnly": {
+            "enabled": true, 
+            "lockedTime": "2019-11-11T08:56:08.818Z"
+          }
+        }, 
+        "etag": "CAE=", 
+        "id": "custodian-bucket", 
+        "selfLink": "https://www.googleapis.com/storage/v1/b/custodian-bucket", 
+        "storageClass": "COLDLINE"
+      }
+    ], 
+    "kind": "storage#buckets"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "753", 
+    "content-location": "https://www.googleapis.com/storage/v1/b?project=cloud-custodian&alt=json&projection=full",
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "expires": "Tue, 13 Aug 2019 09:36:45 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "UploadServer", 
+    "x-guploader-uploadid": "AEnB2UopRFNaMaVDHDG7iKu0HQVifiAQoBmBsWcmVuf3Ps-CuYaEozuW1hfmQE-3Ua3J16omeLID_K-QD9uTYxtkok8G99tLoA", 
+    "date": "Tue, 13 Aug 2019 09:36:45 GMT", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
