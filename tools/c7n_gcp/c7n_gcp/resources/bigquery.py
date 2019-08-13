@@ -11,15 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import re
 
 import jmespath
+import re
+
 from c7n.utils import type_schema
 
 from c7n_gcp.actions import MethodAction
+from c7n_gcp.provider import resources
 from c7n_gcp.query import (QueryResourceManager, TypeInfo,
                            ChildTypeInfo, ChildResourceManager)
-from c7n_gcp.provider import resources
 
 
 @resources.register('bq-dataset')
@@ -71,9 +72,8 @@ class DataSet(QueryResourceManager):
 
 @DataSet.action_registry.register('delete')
 class DataSetDelete(MethodAction):
-    """The action is used for bigquery datasets delete.
-
-    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete
+    """
+    `Deletes <https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete>`_ a dataset
 
     :Example:
 
@@ -91,8 +91,7 @@ class DataSetDelete(MethodAction):
     """
     schema = type_schema('delete')
     method_spec = {'op': 'delete'}
-    path_param_re = re.compile(
-        '.*?/projects/(.*?)/datasets/(.*)')
+    path_param_re = re.compile('.*?/projects/(.*?)/datasets/(.*)')
 
     def get_resource_params(self, model, resource):
         project_id, dataset_id = self.path_param_re.match(
@@ -106,9 +105,13 @@ class DataSetDelete(MethodAction):
 
 @DataSet.action_registry.register('set')
 class DataSetSet(MethodAction):
-    """The action is used for bigquery datasets patch.
+    """
+    `Patches <https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/patch>`_ a dataset
 
-    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/patch
+    The `defaultTableExpirationMs` specifies the default lifetime of all tables in the dataset, in
+    milliseconds.
+
+    The `labels` specifies the labels associated with this dataset.
 
     :Example:
 
@@ -123,35 +126,25 @@ class DataSetSet(MethodAction):
                 value: US
             actions:
               - type: set
-                tableExpirationMs: 7200000
+                defaultTableExpirationMs: 7200000
                 labels:
-                  - key: updated
-                    value: tableexparation
+                    updated: tableexparation
     """
-
     schema = type_schema(
         'set',
         **{
-            'tableExpirationMs': {
+            'defaultTableExpirationMs': {
                 'type': 'number',
                 'minimum': 3600000
             },
             'labels': {
-                'type': 'array',
-                'items': {
-                    'type': 'object',
-                    'properties': {
-                        'key': {'type': 'string'},
-                        'value': {'type': 'string'}
-                    }
-                }
+                'type': 'object',
+                'additionalProperties': {'type': 'string'}
             }
         }
     )
-
     method_spec = {'op': 'patch'}
-    path_param_re = re.compile(
-        '.*?/projects/(.*?)/datasets/(.*)')
+    path_param_re = re.compile('.*?/projects/(.*?)/datasets/(.*)')
 
     def get_resource_params(self, model, resource):
         project_id, dataset_id = self.path_param_re.match(
@@ -160,14 +153,10 @@ class DataSetSet(MethodAction):
         body = {}
 
         if 'labels' in self.data:
-            body.update({'labels': {
-                label['key']: label['value'] for label in
-                self.data['labels']
-            }})
-        if 'tableExpirationMs' in self.data:
-            body.update({
-                'defaultTableExpirationMs': self.data['tableExpirationMs']
-            })
+            body['labels'] = self.data['labels']
+
+        if 'defaultTableExpirationMs' in self.data:
+            body['defaultTableExpirationMs'] = self.data['defaultTableExpirationMs']
 
         return {
             'projectId': project_id,
@@ -193,11 +182,9 @@ class BigQueryJob(QueryResourceManager):
         @staticmethod
         def get(client, event):
             return client.execute_query('get', {
-                'projectId': jmespath.search('resource.labels.project_id',
-                                             event),
+                'projectId': jmespath.search('resource.labels.project_id', event),
                 'jobId': jmespath.search(
-                    'protoPayload.metadata.tableCreation.jobName', event
-                ).rsplit('/', 1)[-1]
+                    'protoPayload.metadata.tableCreation.jobName', event).rsplit('/', 1)[-1]
             })
 
     def augment(self, resources):
@@ -212,9 +199,9 @@ class BigQueryJob(QueryResourceManager):
 
 @BigQueryJob.action_registry.register('cancel')
 class BigQueryJobCancel(MethodAction):
-    """The action is used for bigquery jobs cancel.
-
-    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/cancel
+    """
+    `Cancels <https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/cancel>`_
+    a BigQuery job
 
     :Example:
 
@@ -254,7 +241,6 @@ class BigQueryProject(QueryResourceManager):
 class BigQueryTable(ChildResourceManager):
     """GCP resource: https://cloud.google.com/bigquery/docs/reference/rest/v2/tables
     """
-
     class resource_type(ChildTypeInfo):
         service = 'bigquery'
         version = 'v2'
@@ -291,9 +277,9 @@ class BigQueryTable(ChildResourceManager):
 
 @BigQueryTable.action_registry.register('delete')
 class BigQueryTableDelete(MethodAction):
-    """The action is used for bigquery table delete.
-
-    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/delete
+    """
+    `Deletes <https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/delete>`_
+    a BigQuery table
 
     :Example:
 
@@ -306,7 +292,7 @@ class BigQueryTableDelete(MethodAction):
               - type: value
                 key: creationTime
                 value_type: age
-                op: greater-then
+                op: greater-than
                 value: 31
             actions:
               - type: delete
@@ -319,10 +305,15 @@ class BigQueryTableDelete(MethodAction):
 
 
 @BigQueryTable.action_registry.register('set')
-class BigQueryTablePatch(MethodAction):
-    """The action is used for bigquery table labels patch.
+class BigQueryTableSet(MethodAction):
+    """
+    `Patches <https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/patch>`_
+    a BigQuery table
 
-    GCP action is https://cloud.google.com/bigquery/docs/reference/rest/v2/tables/patch
+    The `expirationTime` specifies the time when this table expires, in milliseconds
+    since the epoch.
+
+    The `labels` specifies the labels associated with this table.
 
     :Example:
 
@@ -341,10 +332,8 @@ class BigQueryTablePatch(MethodAction):
               - type: set
                 expirationTime: 3600000
                 labels:
-                  - key: expiration
-                    value: less_than_seven_days
+                    expiration: less_than_seven_days
     """
-
     schema = type_schema(
         'set',
         **{
@@ -353,18 +342,11 @@ class BigQueryTablePatch(MethodAction):
                 'minimum': 3600000
             },
             'labels': {
-                'type': 'array',
-                'items': {
-                    'type': 'object',
-                    'properties': {
-                        'key': {'type': 'string'},
-                        'value': {'type': 'string'}
-                    }
-                }
+                'type': 'object',
+                'additionalProperties': {'type': 'string'}
             }
         }
     )
-
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):
@@ -372,15 +354,10 @@ class BigQueryTablePatch(MethodAction):
         body = {}
 
         if 'labels' in self.data:
-            body.update({'labels': {
-                label['key']: label['value'] for label in
-                self.data['labels']
-            }})
+            body['labels'] = self.data['labels']
 
         if 'expirationTime' in self.data:
-            body.update({
-                'expirationTime': self.data['expirationTime']
-            })
+            body['expirationTime'] = self.data['expirationTime']
 
         patch_data.update({'body': body})
         return patch_data

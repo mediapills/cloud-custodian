@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 from time import sleep
 
 from gcp_common import BaseTest, event_data
@@ -80,10 +81,8 @@ class BigQueryDataSetTest(BaseTest):
             dict(base_policy,
                  actions=[{
                      'type': 'set',
-                     'tableExpirationMs': 7200000,
-                     'labels': [
-                         {'key': 'updated', 'value': 'tableexparation'},
-                     ]
+                     'defaultTableExpirationMs': 7200000,
+                     'labels': {'updated': 'tableexparation'}
                  }]),
             session_factory=session_factory)
         resources = policy.run()
@@ -251,7 +250,7 @@ class BigQueryTableTest(BaseTest):
 
         self.assertNotIn('tables', result)
 
-    def test_table_update_label(self):
+    def test_table_set(self):
         project_id = 'new-project-26240'
         label = 'expiration'
         session_factory = self.replay_flight_data(
@@ -271,11 +270,8 @@ class BigQueryTableTest(BaseTest):
             dict(base_policy,
                  actions=[{
                      'type': 'set',
-                     'labels': [
-                         {'key': label, 'value': 'less_than_seven_days'},
-                     ]
-                 }]
-                 ),
+                     'labels': {'label': 'less_than_seven_days'}
+                 }]),
             session_factory=session_factory)
         resources = policy.run()
         self.assertEqual(resources[0]['type'], 'TABLE')
