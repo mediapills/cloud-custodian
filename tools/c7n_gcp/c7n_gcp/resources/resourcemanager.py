@@ -29,6 +29,17 @@ class Organization(QueryResourceManager):
         id = "name"
 
 
+@Organization.action_registry.register('set-iam-policy')
+class OrganizationSetIamPolicy(SetIamPolicy):
+    """
+    Overrides the base implementation to process Organization resources correctly.
+    """
+    def _verb_arguments(self, resource):
+        verb_arguments = SetIamPolicy._verb_arguments(self, resource)
+        verb_arguments['body'] = {}
+        return verb_arguments
+
+
 @resources.register('folder')
 class Folder(QueryResourceManager):
     """GCP resource: https://cloud.google.com/resource-manager/reference/rest/v1/folders

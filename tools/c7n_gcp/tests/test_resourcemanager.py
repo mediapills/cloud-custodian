@@ -73,6 +73,48 @@ class OrganizationTest(BaseTest):
         organization_resources = policy.run()
         self.assertEqual(organization_resources[0]['name'], organization_name)
 
+    def test_organization_set_iam_policy(self):
+        resource_full_name = 'organizations/926683928810'
+        get_iam_policy_params = {'resource': resource_full_name, 'body': {}}
+        session_factory = self.replay_flight_data('organization-set-iam-policy')
+
+        policy = self.load_policy(
+            {'name': 'gcp-organization-set-iam-policy',
+             'resource': 'gcp.organization',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_full_name}],
+             'actions': [{'type': 'set-iam-policy',
+                          'add-bindings':
+                              [{'members': ['user:mediapills@gmail.com'],
+                                'role': 'roles/owner'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:alex.karpitski@gmail.com',
+                                       'user:dkhanas@gmail.com',
+                                       'user:pavel_mitrafanau@epam.com',
+                                       'user:yauhen_shaliou@comelfo.com'],
+                           'role': 'roles/owner'}])
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], resource_full_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:alex.karpitski@gmail.com',
+                                       'user:dkhanas@gmail.com',
+                                       'user:mediapills@gmail.com',
+                                       'user:pavel_mitrafanau@epam.com',
+                                       'user:yauhen_shaliou@comelfo.com'],
+                           'role': 'roles/owner'}])
+
 
 class FolderTest(BaseTest):
 
