@@ -15,10 +15,13 @@
 import re
 
 from c7n.utils import local_session, type_schema
+
 from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
-from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo, \
+from c7n_gcp.query import (
+    QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo,
     GcpLocation
+)
 
 
 @resources.register('kms-keyring')
@@ -150,7 +153,9 @@ class KmsCryptoKeyVersion(ChildResourceManager):
 class KmsCryptoKeyVersionDestroy(MethodAction):
     """The action is used for kms crypto key version destroy.
 
-    GCP action is https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/destroy
+    `Restores <https://cloud.google.com/kms/docs/reference/rest/v1/
+    projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/destroy>`_
+    a crypto version
 
     :Example:
 
@@ -178,7 +183,9 @@ class KmsCryptoKeyVersionDestroy(MethodAction):
 class KmsCryptoKeyVersionRestore(MethodAction):
     """The action is used for kms crypto key version restore.
 
-    GCP action is https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/restore
+    `Restores <https://cloud.google.com/kms/docs/reference/rest/v1/
+    projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/restore>`_
+    a crypto version
 
     :Example:
 
@@ -206,7 +213,11 @@ class KmsCryptoKeyVersionRestore(MethodAction):
 class KmsCryptoKeyVersionSet(MethodAction):
     """The action is used for kms crypto key version set.
 
-    GCP action is https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/patch
+    `Patches <https://cloud.google.com/kms/docs/reference/rest/v1/
+    projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/patch>`_
+    a crypto version
+
+    The `state` show active key state
 
     :Example:
 
