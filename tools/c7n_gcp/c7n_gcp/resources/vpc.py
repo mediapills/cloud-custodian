@@ -15,6 +15,7 @@ from c7n.utils import type_schema
 from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
+from c7n.exceptions import PolicyExecutionError
 
 
 @resources.register('vpc-access-policy')
@@ -39,7 +40,7 @@ class VpcAccessPolicy(QueryResourceManager):
             query = self.data.get('query')
             if query is not None:
                 for element in query:
-                    if element.__contains__('organization_id'):
+                    if 'organization_id' in element:
                         scope_key = self.resource_type.scope_key
                         scope_template = self.resource_type.scope_template
                         result_query[scope_key] = scope_template.format(element['organization_id'])
@@ -204,6 +205,8 @@ class VpcAccessLevelSet(MethodAction):
             if element != 'type':
                 body[element] = data[element]
                 update_mask.append(element)
+        if not update_mask:
+            raise PolicyExecutionError('The updating fields are absent')
         result = {'name': resource['name'],
                   'updateMask': ','.join(update_mask),
                   'body': body}
@@ -326,6 +329,8 @@ class VpcServicePerimeterSet(MethodAction):
             if element != 'type':
                 body[element] = data[element]
                 update_mask.append(element)
+        if not update_mask:
+            raise PolicyExecutionError('The updating fields are absent')
         result = {'name': resource['name'],
                   'updateMask': ','.join(update_mask),
                   'body': body}
