@@ -215,6 +215,40 @@ class PubSubSubscriptionTest(BaseTest):
         self.assertEqual(result['expirationPolicy']['ttl'], '864000s')
         self.assertEqual(result['messageRetentionDuration'], '93780s')
 
+    def test_pubsub_subscription_set_iam_policy(self):
+        project_id = 'cloud-custodian'
+        resource_full_name = 'projects/{}/subscriptions/subscription'.format(project_id)
+        session_factory = self.replay_flight_data(
+            'pubsub-subscription-set-iam-policy', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-pubsub-subscription-set-iam-policy',
+             'resource': 'gcp.pubsub-subscription',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_full_name}],
+             'actions': [{'type': 'set-iam-policy',
+                          'add-bindings':
+                              [{'members': ['user:alex.karpitski@gmail.com'],
+                                'role': 'roles/owner'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertNotIn('bindings', actual_bindings)
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], resource_full_name)
+
+        if self.recording:
+            sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', {'resource': resource_full_name})
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:alex.karpitski@gmail.com'],
+                           'role': 'roles/owner'}])
+
 
 class PubSubSnapshotTest(BaseTest):
 

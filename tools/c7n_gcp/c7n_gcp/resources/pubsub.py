@@ -269,6 +269,9 @@ class PubSubSubscriptionSet(MethodAction):
             return int(re.sub('\\D+', '', r['messageRetentionDuration']))
 
 
+PubSubSubscription.action_registry.register('set-iam-policy', SetIamPolicy)
+
+
 @resources.register('pubsub-snapshot')
 class PubSubSnapshot(QueryResourceManager):
     """GCP resource: https://cloud.google.com/pubsub/docs/reference/rest/v1/projects.snapshots
