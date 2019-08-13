@@ -237,3 +237,38 @@ class InstanceTemplateTest(BaseTest):
         except HttpError as e:
             self.assertTrue(re.match(".*The resource '%s' was not found.*" %
                                      resource_full_name, str(e)))
+
+    def test_instance_template_set_iam_policy(self):
+        project_id = 'cloud-custodian'
+        resource_name = 'custodian-template'
+        get_iam_policy_params = {'project': project_id, 'resource': resource_name}
+        session_factory = self.replay_flight_data(
+            'instance-template-set-iam-policy', project_id=project_id)
+
+        policy = self.load_policy(
+            {'name': 'gcp-instance-template',
+             'resource': 'gcp.instance-template',
+             'filters': [{'type': 'value',
+                          'key': 'name',
+                          'value': resource_name}],
+             'actions': [{'type': 'set-iam-policy',
+                          'add-bindings':
+                              [{'members': ['user:alex.karpitski@gmail.com'],
+                                'role': 'roles/owner'}]}]},
+            session_factory=session_factory)
+
+        client = policy.resource_manager.get_client()
+        actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
+        self.assertNotIn('bindings', actual_bindings)
+
+        resources = policy.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], resource_name)
+
+        if self.recording:
+            time.sleep(1)
+
+        actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
+        self.assertEqual(actual_bindings['bindings'],
+                         [{'members': ['user:alex.karpitski@gmail.com'],
+                           'role': 'roles/owner'}])

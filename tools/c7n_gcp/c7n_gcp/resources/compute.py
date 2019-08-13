@@ -14,9 +14,9 @@
 
 import re
 
-from c7n.utils import type_schema
+from c7n.utils import local_session, type_schema
 
-from c7n_gcp.actions import MethodAction
+from c7n_gcp.actions import MethodAction, SetIamPolicy
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 
@@ -232,3 +232,14 @@ class InstanceTemplateDelete(MethodAction):
                                               r['selfLink']).groups()
         return {'project': project,
                 'instanceTemplate': instance_template}
+
+
+@InstanceTemplate.action_registry.register('set-iam-policy')
+class InstanceTemplateSetIamPolicy(SetIamPolicy):
+
+    def _verb_arguments(self, resource):
+        """
+        Overrides the base implementation to process Instance Template resources correctly.
+        """
+        project_id = local_session(self.manager.session_factory).get_default_project()
+        return {'project': project_id, 'resource': resource['name']}

@@ -1,0 +1,31 @@
+{
+  "body": {
+    "bindings": [
+      {
+        "role": "roles/owner", 
+        "members": [
+          "user:alex.karpitski@gmail.com"
+        ]
+      }
+    ], 
+    "version": 1, 
+    "etag": "BwWP_1HTIEc="
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "153", 
+    "x-xss-protection": "1; mode=block", 
+    "x-content-type-options": "nosniff", 
+    "transfer-encoding": "chunked", 
+    "expires": "Mon, 01 Jan 1990 00:00:00 GMT", 
+    "vary": "Origin, X-Origin", 
+    "server": "GSE", 
+    "-content-encoding": "gzip", 
+    "pragma": "no-cache", 
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate", 
+    "date": "Tue, 13 Aug 2019 13:07:15 GMT", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}

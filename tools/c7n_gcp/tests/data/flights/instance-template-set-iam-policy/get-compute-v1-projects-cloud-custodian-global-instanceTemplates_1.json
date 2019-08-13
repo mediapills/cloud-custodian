@@ -1,0 +1,94 @@
+{
+  "body": {
+    "items": [
+      {
+        "kind": "compute#instanceTemplate", 
+        "description": "", 
+        "properties": {
+          "reservationAffinity": {
+            "consumeReservationType": "ANY_RESERVATION"
+          }, 
+          "canIpForward": false, 
+          "disks": [
+            {
+              "deviceName": "custodian-template", 
+              "kind": "compute#attachedDisk", 
+              "initializeParams": {
+                "diskSizeGb": "65536", 
+                "sourceImage": "projects/windows-cloud/global/images/windows-server-2019-dc-v20190709", 
+                "diskType": "pd-standard"
+              }, 
+              "autoDelete": true, 
+              "index": 0, 
+              "boot": true, 
+              "mode": "READ_WRITE", 
+              "type": "PERSISTENT"
+            }
+          ], 
+          "scheduling": {
+            "automaticRestart": true, 
+            "preemptible": false, 
+            "onHostMaintenance": "MIGRATE"
+          }, 
+          "machineType": "n2-highcpu-80", 
+          "serviceAccounts": [
+            {
+              "scopes": [
+                "https://www.googleapis.com/auth/devstorage.read_only", 
+                "https://www.googleapis.com/auth/logging.write", 
+                "https://www.googleapis.com/auth/monitoring.write", 
+                "https://www.googleapis.com/auth/servicecontrol", 
+                "https://www.googleapis.com/auth/service.management.readonly", 
+                "https://www.googleapis.com/auth/trace.append"
+              ], 
+              "email": "62100636004-compute@developer.gserviceaccount.com"
+            }
+          ], 
+          "networkInterfaces": [
+            {
+              "kind": "compute#networkInterface", 
+              "accessConfigs": [
+                {
+                  "networkTier": "PREMIUM", 
+                  "kind": "compute#accessConfig", 
+                  "type": "ONE_TO_ONE_NAT", 
+                  "name": "External NAT"
+                }
+              ], 
+              "network": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/global/networks/default"
+            }
+          ], 
+          "metadata": {
+            "kind": "compute#metadata", 
+            "fingerprint": "cc9idZffRtk="
+          }
+        }, 
+        "creationTimestamp": "2019-08-13T05:49:22.735-07:00", 
+        "id": "354437569817022269", 
+        "selfLink": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/global/instanceTemplates/custodian-template",
+        "name": "custodian-template"
+      }
+    ], 
+    "kind": "compute#instanceTemplateList", 
+    "id": "projects/cloud-custodian/global/instanceTemplates",
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/global/instanceTemplates"
+  }, 
+  "headers": {
+    "status": "200", 
+    "content-length": "2268", 
+    "transfer-encoding": "chunked", 
+    "expires": "Tue, 13 Aug 2019 13:07:14 GMT", 
+    "vary": "Origin, X-Origin", 
+    "-content-encoding": "gzip", 
+    "date": "Tue, 13 Aug 2019 13:07:14 GMT", 
+    "x-xss-protection": "1; mode=block", 
+    "content-location": "https://www.googleapis.com/compute/v1/projects/cloud-custodian/global/instanceTemplates?alt=json",
+    "x-content-type-options": "nosniff", 
+    "server": "GSE", 
+    "etag": "\"zlC6q0O1Z5DG-flcBg_JWxbzVH8=/LIh-FyFekJaA2ksd7tw_EIuWAzE=\"", 
+    "cache-control": "private, max-age=0, must-revalidate, no-transform", 
+    "x-frame-options": "SAMEORIGIN", 
+    "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43,39\"", 
+    "content-type": "application/json; charset=UTF-8"
+  }
+}
