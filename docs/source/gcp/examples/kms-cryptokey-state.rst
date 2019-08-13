@@ -1,7 +1,7 @@
 Key Management System - Set state Crypto Key Version
 ====================================================
 
-In the example below, the policy allow destroy Hardware Security Module (HSM).
+In the example below, the policy allow to destroy Hardware Security Module (HSM).
 
 .. code-block:: yaml
 
