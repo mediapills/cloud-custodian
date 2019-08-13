@@ -74,7 +74,10 @@ class MLModelSet(MethodAction):
                 'type': 'string'
             },
             'labels': {
-                'type': 'object'
+                'type': 'object',
+                'additionalProperties': {
+                    'type': 'string'
+                }
             }
         }
     )
@@ -174,7 +177,10 @@ class MLJobSet(MethodAction):
         'set',
         **{
             'labels': {
-                'type': 'object'
+                'type': 'object',
+                'additionalProperties': {
+                    'type': 'string'
+                }
             }
         }
     )
