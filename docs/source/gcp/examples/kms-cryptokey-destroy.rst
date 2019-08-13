@@ -1,7 +1,8 @@
 Key Management System - Destroy Crypto Key Version
 ==================================================
 
-In the example below, the policy allow destroy all cryptokey versions where protectionLevel do not equal SOFTWARE or HSM.
+In the example below, the policy allow destroy all cryptokey versions where protectionLevel 
+does not equal SOFTWARE or HSM.
 
 .. code-block:: yaml
 
