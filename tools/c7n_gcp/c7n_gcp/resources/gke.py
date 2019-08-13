@@ -113,7 +113,10 @@ class GKEClusterSetResourceLabels(MethodAction):
         required=['labels'],
         **{
             'labels': {
-                'type': 'object'
+                'type': 'object',
+                'additionalProperties': {
+                    'type': 'string'
+                }
             }
         }
     )
@@ -169,9 +172,6 @@ class GKEClusterUpdate(MethodAction):
             },
             'logging': {
                 'type': 'string'
-            },
-            'image-type': {
-                'type': 'string'
             }
         }
     )
@@ -195,9 +195,6 @@ class GKEClusterUpdate(MethodAction):
 
         if 'logging' in self.data:
             params['desiredLoggingService'] = self.data['logging']
-
-        if 'image-type' in self.data:
-            params['desiredImageType'] = self.data['image-type']
 
         return {
             'name': name,

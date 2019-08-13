@@ -77,7 +77,33 @@ class GKEClusterTest(BaseTest):
 
         self.assertEqual(resources[0]['resourceLabels'], {'nodes': 'minimal'})
 
-    def test_gke_cluster_update(self):
+    def test_gke_cluster_update_services(self):
+        project_id = 'second-impact-244209'
+        factory = self.replay_flight_data('gke-cluster-update-services', project_id=project_id)
+
+        p = self.load_policy(
+            {'name': 'gke-cluster-update-services',
+             'resource': 'gcp.gke-cluster',
+             'actions': [{
+                 'type': 'update',
+                 'monitoring': 'none',
+                 'logging': 'none'
+             }]},
+            session_factory=factory)
+
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
+        if self.recording:
+            time.sleep(10)
+
+        client = p.resource_manager.get_client()
+        result = client.execute_query('list', {
+            'parent': 'projects/{}/locations/-'.format(project_id)})
+
+        self.assertEqual(result['clusters'][0]['status'], 'RECONCILING')
+
+    def test_gke_cluster_update_nodeversion(self):
         project_id = 'cloud-custodian'
         factory = self.replay_flight_data('gke-cluster-update-node-version', project_id=project_id)
 
