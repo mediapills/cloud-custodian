@@ -14,7 +14,8 @@
 
 import re
 
-from c7n.utils import local_session
+from c7n.utils import local_session, type_schema
+from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo, \
     GcpLocation
@@ -143,3 +144,101 @@ class KmsCryptoKeyVersion(ChildResourceManager):
                         resource_info['crypto_key_id'],
                         resource_info['crypto_key_version_id'])
             return client.execute_command('get', {'name': name})
+
+
+@KmsCryptoKeyVersion.action_registry.register('destroy')
+class KmsCryptoKeyVersionDestroy(MethodAction):
+    """The action is used for kms crypto key version destroy.
+
+    GCP action is https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/destroy
+
+    :Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-kms-cryptokey-version-destroy
+            resource: gcp.kms-cryptokey-version
+            filters:
+              - type: value
+                key: protectionLevel
+                op: not-in
+                value: [SOFTWARE, HSM]
+            actions:
+              - type: destroy
+    """
+    schema = type_schema('destroy')
+    method_spec = {'op': 'destroy'}
+
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
+
+
+@KmsCryptoKeyVersion.action_registry.register('restore')
+class KmsCryptoKeyVersionRestore(MethodAction):
+    """The action is used for kms crypto key version restore.
+
+    GCP action is https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/restore
+
+    :Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-kms-cryptokey-version-restore
+            resource: gcp.kms-cryptokey-version
+            filters:
+              - type: value
+                key: protectionLevel
+                op: in
+                value: [SOFTWARE, HSM]
+            actions:
+              - type: restore
+    """
+    schema = type_schema('restore')
+    method_spec = {'op': 'restore'}
+
+    def get_resource_params(self, model, resource):
+        return {'name': resource['name']}
+
+
+@KmsCryptoKeyVersion.action_registry.register('set')
+class KmsCryptoKeyVersionSet(MethodAction):
+    """The action is used for kms crypto key version set.
+
+    GCP action is https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/patch
+
+    :Example:
+
+    .. code-block:: yaml
+
+        policies:
+          - name: gcp-kms-cryptokey-version-set
+            resource: gcp.kms-cryptokey-version
+            filters:
+              - type: value
+                key: protectionLevel
+                op: in
+                value: [SOFTWARE, HSM]
+            actions:
+              - type: set
+                state: ENABLED
+    """
+    schema = type_schema('set',
+                         **{'state': {
+                             'type': 'string',
+                             'enum': [
+                                 "CRYPTO_KEY_VERSION_STATE_UNSPECIFIED",
+                                 "PENDING_GENERATION", "ENABLED",
+                                 "DISABLED", "DESTROYED", "DESTROY_SCHEDULED",
+                                 "PENDING_IMPORT", "IMPORT_FAILED"
+                             ]
+                         }})
+    method_spec = {'op': 'patch'}
+
+    def get_resource_params(self, model, resource):
+        return {
+            'name': resource['name'],
+            'updateMask': 'state',
+            'body': {'state': self.data['state']}
+        }

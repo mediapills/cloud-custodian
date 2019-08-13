@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import time
 
 from gcp_common import BaseTest, event_data
 
@@ -220,3 +221,99 @@ class KmsCryptoKeyVersionTest(BaseTest):
 
         self.assertEqual(resources[0]['name'], resource_name)
         self.assertEqual(resources[0][parent_annotation_key]['name'], parent_resource_name)
+
+    def test_kms_cryptokey_version_destroy(self):
+        project_id = 'new-project-26240'
+        session_factory = self.replay_flight_data('kms-cryptokey-version-destroy',
+                                                  project_id=project_id)
+        base_policy = {'name': 'gcp-kms-cryptokey-version-destroy',
+                       'resource': 'gcp.kms-cryptokey-version',
+                       'query': [{'location': 'global'}]
+                       }
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{
+                     'type': 'value',
+                     'key': 'protectionLevel',
+                     'op': 'not-in',
+                     'value': '[HSM]',
+                 }],
+                 actions=[{'type': 'destroy'}]
+                 ),
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertNotEqual(resources[0]['protectionLevel'], 'HSM')
+
+        if self.recording:
+            time.sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'get', {'name': resources[0]['name']})
+        self.assertIn('destroyTime', result)
+
+    def test_kms_cryptokey_version_restore(self):
+        project_id = 'new-project-26240'
+        session_factory = self.replay_flight_data('kms-cryptokey-version-restore',
+                                                  project_id=project_id)
+        base_policy = {'name': 'gcp-kms-cryptokey-version-restore',
+                       'resource': 'gcp.kms-cryptokey-version',
+                       'query': [{'location': 'global'}]
+                       }
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{
+                     'type': 'value',
+                     'key': 'protectionLevel',
+                     'op': 'in',
+                     'value': '[HSM, SOFTWARE]',
+                 }],
+                 actions=[{'type': 'restore'}]
+                 ),
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(resources[0]['protectionLevel'], 'SOFTWARE')
+
+        if self.recording:
+            time.sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'get', {'name': resources[0]['name']})
+        self.assertNotIn('destroyTime', result)
+
+    def test_kms_cryptokey_version_set(self):
+        project_id = 'new-project-26240'
+        session_factory = self.replay_flight_data('kms-cryptokey-version-set',
+                                                  project_id=project_id)
+        base_policy = {'name': 'gcp-kms-cryptokey-version-set',
+                       'resource': 'gcp.kms-cryptokey-version',
+                       'query': [{'location': 'global'}]
+                       }
+        policy = self.load_policy(
+            dict(base_policy,
+                 filters=[{
+                     'type': 'value',
+                     'key': 'protectionLevel',
+                     'op': 'in',
+                     'value': '[HSM, SOFTWARE]',
+                 }],
+                 actions=[{
+                     'type': 'set',
+                     'state': 'ENABLED',
+                 }]
+                 ),
+            session_factory=session_factory)
+
+        resources = policy.run()
+        self.assertEqual(resources[0]['protectionLevel'], 'SOFTWARE')
+
+        if self.recording:
+            time.sleep(1)
+
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'get', {'name': resources[0]['name']})
+        self.assertEqual(result['state'], 'ENABLED')
