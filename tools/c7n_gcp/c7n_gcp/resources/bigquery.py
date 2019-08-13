@@ -85,7 +85,7 @@ class DataSetDelete(MethodAction):
             filters:
               - type: value
                 key: tag:updated
-                value: tableexparation
+                value: tableexpiration
             actions:
               - type: delete
     """
