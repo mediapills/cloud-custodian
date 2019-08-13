@@ -15,7 +15,7 @@ import re
 
 from c7n.utils import type_schema
 
-from c7n_gcp.actions import MethodAction
+from c7n_gcp.actions import MethodAction, SetIamPolicy
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo
 from datetime import timedelta
@@ -67,6 +67,9 @@ class PubSubTopicDelete(MethodAction):
 
     def get_resource_params(self, m, r):
         return {'topic': r['name']}
+
+
+PubSubTopic.action_registry.register('set-iam-policy', SetIamPolicy)
 
 
 @resources.register('pubsub-subscription')
