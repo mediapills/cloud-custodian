@@ -155,7 +155,7 @@ class KmsCryptoKeyVersionDestroy(MethodAction):
 
     `Restores <https://cloud.google.com/kms/docs/reference/rest/v1/
     projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/destroy>`_
-    a crypto version
+    a crypto key version
 
     :Example:
 
@@ -185,7 +185,7 @@ class KmsCryptoKeyVersionRestore(MethodAction):
 
     `Restores <https://cloud.google.com/kms/docs/reference/rest/v1/
     projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/restore>`_
-    a crypto version
+    a crypto key version
 
     :Example:
 
@@ -215,7 +215,7 @@ class KmsCryptoKeyVersionSet(MethodAction):
 
     `Patches <https://cloud.google.com/kms/docs/reference/rest/v1/
     projects.locations.keyRings.cryptoKeys.cryptoKeyVersions/patch>`_
-    a crypto version
+    a crypto key version
 
     The `state` show active key state
 
@@ -239,10 +239,10 @@ class KmsCryptoKeyVersionSet(MethodAction):
                          **{'state': {
                              'type': 'string',
                              'enum': [
-                                 "CRYPTO_KEY_VERSION_STATE_UNSPECIFIED",
-                                 "PENDING_GENERATION", "ENABLED",
-                                 "DISABLED", "DESTROYED", "DESTROY_SCHEDULED",
-                                 "PENDING_IMPORT", "IMPORT_FAILED"
+                                 'CRYPTO_KEY_VERSION_STATE_UNSPECIFIED',
+                                 'PENDING_GENERATION', 'ENABLED',
+                                 'DISABLED', 'DESTROYED', 'DESTROY_SCHEDULED',
+                                 'PENDING_IMPORT', 'IMPORT_FAILED'
                              ]
                          }})
     method_spec = {'op': 'patch'}
