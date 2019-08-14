@@ -26,6 +26,8 @@ class AppServicePlan(ArmResourceManager):
 
     :example:
 
+    Find all App Service Plans that are of the Basic sku tier.
+
     .. code-block:: yaml
 
         policies:
@@ -36,10 +38,11 @@ class AppServicePlan(ArmResourceManager):
                 key: sku.tier
                 op: eq
                 value: Basic
-
     """
 
     class resource_type(ArmResourceManager.resource_type):
+        doc_groups = ['Compute', 'Web']
+
         service = 'azure.mgmt.web'
         client = 'WebSiteManagementClient'
         enum_spec = ('app_service_plans', 'list', None)
@@ -50,12 +53,15 @@ class AppServicePlan(ArmResourceManager):
             'kind'
         )
         resource_type = 'Microsoft.Web/sites'
-        enable_tag_operations = False
 
 
 @AppServicePlan.action_registry.register('resize-plan')
 class ResizePlan(AzureBaseAction):
     """Resize App Service Plans
+
+    :example:
+
+    Resize App Service Plan to F1 plan with 1 instance.
 
     .. code-block:: yaml
 
@@ -83,6 +89,14 @@ class ResizePlan(AzureBaseAction):
 
     def _process_resource(self, resource):
         model = models.AppServicePlan(location=resource['location'])
+
+        if resource['kind'] == 'functionapp':
+            self.log.info("Skipping %s, because this App Service Plan "
+                          "is for Consumption Azure Functions." % resource['name'])
+            return
+
+        if resource['kind'] == 'linux':
+            model.reserved = True
 
         if 'size' in self.data:
             size = self.data.get('size')
