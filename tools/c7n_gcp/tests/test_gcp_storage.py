@@ -182,17 +182,17 @@ class BucketTest(BaseTest):
 
         client = policy.resource_manager.get_client()
         actual_bindings = client.execute_query('getIamPolicy', {'bucket': resource_name})
-        self.assertEqual(actual_bindings['bindings'],
-                         [{'members': ['projectEditor:cloud-custodian',
-                                       'projectOwner:cloud-custodian'],
-                           'role': 'roles/storage.legacyBucketOwner'},
-                          {'members': ['projectViewer:cloud-custodian'],
-                           'role': 'roles/storage.legacyBucketReader'},
-                          {'members': ['projectEditor:cloud-custodian',
-                                       'projectOwner:cloud-custodian'],
-                           'role': 'roles/storage.legacyObjectOwner'},
-                          {'members': ['projectViewer:cloud-custodian'],
-                           'role': 'roles/storage.legacyObjectReader'}])
+        expected_bindings = [{'members': ['projectEditor:cloud-custodian',
+                                          'projectOwner:cloud-custodian'],
+                              'role': 'roles/storage.legacyBucketOwner'},
+                             {'members': ['projectViewer:cloud-custodian'],
+                              'role': 'roles/storage.legacyBucketReader'},
+                             {'members': ['projectEditor:cloud-custodian',
+                                          'projectOwner:cloud-custodian'],
+                              'role': 'roles/storage.legacyObjectOwner'},
+                             {'members': ['projectViewer:cloud-custodian'],
+                              'role': 'roles/storage.legacyObjectReader'}]
+        self.assertEqual(actual_bindings['bindings'], expected_bindings)
 
         resources = policy.run()
         self.assertEqual(len(resources), 1)
@@ -202,18 +202,8 @@ class BucketTest(BaseTest):
             sleep(1)
 
         actual_bindings = client.execute_query('getIamPolicy', {'bucket': resource_name})
-        self.assertEqual(actual_bindings['bindings'],
-                         [{'members': ['projectEditor:cloud-custodian',
-                                       'projectOwner:cloud-custodian',
-                                       'user:alex.karpitski@gmail.com'],
-                           'role': 'roles/storage.legacyBucketOwner'},
-                          {'members': ['projectViewer:cloud-custodian'],
-                           'role': 'roles/storage.legacyBucketReader'},
-                          {'members': ['projectEditor:cloud-custodian',
-                                       'projectOwner:cloud-custodian'],
-                           'role': 'roles/storage.legacyObjectOwner'},
-                          {'members': ['projectViewer:cloud-custodian'],
-                           'role': 'roles/storage.legacyObjectReader'}])
+        expected_bindings[0]['members'].append('user:alex.karpitski@gmail.com')
+        self.assertEqual(actual_bindings['bindings'], expected_bindings)
 
 
 class BucketAccessControlTest(BaseTest):
