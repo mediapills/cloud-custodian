@@ -270,10 +270,10 @@ class ServiceAccountTest(BaseTest):
 
         client = policy.resource_manager.get_client()
         actual_bindings = client.execute_query('getIamPolicy', {'resource': name})
-        self.assertEqual(actual_bindings['bindings'],
-                         [{'members': [
-                             'serviceAccount:acc@cloud-custodian.iam.gserviceaccount.com'],
-                           'role': 'projects/cloud-custodian/roles/CustomRole'}])
+        expected_bindings = [{'members': [
+            'serviceAccount:acc@cloud-custodian.iam.gserviceaccount.com'],
+            'role': 'projects/cloud-custodian/roles/CustomRole'}]
+        self.assertEqual(actual_bindings['bindings'], expected_bindings)
 
         resources = policy.run()
         self.assertEqual(len(resources), 1)
@@ -283,10 +283,8 @@ class ServiceAccountTest(BaseTest):
             sleep(1)
 
         actual_bindings = client.execute_query('getIamPolicy', {'resource': name})
-        self.assertEqual(actual_bindings['bindings'],
-                         [{'members': ['serviceAccount:acc@cloud-custodian.iam.gserviceaccount.com',
-                                       'user:alex.karpitski@gmail.com'],
-                           'role': 'projects/cloud-custodian/roles/CustomRole'}])
+        expected_bindings[0]['members'].append('user:alex.karpitski@gmail.com')
+        self.assertEqual(actual_bindings['bindings'], expected_bindings)
 
 
 class IAMRoleTest(BaseTest):
