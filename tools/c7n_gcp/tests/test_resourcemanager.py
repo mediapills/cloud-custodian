@@ -92,12 +92,12 @@ class OrganizationTest(BaseTest):
 
         client = policy.resource_manager.get_client()
         actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
-        self.assertEqual(actual_bindings['bindings'],
-                         [{'members': ['user:alex.karpitski@gmail.com',
-                                       'user:dkhanas@gmail.com',
-                                       'user:pavel_mitrafanau@epam.com',
-                                       'user:yauhen_shaliou@comelfo.com'],
-                           'role': 'roles/owner'}])
+        expected_bindings = [{'members': ['user:alex.karpitski@gmail.com',
+                                          'user:dkhanas@gmail.com',
+                                          'user:pavel_mitrafanau@epam.com',
+                                          'user:yauhen_shaliou@comelfo.com'],
+                              'role': 'roles/owner'}]
+        self.assertEqual(actual_bindings['bindings'], expected_bindings)
 
         resources = policy.run()
         self.assertEqual(len(resources), 1)
@@ -107,13 +107,8 @@ class OrganizationTest(BaseTest):
             time.sleep(1)
 
         actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
-        self.assertEqual(actual_bindings['bindings'],
-                         [{'members': ['user:alex.karpitski@gmail.com',
-                                       'user:dkhanas@gmail.com',
-                                       'user:mediapills@gmail.com',
-                                       'user:pavel_mitrafanau@epam.com',
-                                       'user:yauhen_shaliou@comelfo.com'],
-                           'role': 'roles/owner'}])
+        expected_bindings[0]['members'].insert(2, 'user:mediapills@gmail.com')
+        self.assertEqual(actual_bindings['bindings'], expected_bindings)
 
 
 class FolderTest(BaseTest):
@@ -157,13 +152,13 @@ class ProjectTest(BaseTest):
 
         client = policy.resource_manager.get_client()
         actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
-        self.assertEqual(actual_bindings['bindings'],
-                         [{'members': ['user:alex.karpitski@gmail.com'],
-                           'role': 'roles/automl.admin'},
-                          {'members': ['user:alex.karpitski@gmail.com'],
-                           'role': 'roles/billing.projectManager'},
-                          {'members': ['user:alex.karpitski@gmail.com'],
-                           'role': 'roles/owner'}])
+        expected_bindings = [{'members': ['user:alex.karpitski@gmail.com'],
+                              'role': 'roles/automl.admin'},
+                             {'members': ['user:alex.karpitski@gmail.com'],
+                              'role': 'roles/billing.projectManager'},
+                             {'members': ['user:alex.karpitski@gmail.com'],
+                              'role': 'roles/owner'}]
+        self.assertEqual(actual_bindings['bindings'], expected_bindings)
 
         resources = policy.run()
         self.assertEqual(len(resources), 1)
@@ -173,11 +168,5 @@ class ProjectTest(BaseTest):
             time.sleep(1)
 
         actual_bindings = client.execute_query('getIamPolicy', get_iam_policy_params)
-        self.assertEqual(actual_bindings['bindings'],
-                         [{'members': ['user:alex.karpitski@gmail.com',
-                                       'user:mediapills@gmail.com'],
-                           'role': 'roles/automl.admin'},
-                          {'members': ['user:alex.karpitski@gmail.com'],
-                           'role': 'roles/billing.projectManager'},
-                          {'members': ['user:alex.karpitski@gmail.com'],
-                           'role': 'roles/owner'}])
+        expected_bindings[0]['members'].append('user:mediapills@gmail.com')
+        self.assertEqual(actual_bindings['bindings'], expected_bindings)
