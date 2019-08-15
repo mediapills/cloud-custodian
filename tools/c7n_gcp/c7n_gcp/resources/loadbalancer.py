@@ -45,9 +45,10 @@ class LoadBalancingAddress(QueryResourceManager):
 @LoadBalancingAddress.action_registry.register('delete')
 class LoadBalancingAddressDelete(MethodAction):
     """The action is used for Load Balancing Addresses delete.
+    
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/addresses/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
@@ -215,9 +216,10 @@ class LoadBalancingBackendBucket(QueryResourceManager):
 @LoadBalancingBackendBucket.action_registry.register('delete')
 class LoadBalancingBackendBucketDelete(MethodAction):
     """The action is used for Load Balancing Backend Buckets delete.
+    
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendBuckets/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
