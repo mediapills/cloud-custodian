@@ -54,7 +54,8 @@ class LoadBalancingUrlMap(QueryResourceManager):
         def get(client, resource_info):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
-                'urlMap': resource_info['name']})
+                'urlMap': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @LoadBalancingUrlMap.action_registry.register('delete')
@@ -194,7 +195,8 @@ class LoadBalancingSslCertificate(QueryResourceManager):
         def get(client, resource_info):
             return client.execute_command('get', {
                 'project': resource_info['project_id'],
-                'sslCertificate': resource_info['name']})
+                'sslCertificate': resource_info[
+                    'resourceName'].rsplit('/', 1)[-1]})
 
 
 @resources.register('loadbalancer-target-https-proxy')
