@@ -77,7 +77,7 @@ class LoadBalancingAddressTest(BaseTest):
         addresses = []
         items = result['items']
         for region in items:
-            if items[region].__contains__('addresses'):
+            if 'addresses' in items[region]:
                 addresses.extend(items[region]['addresses'])
         self.assertEqual(len(addresses), 2)
         self.assertEqual('PREMIUM', addresses[0]['networkTier'])
