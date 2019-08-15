@@ -631,12 +631,18 @@ class LoadBalancingForwardingRuleTest(BaseTest):
         if self.recording:
             sleep(10)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(1, len(resources))
-        self.assertEqual('custodian-frontend-3', resources[0]['name'])
-        self.assertEqual('443-443', resources[0]['portRange'])
-        self.assertIsNotNone(resources[0]['region'])
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'aggregatedList', {'project': project_id})
+        items = result['items']
+        forwarding_rules = []
+        forwarding_rules.extend(items[region]['forwardingRules']
+                                for region in items
+                                    if region != 'global' and 'forwardingRules' in items[region])
+        self.assertEqual(1, len(forwarding_rules))
+        self.assertEqual('custodian-frontend-3', forwarding_rules[0]['name'])
+        self.assertEqual('443-443', forwarding_rules[0]['portRange'])
+        self.assertIsNotNone(forwarding_rules[0]['region'])
 
 
 class LoadBalancingGlobalForwardingRuleTest(BaseTest):
@@ -671,7 +677,7 @@ class LoadBalancingGlobalForwardingRuleTest(BaseTest):
         self.assertEqual(instances[0]['kind'], 'compute#forwardingRule')
         self.assertEqual(instances[0]['name'], 'custodian-frontend-0')
 
-    def test_loadbalancer_forwarding_rules_delete(self):
+    def test_loadbalancer_global_forwarding_rules_delete(self):
         project_id = 'custodian-test-project-0'
         session_factory = self.replay_flight_data('lb-global-forwarding-rules-delete',
                                                   project_id=project_id)
@@ -696,12 +702,14 @@ class LoadBalancingGlobalForwardingRuleTest(BaseTest):
         if self.recording:
             sleep(10)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(1, len(resources))
-        self.assertEqual('custodian-frontend-5', resources[0]['name'])
-        self.assertEqual('443-443', resources[0]['portRange'])
-        self.assertFalse(hasattr(resources[0], 'region'))
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'list', {'project': project_id})
+        items = result['items']
+        self.assertEqual(1, len(items))
+        self.assertEqual('custodian-frontend-5', items[0]['name'])
+        self.assertEqual('443-443', items[0]['portRange'])
+        self.assertFalse(hasattr(items[0], 'region'))
 
 
 class LoadBalancingGlobalAddressTest(BaseTest):
