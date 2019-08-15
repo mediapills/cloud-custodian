@@ -391,7 +391,7 @@ class LoadBalancingBackendServiceTest(BaseTest):
                  filters=[{'type': 'value',
                            'key': 'backends',
                            'value': 'absent'}],
-                  actions=[{'type': 'delete'}]
+                 actions=[{'type': 'delete'}]
                  ),
             session_factory=session_factory)
         resources = policy.run()
@@ -401,10 +401,16 @@ class LoadBalancingBackendServiceTest(BaseTest):
         if self.recording:
             sleep(10)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual(1, len(resources))
-        self.assertGreater(len(resources[0]['backends']), 0)
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'aggregatedList', {'project': project_id})
+        items = result['items']
+        backend_services = []
+        for region in items:
+            if 'backendServices' in items[region]:
+                backend_services.extend(items[region]['backendServices'])
+        self.assertEqual(1, len(backend_services))
+        self.assertGreater(len(backend_services[0]['backends']), 0)
 
     def test_loadbalancer_backend_service_set_security_policy(self):
         project_id = 'custodian-test-project-0'
@@ -461,10 +467,16 @@ class LoadBalancingBackendServiceTest(BaseTest):
         if self.recording:
             sleep(5)
 
-        policy = self.load_policy(base_policy, session_factory=session_factory)
-        resources = policy.run()
-        self.assertEqual('HTTPS', resources[0]['protocol'])
-        self.assertEqual('custodian-backend-service-0', resources[0]['name'])
+        client = policy.resource_manager.get_client()
+        result = client.execute_query(
+            'aggregatedList', {'project': project_id})
+        items = result['items']
+        backend_services = []
+        for region in items:
+            if 'backendServices' in items[region]:
+                backend_services.extend(items[region]['backendServices'])
+        self.assertEqual('HTTPS', backend_services[0]['protocol'])
+        self.assertEqual('custodian-backend-service-0', backend_services[0]['name'])
 
 
 class LoadBalancingTargetInstanceTest(BaseTest):

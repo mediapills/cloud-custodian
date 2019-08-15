@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import re
 from c7n.utils import type_schema, local_session
 from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
@@ -339,8 +338,8 @@ class LoadBalancingBackendServiceSetSecurityPolicy(MethodAction):
 
 
 @LoadBalancingBackendService.action_registry.register('set')
-class LoadBalancingBackendServicePatch(MethodAction):
-    """The action is used for Load Balancing Backend service delete.
+class LoadBalancingBackendServiceSet(MethodAction):
+    """The action is used for Load Balancing Backend service patch.
 
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendServices/patch.
 
@@ -376,7 +375,7 @@ class LoadBalancingBackendServicePatch(MethodAction):
 
 @resources.register('loadbalancer-target-instance')
 class LoadBalancingTargetInstance(QueryResourceManager):
-    """    GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetInstances
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetInstances
     """
     class resource_type(TypeInfo):
         service = 'compute'
@@ -396,7 +395,7 @@ class LoadBalancingTargetInstance(QueryResourceManager):
 
 @resources.register('loadbalancer-target-pool')
 class LoadBalancingTargetPool(QueryResourceManager):
-    """    GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetPools
+    """GCP resource: https://cloud.google.com/compute/docs/reference/rest/v1/targetPools
     """
     class resource_type(TypeInfo):
         service = 'compute'
