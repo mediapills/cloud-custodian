@@ -447,9 +447,10 @@ class LoadBalancingGlobalAddress(QueryResourceManager):
 @LoadBalancingGlobalAddress.action_registry.register('delete')
 class LoadBalancingGlobalAddressDelete(MethodAction):
     """The action is used for Load Balancing Global Addresses delete.
+    
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/globalAddresses/delete.
 
-    Example:
+    :Example:
 
     .. code-block:: yaml
 
