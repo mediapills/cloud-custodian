@@ -475,6 +475,7 @@ class LoadBalancingBackendServiceTest(BaseTest):
         for region in items:
             if 'backendServices' in items[region]:
                 backend_services.extend(items[region]['backendServices'])
+        self.assertEqual(1, len(backend_services))
         self.assertEqual('HTTPS', backend_services[0]['protocol'])
         self.assertEqual('custodian-backend-service-0', backend_services[0]['name'])
 
