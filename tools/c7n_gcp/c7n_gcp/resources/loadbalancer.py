@@ -349,7 +349,7 @@ class LoadBalancingBackendServiceSet(MethodAction):
 
         policies:
           - name: gcp-loadbalancer-backend-service-update-protocol
-            resource: gcp.loadbalancer-backend-update-protocol
+            resource: gcp.loadbalancer-backend-service
             filters:
               - type: value
                 key: protocol
@@ -359,7 +359,9 @@ class LoadBalancingBackendServiceSet(MethodAction):
                 protocol: HTTPS
     """
     schema = type_schema('set',
-                         **{'protocol': {'enum': ['HTTP', 'HTTPS', 'HTTP2', 'SSL', 'TCP', 'UDP']}})
+                         **{'protocol': {
+                             'type': 'string',
+                             'enum': ['HTTP', 'HTTPS', 'HTTP2', 'SSL', 'TCP', 'UDP']}})
     method_spec = {'op': 'patch'}
 
     def get_resource_params(self, model, resource):

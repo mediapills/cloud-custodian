@@ -7,7 +7,7 @@ This sample policy replaces protocols in the backend service.
 
     policies:
       - name: gcp-loadbalancer-backend-service-update-protocol
-        resource: gcp.loadbalancer-backend-update-protocol
+        resource: gcp.loadbalancer-backend-service
         filters:
           - type: value
             key: protocol
