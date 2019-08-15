@@ -104,28 +104,31 @@ class InstanceTest(BaseTest):
                      'zone': resources[0]['zone'].rsplit('/', 1)[-1]})
         self.assertEqual(result['items'][0]['status'], 'STOPPING')
 
-    def test_enforce_tags(self):
+    def test_instance_enforce_tags(self):
         project_id = 'cloud-custodian'
         zone = 'zones/us-central1-a'
-        initial_tags = ['cloud', 'custodian']
-        enforced_tags = ['custodian', 'gcp']
-        resulting_tags = ['cloud', 'custodian', 'gcp']
         resource_name = 'custodian-instance'
-        session_factory = self.replay_flight_data(
-            'instance-enforce-tags', project_id=project_id)
+        session_factory = self.replay_flight_data('instance-enforce-tags', project_id=project_id)
 
         policy = self.load_policy(
             {'name': 'gcp-instance-enforce-labels',
              'resource': 'gcp.instance',
              'filters': [{'type': 'value', 'key': 'name', 'value': resource_name}],
-             'actions': [{'type': 'enforce-tags', 'tags': enforced_tags}]},
+             'actions': [{'type': 'enforce-tags',
+                          'add-tags': ['one', 'two'],
+                          'remove-tags': ['four']}]},
             session_factory=session_factory)
 
         resources = policy.run()
+        initial_tags = ['four', 'one', 'three']  # sorted by name in GCP
         self.assertEqual(resources[0]['tags']['items'], initial_tags)
+
+        if self.recording:
+            time.sleep(1)
 
         client = policy.resource_manager.get_client()
         result = client.execute_query('aggregatedList', {'project': project_id})
+        resulting_tags = ['one', 'three', 'two']  # sorted by name in GCP
         self.assertEqual(result['items'][zone]['instances'][0]['tags']['items'], resulting_tags)
 
 

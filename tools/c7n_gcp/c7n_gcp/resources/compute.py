@@ -99,8 +99,23 @@ class Delete(InstanceAction):
 @Instance.action_registry.register('enforce-tags')
 class EnforceTags(InstanceAction):
     """
-    The `action <https://cloud.google.com/compute/docs/reference/rest/v1/instances/setTags>`_ checks
-    if the required `tags` are present and adds the missing ones while preserving the existing.
+    The `Set Tags <https://cloud.google.com/compute/docs/reference/rest/v1/instances/setTags>`_
+    action controls what tags must be present or absent on a VM Instance.
+
+    The `add-tags` parameter accepts a list of hyphen-separated alphanumeric strings that,
+    if absent, will be added while preserving the existing ones. Namely, no action will be taken
+    if all the specified tags are already present.
+
+    The `remove-tags` parameter accepts a list of hyphen-separated alphanumeric strings that will
+    be removed from the resulting list. The tags that are removed already are simply ignored.
+    In addition, the parameter accepts the '*' value which is treated as removing all the tags.
+
+    Not that specifying the same tag both in `add-tags` and `remove-tags` (not a recommended thing
+    to do but still possible) results in having no tag in the resulting list.
+
+    :example:
+
+    .. code-block:: yaml
 
     policies:
       - name: gce-compute-enforce-tags
@@ -111,19 +126,27 @@ class EnforceTags(InstanceAction):
             value: instance-whose-tags-to-enforce
         actions:
           - type: enforce-tags
-            tags:
-              - target
-              - tags
-              - you
-              - want
-              - to
-              - enforce
+            add-tags:
+              - tag-to-add-one
+              - tag-to-add-two
+            remove-tags:
+              - tag-to-remove
     """
     schema = type_schema(
         'enforce-tags',
-        tags={'type': 'array',
-              'items': {'type': 'string',
-                        'pattern': '^[a-z0-9]+(-[a-z0-9]+)*$'}})
+        **{
+            'minProperties': 1,
+            'additionalProperties': False,
+            'add-tags': {'type': 'array',
+                         'items': {'type': 'string',
+                                   'pattern': '^[a-z0-9]+(-[a-z0-9]+)*$'}},
+            'remove-tags': {'oneOf': [
+                {'type': 'array',
+                 'items': {'type': 'string',
+                           'pattern': '^[a-z0-9]+(-[a-z0-9]+)*$'}},
+                {'enum': ['*']}
+            ]}
+        })
     method_spec = {'op': 'setTags'}
     path_param_re = re.compile(
         '.*?/projects/(.*?)/zones/(.*?)/instances/(.*)')
@@ -131,15 +154,43 @@ class EnforceTags(InstanceAction):
     def get_resource_params(self, model, resource):
         params = InstanceAction.get_resource_params(self, model, resource)
         instance_tags = resource['tags']
-        existing_tags = instance_tags['items'] if 'items' in instance_tags else []
-        tags_to_enforce = self._get_tags_to_enforce(existing_tags, self.data['tags'])
+        if self._should_remove_all_tags():
+            tags_to_enforce = []
+        else:
+            existing_tags = instance_tags['items'] if 'items' in instance_tags else []
+            tags_to_enforce = self._filter_existing_tags(self._extend_existing_tags(existing_tags))
         params['body'] = {'items': tags_to_enforce, 'fingerprint': instance_tags['fingerprint']}
         return params
 
-    def _get_tags_to_enforce(self, existing_tags, target_tags):
+    def _should_remove_all_tags(self):
+        """
+        Returns `True` if the value at the `remove-tags` key in self.data is a string representation
+        of an asterisk ('*') which in its turn implies that an empty array of tags has to be used.
+        """
+        return 'remove-tags' in self.data and self.data['remove-tags'] == '*'
+
+    def _extend_existing_tags(self, existing_tags):
+        """
+        Returns a copy of the provided `existing_tags` which has been extended with all the items
+        from the list at the `add-tags` key in `self.data`.
+
+        :param existing_tags: a list a copy of which to extend and return
+        """
+        tags_to_add = self.data['add-tags'] if 'add-tags' in self.data else []
         updated_tags = list(existing_tags)
-        updated_tags.extend([tag for tag in target_tags if tag not in existing_tags])
+        updated_tags.extend([tag for tag in tags_to_add if tag not in existing_tags])
         return updated_tags
+
+    def _filter_existing_tags(self, existing_tags):
+        """
+        Returns a copy of the provided `existing_tags` which has been filtered against all the items
+        from the list at the `remove-tags` key in `self.data`.
+
+        :param existing_tags: a list a copy of which to filter and return
+        """
+        tags_to_remove = self.data['remove-tags'] if 'remove-tags' in self.data else []
+        updated_tags = list(existing_tags)
+        return list(filter(lambda a: a not in tags_to_remove, updated_tags))
 
 
 @resources.register('image')
