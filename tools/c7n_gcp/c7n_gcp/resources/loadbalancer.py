@@ -122,6 +122,7 @@ class LoadBalancingSslPolicy(QueryResourceManager):
 @LoadBalancingSslPolicy.action_registry.register('delete')
 class LoadBalancingSslPolicyDelete(MethodAction):
     """The action is used for Load Balancing SSL Policies delete.
+    
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/sslPolicies/delete.
 
     Example:
@@ -211,6 +212,7 @@ class LoadBalancingBackendBucket(QueryResourceManager):
 @LoadBalancingBackendBucket.action_registry.register('delete')
 class LoadBalancingBackendBucketDelete(MethodAction):
     """The action is used for Load Balancing Backend Buckets delete.
+    
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/backendBuckets/delete.
 
     Example:
@@ -407,6 +409,7 @@ class LoadBalancingForwardingRule(QueryResourceManager):
 @LoadBalancingForwardingRule.action_registry.register('delete')
 class LoadBalancingForwardingRuleDelete(MethodAction):
     """The action is used for Load Balancing Forwarding rules delete.
+    
     GCP action is https://cloud.google.com/compute/docs/reference/rest/v1/forwardingRules/delete.
 
     :Example:
