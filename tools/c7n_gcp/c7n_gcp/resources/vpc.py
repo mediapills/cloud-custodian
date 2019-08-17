@@ -11,11 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+from c7n.exceptions import PolicyExecutionError
 from c7n.utils import type_schema
+
 from c7n_gcp.actions import MethodAction
 from c7n_gcp.provider import resources
 from c7n_gcp.query import QueryResourceManager, TypeInfo, ChildResourceManager, ChildTypeInfo
-from c7n.exceptions import PolicyExecutionError
 
 
 @resources.register('vpc-access-policy')
@@ -49,10 +51,9 @@ class VpcAccessPolicy(QueryResourceManager):
 
 @VpcAccessPolicy.action_registry.register('delete')
 class VpcAccessPolicyDelete(MethodAction):
-    """The action is used for VPC access policy delete.
-
-    GCP action is https://cloud.google.com/access-context-manager/docs
-                                    /reference/rest/v1/accessPolicies/delete
+    """
+    `Deletes <https://cloud.google.com/access-context-manager/docs/reference/rest/v1
+    /accessPolicies/delete>`_ a VPC access policy
 
     :Example:
 
@@ -89,6 +90,7 @@ class VpcAccessLevel(ChildResourceManager):
         scope = None
         scope_key = 'parent'
         scope_template = 'organizations/{}'
+        id = 'name'
         parent_spec = {
             'resource': 'vpc-access-policy',
             'child_enum_params': [
@@ -107,10 +109,9 @@ class VpcAccessLevel(ChildResourceManager):
 
 @VpcAccessLevel.action_registry.register('delete')
 class VpcAccessLevelDelete(MethodAction):
-    """The action is used for VPC access levels delete.
-
-    GCP action is https://cloud.google.com/access-context-manager/docs
-                            /reference/rest/v1/accessPolicies.accessLevels/delete
+    """
+    `Deletes <https://cloud.google.com/access-context-manager/docs/reference/rest/v1
+    /accessPolicies.accessLevels/delete>`_ a VPC access level
 
     :Example:
 
@@ -138,10 +139,9 @@ class VpcAccessLevelDelete(MethodAction):
 
 @VpcAccessLevel.action_registry.register('set')
 class VpcAccessLevelSet(MethodAction):
-    """The action is used for VPC access levels patch.
-
-    GCP action is https://cloud.google.com/access-context-manager/docs
-                            /reference/rest/v1/accessPolicies.accessLevels/patch
+    """
+    `Patches <https://cloud.google.com/access-context-manager/docs/reference/rest/v1
+    /accessPolicies.accessLevels/patch>`_ a VPC access level
 
     :Example:
 
@@ -163,9 +163,9 @@ class VpcAccessLevelSet(MethodAction):
                 basic:
                   conditions:
                     - regions:
-                      - BY
-                      - US
-                      - RU
+                        - BY
+                        - US
+                        - RU
     """
     schema = type_schema('patch',
                          **{'type': {'enum': ['set']},
@@ -224,6 +224,7 @@ class VpcServicePerimeter(ChildResourceManager):
         scope = None
         scope_key = 'parent'
         scope_template = 'organizations/{}'
+        id = 'name'
         parent_spec = {
             'resource': 'vpc-access-policy',
             'child_enum_params': [
@@ -242,10 +243,9 @@ class VpcServicePerimeter(ChildResourceManager):
 
 @VpcServicePerimeter.action_registry.register('delete')
 class VpcServicePerimeterDelete(MethodAction):
-    """The action is used for VPC service perimeter delete.
-
-    GCP action is https://cloud.google.com/access-context-manager/docs
-                            /reference/rest/v1/accessPolicies.servicePerimeters/delete
+    """
+    `Deletes <https://cloud.google.com/access-context-manager/docs/reference/rest/v1
+    /accessPolicies.servicePerimeters/delete>`_ a VPC service perimeter
 
     :Example:
 
@@ -273,10 +273,9 @@ class VpcServicePerimeterDelete(MethodAction):
 
 @VpcServicePerimeter.action_registry.register('set')
 class VpcServicePerimeterSet(MethodAction):
-    """The action is used for VPC service perimeter patch.
-
-    GCP action is https://cloud.google.com/access-context-manager/docs
-                            /reference/rest/v1/accessPolicies.servicePerimeters/patch
+    """
+    `Patches <https://cloud.google.com/access-context-manager/docs/reference/rest/v1
+    /accessPolicies.servicePerimeters/patch>`_ a VPC service perimeter
 
     Example:
 
@@ -297,8 +296,8 @@ class VpcServicePerimeterSet(MethodAction):
                 description: new description
                 status:
                   resources:
-                    - projects/359546646409
-                    - projects/2030697917
+                    - projects/test-project-123
+                    - projects/test-project-321
                   accessLevels:
                     - accessPolicies/1016634752304/accessLevels/custodian_viewer
                     - accessPolicies/1016634752304/accessLevels/custodian_viewer_2
@@ -318,6 +317,8 @@ class VpcServicePerimeterSet(MethodAction):
                                 'restrictedServices': {'type': 'array',
                                                        'items': {'type': 'string'}}}})
     method_spec = {'op': 'patch'}
+    project_not_found_message_template = 'Unable to match a project number for the ' \
+                                         'following project id: {}.'
 
     def get_resource_params(self, model, resource):
         data = self.data
@@ -329,9 +330,35 @@ class VpcServicePerimeterSet(MethodAction):
             if element != 'type':
                 body[element] = data[element]
                 update_mask.append(element)
+            if element == 'status' and 'resources' in body['status']:
+                body['status']['resources'] = self._prepare_status_resources_param(
+                    body['status']['resources']
+                )
+
         if not update_mask:
             raise PolicyExecutionError('The updating fields are absent')
         result = {'name': resource['name'],
                   'updateMask': ','.join(update_mask),
                   'body': body}
         return result
+
+    def _prepare_status_resources_param(self, status_resources):
+        projects = self.manager.get_resource_manager('project').resources()
+        updated_resources = []
+
+        for r in status_resources:
+            if r.startswith('projects'):
+                r = 'projects/{}'.format(
+                    self._find_project_id(projects, r.rsplit('/', 1)[1])
+                )
+            updated_resources.append(r)
+
+        return updated_resources
+
+    def _find_project_id(self, projects, project_id):
+        matched_project = next((p for p in projects if p['projectId'] == project_id), None)
+
+        if not matched_project:
+            raise ValueError(self.project_not_found_message_template.format(project_id))
+
+        return matched_project['projectNumber']

@@ -25,12 +25,12 @@ class Organization(QueryResourceManager):
         component = 'organizations'
         scope = 'global'
         enum_spec = ('search', 'organizations[]', {'body': {}})
-        id = "name"
+        id = 'name'
 
 
 @resources.register('folder')
 class Folder(QueryResourceManager):
-    """GCP resource: https://cloud.google.com/resource-manager/reference/rest/v1/folders
+    """GCP resource: https://cloud.google.com/resource-manager/reference/rest/v2/folders/list
     """
     class resource_type(TypeInfo):
         service = 'cloudresourcemanager'
@@ -38,7 +38,7 @@ class Folder(QueryResourceManager):
         component = 'folders'
         scope = 'global'
         enum_spec = ('list', 'folders', None)
-        id = "name"
+        id = 'name'
 
     def get_resource_query(self):
         if 'query' in self.data:
@@ -57,4 +57,4 @@ class Project(QueryResourceManager):
         component = 'projects'
         scope = 'global'
         enum_spec = ('list', 'projects', None)
-        id = "projectId"
+        id = 'projectId'

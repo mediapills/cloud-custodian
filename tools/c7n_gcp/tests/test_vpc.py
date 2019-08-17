@@ -221,7 +221,7 @@ class VpcServicePerimeterTest(BaseTest):
             'accessPolicies/1016634752304/servicePerimeters/custodian_perimeter_core'
         self.assertEqual(service_perimeter_name_core, service_perimeters[0]['name'])
 
-    def test_vpc_service_perimeter_patch(self):
+    def test_vpc_service_perimeter_set(self):
         organization_id = '926683928810'
         service_perimeter_name_viewer = \
             'accessPolicies/1016634752304/servicePerimeters/custodian_service_perimeter_viewer_0'
@@ -240,8 +240,8 @@ class VpcServicePerimeterTest(BaseTest):
                  actions=[{'type': 'set',
                            'status': {
                                'resources': [
-                                   'projects/359546646409',
-                                   'projects/2030697917'
+                                   'projects/custodian-test-project',
+                                   'projects/custodian-test-project-3'
                                ],
                                'accessLevels': [
                                    'accessPolicies/1016634752304/accessLevels/custodian_viewer',
