@@ -541,6 +541,7 @@ class LoadBalancingSecurityPolicyAddRule(MethodAction):
                          })
     method_spec = {'op': 'addRule'}
     path_param_re = re.compile('.*?/projects/(.*?)/global/securityPolicies/(.*)')
+    same_priorities_message = 'Cannot have rules with the same priorities'
 
     def get_resource_params(self, model, resource):
         project, policy = self.path_param_re.match(resource['selfLink']).groups()
@@ -556,11 +557,15 @@ class LoadBalancingSecurityPolicyAddRule(MethodAction):
             }
         }
 
-        if 'priority' in rule:
-            body['priority'] = rule['priority']
+        body['priority'] = rule.get('priority', 0)
+        self._assert_unique_priority(body['priority'], resource['rules'])
 
         result = {'project': project,
                   'securityPolicy': policy,
                   'body': body}
 
         return result
+
+    def _assert_unique_priority(self, priority, rules):
+        if next((r for r in rules if r['priority'] == priority), None):
+            raise ValueError(self.same_priorities_message)
