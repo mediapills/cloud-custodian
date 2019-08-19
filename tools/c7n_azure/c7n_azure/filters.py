@@ -17,27 +17,22 @@ from concurrent.futures import as_completed
 from datetime import timedelta
 
 import six
-from netaddr import AddrFormatError
-from azure.mgmt.costmanagement.models import QueryDefinition, QueryDataset, \
-    QueryAggregation, QueryGrouping, QueryTimePeriod, TimeframeType, QueryFilter, \
-    QueryComparisonExpression
+from azure.mgmt.costmanagement.models import (QueryAggregation,
+                                              QueryComparisonExpression,
+                                              QueryDataset, QueryDefinition,
+                                              QueryFilter, QueryGrouping,
+                                              QueryTimePeriod, TimeframeType)
 from azure.mgmt.policyinsights import PolicyInsightsClient
-
-from c7n_azure.tags import TagHelper
-from c7n_azure.utils import IpRangeHelper, ResourceIdParser, StringUtils
-from c7n_azure.utils import Math
-from c7n_azure.utils import ThreadHelper
-from c7n_azure.utils import now
-from c7n_azure.utils import utcnow
 from dateutil import tz as tzutils
 from dateutil.parser import parse
 
-from c7n.filters import Filter, ValueFilter, FilterValidationError
+from c7n.filters import Filter, FilterValidationError, ValueFilter
 from c7n.filters.core import PolicyValidationError
-from c7n.filters.offhours import Time, OffHour, OnHour
-from c7n.utils import chunks
-from c7n.utils import type_schema
-from c7n.utils import get_annotation_prefix
+from c7n.filters.offhours import OffHour, OnHour, Time
+from c7n.utils import chunks, get_annotation_prefix, type_schema
+from c7n_azure.tags import TagHelper
+from c7n_azure.utils import (IpRangeHelper, Math, ResourceIdParser,
+                             StringUtils, ThreadHelper, now, utcnow)
 
 scalar_ops = {
     'eq': operator.eq,
@@ -59,6 +54,10 @@ class MetricFilter(Filter):
     """
 
     Filters Azure resources based on live metrics from the Azure monitor
+
+    Click `here
+    <https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-supported-metrics/>`_
+    for a full list of metrics supported by Azure resources.
 
     :example:
 
@@ -182,6 +181,10 @@ class MetricFilter(Filter):
             return [item for item in processed if item is not None]
 
     def get_metric_data(self, resource):
+        cached_metric_data = self._get_cached_metric_data(resource)
+        if cached_metric_data:
+            return cached_metric_data['measurement']
+
         metrics_data = self.client.metrics.list(
             resource['id'],
             timespan=self.timespan,
@@ -190,12 +193,38 @@ class MetricFilter(Filter):
             aggregation=self.aggregation,
             filter=self.filter
         )
+
         if len(metrics_data.value) > 0 and len(metrics_data.value[0].timeseries) > 0:
             m = [getattr(item, self.aggregation)
-                 for item in metrics_data.value[0].timeseries[0].data]
+                for item in metrics_data.value[0].timeseries[0].data]
         else:
             m = None
+
+        self._write_metric_to_resource(resource, metrics_data, m)
+
         return m
+
+    def _write_metric_to_resource(self, resource, metrics_data, m):
+        resource_metrics = resource.setdefault(get_annotation_prefix('metrics'), {})
+        resource_metrics[self._get_metrics_cache_key()] = {
+            'metrics_data': metrics_data.as_dict(),
+            'measurement': m,
+        }
+
+    def _get_metrics_cache_key(self):
+        return "{}, {}, {}, {}, {}".format(
+            self.metric,
+            self.aggregation,
+            self.timeframe,
+            self.interval,
+            self.filter,
+        )
+
+    def _get_cached_metric_data(self, resource):
+        metrics = resource.get(get_annotation_prefix('metrics'))
+        if not metrics:
+            return None
+        return metrics.get(self._get_metrics_cache_key())
 
     def passes_op_filter(self, resource):
         m_data = self.get_metric_data(resource)
@@ -542,16 +571,6 @@ class FirewallRulesFilter(Filter):
     def log(self):
         raise NotImplementedError()
 
-    def validate(self):
-        try:
-            IpRangeHelper.parse_ip_ranges(self.data, 'include')
-            IpRangeHelper.parse_ip_ranges(self.data, 'equal')
-            IpRangeHelper.parse_ip_ranges(self.data, 'any')
-            IpRangeHelper.parse_ip_ranges(self.data, 'only')
-        except AddrFormatError as e:
-            raise PolicyValidationError("Invalid IP range found. %s" % e)
-        return self
-
     def process(self, resources, event=None):
         self.policy_include = IpRangeHelper.parse_ip_ranges(self.data, 'include')
         self.policy_equal = IpRangeHelper.parse_ip_ranges(self.data, 'equal')
@@ -576,7 +595,7 @@ class FirewallRulesFilter(Filter):
         """
         Queries firewall rules for a resource. Override in concrete classes.
         :param resource:
-        :return: A set of netaddr.IPRange or netaddr.IPSet with rules defined for the resource.
+        :return: A set of netaddr.IPSet with rules defined for the resource.
         """
         raise NotImplementedError()
 
@@ -861,3 +880,46 @@ class CostFilter(ValueFilter):
             r['ResourceId'] = r['ResourceId'].lower()
 
         return result_list
+
+
+class ParentFilter(Filter):
+    """
+    Meta filter that allows you to filter child resources by applying filters to their
+    parent resources.
+
+    You can use any filter supported by corresponding parent resource type.
+
+    :examples:
+
+    Find Azure KeyVault Keys from Key Vaults with ``owner:ProjectA`` tag.
+
+    .. code-block:: yaml
+
+        policies:
+          - name: kv-keys-from-tagged-keyvaults
+            resource: azure.keyvault-keys
+            filters:
+              - type: parent
+                filter:
+                  type: value
+                  key: tags.owner
+                  value: ProjectA
+    """
+
+    schema = type_schema(
+        'parent', filter={'type': 'object'}, required=['type'])
+    schema_alias = True
+
+    def __init__(self, data, manager=None):
+        super(ParentFilter, self).__init__(data, manager)
+        self.parent_manager = self.manager.get_parent_manager()
+        self.parent_filter = self.parent_manager.filter_registry.factory(
+            self.data['filter'],
+            self.parent_manager)
+
+    def process(self, resources, event=None):
+        parent_resources = self.parent_filter.process(self.parent_manager.resources())
+        parent_resources_ids = [p['id'] for p in parent_resources]
+
+        parent_key = self.manager.resource_type.parent_key
+        return [r for r in resources if r[parent_key] in parent_resources_ids]
