@@ -33,7 +33,6 @@ class FunctionMode(ServerlessExecutionMode):
            'memory-size': {'type': 'integer'},
            'labels': {'type': 'object'},
            'network': {'type': 'string'},
-           'region': {'type': 'string'},
            'max-instances': {'type': 'integer'},
            'service-account': {'type': 'string'},
            'environment': {'type': 'object'}})
