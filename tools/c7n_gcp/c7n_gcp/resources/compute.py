@@ -423,38 +423,16 @@ class InstanceGroupManagerSet(MethodAction):
     `Patches <https://cloud.google.com/compute/docs/reference/rest/v1/instanceGroupManagers
     /patch>`_ configuration parameters for an instance group.
 
-    The `instanceTemplate` represents an URL of the instance template that is specified for
-    this managed instance group.
-
-    The `autoHealingPolicies[].healthCheck` represents an URL for the health check that
-    signals autohealing.
-
-    The `autoHealingPolicies[]` specifies the autohealing policy for this managed instance group.
-    You can specify only one value.
-
-    The `autoHealingPolicies[].initialDelaySec` specifies the  number of seconds that the managed
-    instance group waits before it applies autohealing policies to new instances or recently
-    recreated instances.
-
-    The `updatePolicy.type` specifies the type of update process. You can specify either
-    'PROACTIVE' so that the instance group manager proactively executes actions in order to bring
-    instances to their target versions or 'OPPORTUNISTIC' so that no action is proactively executed
-    but the update will be performed as part of other actions.
-
-    The `updatePolicy.minimalAction` specifies minimal action to be taken on an instance.  You
-    can specify either 'RESTART' to restart existing instances or 'REPLACE' to delete and create
-    new instances from the target template.
-
-    The `updatePolicy.maxSurge.fixed` specifies a fixed number of VM instances. This must be a
-    positive integer.
-    The `updatePolicy.maxSurge.percent` specifies a percentage of instances between 0 to 100%,
-    inclusive. For example, specify 80 for 80%.
-
-    The `updatePolicy.maxUnavailable.fixed` specifies a fixed number of VM instances. This must be
-    a positive integer.
-
-    The `updatePolicy.maxUnavailable.percent` specifies a percentage of instances between 0 to
-    100%, inclusive. For example, specify 80 for 80%.
+    Available fields:
+    - `instanceTemplate`
+    - `autoHealingPolicies[].healthCheck`
+    - `autoHealingPolicies[].initialDelaySec`
+    - `updatePolicy.type`
+    - `updatePolicy.minimalAction`
+    - `updatePolicy.maxSurge.fixed`
+    - `updatePolicy.maxSurge.percent`
+    - `updatePolicy.maxUnavailable.fixed`
+    - `updatePolicy.maxUnavailable.percent`
 
     :Example:
 
