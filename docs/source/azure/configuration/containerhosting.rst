@@ -43,8 +43,30 @@ the policy will be ignored.
 Deployment Options
 ##################
 
-Helm Chart
-----------
+Azure Container Instance
+------------------------
+
+The ARM template to deploy the Azure Container Host is provided for deploying an ACI instance
+against a single subscription using a `user assigned identity <https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview>`_ 
+for authentication.
+
+Here is an example deployment of the ARM template using the azure cli:
+
+.. code-block:: bash
+
+    az group deployment create \
+        --resource-group my-resource-group \
+        --template-file tools/ops/azure/container-host/aci/aci-template.json \
+        --parameters \
+            aci_name=cloud-custodian \
+            user_assigned_identity_name=my-uai \
+            azure_subscription_id=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx \
+            azure_event_queue_name=custodian-aci-queue \
+            azure_container_storage=https://myStorageAccount.blob.core.windows.net/aci-policies \
+            azure_event_queue_resource_id=/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/my-resource-group/providers/Microsoft.Storage/storageAccounts/myStorageAccount
+
+Kubernetes (Helm Chart)
+-----------------------
 
 A helm chart is provided that will deploy a set of cloud custodian containers against a set of 
 subscriptions to be monitored. For information on how to customize the values, reference 
@@ -55,22 +77,24 @@ the helm chart's values.yaml.
     # sample-values.yaml
 
     defaultEnvironment:
-    AZURE_TENANT_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    AZURE_CLIENT_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    AZURE_CLIENT_SECRET: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    AZURE_EVENT_QUEUE_NAME: "cloud-custodian-events"
+      AZURE_TENANT_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      AZURE_CLIENT_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      AZURE_EVENT_QUEUE_NAME: "cloud-custodian-events"
+    
+    defaultSecretEnvironment:
+      AZURE_CLIENT_SECRET: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
     subscriptionHosts:
-    - name: "my-first-subscription"
+      - name: "my-first-subscription"
         environment:
-        AZURE_SUBSCRIPTION_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-        AZURE_CONTAINER_STORAGE: "https://firstStorageAccount.blob.core.windows.net/cloud-custodian-policies"
-        AZURE_EVENT_QUEUE_RESOURCE_ID: "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/firstStorageAccount"
-    - name: "my-second-subscription"
+          AZURE_SUBSCRIPTION_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+          AZURE_CONTAINER_STORAGE: "https://firstStorageAccount.blob.core.windows.net/cloud-custodian-policies"
+          AZURE_EVENT_QUEUE_RESOURCE_ID: "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/firstStorageAccount"
+      - name: "my-second-subscription"
         environment:
-        AZURE_SUBSCRIPTION_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-        AZURE_CONTAINER_STORAGE: "https://secondStorageAccount.blob.core.windows.net/more-policies"
-        AZURE_EVENT_QUEUE_RESOURCE_ID: "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myOtherResourceGroup/providers/Microsoft.Storage/storageAccounts/secondStorageAccount"
+          AZURE_SUBSCRIPTION_ID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+          AZURE_CONTAINER_STORAGE: "https://secondStorageAccount.blob.core.windows.net/more-policies"
+          AZURE_EVENT_QUEUE_RESOURCE_ID: "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myOtherResourceGroup/providers/Microsoft.Storage/storageAccounts/secondStorageAccount"
 
 To deploy the chart:
 
@@ -80,7 +104,7 @@ To deploy the chart:
 
 
 Helm Chart Deployment Script
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Additionally, a utility script for deploying the helm chart against either a single subscription 
 or all subscriptions in a management group is provided. When deploying for a management group,
@@ -116,6 +140,7 @@ all of the containers will share the same policy storage and storage account for
     Options:
     -n, --name TEXT           [required]
     -e, --env <TEXT TEXT>...
+    --secret-env <TEXT TEXT>...
     --help                    Show this message and exit.
 
 
@@ -128,10 +153,11 @@ all of the containers will share the same policy storage and storage account for
     Options:
     -m, --management-group-id TEXT  [required]
     -e, --env <TEXT TEXT>...
+    --secret-env <TEXT TEXT>...
     --help                          Show this message and exit.
 
 Examples
-^^^^^^^^
+________
 
 Deploy against a single subscription:
 
@@ -144,7 +170,7 @@ Deploy against a single subscription:
         --name my-subscription \
         --env AZURE_TENANT_ID "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
         --env AZURE_SUBSCRIPTION_ID "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
-        --env AZURE_CLIENT_ID "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
+        --secret-env AZURE_CLIENT_ID "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
         --env AZURE_CLIENT_SECRET "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
         --env AZURE_CONTAINER_STORAGE "https://myStorageAccount.blob.core.windows.net/policyContainer" \
         --env AZURE_EVENT_QUEUE_RESOURCE_ID "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/myStorageAccount" \
@@ -161,7 +187,7 @@ Deploy against a management group:
         --management-group-id "my-management-group" \
         --env AZURE_TENANT_ID "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
         --env AZURE_CLIENT_ID "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
-        --env AZURE_CLIENT_SECRET "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
+        --secret-env AZURE_CLIENT_SECRET "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" \
         --env AZURE_CONTAINER_STORAGE "https://myStorageAccount.blob.core.windows.net/policyContainer" \
         --env AZURE_EVENT_QUEUE_RESOURCE_ID "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/myStorageAccount" \
 
