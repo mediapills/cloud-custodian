@@ -25,6 +25,7 @@ from azure.mgmt.costmanagement.models import (QueryAggregation,
 from azure.mgmt.policyinsights import PolicyInsightsClient
 from dateutil import tz as tzutils
 from dateutil.parser import parse
+from msrest.exceptions import HttpOperationError
 
 from c7n.filters import Filter, FilterValidationError, ValueFilter
 from c7n.filters.core import PolicyValidationError
@@ -120,7 +121,10 @@ class MetricFilter(Filter):
 
     aggregation_funcs = {
         'average': Math.mean,
-        'total': Math.sum
+        'total': Math.sum,
+        'count': Math.sum,
+        'minimum': Math.max,
+        'maximum': Math.min
     }
 
     schema = {
@@ -135,7 +139,7 @@ class MetricFilter(Filter):
             'timeframe': {'type': 'number'},
             'interval': {'enum': [
                 'PT1M', 'PT5M', 'PT15M', 'PT30M', 'PT1H', 'PT6H', 'PT12H', 'P1D']},
-            'aggregation': {'enum': ['total', 'average']},
+            'aggregation': {'enum': ['total', 'average', 'count', 'minimum', 'maximum']},
             'no_data_action': {'enum': ['include', 'exclude']},
             'filter': {'type': 'string'}
         }
@@ -184,15 +188,19 @@ class MetricFilter(Filter):
         cached_metric_data = self._get_cached_metric_data(resource)
         if cached_metric_data:
             return cached_metric_data['measurement']
-
-        metrics_data = self.client.metrics.list(
-            resource['id'],
-            timespan=self.timespan,
-            interval=self.interval,
-            metricnames=self.metric,
-            aggregation=self.aggregation,
-            filter=self.filter
-        )
+        try:
+            metrics_data = self.client.metrics.list(
+                resource['id'],
+                timespan=self.timespan,
+                interval=self.interval,
+                metricnames=self.metric,
+                aggregation=self.aggregation,
+                filter=self.filter
+            )
+        except HttpOperationError as e:
+            self.log.error("could not get metric:%s on %s. Full error: %s" % (
+                self.metric, resource['id'], str(e)))
+            return None
 
         if len(metrics_data.value) > 0 and len(metrics_data.value[0].timeseries) > 0:
             m = [getattr(item, self.aggregation)
@@ -727,15 +735,21 @@ class CostFilter(ValueFilter):
     separately (e.g. SQL Server and SQL Server Databases). Warning message is logged if we detect
     different currencies.
 
-    Timeframe can be either number of days before today or one of:
+    Timeframe options:
 
-    WeekToDate,
-    MonthToDate,
-    YearToDate,
-    TheLastWeek,
-    TheLastMonth,
-    TheLastYear
+      - Number of days before today
 
+      - All days in current calendar period until today:
+
+        - ``WeekToDate``
+        - ``MonthToDate``
+        - ``YearToDate``
+
+      - All days in the previous calendar period:
+
+        - ``TheLastWeek``
+        - ``TheLastMonth``
+        - ``TheLastYear``
 
     :examples:
 
@@ -880,3 +894,46 @@ class CostFilter(ValueFilter):
             r['ResourceId'] = r['ResourceId'].lower()
 
         return result_list
+
+
+class ParentFilter(Filter):
+    """
+    Meta filter that allows you to filter child resources by applying filters to their
+    parent resources.
+
+    You can use any filter supported by corresponding parent resource type.
+
+    :examples:
+
+    Find Azure KeyVault Keys from Key Vaults with ``owner:ProjectA`` tag.
+
+    .. code-block:: yaml
+
+        policies:
+          - name: kv-keys-from-tagged-keyvaults
+            resource: azure.keyvault-keys
+            filters:
+              - type: parent
+                filter:
+                  type: value
+                  key: tags.owner
+                  value: ProjectA
+    """
+
+    schema = type_schema(
+        'parent', filter={'type': 'object'}, required=['type'])
+    schema_alias = True
+
+    def __init__(self, data, manager=None):
+        super(ParentFilter, self).__init__(data, manager)
+        self.parent_manager = self.manager.get_parent_manager()
+        self.parent_filter = self.parent_manager.filter_registry.factory(
+            self.data['filter'],
+            self.parent_manager)
+
+    def process(self, resources, event=None):
+        parent_resources = self.parent_filter.process(self.parent_manager.resources())
+        parent_resources_ids = [p['id'] for p in parent_resources]
+
+        parent_key = self.manager.resource_type.parent_key
+        return [r for r in resources if r[parent_key] in parent_resources_ids]
