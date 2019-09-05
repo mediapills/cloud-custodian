@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import json
+
 from gcp_common import BaseTest, event_data
 
 
@@ -75,7 +78,20 @@ class MLModelTest(BaseTest):
 
         resources = p.run()
 
-        self.assertEqual(resources[0]['description'], description)
+        self.assertGreater(len(resources), 0)
+
+        files_dir = os.path.join(os.path.dirname(__file__),
+                                 'data', 'flights', 'ml-model-update-description')
+
+        files_paths = [file_path for file_path in os.listdir(files_dir)
+                       if file_path.__contains__('patch')]
+
+        self.assertEqual(1, len(files_paths))
+
+        for file_path in files_paths:
+            with open(os.path.join(files_dir, file_path), 'rt') as file:
+                response = json.load(file)
+                self.assertEqual('200', response['headers']['status'])
 
     def test_model_delete(self):
         project_id = 'cloud-custodian'
