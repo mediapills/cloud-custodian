@@ -13,18 +13,20 @@
 # limitations under the License.
 
 import logging
+from collections import Iterable
+
 import six
-from c7n_azure.actions.notify import Notify
-from c7n_azure.actions.logic_app import LogicAppAction
 from c7n_azure import constants
+from c7n_azure.actions.logic_app import LogicAppAction
+from c7n_azure.actions.notify import Notify
+from c7n_azure.filters import ParentFilter
 from c7n_azure.provider import resources
 
 from c7n.actions import ActionRegistry
 from c7n.filters import FilterRegistry
 from c7n.manager import ResourceManager
-from c7n.query import sources
+from c7n.query import sources, MaxResourceLimit
 from c7n.utils import local_session
-
 
 log = logging.getLogger('custodian.azure.query')
 
@@ -41,10 +43,24 @@ class ResourceQuery(object):
         if extra_args:
             params.update(extra_args)
 
-        op = getattr(getattr(resource_manager.get_client(), enum_op), list_op)
-        data = [r.serialize(True) for r in op(**params)]
+        params.update(m.extra_args(resource_manager))
 
-        return data
+        try:
+            op = getattr(getattr(resource_manager.get_client(), enum_op), list_op)
+            result = op(**params)
+
+            if isinstance(result, Iterable):
+                return [r.serialize(True) for r in result]
+            elif hasattr(result, 'value'):
+                return [r.serialize(True) for r in result.value]
+        except Exception as e:
+            log.error("Failed to query resource.\n"
+                      "Type: azure.{0}.\n"
+                      "Error: {1}".format(resource_manager.type, e))
+            six.raise_from(Exception('Failed to query resources.'), e)
+
+        raise TypeError("Enumerating resources resulted in a return"
+                        "value which could not be iterated.")
 
     @staticmethod
     def resolve(resource_type):
@@ -57,10 +73,11 @@ class ResourceQuery(object):
 
 @sources.register('describe-azure')
 class DescribeSource(object):
+    resource_query_factory = ResourceQuery
 
     def __init__(self, manager):
         self.manager = manager
-        self.query = ResourceQuery(manager.session_factory)
+        self.query = self.resource_query_factory(self.manager.session_factory)
 
     def get_resources(self, query):
         return self.query.filter(self.manager)
@@ -78,21 +95,17 @@ class ChildResourceQuery(ResourceQuery):
     parents identifiers. ie. SQL and Cosmos databases
     """
 
-    def __init__(self, session_factory, manager):
-        super(ChildResourceQuery, self).__init__(session_factory)
-        self.manager = manager
-
     def filter(self, resource_manager, **params):
         """Query a set of resources."""
         m = self.resolve(resource_manager.resource_type)  # type: ChildTypeInfo
 
-        parents = self.manager.get_resource_manager(m.parent_manager_name)
+        parents = resource_manager.get_parent_manager()
 
         # Have to query separately for each parent's children.
         results = []
         for parent in parents.resources():
             try:
-                subset = self.manager.enumerate_resources(parent, m, **params)
+                subset = resource_manager.enumerate_resources(parent, m, **params)
 
                 if subset:
                     # If required, append parent resource ID to all child resources
@@ -113,16 +126,7 @@ class ChildResourceQuery(ResourceQuery):
 
 @sources.register('describe-child-azure')
 class ChildDescribeSource(DescribeSource):
-
     resource_query_factory = ChildResourceQuery
-
-    def __init__(self, manager):
-        self.manager = manager
-        self.query = self.get_query()
-
-    def get_query(self):
-        return self.resource_query_factory(
-            self.manager.session_factory, self.manager)
 
 
 class TypeMeta(type):
@@ -141,7 +145,14 @@ class TypeInfo(object):
     service = ''
     client = ''
 
+    # Default id field, resources should override if different (used for meta filters, report etc)
+    id = 'id'
+
     resource = constants.RESOURCE_ACTIVE_DIRECTORY
+
+    @classmethod
+    def extra_args(cls, resource_manager):
+        return {}
 
 
 @six.add_metaclass(TypeMeta)
@@ -159,6 +170,7 @@ class ChildTypeInfo(TypeInfo):
 
 class QueryMeta(type):
     """metaclass to have consistent action/filter registry for new resources."""
+
     def __new__(cls, name, parents, attrs):
         if 'filter_registry' not in attrs:
             attrs['filter_registry'] = FilterRegistry(
@@ -172,7 +184,6 @@ class QueryMeta(type):
 
 @six.add_metaclass(QueryMeta)
 class QueryResourceManager(ResourceManager):
-
     class resource_type(TypeInfo):
         pass
 
@@ -213,10 +224,35 @@ class QueryResourceManager(ResourceManager):
         return self.data.get('source', 'describe-azure')
 
     def resources(self, query=None):
-        key = self.get_cache_key(query)
-        resources = self.augment(self.source.get_resources(query))
-        self._cache.save(key, resources)
-        return self.filter_resources(resources)
+        cache_key = self.get_cache_key(query)
+
+        resources = None
+        if self._cache.load():
+            resources = self._cache.get(cache_key)
+            if resources is not None:
+                self.log.debug("Using cached %s: %d" % (
+                    "%s.%s" % (self.__class__.__module__,
+                               self.__class__.__name__),
+                    len(resources)))
+
+        if resources is None:
+            resources = self.augment(self.source.get_resources(query))
+            self._cache.save(cache_key, resources)
+
+        resource_count = len(resources)
+        resources = self.filter_resources(resources)
+
+        # Check if we're out of a policies execution limits.
+        if self.data == self.ctx.policy.data:
+            self.check_resource_limit(len(resources), resource_count)
+        return resources
+
+    def check_resource_limit(self, selection_count, population_count):
+        """Check if policy's execution affects more resources then its limit.
+        """
+        p = self.ctx.policy
+        max_resource_limits = MaxResourceLimit(p, selection_count, population_count)
+        return max_resource_limits.check_resource_limits()
 
     def get_resources(self, resource_ids, **params):
         resource_client = self.get_client()
@@ -243,8 +279,8 @@ class QueryResourceManager(ResourceManager):
 
 @six.add_metaclass(QueryMeta)
 class ChildResourceManager(QueryResourceManager):
-
     child_source = 'describe-child-azure'
+    parent_manager = None
 
     @property
     def source_type(self):
@@ -254,7 +290,10 @@ class ChildResourceManager(QueryResourceManager):
         return source
 
     def get_parent_manager(self):
-        return self.get_resource_manager(self.resource_type.parent_manager_name)
+        if not self.parent_manager:
+            self.parent_manager = self.get_resource_manager(self.resource_type.parent_manager_name)
+
+        return self.parent_manager
 
     def get_session(self):
         if self._session is None:
@@ -284,7 +323,27 @@ class ChildResourceManager(QueryResourceManager):
         else:
             op = getattr(client, list_op)
 
-        return [r.serialize(True) for r in op(**params)]
+        result = op(**params)
+
+        if isinstance(result, Iterable):
+            return [r.serialize(True) for r in result]
+        elif hasattr(result, 'value'):
+            return [r.serialize(True) for r in result.value]
+
+        raise TypeError("Enumerating resources resulted in a return"
+                        "value which could not be iterated.")
+
+    @staticmethod
+    def register_child_specific(registry, _):
+        for resource in registry.keys():
+            klass = registry.get(resource)
+            if issubclass(klass, ChildResourceManager):
+
+                # If Child Resource doesn't annotate parent, there is no way to filter based on
+                # parent properties.
+                if klass.resource_type.annotate_parent:
+                    klass.filter_registry.register('parent', ParentFilter)
 
 
 resources.subscribe(resources.EVENT_FINAL, QueryResourceManager.register_actions_and_filters)
+resources.subscribe(resources.EVENT_FINAL, ChildResourceManager.register_child_specific)

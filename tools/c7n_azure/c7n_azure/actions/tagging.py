@@ -30,6 +30,7 @@ from c7n.exceptions import PolicyValidationError
 from c7n.filters import FilterValidationError
 from c7n.filters.offhours import Time
 from c7n.utils import type_schema
+from c7n_azure.lookup import Lookup
 
 
 class Tag(AzureBaseAction):
@@ -55,12 +56,13 @@ class Tag(AzureBaseAction):
     schema = utils.type_schema(
         'tag',
         **{
-            'tag': {'type': 'string'},
-            'value': {'type': 'string'},
+            'value': Lookup.lookup_type({'type': 'string'}),
+            'tag': Lookup.lookup_type({'type': 'string'}),
             'tags': {'type': 'object'}
         }
     )
     schema_alias = True
+    log = logging.getLogger('custodian.azure.tagging.Tag')
 
     def __init__(self, data=None, manager=None, log_dir=None):
         super(Tag, self).__init__(data, manager, log_dir)
@@ -76,11 +78,13 @@ class Tag(AzureBaseAction):
 
         return self
 
-    def _prepare_processing(self,):
-        self.new_tags = self.data.get('tags') or {self.data.get('tag'): self.data.get('value')}
-
     def _process_resource(self, resource):
-        TagHelper.add_tags(self, resource, self.new_tags)
+        new_tags = self._get_tags(resource)
+        TagHelper.add_tags(self, resource, new_tags)
+
+    def _get_tags(self, resource):
+        return self.data.get('tags') or {Lookup.extract(
+            self.data.get('tag'), resource): Lookup.extract(self.data.get('value'), resource)}
 
 
 class RemoveTag(AzureBaseAction):
@@ -253,6 +257,7 @@ class AutoTagUser(AutoTagBase):
     """
 
     schema = type_schema('auto-tag-user', rinherit=AutoTagBase.schema)
+    log = logging.getLogger('custodian.azure.tagging.AutoTagUser')
 
     # compiled JMES paths
     service_admin_jmes_path = jmespath.compile(constants.EVENT_GRID_SERVICE_ADMIN_JMES_PATH)
@@ -263,7 +268,6 @@ class AutoTagUser(AutoTagBase):
 
     def __init__(self, data=None, manager=None, log_dir=None):
         super(AutoTagUser, self).__init__(data, manager, log_dir)
-        self.log = logging.getLogger('custodian.azure.actions.auto-tag-user')
 
     def _get_tag_value_from_event(self, event):
         principal_role = self.principal_role_jmes_path.search(event)
@@ -337,10 +341,10 @@ class AutoTagDate(AutoTagBase):
                          **{'format': {'type': 'string'}})
 
     event_time_path = jmespath.compile(constants.EVENT_GRID_EVENT_TIME_PATH)
+    log = logging.getLogger('custodian.azure.tagging.AutoTagDate')
 
     def __init__(self, data=None, manager=None, log_dir=None):
         super(AutoTagDate, self).__init__(data, manager, log_dir)
-        self.log = logging.getLogger('custodian.azure.actions.auto-tag-date')
         self.format = self.data.get('format', '%m.%d.%Y')
 
     def validate(self):
@@ -412,6 +416,7 @@ class TagTrim(AzureBaseAction):
         space={'type': 'integer'},
         preserve={'type': 'array', 'items': {'type': 'string'}})
     schema_alias = True
+    log = logging.getLogger('custodian.azure.tagging.TagTrim')
 
     def __init__(self, data=None, manager=None, log_dir=None):
         super(TagTrim, self).__init__(data, manager, log_dir)
@@ -486,6 +491,7 @@ class TagDelayedAction(AzureBaseAction):
         tz={'type': 'string'},
         op={'type': 'string'})
     schema_alias = True
+    log = logging.getLogger('custodian.azure.tagging.TagDelayed')
 
     default_template = 'Resource does not meet policy: {op}@{action_date}'
 

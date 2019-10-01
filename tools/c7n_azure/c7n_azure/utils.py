@@ -15,6 +15,7 @@ import collections
 import datetime
 import enum
 import hashlib
+import itertools
 import logging
 import re
 import time
@@ -40,6 +41,10 @@ try:
     from functools import lru_cache
 except ImportError:
     from backports.functools_lru_cache import lru_cache
+
+
+resource_group_regex = re.compile(r'/subscriptions/[^/]+/resourceGroups/[^/]+(/)?$',
+                                  re.IGNORECASE)
 
 
 class ResourceIdParser(object):
@@ -82,6 +87,14 @@ class ResourceIdParser(object):
     def get_full_type(resource_id):
         return '/'.join([ResourceIdParser.get_namespace(resource_id),
                          ResourceIdParser.get_resource_type(resource_id)])
+
+
+def is_resource_group_id(rid):
+    return resource_group_regex.match(rid)
+
+
+def is_resource_group(resource):
+    return resource['type'] == constants.RESOURCE_GROUPS_TYPE
 
 
 class StringUtils(object):
@@ -211,6 +224,16 @@ class Math(object):
     def sum(numbers):
         clean_numbers = [e for e in numbers if e is not None]
         return float(sum(clean_numbers))
+
+    @staticmethod
+    def max(numbers):
+        clean_numbers = [e for e in numbers if e is not None]
+        return float(max(clean_numbers))
+
+    @staticmethod
+    def min(numbers):
+        clean_numbers = [e for e in numbers if e is not None]
+        return float(min(clean_numbers))
 
 
 class GraphHelper(object):
@@ -417,9 +440,13 @@ class IpRangeHelper(object):
         ranges = [[s.strip() for s in r.split('-')] for r in data[key]]
         result = IPSet()
         for r in ranges:
-            if len(r) > 2:
-                raise Exception('Invalid range. Use x.x.x.x-y.y.y.y or x.x.x.x or x.x.x.x/y.')
-            result.add(IPRange(*r) if len(r) == 2 else IPNetwork(r[0]))
+            resolved_set = resolve_service_tag_alias(r[0])
+            if resolved_set is not None:
+                result.update(resolved_set)
+            else:
+                if len(r) > 2:
+                    raise Exception('Invalid range. Use x.x.x.x-y.y.y.y or x.x.x.x or x.x.x.x/y.')
+                result.add(IPRange(*r) if len(r) == 2 else IPNetwork(r[0]))
         return result
 
 
@@ -440,7 +467,7 @@ class AppInsightsHelper(object):
 
     @staticmethod
     def _get_instrumentation_key(resource_group_name, resource_name):
-        from .session import Session
+        from c7n_azure.session import Session
         s = local_session(Session)
         client = s.client('azure.mgmt.applicationinsights.ApplicationInsightsManagementClient')
         try:
@@ -530,3 +557,40 @@ def get_keyvault_secret(user_identity_id, keyvault_secret_id):
 
     kv_client = KeyVaultClient(credentials)
     return kv_client.get_secret(secret_id.vault, secret_id.name, secret_id.version).value
+
+
+@lru_cache()
+def get_service_tag_list():
+    """ Gets service tags, note that the region passed to the API
+    doesn't seem to do anything, so we use a fixed one to improve caching"""
+
+    from c7n_azure.session import Session
+    s = local_session(Session)  # type: Session
+
+    client = s.client('azure.mgmt.network._network_management_client.NetworkManagementClient')
+
+    return client.service_tags.list('westus')
+
+
+def get_service_tag_ip_space(resource_name='AzureCloud', region=None):
+    """ Gets service tags, optionally filtered by resource name and region.
+    Note that the region passed to the API doesn't seem to do anything, but
+    you have to provide one.  Filtering is done on the result set."""
+
+    tags = get_service_tag_list()
+
+    name_filter = resource_name.lower()
+    if region:
+        name_filter += '.' + region.lower()
+
+    ip_lists = [v.properties.address_prefixes for v in tags.values if name_filter == v.name.lower()]
+
+    return list(itertools.chain.from_iterable(ip_lists))
+
+
+def resolve_service_tag_alias(rule):
+    if rule.lower().startswith('servicetags'):
+        p = rule.split('.')
+        resource_name = p[1] if 1 < len(p) else None
+        resource_region = p[2] if 2 < len(p) else None
+        return IPSet(get_service_tag_ip_space(resource_name, resource_region))

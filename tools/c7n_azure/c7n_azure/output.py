@@ -52,11 +52,12 @@ class AzureStorageOutput(DirectoryOutput):
 
     DEFAULT_BLOB_FOLDER_PREFIX = '{policy_name}/{now:%Y/%m/%d/%H/}'
 
+    log = logging.getLogger('custodian.azure.output.AzureStorageOutput')
+
     def __init__(self, ctx, config=None):
         self.ctx = ctx
         self.config = config
 
-        self.log = logging.getLogger('custodian.output')
         self.root_dir = tempfile.mkdtemp()
         self.output_dir = self.get_output_path(self.ctx.options.output_dir)
         self.blob_service, self.container, self.file_prefix = \
@@ -93,9 +94,8 @@ class AzureStorageOutput(DirectoryOutput):
                         self.log.error("Access Error: Storage Blob Data Contributor Role "
                                        "is required to write to Azure Blob Storage.")
                     else:
-                        self.log.error("Error writing output. "
-                                       "Confirm output storage URL is correct. \n" +
-                                   str(e))
+                        self.log.exception("Error writing output. "
+                                           "Confirm output storage URL is correct.")
 
                 self.log.debug("%s uploaded" % blob_name)
 
@@ -137,6 +137,7 @@ class MetricsOutput(Metrics):
                 'ResType': self.ctx.policy.resource_type,
                 'SubscriptionId': self.subscription_id,
                 'ExecutionId': self.ctx.execution_id,
+                'ExecutionMode': self.ctx.execution_mode,
                 'Unit': unit
             }
         }
@@ -171,6 +172,9 @@ class AppInsightsLogHandler(LoggingHandler):
             'SubscriptionId': self.subscription_id,
             'ExecutionId': self.execution_id
         }
+
+        if hasattr(record, 'properties'):
+            properties.update(record.properties)
 
         if record.exc_info:
             self.client.track_exception(*record.exc_info, properties=properties)

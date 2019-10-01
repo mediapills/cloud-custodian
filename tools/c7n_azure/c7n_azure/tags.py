@@ -14,6 +14,7 @@
 import logging
 
 from azure.mgmt.resource.resources.models import GenericResource, ResourceGroupPatchable
+from c7n_azure.utils import is_resource_group
 
 
 class TagHelper:
@@ -25,7 +26,7 @@ class TagHelper:
         client = tag_action.session.client('azure.mgmt.resource.ResourceManagementClient')
 
         # resource group type
-        if tag_action.manager.type == 'resourcegroup':
+        if is_resource_group(resource):
             params_patch = ResourceGroupPatchable(
                 tags=tags
             )
@@ -74,7 +75,6 @@ class TagHelper:
 
         # add or update tags
         for key in tags_to_add:
-
             # nothing to do if the tag and value already exists on the resource
             if key in tags:
                 if tags[key] != tags_to_add[key]:
