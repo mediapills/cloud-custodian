@@ -26,7 +26,7 @@ class Organization(QueryResourceManager):
         component = 'organizations'
         scope = 'global'
         enum_spec = ('search', 'organizations[]', {'body': {}})
-        id = "name"
+        id = 'name'
 
 
 @Organization.action_registry.register('set-iam-policy')
@@ -50,7 +50,7 @@ class Folder(QueryResourceManager):
         component = 'folders'
         scope = 'global'
         enum_spec = ('list', 'folders', None)
-        id = "name"
+        id = 'name'
 
     def get_resource_query(self):
         if 'query' in self.data:
@@ -69,7 +69,7 @@ class Project(QueryResourceManager):
         component = 'projects'
         scope = 'global'
         enum_spec = ('list', 'projects', None)
-        id = "projectId"
+        id = 'projectId'
 
 
 @Project.action_registry.register('set-iam-policy')
